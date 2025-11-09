@@ -19,7 +19,6 @@ const Hero = () => {
 
       <div className="container relative mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-16 sm:py-20 md:py-24 lg:py-28">
         <div className="grid md:grid-cols-2 gap-10 items-center">
-          
           {/* النص */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -33,9 +32,9 @@ const Hero = () => {
               مجتمع خاص بمسيري الشركات في الجزائر
             </h1>
             <p className="mt-5 text-gray-700 dark:text-gray-300 text-lg leading-8">
-              WEBSCALE هو مجتمع مدفوع ومغلق لأصحاب الشركات والمسيرين.
-              نوفِّر محتوى عملياً، جلسات مباشرة أسبوعية، وأحداثاً حضورية،
-              مع شبكة علاقات عالية القيمة.
+              WEBSCALE هو مجتمع مدفوع ومغلق لأصحاب الشركات والمسيرين. نوفِّر
+              محتوى عملياً، جلسات مباشرة أسبوعية، وأحداثاً حضورية، مع شبكة
+              علاقات عالية القيمة.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <motion.button
@@ -46,17 +45,17 @@ const Hero = () => {
               >
                 قدِّم طلب الانضمام
               </motion.button>
-              <motion.div
+              {/* <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Link
                   to="/investor"
-                  className="inline-block rounded-xl border-2 border-[#FABC05] text-[#FABC05] font-semibold px-6 py-3 text-sm shadow-lg hover:bg-[#FABC05] hover:text-black transition-all"
+                  className="inline-block rounded-xl border-2 border-[#fa0505] text-[#FABC05] font-semibold px-6 py-3 text-sm shadow-lg hover:bg-[#FABC05] hover:text-black transition-all"
                 >
                   فرص الاستثمار
                 </Link>
-              </motion.div>
+              </motion.div> */}
               {/* <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -67,7 +66,9 @@ const Hero = () => {
               </motion.button> */}
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-              <span>مواعيد الجلسات المباشرة مع الخبراء: السبت/الإثنين/الأربعاء ·</span>
+              <span>
+                مواعيد الجلسات المباشرة مع الخبراء: السبت/الإثنين/الأربعاء ·
+              </span>
               <span className="hidden md:inline">•</span>
               <span>يوم دراسي مرة كل شهرين— المركز الثقافي لجامع الجزائر</span>
             </div>
@@ -75,40 +76,34 @@ const Hero = () => {
 
           {/* الصندوق الجانبي */}
           <motion.div
-  className="relative"
-  initial={{ opacity: 0, x: -50 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ duration: 0.8, delay: 0.2 }}
->
-  <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl bg-transparent  dark:bg-neutral-800">
-    <div className="h-full w-full flex flex-col items-center justify-center px-8 py-10 text-center space-y-6">
-      
-      {/* اللوجو */}
-      <motion.div
-        className="flex items-center justify-center"
-        animate={{ rotate: [0, 10, -10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <img
-          className="h-16 w-20 rounded-xl"
-          src={logo}
-          alt="Logo"
-        />
-      </motion.div>
+            className="relative"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl bg-transparent  dark:bg-neutral-800">
+              <div className="h-full w-full flex flex-col items-center justify-center px-8 py-10 text-center space-y-6">
+                {/* اللوجو */}
+                <motion.div
+                  className="flex items-center justify-center"
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <img className="h-16 w-20 rounded-xl" src={logo} alt="Logo" />
+                </motion.div>
 
-      {/* النص الرئيسي */}
-      <p className="text-xl font-bold text-gray-900 dark:text-white">
-        نمو أسرع، بتقنيات أذكى
-      </p>
+                {/* النص الرئيسي */}
+                <p className="text-xl font-bold text-gray-900 dark:text-white">
+                  نمو أسرع، بتقنيات أذكى
+                </p>
 
-      {/* النص الثانوي */}
-      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-        ورش عملية · دراسات حالة · مجتمع تنفيذي مغلق
-      </p>
-    </div>
-  </div>
-</motion.div>
-
+                {/* النص الثانوي */}
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  ورش عملية · دراسات حالة · مجتمع تنفيذي مغلق
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,15 +1,27 @@
-// src/constants/index.jsx 
-import { BatteryCharging, BotMessageSquare, Coffee, Fingerprint, GlobeLock, Handshake, MessageSquare, Mic, PlugZap, Presentation, ShieldHalf, Users, Wrench } from "lucide-react";
+// src/constants/index.jsx
+import {
+  BatteryCharging,
+  BotMessageSquare,
+  Coffee,
+  Fingerprint,
+  GlobeLock,
+  Handshake,
+  MessageSquare,
+  Mic,
+  PlugZap,
+  Presentation,
+  ShieldHalf,
+  Users,
+  Wrench,
+} from "lucide-react";
 import goldLogo from "../assets/sponsors/gold.png";
 import platinumLogo from "../assets/sponsors/platinum.png";
 import premiumLogo from "../assets/sponsors/premium.png";
 import silverLogo from "../assets/sponsors/silver.png";
 
-
 import user1 from "../assets/profile-pictures/user1.jpg";
 import user2 from "../assets/profile-pictures/user2.jpg";
 import user3 from "../assets/profile-pictures/user3.jpg";
-
 
 // روابط صفحة التسجيل
 export const registrationNav = {
@@ -21,7 +33,7 @@ export const registrationNav = {
   ],
   actions: [
     { label: "إشترك الان", href: "#register", type: "primary" },
-    { label: "فرص الاستثمار", href: "/investor", type: "secondary" },
+    // { label: "فرص الاستثمار", href: "/investor", type: "secondary" },
     // { label: "تفاصيل الملتقى", href: "#about", type: "secondary" },
   ],
 };
@@ -34,9 +46,7 @@ export const eventNav = {
     { label: "الأجندة", href: "#agenda" },
     { label: "الرعاة", href: "#sponsors" },
   ],
-  actions: [
-    { label: "التسجيل", href: "#register", type: "primary" },
-  ],
+  actions: [{ label: "التسجيل", href: "#register", type: "primary" }],
 };
 
 export const workshopEventNav = {
@@ -58,35 +68,29 @@ export const navItems = {
     { label: "عن الملتقى	", href: "#about-event" },
     { label: "التسجيل", href: "#register" },
   ],
-  actions: [
-    { label: "التسجيل", href: "#register", type: "primary" },
-  ],
+  actions: [{ label: "التسجيل", href: "#register", type: "primary" }],
 };
-
-
-
 
 export const testimonials = [
   {
     user: "أحمد بن علي",
     company: "مؤسس شركة ناشئة",
     image: user1,
-    text: "ملتقى WEBSCALE كان تجربة مميزة... استفدت من الورشات العملية وتعرفت على شركاء جدد في المجال."
+    text: "ملتقى WEBSCALE كان تجربة مميزة... استفدت من الورشات العملية وتعرفت على شركاء جدد في المجال.",
   },
   {
     user: "ليلى مراد",
     company: "مديرة مشاريع",
     image: user2,
-    text: "أعجبني تنوع المواضيع، خاصة الجلسات المتعلقة بالذكاء الاصطناعي. التنظيم كان ممتاز."
+    text: "أعجبني تنوع المواضيع، خاصة الجلسات المتعلقة بالذكاء الاصطناعي. التنظيم كان ممتاز.",
   },
   {
     user: "سامي يوسف",
     company: "مطور ويب",
     image: user3,
-    text: "كانت فرصة ذهبية لمقابلة خبراء المجال واكتساب مهارات جديدة يمكن تطبيقها مباشرة في عملي."
+    text: "كانت فرصة ذهبية لمقابلة خبراء المجال واكتساب مهارات جديدة يمكن تطبيقها مباشرة في عملي.",
   },
 ];
-
 
 export const features = [
   {
@@ -190,10 +194,6 @@ export const sponsors = [
   },
 ];
 
-
-
-
-
 export const checklistItems = [
   {
     title: "التسجيل السريع",
@@ -221,7 +221,6 @@ export const checklistItems = [
       "استلم شهادة مشاركة مع إمكانية الوصول إلى محتوى ومواد تدريبية بعد الحدث.",
   },
 ];
-
 
 export const pricingOptions = [
   {
@@ -256,23 +255,10 @@ export const pricingOptions = [
 
 // src/constants/plans.js
 export const plans = [
-  // {
-  //   name: "Starter",
-  //   price: "9,000 دج",
-  //   badge: "15يوم مجاني ", // 👈 أضفنا هذا
-  //   features: [
-  //     "وصول محدود للمجتمع",
-  //     "متابعة تسجيلات اللقاءات الأسبوعية",
-  //     "الاستفادة من الدورات المسجلة عبر المنصة",
-  //     "إمكانية الوصول إلى المحتوى في أي وقت",
-  //     "إمكانية النشر و المشاركة في النقاشات",
-  //     "مشاهدة البودكاست"
-  //   ],
-  //   highlighted: false,
-  // },
   {
-    name: "VIP",
-    price: "55,000 دج",
+    name: "نصف سنوي",
+    price: "35,000 دج",
+    // badge: "15يوم مجاني ", // 👈 أضفنا هذا
     features: [
       "الوصول الكامل إلى المجتمع المغلق",
       "حضور اللقاءات الأسبوعية مع الخبراء",
@@ -282,7 +268,23 @@ export const plans = [
       "إمكانية النشر و المشاركة في النقاشات",
       "إمكانية طرح الأسئلة أثناء اللقاءات الأسبوعية",
       "مشاهدة البودكاست",
-      "التسجيل في قائمة انتظار WebCEO"
+      "التسجيل في قائمة انتظار WebCEO",
+    ],
+    highlighted: false,
+  },
+  {
+    name: "سنوي",
+    price: "60,000 دج",
+    features: [
+      "الوصول الكامل إلى المجتمع المغلق",
+      "حضور اللقاءات الأسبوعية مع الخبراء",
+      "متابعة تسجيلات اللقاءات الأسبوعية",
+      "الاستفادة من الدورات المسجلة عبر المنصة",
+      "إمكانية الوصول إلى المحتوى في أي وقت",
+      "إمكانية النشر و المشاركة في النقاشات",
+      "إمكانية طرح الأسئلة أثناء اللقاءات الأسبوعية",
+      "مشاهدة البودكاست",
+      "التسجيل في قائمة انتظار WebCEO",
     ],
     highlighted: true, // ⭐ البطاقة الأساسية
   },
@@ -320,7 +322,6 @@ export const plans = [
   // },
 ];
 
-
 // روابط الموارد
 export const eventResourcesLinks = [
   { href: "#about-event", text: "عن الملتقى" },
@@ -337,87 +338,89 @@ export const eventPlatformLinks = [
   { href: "https://www.webscale.pro/", text: "اتصل بنا" },
 ];
 
-// روابط المجتمج 
+// روابط المجتمج
 export const communityLinks = [
   { href: "https://www.webscale.pro/", text: "الموقع الالكتروني" },
   { href: "https://www.facebook.com/share/15utdJSobi/", text: "فيسبوك" },
-  { href: "https://www.instagram.com/webscale.pro?igsh=MXg0OXRjOXk5bGExag==", text: "إنستغرام" },
+  {
+    href: "https://www.instagram.com/webscale.pro?igsh=MXg0OXRjOXk5bGExag==",
+    text: "إنستغرام",
+  },
   { href: "https://www.linkedin.com/company/webscalepro/", text: "لينكدإن" },
-  { href: "https://youtube.com/@webscale-pro?si=KWRMamO8XO628NlY", text: "يوتيوب" },
+  {
+    href: "https://youtube.com/@webscale-pro?si=KWRMamO8XO628NlY",
+    text: "يوتيوب",
+  },
 ];
-
-
-
 
 export const agenda = [
   {
     time: "08:00 - 09:00",
     title: "الاستقبال",
     description: "استقبال المشاركين وتوزيع بطاقات الدخول والمواد التعريفية.",
-    icon: <Handshake className="text-[#fbbc05]" size={24} />
+    icon: <Handshake className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "09:00 - 09:15",
     title: "كلمة افتتاحية",
     description: "كلمة ترحيبية وتعريف بالملتقى وأهدافه.",
-    icon: <Mic className="text-[#fbbc05]" size={24} />
+    icon: <Mic className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "09:15 - 09:45",
     title: "كلمة الرعاة",
     description: "عرض من الرعاة الرسميين للملتقى حول مساهماتهم ودعمهم.",
-    icon: <Users className="text-[#fbbc05]" size={24} />
+    icon: <Users className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "09:45 - 10:30",
     title: "محاضرة 1: دراسة حالة",
     description: "عرض دراسة حالة ملهمة من أحد المشاريع الرائدة.",
-    icon: <Presentation className="text-[#fbbc05]" size={24} />
+    icon: <Presentation className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "10:30 - 11:15",
     title: "محاضرة 2: دراسة حالة 2",
     description: "دراسة حالة ثانية تركز على الابتكار في الأعمال.",
-    icon: <Presentation className="text-[#fbbc05]" size={24} />
+    icon: <Presentation className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "11:15 - 12:30",
     title: "محاضرات فردية",
     description: "محاضرات قصيرة يقدمها خبراء في مجالات متنوعة.",
-    icon: <MessageSquare className="text-[#fbbc05]" size={24} />
+    icon: <MessageSquare className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "12:30 - 13:30",
     title: "استراحة",
     description: "استراحة غداء وفرصة للتعارف بين المشاركين.",
-    icon: <Coffee className="text-[#fbbc05]" size={24} />
+    icon: <Coffee className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "13:30 - 14:15",
     title: "ورشة عمل تطبيقية",
     description: "تدريب عملي على أدوات وحلول تكنولوجية حديثة.",
-    icon: <Wrench className="text-[#fbbc05]" size={24} />
+    icon: <Wrench className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "14:15 - 15:00",
     title: "محاضرة 3",
     description: "جلسة تفاعلية تركز على استراتيجيات نمو المؤسسات.",
-    icon: <Presentation className="text-[#fbbc05]" size={24} />
+    icon: <Presentation className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "15:00 - 16:30",
     title: "محاضرات فردية ومداخلات",
     description: "مداخلات مفتوحة مع الحضور وخبراء الملتقى.",
-    icon: <MessageSquare className="text-[#fbbc05]" size={24} />
+    icon: <MessageSquare className="text-[#fbbc05]" size={24} />,
   },
   {
     time: "16:30 - 18:00",
     title: "تعارف وتشبيك علاقات",
     description: "جلسة مفتوحة للتعارف وبناء شراكات بين الحاضرين.",
-    icon: <Handshake className="text-[#fbbc05]" size={24} />
-  }
+    icon: <Handshake className="text-[#fbbc05]" size={24} />,
+  },
 ];
-
 
 // روابط الفوتر (مثال)
 export const footerLinksRegistration = {
