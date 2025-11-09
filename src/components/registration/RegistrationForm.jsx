@@ -1,4 +1,4 @@
-// src/components/registration/RegistrationForm.jsx 
+// src/components/registration/RegistrationForm.jsx
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import AlgeriaWilayas from "../shared/AlgeriaWilayas";
@@ -12,7 +12,7 @@ const fieldBase =
   "dark:border-neutral-600 dark:bg-neutral-800 dark:text-gray-100 " +
   "hover:border-[#FABC05]/60 hover:bg-[#FABC05]/5 " + // ← تم التحديث هنا
   "focus:border-[var(--brand)] focus:ring-2 focus:ring-[color:var(--brand)]/40";
-  
+
 const labelBase =
   "block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200";
 
@@ -27,7 +27,7 @@ const initialForm = {
   wilaya: "",
   sector: "",
   employees: "",
-  accountOwnership: "",
+  subscription: "",
   projectProgress: "", // جديد
   trainingBudget: "", // جديد
   decisionMaker: "", // جديد
@@ -52,7 +52,7 @@ export default function RegistrationForm() {
     wilaya: useRef(null),
     sector: useRef(null),
     employees: useRef(null),
-    accountOwnership: useRef(null),
+    subscription: useRef(null),
     projectProgress: useRef(null), // جديد
     trainingBudget: useRef(null), // جديد
     decisionMaker: useRef(null), // جديد
@@ -79,11 +79,11 @@ export default function RegistrationForm() {
         form.wilaya &&
         form.sector &&
         form.employees &&
-        form.accountOwnership &&
+        form.subscription &&
         form.projectProgress &&
         form.trainingBudget &&
-        form.decisionMaker && 
-        form.bestCallTime 
+        form.decisionMaker &&
+        form.bestCallTime
       )
     );
   }, [form, isSubmitting]);
@@ -99,14 +99,71 @@ export default function RegistrationForm() {
     if (!form.wilaya) e.wilaya = "اختر الولاية";
     if (!form.sector.trim()) e.sector = "هذا الحقل مطلوب";
     if (!form.employees) e.employees = "اختر عدد الموظفين";
-    if (!form.accountOwnership) e.accountOwnership = "اختر ملكية الحساب";
+    if (!form.subscription) e.subscription = "اختر مدة الاشتراك";
     if (!form.projectProgress) e.projectProgress = "اختر مرحلة المشروع"; // جديد
     if (!form.trainingBudget) e.trainingBudget = "اختر ميزانية التدريب"; // جديد
     if (!form.decisionMaker) e.decisionMaker = "حدد إذا كنت صاحب القرار"; // جديد
     if (!form.bestCallTime) e.bestCallTime = "اختر أفضل وقت للاتصال"; // جديد
     // تحقق أن الولاية ضمن القائمة المعتمدة
     const allowedWilayas = [
-      "أدرار","الشلف","الأغواط","أم البواقي","باتنة","بجاية","بسكرة","بشار","البليدة","البويرة","تمنراست","تبسة","تلمسان","تيارت","تيزي وزو","الجزائر","الجلفة","جيجل","سطيف","سعيدة","سكيكدة","سيدي بلعباس","عنابة","قالمة","قسنطينة","المدية","مستغانم","المسيلة","معسكر","ورقلة","وهران","البيض","إليزي","برج بوعريريج","بومرداس","الطارف","تندوف","تيسمسيلت","الوادي","خنشلة","سوق أهراس","تيبازة","ميلة","عين الدفلى","النعامة","عين تموشنت","غرداية","غليزان","تيميمون","برج باجي مختار","أولاد جلال","بني عباس","إن صالح","إن قزام","تقرت","جانت","المغير","المنيعة"
+      "أدرار",
+      "الشلف",
+      "الأغواط",
+      "أم البواقي",
+      "باتنة",
+      "بجاية",
+      "بسكرة",
+      "بشار",
+      "البليدة",
+      "البويرة",
+      "تمنراست",
+      "تبسة",
+      "تلمسان",
+      "تيارت",
+      "تيزي وزو",
+      "الجزائر",
+      "الجلفة",
+      "جيجل",
+      "سطيف",
+      "سعيدة",
+      "سكيكدة",
+      "سيدي بلعباس",
+      "عنابة",
+      "قالمة",
+      "قسنطينة",
+      "المدية",
+      "مستغانم",
+      "المسيلة",
+      "معسكر",
+      "ورقلة",
+      "وهران",
+      "البيض",
+      "إليزي",
+      "برج بوعريريج",
+      "بومرداس",
+      "الطارف",
+      "تندوف",
+      "تيسمسيلت",
+      "الوادي",
+      "خنشلة",
+      "سوق أهراس",
+      "تيبازة",
+      "ميلة",
+      "عين الدفلى",
+      "النعامة",
+      "عين تموشنت",
+      "غرداية",
+      "غليزان",
+      "تيميمون",
+      "برج باجي مختار",
+      "أولاد جلال",
+      "بني عباس",
+      "إن صالح",
+      "إن قزام",
+      "تقرت",
+      "جانت",
+      "المغير",
+      "المنيعة",
     ];
     if (form.wilaya && !allowedWilayas.includes(form.wilaya)) {
       e.wilaya = "الولاية المختارة غير صالحة";
@@ -130,7 +187,7 @@ export default function RegistrationForm() {
       wilaya: "الجزائر",
       sector: "تكنولوجيا",
       employees: "من 5 إلى 20",
-      accountOwnership: "حساب خاص بك",
+      subscription: "مدة الاشتراك",
       projectProgress: "في مرحلة الإطلاق التجريبي (MVP)",
       trainingBudget: "من 2 الى 4 مليون سنتيم",
       decisionMaker: "نعم، أنا صاحب القرار",
@@ -191,24 +248,27 @@ export default function RegistrationForm() {
           "رقم الهاتف (واتساب مفضل)": form.phone,
           "المسمى الوظيفي": form.jobTitle,
           "اسم المؤسسة": form.company,
-          "الولاية": form.wilaya,
+          الولاية: form.wilaya,
           "القطاع الذي تعمل فيه": form.sector,
           "عدد الموظفين في الشركة": form.employees,
           "نسبة تقدم مشروعك": form.projectProgress,
           "كم تريد الانفاق من اجل التدريب والتعلم": form.trainingBudget,
-          "هل انت صاحب القرار في الشركة (قرار الاشتراك والدفع)": form.decisionMaker,
+          "هل انت صاحب القرار في الشركة (قرار الاشتراك والدفع)":
+            form.decisionMaker,
           "ما هو الوقت الأفضل للاتصال بك": form.bestCallTime,
-          "ملكية الحساب": form.accountOwnership,
+          "مدة الاشتراك": form.subscription,
           "ملاحظات إضافية أو استفسار؟": form.notes || "",
         },
       };
-
 
       try {
         // المحاولة الأساسية: fetch قياسي مع JSON
         const res = await fetch(PUBLIC_SUBMIT_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
           body: JSON.stringify(payload),
         });
 
@@ -225,14 +285,23 @@ export default function RegistrationForm() {
 
         const msg1 = data?.error || data?.message || "⚠️ حدث خطأ غير متوقع.";
         if (msg1.includes("البريد الإلكتروني") && msg1.includes("exists")) {
-          setErrors({ ...errors, email: "⚠️ هذا البريد الإلكتروني مسجل مسبقًا." });
-          fieldRefs.email.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+          setErrors({
+            ...errors,
+            email: "⚠️ هذا البريد الإلكتروني مسجل مسبقًا.",
+          });
+          fieldRefs.email.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
           fieldRefs.email.current?.focus();
           return;
         }
         if (msg1.includes("رقم الهاتف")) {
           setErrors({ ...errors, phone: msg1 });
-          fieldRefs.phone.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+          fieldRefs.phone.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
           fieldRefs.phone.current?.focus();
           return;
         }
@@ -255,9 +324,11 @@ export default function RegistrationForm() {
         });
         setForm(initialForm);
       } catch (e) {
-        setModal({ type: "error", message: "⚠️ تعذر إرسال الطلب. حاول لاحقًا." });
+        setModal({
+          type: "error",
+          message: "⚠️ تعذر إرسال الطلب. حاول لاحقًا.",
+        });
       }
-
     } catch (err) {
       console.error("Fetch error:", err);
       setModal({
@@ -422,7 +493,9 @@ export default function RegistrationForm() {
               value={form.company}
               onChange={(e) => setForm({ ...form, company: e.target.value })}
             />
-            {errors.company && <div className={errorText}>{errors.company}</div>}
+            {errors.company && (
+              <div className={errorText}>{errors.company}</div>
+            )}
           </div>
 
           {/* الولاية */}
@@ -484,16 +557,24 @@ export default function RegistrationForm() {
               ref={fieldRefs.projectProgress}
               className={fieldBase}
               value={form.projectProgress}
-              onChange={(e) => setForm({ ...form, projectProgress: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, projectProgress: e.target.value })
+              }
             >
               <option value="">اختر مرحلة المشروع</option>
               <option value="مجرد فكرة">مجرد فكرة</option>
               <option value="تحت الدراسة / البحث">تحت الدراسة / البحث</option>
-              <option value="في مرحلة النموذج الأولي (Prototype)">في مرحلة النموذج الأولي (Prototype)</option>
-              <option value="في مرحلة الإطلاق التجريبي (MVP)">في مرحلة الإطلاق التجريبي (MVP)</option>
+              <option value="في مرحلة النموذج الأولي (Prototype)">
+                في مرحلة النموذج الأولي (Prototype)
+              </option>
+              <option value="في مرحلة الإطلاق التجريبي (MVP)">
+                في مرحلة الإطلاق التجريبي (MVP)
+              </option>
               <option value="مشروع منجز">مشروع منجز</option>
               <option value="مرحلة النمو والتوسع">مرحلة النمو والتوسع</option>
-              <option value="مشروع مستقر / قائم منذ سنوات">مشروع مستقر / قائم منذ سنوات</option>
+              <option value="مشروع مستقر / قائم منذ سنوات">
+                مشروع مستقر / قائم منذ سنوات
+              </option>
             </select>
             {errors.projectProgress && (
               <div className={errorText}>{errors.projectProgress}</div>
@@ -503,18 +584,25 @@ export default function RegistrationForm() {
           {/* ميزانية التدريب - جديد */}
           <div className="md:col-span-2">
             <label className={labelBase}>
-              كم تريد الانفاق من اجل التدريب والتعلم <span className="text-red-500">*</span>
+              كم تريد الانفاق من اجل التدريب والتعلم{" "}
+              <span className="text-red-500">*</span>
             </label>
             <select
               ref={fieldRefs.trainingBudget}
               className={fieldBase}
               value={form.trainingBudget}
-              onChange={(e) => setForm({ ...form, trainingBudget: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, trainingBudget: e.target.value })
+              }
             >
               <option value="">اختر ميزانية التدريب</option>
               <option value="اقل من 2 مليون سنتيم">اقل من 2 مليون سنتيم</option>
-              <option value="من 2 الى 4 مليون سنتيم">من 2 الى 4 مليون سنتيم</option>
-              <option value="اكثر من 4 مليون سنتيم">اكثر من 4 مليون سنتيم</option>
+              <option value="من 2 الى 4 مليون سنتيم">
+                من 2 الى 4 مليون سنتيم
+              </option>
+              <option value="اكثر من 4 مليون سنتيم">
+                اكثر من 4 مليون سنتيم
+              </option>
             </select>
             {errors.trainingBudget && (
               <div className={errorText}>{errors.trainingBudget}</div>
@@ -524,18 +612,25 @@ export default function RegistrationForm() {
           {/* صاحب القرار - جديد */}
           <div className="md:col-span-2">
             <label className={labelBase}>
-              هل انت صاحب القرار في الشركة (قرار الاشتراك والدفع) <span className="text-red-500">*</span>
+              هل انت صاحب القرار في الشركة (قرار الاشتراك والدفع){" "}
+              <span className="text-red-500">*</span>
             </label>
             <select
               ref={fieldRefs.decisionMaker}
               className={fieldBase}
               value={form.decisionMaker}
-              onChange={(e) => setForm({ ...form, decisionMaker: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, decisionMaker: e.target.value })
+              }
             >
               <option value="">اختر</option>
               <option value="نعم، أنا صاحب القرار">نعم، أنا صاحب القرار</option>
-              <option value="لا، لكن يمكنني التأثير على القرار">لا، لكن يمكنني التأثير على القرار</option>
-              <option value="لا، أحتاج لموافقة الإدارة">لا، أحتاج لموافقة الإدارة</option>
+              <option value="لا، لكن يمكنني التأثير على القرار">
+                لا، لكن يمكنني التأثير على القرار
+              </option>
+              <option value="لا، أحتاج لموافقة الإدارة">
+                لا، أحتاج لموافقة الإدارة
+              </option>
             </select>
             {errors.decisionMaker && (
               <div className={errorText}>{errors.decisionMaker}</div>
@@ -545,19 +640,30 @@ export default function RegistrationForm() {
           {/* أفضل وقت للاتصال - جديد */}
           <div className="md:col-span-2">
             <label className={labelBase}>
-              ما هو الوقت الأفضل للاتصال بك <span className="text-red-500">*</span>
+              ما هو الوقت الأفضل للاتصال بك{" "}
+              <span className="text-red-500">*</span>
             </label>
             <select
               ref={fieldRefs.bestCallTime}
               className={fieldBase}
               value={form.bestCallTime}
-              onChange={(e) => setForm({ ...form, bestCallTime: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, bestCallTime: e.target.value })
+              }
             >
               <option value="">اختر الوقت المناسب</option>
-              <option value="الصباح (8:00 - 12:00)">الصباح (8:00 - 12:00)</option>
-              <option value="الظهيرة (12:00 - 14:00)">الظهيرة (12:00 - 14:00)</option>
-              <option value="بعد الظهر (14:00 - 17:00)">بعد الظهر (14:00 - 17:00)</option>
-              <option value="المساء (17:00 - 20:00)">المساء (17:00 - 20:00)</option>
+              <option value="الصباح (8:00 - 12:00)">
+                الصباح (8:00 - 12:00)
+              </option>
+              <option value="الظهيرة (12:00 - 14:00)">
+                الظهيرة (12:00 - 14:00)
+              </option>
+              <option value="بعد الظهر (14:00 - 17:00)">
+                بعد الظهر (14:00 - 17:00)
+              </option>
+              <option value="المساء (17:00 - 20:00)">
+                المساء (17:00 - 20:00)
+              </option>
               <option value="في أي وقت">في أي وقت</option>
             </select>
             {errors.bestCallTime && (
@@ -566,20 +672,17 @@ export default function RegistrationForm() {
           </div>
 
           {/* ملكية الحساب */}
-          <div ref={fieldRefs.accountOwnership} className="md:col-span-2">
+          <div ref={fieldRefs.subscription} className="md:col-span-2">
             <OptionPills
-              label="ملكية الحساب"
+              label="مدة الاشتراك"
               required
-              name="accountOwnership"
-              options={[
-                "حساب خاص بك",
-                "خاص بالشركة",
-              ]}
-              value={form.accountOwnership}
-              onChange={(val) => setForm({ ...form, accountOwnership: val })}
+              name="subscription"
+              options={["نصف سنوي", "سنوي"]}
+              value={form.subscription}
+              onChange={(val) => setForm({ ...form, subscription: val })}
             />
-            {errors.accountOwnership && (
-              <div className={errorText}>{errors.accountOwnership}</div>
+            {errors.subscription && (
+              <div className={errorText}>{errors.subscription}</div>
             )}
           </div>
 
@@ -602,7 +705,7 @@ export default function RegistrationForm() {
             name="honey"
             value={form.honey}
             onChange={(e) => setForm({ ...form, honey: e.target.value })}
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             tabIndex={-1}
             autoComplete="off"
           />
@@ -620,7 +723,8 @@ export default function RegistrationForm() {
               {isSubmitting ? "جاري الإرسال..." : "إرسال الطلب"}
             </motion.button>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              بالنقر على "إرسال الطلب"، أوافق على معالجة بياناتي لأغراض التسويق والتواصل.
+              بالنقر على "إرسال الطلب"، أوافق على معالجة بياناتي لأغراض التسويق
+              والتواصل.
             </p>
           </div>
         </form>
