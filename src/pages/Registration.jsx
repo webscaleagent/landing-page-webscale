@@ -1,13 +1,18 @@
 // src/pages/Registration.jsx
+import { Helmet } from "react-helmet-async";
+// Landing page components
+import { AboutSection, CommunitySection, EventsSection, SmartManagerSection } from "@/components/landing";
+// Registration components
 import ApplicationForm from "@/components/registration/ApplicationForm";
 import ContactSection from "@/components/registration/ContactSection";
 import FAQSection from "@/components/registration/FAQSection";
 import Hero from "@/components/registration/Hero";
 import PricingSection from "@/components/registration/PricingSection";
+// Shared components
+import Footer from "@/components/shared/Footer";
+import Navbar from "@/components/shared/Navbar";
+// Constants
 import { communityLinks, registrationNav, registrationPlatformLinks, registrationResourcesLinks } from "@/constants";
-import { Helmet } from "react-helmet-async";
-import Footer from "../components/shared/Footer";
-import Navbar from "../components/shared/Navbar";
 
 export default function Registration() {
   return (
@@ -26,6 +31,11 @@ export default function Registration() {
       <Navbar navConfig={registrationNav} />
 
       <Hero/>
+      <AboutSection/>
+      <CommunitySection/>
+      {/* <TrainingSpeakersSection/> */}
+      <EventsSection/>
+      <SmartManagerSection/>
       <PricingSection/>
       <main className="flex-grow">
         <ApplicationForm />
