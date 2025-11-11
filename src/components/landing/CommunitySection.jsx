@@ -69,7 +69,7 @@ const CommunitySection = () => {
         {/* Weekly Consultations Header */}
         <div className="mb-12" data-aos="fade-up">
           <div className="bg-gradient-to-r from-[#fbbc05] to-[#f59e0b] rounded-2xl p-8 text-white text-center">
-            <h3 className="text-3xl font-bold mb-3">أربعة لقاءات للاستشارة الجماعية</h3>
+            <h3 className="text-3xl font-bold mb-3">لقاءان للاستشارة الجماعية</h3>
             <p className="text-xl opacity-90">كل أسبوع مع خبراء في 4 مجالات</p>
           </div>
         </div>

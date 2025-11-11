@@ -67,7 +67,7 @@ const Hero = () => {
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
               <span>
-                مواعيد الجلسات المباشرة مع الخبراء: السبت/الإثنين/الأربعاء ·
+                مواعيد الجلسات المباشرة مع الخبراء: السبت/الأربعاء ·
               </span>
               <span className="hidden md:inline">•</span>
               <span>يوم دراسي مرة كل شهرين— المركز الثقافي لجامع الجزائر</span>

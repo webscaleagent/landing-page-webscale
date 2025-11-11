@@ -1,5 +1,5 @@
 // src/components/landing/EventsSection.jsx
-import { Calendar, MapPin, Users, TrendingUp, Plane, Handshake } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -15,32 +15,28 @@ const EventsSection = () => {
       subtitle: "انظمة ادارة علاقات العملاء CRM",
       description: "يوم دراسي متخصص لفهم وتطبيق أنظمة CRM في مؤسستك",
       icon: "📊",
-      color: "from-blue-500 to-blue-600",
-      iconComponent: TrendingUp
+      color: "from-blue-500 to-blue-600"
     },
     {
       title: "الحدث الثاني",
       subtitle: "الاعوان الذكية في خدمة تجارتك الالكترونية",
       description: "كيف تستخدم الذكاء الاصطناعي لتطوير تجارتك الإلكترونية",
       icon: "🤖",
-      color: "from-purple-500 to-purple-600",
-      iconComponent: Users
+      color: "from-purple-500 to-purple-600"
     },
     {
       title: "رحلات عمل جماعية",
       subtitle: "زيارة اهم المعارض الدولية",
       description: "فرصة لاكتشاف أحدث التقنيات والتواصل مع الخبراء العالميين",
       icon: "✈️",
-      color: "from-cyan-500 to-cyan-600",
-      iconComponent: Plane
+      color: "from-cyan-500 to-cyan-600"
     },
     {
       title: "لقاءات تشبيك",
       subtitle: "تطوير العمل وتشبيك العلاقات",
       description: "لقاءات دورية لبناء شراكات استراتيجية مع أرباب العمل",
       icon: "🤝",
-      color: "from-green-500 to-green-600",
-      iconComponent: Handshake
+      color: "from-green-500 to-green-600"
     }
   ];
 
@@ -65,7 +61,7 @@ const EventsSection = () => {
         </div>
 
         {/* Events Grid */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 gap-6">
           {events.map((event, idx) => (
             <div
               key={idx}
@@ -105,14 +101,10 @@ const EventsSection = () => {
                   </p>
                   
                   {/* Footer */}
-                  <div className="mt-6 pt-4 border-t border-gray-200 dark:border-neutral-700 flex items-center justify-between">
+                  <div className="mt-6 pt-4 border-t border-gray-200 dark:border-neutral-700">
                     <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
                       <MapPin size={16} />
                       <span>جامع الجزائر</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm font-medium text-purple-600 dark:text-purple-400">
-                      <event.iconComponent size={16} />
-                      <span>قريباً</span>
                     </div>
                   </div>
                 </div>
@@ -121,30 +113,6 @@ const EventsSection = () => {
           ))}
         </div>
 
-        {/* Info Banner */}
-        <div
-          className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl p-8 border border-purple-200 dark:border-purple-800"
-          data-aos="fade-up"
-          data-aos-delay="500"
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex-1 text-center md:text-right">
-              <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                احداث دورية كل شهرين
-              </h3>
-              <p className="text-neutral-700 dark:text-neutral-300 text-lg">
-                نظم جدولك لحضور أحدث الفعاليات والايام الدراسية المتخصصة
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <div className="px-5 py-3 bg-white dark:bg-neutral-800 rounded-xl shadow-sm">
-                <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                  حضور مجاني للأعضاء
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
