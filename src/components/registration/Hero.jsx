@@ -1,7 +1,5 @@
 // src/components/registration/Hero.jsx
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
 import { scrollToSection } from "../../utils/scroll";
 
 const Hero = () => {
@@ -74,35 +72,64 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* الصندوق الجانبي */}
+          {/* YouTube Video */}
           <motion.div
             className="relative"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl bg-transparent  dark:bg-neutral-800">
-              <div className="h-full w-full flex flex-col items-center justify-center px-8 py-10 text-center space-y-6">
-                {/* اللوجو */}
-                <motion.div
-                  className="flex items-center justify-center"
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <img className="h-16 w-20 rounded-xl" src={logo} alt="Logo" />
-                </motion.div>
-
-                {/* النص الرئيسي */}
-                <p className="text-xl font-bold text-gray-900 dark:text-white">
-                  نمو أسرع، بتقنيات أذكى
-                </p>
-
-                {/* النص الثانوي */}
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                  ورش عملية · دراسات حالة · مجتمع تنفيذي مغلق
-                </p>
+            {/* Animated Border Container with Glass Effect */}
+            <div className="relative w-full mx-auto rounded-3xl" style={{ maxWidth: "450px", padding: "4px" }}>
+              {/* Glass morphism border with gradient */}
+              <div 
+                className="absolute inset-0 rounded-3xl backdrop-blur-xl"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(250, 188, 5, 0.9))',
+                  backgroundSize: '200% 200%',
+                  animation: 'gradient-shift 3s ease infinite',
+                  boxShadow: '0 8px 32px 0 rgba(250, 188, 5, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.5)'
+                }}
+              ></div>
+              
+              {/* Inner glow effect */}
+              <div 
+                className="absolute inset-0 rounded-3xl"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(250, 188, 5, 0.4))',
+                  filter: 'blur(8px)',
+                  animation: 'glow-pulse 2s ease-in-out infinite'
+                }}
+              ></div>
+              
+              {/* Video container */}
+              <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-black" style={{ backdropFilter: 'blur(10px)' }}>
+                <div className="relative" style={{ paddingBottom: "177.78%" }}>
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full"
+                    src="https://www.youtube.com/embed/ATB5Kjy4Wck?autoplay=1&loop=1&playlist=ATB5Kjy4Wck&controls=0&showinfo=0&rel=0&modestbranding=1"
+                    title="WEBSCALE"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
               </div>
             </div>
+            
+            {/* Keyframes for animations */}
+            <style>{`
+              @keyframes gradient-shift {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+              }
+              
+              @keyframes glow-pulse {
+                0%, 100% { opacity: 0.6; }
+                50% { opacity: 0.9; }
+              }
+            `}</style>
           </motion.div>
         </div>
       </div>
