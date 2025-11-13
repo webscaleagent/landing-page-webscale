@@ -15,28 +15,34 @@ const EventsSection = () => {
       subtitle: "انظمة ادارة علاقات العملاء CRM",
       description: "يوم دراسي متخصص لفهم وتطبيق أنظمة CRM في مؤسستك",
       icon: "📊",
-      color: "from-blue-500 to-blue-600"
+      color: "from-blue-500 to-blue-600",
+      capacity: "150+ مسير",
+      location: "المركز العالي للعلوم"
     },
     {
       title: "الحدث الثاني",
       subtitle: "الاعوان الذكية في خدمة تجارتك الالكترونية",
       description: "كيف تستخدم الذكاء الاصطناعي لتطوير تجارتك الإلكترونية",
       icon: "🤖",
-      color: "from-purple-500 to-purple-600"
+      color: "from-purple-500 to-purple-600",
+      capacity: "1400+ مسير",
+      location: "المركز الثقافي لجامع الجزائر"
     },
     {
       title: "رحلات عمل جماعية",
       subtitle: "زيارة اهم المعارض الدولية",
       description: "فرصة لاكتشاف أحدث التقنيات والتواصل مع الخبراء العالميين",
       icon: "✈️",
-      color: "from-cyan-500 to-cyan-600"
+      color: "from-cyan-500 to-cyan-600",
+      location: "يتم الإعلان عنها لاحقا"
     },
     {
       title: "لقاءات تشبيك",
       subtitle: "تطوير العمل وتشبيك العلاقات",
       description: "لقاءات دورية لبناء شراكات استراتيجية مع أرباب العمل",
       icon: "🤝",
-      color: "from-green-500 to-green-600"
+      color: "from-green-500 to-green-600",
+      location: "يتم الإعلان عنها لاحقا"
     }
   ];
 
@@ -104,8 +110,13 @@ const EventsSection = () => {
                   <div className="mt-6 pt-4 border-t border-gray-200 dark:border-neutral-700">
                     <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
                       <MapPin size={16} />
-                      <span>جامع الجزائر</span>
+                      <span>{event.location}</span>
                     </div>
+                    {event.capacity && (
+                      <div className="mt-2 text-sm font-semibold text-purple-600 dark:text-purple-400">
+                        {event.capacity}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

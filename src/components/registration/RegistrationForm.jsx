@@ -28,8 +28,6 @@ const initialForm = {
   sector: "",
   employees: "",
   subscription: "",
-  projectProgress: "", // جديد
-  trainingBudget: "", // جديد
   decisionMaker: "", // جديد
   bestCallTime: "", // جديد
   notes: "",
@@ -53,8 +51,6 @@ export default function RegistrationForm() {
     sector: useRef(null),
     employees: useRef(null),
     subscription: useRef(null),
-    projectProgress: useRef(null), // جديد
-    trainingBudget: useRef(null), // جديد
     decisionMaker: useRef(null), // جديد
     bestCallTime: useRef(null), // جديد
   };
@@ -80,8 +76,6 @@ export default function RegistrationForm() {
         form.sector &&
         form.employees &&
         form.subscription &&
-        form.projectProgress &&
-        form.trainingBudget &&
         form.decisionMaker &&
         form.bestCallTime
       )
@@ -100,8 +94,6 @@ export default function RegistrationForm() {
     if (!form.sector.trim()) e.sector = "هذا الحقل مطلوب";
     if (!form.employees) e.employees = "اختر عدد الموظفين";
     if (!form.subscription) e.subscription = "اختر مدة الاشتراك";
-    if (!form.projectProgress) e.projectProgress = "اختر مرحلة المشروع"; // جديد
-    if (!form.trainingBudget) e.trainingBudget = "اختر ميزانية التدريب"; // جديد
     if (!form.decisionMaker) e.decisionMaker = "حدد إذا كنت صاحب القرار"; // جديد
     if (!form.bestCallTime) e.bestCallTime = "اختر أفضل وقت للاتصال"; // جديد
     // تحقق أن الولاية ضمن القائمة المعتمدة
@@ -251,8 +243,6 @@ export default function RegistrationForm() {
           الولاية: form.wilaya,
           "القطاع الذي تعمل فيه": form.sector,
           "عدد الموظفين في الشركة": form.employees,
-          "نسبة تقدم مشروعك": form.projectProgress,
-          "كم تريد الانفاق من اجل التدريب والتعلم": form.trainingBudget,
           "هل انت صاحب القرار في الشركة (قرار الاشتراك والدفع)":
             form.decisionMaker,
           "ما هو الوقت الأفضل للاتصال بك": form.bestCallTime,
@@ -535,8 +525,8 @@ export default function RegistrationForm() {
               required
               name="employees"
               options={[
-                "أقل من 5",
-                "من 5 إلى 20",
+                "من 1 الى 10",
+                "من 10 الى 20",
                 "من 20 الى 100",
                 "اكثر من 100",
               ]}
@@ -545,67 +535,6 @@ export default function RegistrationForm() {
             />
             {errors.employees && (
               <div className={errorText}>{errors.employees}</div>
-            )}
-          </div>
-
-          {/* نسبة تقدم المشروع - جديد */}
-          <div className="md:col-span-2">
-            <label className={labelBase}>
-              نسبة تقدم مشروعك <span className="text-red-500">*</span>
-            </label>
-            <select
-              ref={fieldRefs.projectProgress}
-              className={fieldBase}
-              value={form.projectProgress}
-              onChange={(e) =>
-                setForm({ ...form, projectProgress: e.target.value })
-              }
-            >
-              <option value="">اختر مرحلة المشروع</option>
-              <option value="مجرد فكرة">مجرد فكرة</option>
-              <option value="تحت الدراسة / البحث">تحت الدراسة / البحث</option>
-              <option value="في مرحلة النموذج الأولي (Prototype)">
-                في مرحلة النموذج الأولي (Prototype)
-              </option>
-              <option value="في مرحلة الإطلاق التجريبي (MVP)">
-                في مرحلة الإطلاق التجريبي (MVP)
-              </option>
-              <option value="مشروع منجز">مشروع منجز</option>
-              <option value="مرحلة النمو والتوسع">مرحلة النمو والتوسع</option>
-              <option value="مشروع مستقر / قائم منذ سنوات">
-                مشروع مستقر / قائم منذ سنوات
-              </option>
-            </select>
-            {errors.projectProgress && (
-              <div className={errorText}>{errors.projectProgress}</div>
-            )}
-          </div>
-
-          {/* ميزانية التدريب - جديد */}
-          <div className="md:col-span-2">
-            <label className={labelBase}>
-              كم تريد الانفاق من اجل التدريب والتعلم{" "}
-              <span className="text-red-500">*</span>
-            </label>
-            <select
-              ref={fieldRefs.trainingBudget}
-              className={fieldBase}
-              value={form.trainingBudget}
-              onChange={(e) =>
-                setForm({ ...form, trainingBudget: e.target.value })
-              }
-            >
-              <option value="">اختر ميزانية التدريب</option>
-              <option value="اقل من 2 مليون سنتيم">اقل من 2 مليون سنتيم</option>
-              <option value="من 2 الى 4 مليون سنتيم">
-                من 2 الى 4 مليون سنتيم
-              </option>
-              <option value="اكثر من 4 مليون سنتيم">
-                اكثر من 4 مليون سنتيم
-              </option>
-            </select>
-            {errors.trainingBudget && (
-              <div className={errorText}>{errors.trainingBudget}</div>
             )}
           </div>
 

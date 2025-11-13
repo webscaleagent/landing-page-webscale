@@ -63,13 +63,6 @@ const Hero = () => {
                 تعرَّف على المزايا
               </motion.button> */}
             </div>
-            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-              <span>
-                مواعيد الجلسات المباشرة مع الخبراء: السبت/الأربعاء ·
-              </span>
-              <span className="hidden md:inline">•</span>
-              <span>يوم دراسي مرة كل شهرين— المركز الثقافي لجامع الجزائر</span>
-            </div>
           </motion.div>
 
           {/* YouTube Video */}
@@ -107,7 +100,7 @@ const Hero = () => {
                 <div className="relative" style={{ paddingBottom: "177.78%" }}>
                   <iframe
                     className="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/ATB5Kjy4Wck?autoplay=1&loop=1&playlist=ATB5Kjy4Wck&controls=0&showinfo=0&rel=0&modestbranding=1"
+                    src="https://www.youtube.com/embed/UwOV0vsI6gA?autoplay=1&loop=1&playlist=UwOV0vsI6gA&controls=0&showinfo=0&rel=0&modestbranding=1"
                     title="WEBSCALE"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

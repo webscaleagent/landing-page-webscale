@@ -34,15 +34,12 @@ export default function FAQItem({ q, a }) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="px-5 pb-4 text-sm text-gray-700 dark:text-gray-300 leading-relaxed"
+            className="px-5 pb-4 text-sm text-gray-700 dark:text-gray-300 leading-relaxed border-t border-gray-200 dark:border-neutral-700 pt-4"
           >
             {a}
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* خط فاصل أنيق */}
-      <div className="h-px bg-gray-200 dark:bg-neutral-700" />
     </div>
   );
 }
