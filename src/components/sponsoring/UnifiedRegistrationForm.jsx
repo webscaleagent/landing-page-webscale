@@ -91,13 +91,10 @@ export default function UnifiedRegistrationForm({ mode = "inline", isOpen = fals
         body: JSON.stringify(payload)
       });
       
-      if (res.ok) {
+      // Check if status is 2xx (success)
+      if (res.ok && res.status >= 200 && res.status < 300) {
         setStatus("success");
         setErrorMessage(""); // Clear error message on success
-        setTimeout(() => {
-          setStatus("idle");
-          if (mode === "modal") onClose?.();
-        }, 2500);
         setFormData({
           companyName: "",
           sector: "",
@@ -116,23 +113,31 @@ export default function UnifiedRegistrationForm({ mode = "inline", isOpen = fals
           notes: "",
           consent: false
         });
+        alert("✅ تم إرسال بياناتك بنجاح! سنتواصل معك قريباً.");
+        setTimeout(() => {
+          setStatus("idle");
+          if (mode === "modal") onClose?.();
+        }, 2500);
       } else {
         // Try to parse error response
+        let errorMsg = "حدث خطأ أثناء الإرسال";
         try {
           const errorData = await res.json();
           if (errorData.error) {
-            setErrorMessage(errorData.error);
-          } else {
-            setErrorMessage("حدث خطأ أثناء الإرسال");
+            errorMsg = errorData.error;
           }
         } catch {
-          setErrorMessage("حدث خطأ أثناء الإرسال");
+          // Keep default error message
         }
+        setErrorMessage(errorMsg);
         setStatus("error");
+        alert(`⚠️ ${errorMsg}`);
       }
     } catch {
-      setErrorMessage("حدث خطأ في الاتصال بالخادم");
+      const errorMsg = "حدث خطأ في الاتصال بالخادم";
+      setErrorMessage(errorMsg);
       setStatus("error");
+      alert(`⚠️ ${errorMsg}`);
     }
   };
 
@@ -245,6 +250,15 @@ export default function UnifiedRegistrationForm({ mode = "inline", isOpen = fals
           )}
         </div>
       )}  
+
+      {/* تحذير الحقول الإلزامية */}
+      <div className="pt-4 pb-2">
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg p-3">
+          <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200 text-center">
+            ⚠️ يرجى ملء جميع الحقول الإلزامية (المميزة بـ *) وإلا لن تتمكن من الإرسال
+          </p>
+        </div>
+      </div>
 
       {/* زر الإرسال */}
       <Button type="submit" disabled={status === "loading"} className="w-full bg-gradient-to-r from-[#fbbc05] to-[#f3ac39] hover:scale-[1.01] text-white">

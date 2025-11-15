@@ -264,7 +264,8 @@ export default function RegistrationForm() {
 
         const data = await res.json().catch(() => ({}));
 
-        if (res.ok) {
+        // Check if status is 2xx (success)
+        if (res.ok && res.status >= 200 && res.status < 300) {
           setModal({
             type: "success",
             message: "✅ تم تسجيلك بنجاح! سنراجع طلبك ونتواصل معك قريبًا.",
@@ -638,6 +639,15 @@ export default function RegistrationForm() {
             tabIndex={-1}
             autoComplete="off"
           />
+
+          {/* تحذير الحقول الإلزامية */}
+          <div className="md:col-span-2 pt-4 pb-2">
+            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg p-3">
+              <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200 text-center">
+                ⚠️ يرجى ملء جميع الحقول الإلزامية (المميزة بـ *) وإلا لن تتمكن من الإرسال
+              </p>
+            </div>
+          </div>
 
           {/* زر الإرسال */}
           <div className="md:col-span-2 flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-2">

@@ -98,7 +98,9 @@ export default function RegistrationForm() {
         formData.set(k, Array.isArray(v) ? v.join(", ") : v)
       );
       const res = await fetch(SCRIPT_URL, { method: "POST", body: formData });
-      if (res.ok) {
+      
+      // Check if status is 2xx (success)
+      if (res.ok && res.status >= 200 && res.status < 300) {
         setStatus("success");
         e.target.reset();
         setFormDataState({
@@ -112,12 +114,24 @@ export default function RegistrationForm() {
         });
         setOtherValues({ sector: "", sponsorshipType: "", sponsorshipGoals: "" });
         setShowOtherInput({ sector: false, sponsorshipType: false, sponsorshipGoals: false });
+        alert("✅ تم إرسال بياناتك بنجاح!");
         setTimeout(() => setStatus("idle"), 10000);
       } else {
         setStatus("error");
+        let errorMsg = "حدث خطأ أثناء الإرسال";
+        try {
+          const errorData = await res.json();
+          if (errorData.error || errorData.message) {
+            errorMsg = errorData.error || errorData.message;
+          }
+        } catch {
+          // Keep default error message
+        }
+        alert(`⚠️ ${errorMsg}`);
       }
     } catch {
       setStatus("error");
+      alert("⚠️ حدث خطأ في الاتصال. تحقق من الإنترنت وحاول مجددًا.");
     }
   };
 
@@ -255,6 +269,15 @@ export default function RegistrationForm() {
                 {/* الحالة */}
                 {status === "loading" && <p className="text-blue-500">⏳ جاري الإرسال...</p>}
                 {status === "error" && <p className="text-red-500">⚠️ حدث خطأ أثناء الإرسال</p>}
+
+                {/* تحذير الحقول الإلزامية */}
+                <div className="pt-4 pb-2">
+                  <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg p-3">
+                    <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200 text-center">
+                      ⚠️ يرجى ملء جميع الحقول الإلزامية (المميزة بـ *) وإلا لن تتمكن من الإرسال
+                    </p>
+                  </div>
+                </div>
 
                 {/* إرسال */}
                 <Button type="submit" disabled={status === "loading"} className="w-full bg-gradient-to-r from-[#fbbc05] to-[#715a1a] text-white">

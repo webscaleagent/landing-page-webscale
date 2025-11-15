@@ -68,7 +68,8 @@ const WorkshopRegistrationForm = ({ workshops }) => {
         body: JSON.stringify(payload)
       });
       
-      if (res.ok) {
+      // Check if status is 2xx (success)
+      if (res.ok && res.status >= 200 && res.status < 300) {
         setSubmitStatus('success');
         setErrorMessage("");
         setFormData({
@@ -80,22 +81,26 @@ const WorkshopRegistrationForm = ({ workshops }) => {
           selectedWorkshop: ""
         });
         setShowCustomBusinessType(false);
+        alert("✅ تم التسجيل بنجاح! سنتواصل معك قريباً لتأكيد الحضور.");
       } else {
+        let errorMsg = "حدث خطأ أثناء الإرسال";
         try {
           const errorData = await res.json();
           if (errorData.error) {
-            setErrorMessage(errorData.error);
-          } else {
-            setErrorMessage("حدث خطأ أثناء الإرسال");
+            errorMsg = errorData.error;
           }
         } catch {
-          setErrorMessage("حدث خطأ أثناء الإرسال");
+          // Keep default error message
         }
+        setErrorMessage(errorMsg);
         setSubmitStatus('error');
+        alert(`⚠️ ${errorMsg}`);
       }
     } catch (error) {
-      setErrorMessage("حدث خطأ في الاتصال بالخادم");
+      const errorMsg = "حدث خطأ في الاتصال بالخادم";
+      setErrorMessage(errorMsg);
       setSubmitStatus('error');
+      alert(`⚠️ ${errorMsg}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -103,7 +108,7 @@ const WorkshopRegistrationForm = ({ workshops }) => {
 
   return (
     <div id="registration-form" className="max-w-2xl mx-auto">
-      <Card className="shadow-2xl border-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
+        <Card className="shadow-2xl border-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
         <CardHeader className="text-center pb-6">
           <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
             نموذج التسجيل
@@ -216,8 +221,17 @@ const WorkshopRegistrationForm = ({ workshops }) => {
               </Select>
             </div>
 
+            {/* Mandatory Fields Warning */}
+            <div className="pt-4 pb-2">
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg p-3">
+                <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200 text-center">
+                  ⚠️ يرجى ملء جميع الحقول الإلزامية (المميزة بـ *) وإلا لن تتمكن من الإرسال
+                </p>
+              </div>
+            </div>
+
             {/* Submit Button */}
-            <div className="pt-4">
+            <div className="pt-2">
               <Button
                 type="submit"
                 disabled={isSubmitting || !formData.fullName || !formData.email || !formData.phone || !formData.selectedWorkshop}

@@ -218,9 +218,11 @@ export default function MobileFormPage() {
         body: JSON.stringify(payload),
       });
 
-      if (response.ok) {
+      // Check if status is 2xx (success)
+      if (response.ok && response.status >= 200 && response.status < 300) {
         setStatus("success");
-        setStatusMessage("تم إرسال النموذج بنجاح!");
+        const successMsg = "تم إرسال النموذج بنجاح!";
+        setStatusMessage(successMsg);
         
         // Reset form data
         const resetData = {};
@@ -228,22 +230,27 @@ export default function MobileFormPage() {
           resetData[field.name] = field.defaultValue || "";
         });
         setFormData(resetData);
+        
+        alert(`✅ ${successMsg}`);
       } else {
+        let errorMsg = "حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.";
         try {
           const errorData = await response.json();
           if (errorData.error) {
-            setStatusMessage(errorData.error);
-          } else {
-            setStatusMessage("حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.");
+            errorMsg = errorData.error;
           }
         } catch {
-          setStatusMessage("حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.");
+          // Keep default error message
         }
+        setStatusMessage(errorMsg);
         setStatus("error");
+        alert(`⚠️ ${errorMsg}`);
       }
     } catch (error) {
+      const errorMsg = "حدث خطأ في الاتصال. يرجى التحقق من اتصال الإنترنت.";
       setStatus("error");
-      setStatusMessage("حدث خطأ في الاتصال. يرجى التحقق من اتصال الإنترنت.");
+      setStatusMessage(errorMsg);
+      alert(`⚠️ ${errorMsg}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -440,6 +447,15 @@ export default function MobileFormPage() {
               {statusMessage}
             </motion.div>
           )}
+
+          {/* Mandatory Fields Warning */}
+          <div className="pt-4 pb-2">
+            <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-3">
+              <p className="text-sm font-medium text-yellow-800 text-center">
+                ⚠️ يرجى ملء جميع الحقول الإلزامية (المميزة بـ *) وإلا لن تتمكن من الإرسال
+              </p>
+            </div>
+          </div>
 
           {/* Submit Button */}
           <button

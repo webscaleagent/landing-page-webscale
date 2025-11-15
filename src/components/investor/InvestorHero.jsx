@@ -30,7 +30,7 @@ const InvestorHero = () => {
 
     try {
       // Send data to Google Apps Script
-      await fetch(
+      const response = await fetch(
         "https://script.google.com/macros/s/AKfycbzElu1gzDoKOWtwNDsB95EssmStuW6X7v_5nmB2W4ITUBs-nh2JlDCc98snhEWh3N2GgA/exec",
         {
           method: "POST",
@@ -42,14 +42,14 @@ const InvestorHero = () => {
         }
       );
 
-      // Google Apps Script returns 302 redirect, so we check for that
-
+      // With no-cors mode, we can't check the response status
+      // But if the fetch completes without throwing, we assume success
       // Success - Google Apps Script processed the request
       alert("شكراً لاهتمامكم! تم حفظ بياناتكم بنجاح وسنتواصل معكم قريباً.");
       setFormData({ fullName: "", whatsappNumber: "", investmentReasons: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("حدث خطأ أثناء إرسال النموذج. يرجى المحاولة مرة أخرى.");
+      alert("⚠️ حدث خطأ أثناء إرسال النموذج. يرجى المحاولة مرة أخرى.");
     } finally {
       setIsSubmitting(false);
     }
@@ -57,9 +57,9 @@ const InvestorHero = () => {
 
   return (
     <section
-      className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-16 sm:py-20 md:py-24 lg:py-28"
-      dir="rtl"
-    >
+        className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-16 sm:py-20 md:py-24 lg:py-28"
+        dir="rtl"
+      >
       <div className="max-w-4xl mx-auto text-center">
         {/* Back to Home Link */}
         <div className="mb-8 text-right">
@@ -175,8 +175,17 @@ const InvestorHero = () => {
                 />
               </div>
 
+              {/* Mandatory Fields Warning */}
+              <div className="pt-4 pb-2">
+                <div className="bg-yellow-500/20 border border-yellow-400/50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-yellow-200 text-center">
+                    ⚠️ يرجى ملء جميع الحقول الإلزامية (المميزة بـ *) وإلا لن تتمكن من الإرسال
+                  </p>
+                </div>
+              </div>
+
               {/* Submit Button */}
-              <div className="pt-4">
+              <div className="pt-2">
                 <Button
                   type="submit"
                   disabled={isSubmitting}

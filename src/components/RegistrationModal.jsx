@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL;
 
 const RegistrationModal = ({ isOpen, onClose }) => {
-  const [status, setStatus] = useState("idle"); 
+  const [status, setStatus] = useState("idle");
   const overlayRef = useRef(null);
   const firstInputRef = useRef(null);
 
@@ -49,26 +49,39 @@ const RegistrationModal = ({ isOpen, onClose }) => {
         body: formData,
       });
 
-      if (res.ok) {
+      // Check if status is 2xx (success)
+      if (res.ok && res.status >= 200 && res.status < 300) {
         setStatus("success");
         form.reset();
+        alert("✅ تم إرسال بياناتك بنجاح!");
         setTimeout(() => {
           setStatus("idle");
           onClose();
         }, 1800);
       } else {
-        console.error("submit failed", res.status, await res.text());
         setStatus("error");
+        let errorMsg = "حدث خطأ أثناء الإرسال. حاول لاحقًا.";
+        try {
+          const errorData = await res.json();
+          if (errorData.error || errorData.message) {
+            errorMsg = errorData.error || errorData.message;
+          }
+        } catch {
+          // Keep default error message
+          console.error("submit failed", res.status);
+        }
+        alert(`⚠️ ${errorMsg}`);
       }
     } catch (err) {
       console.error("submit error", err);
       setStatus("error");
+      alert("⚠️ حدث خطأ في الاتصال. تحقق من الإنترنت وحاول مجددًا.");
     }
   };
 
   return (
     <AnimatePresence>
-      {isOpen && (
+        {isOpen && (
         // Backdrop
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -219,6 +232,15 @@ const RegistrationModal = ({ isOpen, onClose }) => {
                       </label>
                     ))}
                   </div>
+                </div>
+              </div>
+
+              {/* Mandatory Fields Warning */}
+              <div className="pt-4 pb-2">
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg p-3">
+                  <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200 text-center">
+                    ⚠️ يرجى ملء جميع الحقول الإلزامية (المميزة بـ *) وإلا لن تتمكن من الإرسال
+                  </p>
                 </div>
               </div>
 
