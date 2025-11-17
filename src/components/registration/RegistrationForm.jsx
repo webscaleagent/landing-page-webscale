@@ -1,8 +1,16 @@
 // src/components/registration/RegistrationForm.jsx
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import AlgeriaWilayas from "../shared/AlgeriaWilayas";
 import OptionPills from "./OptionPills";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 
 const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/47401ef7-042c-4994-8645-569b14749758/submit`;
 
@@ -333,53 +341,59 @@ export default function RegistrationForm() {
 
   return (
     <>
-      {/* ✅ نافذة منبثقة */}
-      <AnimatePresence>
-        {modal && (
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className={`max-w-md w-full rounded-2xl p-6 shadow-2xl text-center relative
-              ${
-                modal.type === "success"
-                  ? "bg-gradient-to-br from-green-50 to-green-100 border border-green-300 text-green-900"
-                  : "bg-gradient-to-br from-red-50 to-red-100 border border-red-300 text-red-900"
+      {/* ✅ نافذة منبثقة باستخدام shadcn/ui Dialog */}
+      <Dialog open={!!modal} onOpenChange={(open) => !open && setModal(null)}>
+        <DialogContent
+          className={`max-w-md ${
+            modal?.type === "success"
+              ? "bg-gradient-to-br from-green-50 to-green-100 border-green-300 dark:from-green-900/20 dark:to-green-800/20 dark:border-green-700"
+              : "bg-gradient-to-br from-red-50 to-red-100 border-red-300 dark:from-red-900/20 dark:to-red-800/20 dark:border-red-700"
+          }`}
+        >
+          <DialogHeader>
+            <div className="text-4xl mb-3 text-center">
+              {modal?.type === "success" ? "✅" : "⚠️"}
+            </div>
+            <DialogTitle
+              className={`text-2xl font-bold text-center ${
+                modal?.type === "success"
+                  ? "text-green-900 dark:text-green-100"
+                  : "text-red-900 dark:text-red-100"
               }`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="text-4xl mb-3">
-              {modal.type === "success" ? "✅" : "⚠️"}
-            </div>
-            <h3 className="text-2xl font-bold mb-2">
-              {modal.type === "success" ? "تم تسجيل طلبك" : "حدث خطأ"}
-            </h3>
-            <p className="leading-relaxed text-sm md:text-base">
-              {modal.message}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3 justify-center">
+            >
+              {modal?.type === "success" ? "تم تسجيل طلبك" : "حدث خطأ"}
+            </DialogTitle>
+            <DialogDescription
+              className={`text-base leading-relaxed text-center mt-2 ${
+                modal?.type === "success"
+                  ? "text-green-800 dark:text-green-200"
+                  : "text-red-800 dark:text-red-200"
+              }`}
+            >
+              {modal?.message}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
+            <button
+              onClick={() => setModal(null)}
+              className="px-5 py-2 rounded-xl bg-[var(--brand)] text-black font-medium shadow hover:shadow-lg transition"
+            >
+              إغلاق
+            </button>
+            {modal?.type === "success" && (
               <button
-                onClick={() => setModal(null)}
-                className="px-5 py-2 rounded-xl bg-[var(--brand)] text-black font-medium shadow hover:shadow-lg transition"
+                onClick={() => {
+                  setModal(null);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="px-5 py-2 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium shadow hover:shadow-lg transition"
               >
-                إغلاق
+                العودة للرئيسية
               </button>
-              {modal.type === "success" && (
-                <button
-                  onClick={() => {
-                    setModal(null);
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className="px-5 py-2 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium shadow hover:shadow-lg transition"
-                >
-                  العودة للرئيسية
-                </button>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* ✅ الفورم */}
       <motion.div
