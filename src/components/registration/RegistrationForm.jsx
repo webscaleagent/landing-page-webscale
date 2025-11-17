@@ -591,9 +591,6 @@ export default function RegistrationForm() {
               <option value="بعد الظهر (14:00 - 17:00)">
                 بعد الظهر (14:00 - 17:00)
               </option>
-              <option value="المساء (17:00 - 20:00)">
-                المساء (17:00 - 20:00)
-              </option>
               <option value="في أي وقت">في أي وقت</option>
             </select>
             {errors.bestCallTime && (
