@@ -1,13 +1,39 @@
 // src/components/landing/CommunitySection.jsx
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { BookOpen, Calendar, CheckCircle2, Clock, MessageCircle, Network, Users, Video } from "lucide-react";
-import { useEffect } from "react";
+import { BookOpen, Calendar, CheckCircle2, Clock, MessageCircle, Network, Users, Video, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const CommunitySection = () => {
+  const scrollContainerRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
+    checkScrollButtons();
   }, []);
+
+  const checkScrollButtons = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  const scroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 300;
+      const newScrollLeft = scrollContainerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount);
+      scrollContainerRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth'
+      });
+      
+      setTimeout(checkScrollButtons, 300);
+    }
+  };
 
   const experts = [
     {
@@ -121,6 +147,69 @@ const CommunitySection = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Our Clients Section */}
+        <div className="mb-16" data-aos="fade-up" data-aos-delay="300">
+          <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white text-center mb-10">
+            عملاؤنا
+          </h3>
+          <div className="relative">
+            {/* Left Arrow */}
+            {canScrollLeft && (
+              <button
+                onClick={() => scroll('left')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-neutral-800 shadow-xl rounded-full p-4 hover:bg-[#fbbc05] hover:text-white transition-all duration-200 hover:scale-110 border-2 border-gray-200 dark:border-neutral-700 hover:border-[#fbbc05]"
+                aria-label="Scroll left"
+              >
+                <ChevronRight className="h-7 w-7" />
+              </button>
+            )}
+            
+            {/* Scrollable Container */}
+            <div
+              ref={scrollContainerRef}
+              onScroll={checkScrollButtons}
+              className="flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth px-16 py-6"
+            >
+              {Array.from({ length: 14 }, (_, i) => i + 1).map((num) => (
+                <div
+                  key={num}
+                  className="bg-gradient-to-br from-white to-gray-50 dark:from-neutral-800 dark:to-neutral-900 rounded-2xl p-8 md:p-10 shadow-lg hover:shadow-2xl transition-all duration-500 border-2 border-gray-100 dark:border-neutral-700 hover:border-[#fbbc05]/50 group flex items-center justify-center min-w-[240px] md:min-w-[280px] h-[180px] md:h-[200px] flex-shrink-0 relative overflow-hidden transform hover:-translate-y-2 hover:scale-105"
+                >
+                  {/* Background gradient on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#fbbc05]/0 to-[#f59e0b]/0 group-hover:from-[#fbbc05]/5 group-hover:to-[#f59e0b]/5 transition-all duration-500 rounded-2xl"></div>
+                  
+                  {/* Glowing effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-[#fbbc05]/10 to-transparent blur-xl"></div>
+                  </div>
+                  
+                  {/* Logo */}
+                  <img
+                    src={`/clients/${num}.png`}
+                    alt={`Client ${num}`}
+                    className="relative z-10 max-w-full h-auto max-h-24 md:max-h-32 object-contain opacity-80 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110"
+                  />
+                  
+                  {/* Corner accent */}
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#fbbc05]/0 to-transparent group-hover:from-[#fbbc05]/20 transition-all duration-500 rounded-bl-full"></div>
+                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-[#f59e0b]/0 to-transparent group-hover:from-[#f59e0b]/20 transition-all duration-500 rounded-tr-full"></div>
+                </div>
+              ))}
+            </div>
+
+            {/* Right Arrow */}
+            {canScrollRight && (
+              <button
+                onClick={() => scroll('right')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-neutral-800 shadow-xl rounded-full p-4 hover:bg-[#fbbc05] hover:text-white transition-all duration-200 hover:scale-110 border-2 border-gray-200 dark:border-neutral-700 hover:border-[#fbbc05]"
+                aria-label="Scroll right"
+              >
+                <ChevronLeft className="h-7 w-7" />
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Features Grid */}
