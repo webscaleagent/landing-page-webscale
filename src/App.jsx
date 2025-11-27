@@ -2,6 +2,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import BadgeCTA from "./components/BadgeCTA";
 import BadgeGeneration from "./pages/BadgeGeneration";
+import AboutUs from "./pages/AboutUs";
 import EventLandingPage from "./pages/EventLandingPage";
 import InvestorLandingPage from "./pages/InvestorLandingPage";
 import MobileFormPage from "./pages/MobileFormPage";
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/event" element={<EventLandingPage />} />
         <Route path="/investor" element={<InvestorLandingPage />} />
         <Route path="/workshop-event" element={<WorkshopEventPage />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/submission/:submission_id" element={<SubmissionDetails />} />
         <Route path="/badge" element={<BadgeGeneration />} />
         <Route path="/badge-request" element={<BadgeCTA />} />

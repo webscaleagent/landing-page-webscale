@@ -38,6 +38,20 @@ export const registrationNav = {
   ],
 };
 
+export const aboutNav = {
+  links: [
+    { label: "رسالتنا", href: "#about-mission" },
+    { label: "قيمنا", href: "#about-values" },
+    { label: "الفريق", href: "#about-team" },
+    { label: "الأثر", href: "#about-impact" },
+    { label: "تواصل معنا", href: "#contact" },
+  ],
+  actions: [
+    { label: "إشترك في المجتمع", href: "/", type: "primary" },
+    { label: "تفاصيل الملتقى", href: "/event", type: "secondary" },
+  ],
+};
+
 export const eventNav = {
   links: [
     { label: "الرئيسية", href: "#hero" },
@@ -351,6 +365,20 @@ export const communityLinks = [
     href: "https://youtube.com/@webscale-pro?si=KWRMamO8XO628NlY",
     text: "يوتيوب",
   },
+];
+
+export const aboutResourcesLinks = [
+  { href: "/event", text: "ملتقى Webscale" },
+  { href: "/workshop-event", text: "الورشات المتخصصة" },
+  { href: "/investor", text: "شبكة المستثمرين" },
+  { href: "/badge-request", text: "خدمة البطاقات" },
+];
+
+export const aboutPlatformLinks = [
+  { href: "/", text: "التسجيل في المجتمع" },
+  { href: "/qr-generator", text: "مولد رموز QR" },
+  { href: "/submissions/registration", text: "استعراض الطلبات" },
+  { href: "https://maps.app.goo.gl/PVaNURZtnT4WKxTX8", text: "مقر اللقاءات" },
 ];
 
 export const agenda = [
