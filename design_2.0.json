@@ -1,0 +1,1601 @@
+{
+    "project": {
+      "name": "Webscale Landing Page",
+      "language": "ar",
+      "direction": "rtl",
+      "description": "Arabic landing page for Webscale services"
+    },
+    "designTokens": {
+      "colors": {
+        "primary": "#F4C542",
+        "primaryHover": "#E5B632",
+        "background": "#FFFFFF",
+        "backgroundSecondary": "#F8F8F8",
+        "backgroundAccent": "#FFF9E6",
+        "cardBackground": "#F5F5F5",
+        "textPrimary": "#000000",
+        "textSecondary": "#666666",
+        "border": "#E0E0E0",
+        "decorativeYellow": "rgba(244, 197, 66, 0.1)",
+        "logoWatermark": "rgba(244, 197, 66, 0.05)"
+      },
+      "typography": {
+        "fontFamily": {
+          "primary": "Cairo, sans-serif",
+          "secondary": "Tajawal, sans-serif"
+        },
+        "fontSize": {
+          "h1": "48px",
+          "h2": "36px",
+          "h3": "24px",
+          "h4": "20px",
+          "body": "16px",
+          "bodySmall": "14px",
+          "caption": "12px"
+        },
+        "fontWeight": {
+          "light": 300,
+          "regular": 400,
+          "medium": 500,
+          "semibold": 600,
+          "bold": 700,
+          "extrabold": 800
+        },
+        "lineHeight": {
+          "tight": 1.2,
+          "normal": 1.5,
+          "relaxed": 1.7
+        }
+      },
+      "spacing": {
+        "xs": "8px",
+        "sm": "16px",
+        "md": "24px",
+        "lg": "32px",
+        "xl": "48px",
+        "xxl": "64px",
+        "xxxl": "96px"
+      },
+      "borderRadius": {
+        "sm": "8px",
+        "md": "12px",
+        "lg": "16px",
+        "xl": "24px",
+        "xxl": "32px"
+      },
+      "shadows": {
+        "sm": "0 2px 8px rgba(0, 0, 0, 0.08)",
+        "md": "0 4px 16px rgba(0, 0, 0, 0.1)",
+        "lg": "0 8px 32px rgba(0, 0, 0, 0.12)"
+      }
+    },
+    "layout": {
+      "maxWidth": "1440px",
+      "contentWidth": "1200px",
+      "mobileBreakpoint": "768px",
+      "tabletBreakpoint": "1024px"
+    },
+    "components": [
+      {
+        "id": "header",
+        "type": "header",
+        "position": "fixed",
+        "styling": {
+          "backgroundColor": "transparent",
+          "padding": "16px 32px",
+          "display": "flex",
+          "justifyContent": "space-between",
+          "alignItems": "center"
+        },
+        "children": [
+          {
+            "type": "icon",
+            "name": "menu",
+            "position": "left",
+            "size": "24px",
+            "color": "#000000"
+          },
+          {
+            "type": "button",
+            "text": "عربية",
+            "position": "right",
+            "styling": {
+              "fontSize": "14px",
+              "color": "#000000",
+              "backgroundColor": "transparent",
+              "border": "none"
+            }
+          }
+        ]
+      },
+      {
+        "id": "hero",
+        "type": "section",
+        "styling": {
+          "padding": "120px 32px 80px",
+          "backgroundColor": "#FFFFFF",
+          "position": "relative"
+        },
+        "children": [
+          {
+            "type": "container",
+            "layout": "grid",
+            "columns": 2,
+            "gap": "48px",
+            "alignItems": "center",
+            "children": [
+              {
+                "type": "image",
+                "placeholder": true,
+                "width": "600px",
+                "height": "400px",
+                "borderRadius": "24px",
+                "backgroundColor": "#E8E8E8",
+                "description": "Folder/document illustration",
+                "styling": {
+                  "boxShadow": "0 8px 32px rgba(0, 0, 0, 0.12)"
+                }
+              },
+              {
+                "type": "content",
+                "children": [
+                  {
+                    "type": "heading",
+                    "level": 1,
+                    "text": "واب سكايل\nWebscale",
+                    "styling": {
+                      "fontSize": "48px",
+                      "fontWeight": 800,
+                      "lineHeight": 1.2,
+                      "marginBottom": "16px",
+                      "textAlign": "right"
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "منصتك خاص بمستضيفي الشبكات في الجزائر",
+                    "styling": {
+                      "fontSize": "24px",
+                      "fontWeight": 600,
+                      "marginBottom": "16px",
+                      "textAlign": "right"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "في منصة واب سكايل، نقدم لكم الحل الأمثل لإدارة الخوادم الخاصة بكم. سواء كنتم تتطلعون إلى إنشاء موقع ويب أو تطبيق أو خدمات أخرى، فإننا نوفر لكم البيئة المثالية لذلك.",
+                    "styling": {
+                      "fontSize": "16px",
+                      "lineHeight": 1.7,
+                      "color": "#666666",
+                      "marginBottom": "32px",
+                      "textAlign": "right"
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "text": "ابدأ الآن",
+                    "variant": "primary",
+                    "styling": {
+                      "backgroundColor": "#F4C542",
+                      "color": "#000000",
+                      "padding": "14px 32px",
+                      "borderRadius": "8px",
+                      "fontSize": "16px",
+                      "fontWeight": 600,
+                      "border": "none",
+                      "cursor": "pointer",
+                      "transition": "all 0.3s ease"
+                    },
+                    "hover": {
+                      "backgroundColor": "#E5B632",
+                      "transform": "translateY(-2px)",
+                      "boxShadow": "0 4px 16px rgba(244, 197, 66, 0.3)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "logoStrip",
+            "styling": {
+              "marginTop": "80px",
+              "display": "flex",
+              "justifyContent": "space-around",
+              "alignItems": "center",
+              "gap": "32px",
+              "opacity": 0.3
+            },
+            "logos": [
+              {"placeholder": true, "width": "80px", "height": "40px"},
+              {"placeholder": true, "width": "80px", "height": "40px"},
+              {"placeholder": true, "width": "80px", "height": "40px"},
+              {"placeholder": true, "width": "80px", "height": "40px"},
+              {"placeholder": true, "width": "80px", "height": "40px"},
+              {"placeholder": true, "width": "80px", "height": "40px"},
+              {"placeholder": true, "width": "80px", "height": "40px"},
+              {"placeholder": true, "width": "80px", "height": "40px"}
+            ]
+          }
+        ]
+      },
+      {
+        "id": "experts-section",
+        "type": "section",
+        "styling": {
+          "padding": "80px 32px",
+          "backgroundColor": "#F8F8F8",
+          "position": "relative"
+        },
+        "children": [
+          {
+            "type": "sectionHeader",
+            "children": [
+              {
+                "type": "heading",
+                "level": 2,
+                "text": "خبراء Webscale",
+                "styling": {
+                  "fontSize": "36px",
+                  "fontWeight": 800,
+                  "textAlign": "center",
+                  "marginBottom": "8px"
+                }
+              },
+              {
+                "type": "subtitle",
+                "text": "تعرف على خبرائنا",
+                "styling": {
+                  "fontSize": "18px",
+                  "fontWeight": 400,
+                  "textAlign": "center",
+                  "color": "#666666",
+                  "marginBottom": "64px"
+                }
+              }
+            ]
+          },
+          {
+            "type": "carousel",
+            "layout": "horizontal",
+            "children": [
+              {
+                "type": "navigationButton",
+                "direction": "previous",
+                "position": "left",
+                "styling": {
+                  "width": "48px",
+                  "height": "48px",
+                  "borderRadius": "50%",
+                  "backgroundColor": "#F4C542",
+                  "border": "2px solid #F4C542",
+                  "display": "flex",
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                  "cursor": "pointer"
+                }
+              },
+              {
+                "type": "cardsContainer",
+                "display": "flex",
+                "gap": "24px",
+                "children": [
+                  {
+                    "type": "card",
+                    "variant": "side",
+                    "styling": {
+                      "backgroundColor": "#F5F5F5",
+                      "borderRadius": "16px",
+                      "padding": "24px",
+                      "width": "280px",
+                      "border": "2px solid #E0E0E0",
+                      "opacity": 0.6,
+                      "transform": "scale(0.9)"
+                    },
+                    "children": [
+                      {
+                        "type": "cardTitle",
+                        "text": "ميزة احترافية",
+                        "styling": {
+                          "fontSize": "18px",
+                          "fontWeight": 700,
+                          "marginBottom": "8px",
+                          "textAlign": "right"
+                        }
+                      },
+                      {
+                        "type": "cardDescription",
+                        "text": "نقدم حلول احترافية متطورة لأعمالك مع دعم فني متواصل على مدار الساعة",
+                        "styling": {
+                          "fontSize": "14px",
+                          "lineHeight": 1.6,
+                          "color": "#666666",
+                          "textAlign": "right",
+                          "marginBottom": "16px"
+                        }
+                      },
+                      {
+                        "type": "link",
+                        "text": "اعرف أكثر",
+                        "styling": {
+                          "fontSize": "14px",
+                          "color": "#F4C542",
+                          "fontWeight": 600,
+                          "textDecoration": "none",
+                          "textAlign": "right",
+                          "display": "block"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "card",
+                    "variant": "featured",
+                    "styling": {
+                      "backgroundColor": "#FFFFFF",
+                      "borderRadius": "24px",
+                      "padding": "32px",
+                      "width": "380px",
+                      "border": "3px solid #F4C542",
+                      "boxShadow": "0 8px 32px rgba(0, 0, 0, 0.12)",
+                      "transform": "scale(1)",
+                      "zIndex": 2
+                    },
+                    "children": [
+                      {
+                        "type": "image",
+                        "placeholder": true,
+                        "width": "100%",
+                        "height": "240px",
+                        "borderRadius": "16px",
+                        "backgroundColor": "#E8E8E8",
+                        "marginBottom": "24px"
+                      },
+                      {
+                        "type": "cardTitle",
+                        "text": "الخبير في تقديم الحلول الاحترافية",
+                        "styling": {
+                          "fontSize": "20px",
+                          "fontWeight": 700,
+                          "marginBottom": "12px",
+                          "textAlign": "right"
+                        }
+                      },
+                      {
+                        "type": "cardDescription",
+                        "text": "نحن نوفر لكم أفضل الحلول التقنية المبتكرة التي تساعدكم على تحقيق أهدافكم بكل سهولة واحترافية",
+                        "styling": {
+                          "fontSize": "14px",
+                          "lineHeight": 1.6,
+                          "color": "#666666",
+                          "textAlign": "right",
+                          "marginBottom": "20px"
+                        }
+                      },
+                      {
+                        "type": "link",
+                        "text": "اعرف أكثر",
+                        "styling": {
+                          "fontSize": "14px",
+                          "color": "#F4C542",
+                          "fontWeight": 600,
+                          "textDecoration": "none",
+                          "textAlign": "right",
+                          "display": "block"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "card",
+                    "variant": "side",
+                    "styling": {
+                      "backgroundColor": "#FFF9E6",
+                      "borderRadius": "16px",
+                      "padding": "24px",
+                      "width": "280px",
+                      "border": "2px solid #F4C542",
+                      "opacity": 0.6,
+                      "transform": "scale(0.9)"
+                    },
+                    "children": [
+                      {
+                        "type": "cardTitle",
+                        "text": "اطلب خدمة متقدمة",
+                        "styling": {
+                          "fontSize": "18px",
+                          "fontWeight": 700,
+                          "marginBottom": "8px",
+                          "textAlign": "right"
+                        }
+                      },
+                      {
+                        "type": "cardDescription",
+                        "text": "خدمات متطورة ومخصصة لتلبية احتياجاتك الخاصة مع ضمان أعلى مستويات الجودة",
+                        "styling": {
+                          "fontSize": "14px",
+                          "lineHeight": 1.6,
+                          "color": "#666666",
+                          "textAlign": "right",
+                          "marginBottom": "16px"
+                        }
+                      },
+                      {
+                        "type": "link",
+                        "text": "اعرف أكثر",
+                        "styling": {
+                          "fontSize": "14px",
+                          "color": "#F4C542",
+                          "fontWeight": 600,
+                          "textDecoration": "none",
+                          "textAlign": "right",
+                          "display": "block"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "navigationButton",
+                "direction": "next",
+                "position": "right",
+                "styling": {
+                  "width": "48px",
+                  "height": "48px",
+                  "borderRadius": "50%",
+                  "backgroundColor": "#F4C542",
+                  "border": "2px solid #F4C542",
+                  "display": "flex",
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                  "cursor": "pointer"
+                }
+              }
+            ]
+          },
+          {
+            "type": "carouselIndicators",
+            "styling": {
+              "display": "flex",
+              "justifyContent": "center",
+              "gap": "12px",
+              "marginTop": "32px"
+            },
+            "indicators": [
+              {"active": false, "color": "#E0E0E0"},
+              {"active": true, "color": "#F4C542"},
+              {"active": false, "color": "#E0E0E0"},
+              {"active": false, "color": "#E0E0E0"},
+              {"active": false, "color": "#E0E0E0"}
+            ]
+          }
+        ]
+      },
+      {
+        "id": "what-we-offer",
+        "type": "section",
+        "styling": {
+          "padding": "80px 32px",
+          "backgroundColor": "#FFFFFF"
+        },
+        "children": [
+          {
+            "type": "sectionHeader",
+            "children": [
+              {
+                "type": "heading",
+                "level": 2,
+                "text": "ماذا نقدم؟",
+                "styling": {
+                  "fontSize": "36px",
+                  "fontWeight": 800,
+                  "textAlign": "center",
+                  "marginBottom": "8px"
+                }
+              },
+              {
+                "type": "subtitle",
+                "text": "خدماتنا",
+                "styling": {
+                  "fontSize": "18px",
+                  "fontWeight": 400,
+                  "textAlign": "center",
+                  "color": "#666666",
+                  "marginBottom": "64px"
+                }
+              }
+            ]
+          },
+          {
+            "type": "grid",
+            "columns": 3,
+            "gap": "32px",
+            "styling": {
+              "maxWidth": "1200px",
+              "margin": "0 auto"
+            },
+            "children": [
+              {
+                "type": "featureCard",
+                "styling": {
+                  "backgroundColor": "#F8F8F8",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "right"
+                },
+                "children": [
+                  {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "التعامل بالبطاقة مسبقة",
+                    "styling": {
+                      "fontSize": "20px",
+                      "fontWeight": 700,
+                      "marginBottom": "16px"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "نوفر لكم إمكانية الدفع باستخدام البطاقات مسبقة الدفع بكل سهولة وأمان",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "featureCard",
+                "styling": {
+                  "backgroundColor": "#F8F8F8",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "right"
+                },
+                "children": [
+                  {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "التعامل باسعار منخفضة",
+                    "styling": {
+                      "fontSize": "20px",
+                      "fontWeight": 700,
+                      "marginBottom": "16px"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "أسعار تنافسية ومناسبة لجميع الميزانيات مع جودة عالية في الخدمة",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "featureCard",
+                "variant": "highlighted",
+                "styling": {
+                  "backgroundColor": "#FFF9E6",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "center",
+                  "border": "2px solid #F4C542"
+                },
+                "children": [
+                  {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "استمع",
+                    "styling": {
+                      "fontSize": "20px",
+                      "fontWeight": 700,
+                      "marginBottom": "16px"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "نستمع لاحتياجاتكم ونقدم الحلول المناسبة",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "featureCard",
+                "styling": {
+                  "backgroundColor": "#F8F8F8",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "right"
+                },
+                "children": [
+                  {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "التعامل منخفضة منخفضة",
+                    "styling": {
+                      "fontSize": "20px",
+                      "fontWeight": 700,
+                      "marginBottom": "16px"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "تكاليف تشغيلية منخفضة تساعدكم على توفير المزيد",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "featureCard",
+                "styling": {
+                  "backgroundColor": "#F8F8F8",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "right"
+                },
+                "children": [
+                  {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "التعامل بالبطاقة منخفضة",
+                    "styling": {
+                      "fontSize": "20px",
+                      "fontWeight": 700,
+                      "marginBottom": "16px"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "خيارات دفع متعددة ومرنة تناسب جميع العملاء",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "services-grid",
+        "type": "section",
+        "styling": {
+          "padding": "80px 32px",
+          "backgroundColor": "#F8F8F8"
+        },
+        "children": [
+          {
+            "type": "grid",
+            "columns": 4,
+            "gap": "24px",
+            "styling": {
+              "maxWidth": "1200px",
+              "margin": "0 auto"
+            },
+            "children": [
+              {
+                "type": "serviceCard",
+                "styling": {
+                  "backgroundColor": "#FFFFFF",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "center",
+                  "border": "2px solid #E0E0E0"
+                },
+                "children": [
+                  {
+                    "type": "icon",
+                    "name": "business-event",
+                    "styling": {
+                      "width": "64px",
+                      "height": "64px",
+                      "margin": "0 auto 16px",
+                      "backgroundColor": "#F4C542",
+                      "borderRadius": "50%",
+                      "display": "flex",
+                      "alignItems": "center",
+                      "justifyContent": "center"
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "level": 4,
+                    "text": "Business event",
+                    "styling": {
+                      "fontSize": "18px",
+                      "fontWeight": 700,
+                      "marginBottom": "12px"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum ullamcorper sed.",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "serviceCard",
+                "styling": {
+                  "backgroundColor": "#FFFFFF",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "center",
+                  "border": "2px solid #E0E0E0"
+                },
+                "children": [
+                  {
+                    "type": "icon",
+                    "name": "formation",
+                    "styling": {
+                      "width": "64px",
+                      "height": "64px",
+                      "margin": "0 auto 16px",
+                      "backgroundColor": "#4CAF50",
+                      "borderRadius": "50%",
+                      "display": "flex",
+                      "alignItems": "center",
+                      "justifyContent": "center"
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "level": 4,
+                    "text": "Formation",
+                    "styling": {
+                      "fontSize": "18px",
+                      "fontWeight": 700,
+                      "marginBottom": "12px"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum ullamcorper sed.",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "serviceCard",
+                "styling": {
+                  "backgroundColor": "#FFFFFF",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "center",
+                  "border": "2px solid #E0E0E0"
+                },
+                "children": [
+                  {
+                    "type": "icon",
+                    "name": "community",
+                    "styling": {
+                      "width": "64px",
+                      "height": "64px",
+                      "margin": "0 auto 16px",
+                      "backgroundColor": "#2196F3",
+                      "borderRadius": "50%",
+                      "display": "flex",
+                      "alignItems": "center",
+                      "justifyContent": "center"
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "level": 4,
+                    "text": "Community",
+                    "styling": {
+                      "fontSize": "18px",
+                      "fontWeight": 700,
+                      "marginBottom": "12px"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum ullamcorper sed.",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "serviceCard",
+                "styling": {
+                  "backgroundColor": "#FFFFFF",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "center",
+                  "border": "2px solid #E0E0E0"
+                },
+                "children": [
+                  {
+                    "type": "icon",
+                    "name": "web-agent",
+                    "styling": {
+                      "width": "64px",
+                      "height": "64px",
+                      "margin": "0 auto 16px",
+                      "backgroundColor": "#9C27B0",
+                      "borderRadius": "50%",
+                      "display": "flex",
+                      "alignItems": "center",
+                      "justifyContent": "center"
+                    }
+                  },
+                  {
+                    "type": "heading",
+                    "level": 4,
+                    "text": "Web Agent",
+                    "styling": {
+                      "fontSize": "18px",
+                      "fontWeight": 700,
+                      "marginBottom": "12px"
+                    }
+                  },
+                  {
+                    "type": "paragraph",
+                    "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit interdum ullamcorper sed.",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "additional-services",
+        "type": "section",
+        "styling": {
+          "padding": "80px 32px",
+          "backgroundColor": "#FFFFFF"
+        },
+        "children": [
+          {
+            "type": "sectionHeader",
+            "children": [
+              {
+                "type": "heading",
+                "level": 2,
+                "text": "بالإضافة إلى",
+                "styling": {
+                  "fontSize": "36px",
+                  "fontWeight": 800,
+                  "textAlign": "center",
+                  "marginBottom": "8px"
+                }
+              },
+              {
+                "type": "subtitle",
+                "text": "المزيد لنا",
+                "styling": {
+                  "fontSize": "18px",
+                  "fontWeight": 400,
+                  "textAlign": "center",
+                  "color": "#666666",
+                  "marginBottom": "64px"
+                }
+              }
+            ]
+          },
+          {
+            "type": "carousel",
+            "layout": "horizontal",
+            "children": [
+              {
+                "type": "navigationButton",
+                "direction": "previous",
+                "position": "left",
+                "styling": {
+                  "width": "48px",
+                  "height": "48px",
+                  "borderRadius": "50%",
+                  "backgroundColor": "#F4C542",
+                  "border": "2px solid #F4C542",
+                  "display": "flex",
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                  "cursor": "pointer"
+                }
+              },
+              {
+                "type": "cardsContainer",
+                "display": "flex",
+                "gap": "24px",
+                "children": [
+                  {
+                    "type": "card",
+                    "variant": "side",
+                    "styling": {
+                      "backgroundColor": "#F5F5F5",
+                      "borderRadius": "24px",
+                      "padding": "24px",
+                      "width": "240px",
+                      "opacity": 0.6
+                    },
+                    "children": [
+                      {
+                        "type": "image",
+                        "placeholder": true,
+                        "width": "100%",
+                        "height": "180px",
+                        "borderRadius": "16px",
+                        "backgroundColor": "#E8E8E8"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "card",
+                    "variant": "featured",
+                    "styling": {
+                      "backgroundColor": "#FFF9E6",
+                      "borderRadius": "32px",
+                      "padding": "40px",
+                      "width": "500px",
+                      "border": "3px solid #F4C542",
+                      "boxShadow": "0 8px 32px rgba(0, 0, 0, 0.12)"
+                    },
+                    "children": [
+                      {
+                        "type": "heading",
+                        "level": 3,
+                        "text": "التعامل منخفضة منخفضة",
+                        "styling": {
+                          "fontSize": "24px",
+                          "fontWeight": 700,
+                          "marginBottom": "16px",
+                          "textAlign": "right"
+                        }
+                      },
+                      {
+                        "type": "paragraph",
+                        "text": "في منصة واب سكايل، نقدم لكم الحل الأمثل لإدارة الخوادم الخاصة بكم. سواء كنتم تتطلعون إلى إنشاء موقع ويب أو تطبيق أو خدمات أخرى، فإننا نوفر لكم البيئة المثالية لذلك.",
+                        "styling": {
+                          "fontSize": "14px",
+                          "lineHeight": 1.7,
+                          "color": "#666666",
+                          "textAlign": "right",
+                          "marginBottom": "24px"
+                        }
+                      },
+                      {
+                        "type": "link",
+                        "text": "اعرف أكثر",
+                        "styling": {
+                          "fontSize": "14px",
+                          "color": "#000000",
+                          "fontWeight": 600,
+                          "textDecoration": "underline",
+                          "textAlign": "right",
+                          "display": "block"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "card",
+                    "variant": "side",
+                    "styling": {
+                      "backgroundColor": "#FFFFFF",
+                      "borderRadius": "24px",
+                      "padding": "32px",
+                      "width": "280px",
+                      "border": "2px solid #F4C542"
+                    },
+                    "children": [
+                      {
+                        "type": "heading",
+                        "level": 3,
+                        "text": "منضوع مبسط",
+                        "styling": {
+                          "fontSize": "20px",
+                          "fontWeight": 700,
+                          "marginBottom": "12px",
+                          "textAlign": "right"
+                        }
+                      },
+                      {
+                        "type": "paragraph",
+                        "text": "توفر استضافة سريعة ومستقرة مع ضمان للأمان",
+                        "styling": {
+                          "fontSize": "14px",
+                          "lineHeight": 1.6,
+                          "color": "#666666",
+                          "textAlign": "right",
+                          "marginBottom": "20px"
+                        }
+                      },
+                      {
+                        "type": "list",
+                        "items": [
+                          "شهر واحد",
+                          "6 أشهر"
+                        ],
+                        "styling": {
+                          "fontSize": "14px",
+                          "color": "#666666",
+                          "textAlign": "right",
+                          "marginBottom": "16px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "navigationButton",
+                "direction": "next",
+                "position": "right",
+                "styling": {
+                  "width": "48px",
+                  "height": "48px",
+                  "borderRadius": "50%",
+                  "backgroundColor": "#F4C542",
+                  "border": "2px solid #F4C542",
+                  "display": "flex",
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                  "cursor": "pointer"
+                }
+              }
+            ]
+          },
+          {
+            "type": "carouselIndicators",
+            "styling": {
+              "display": "flex",
+              "justifyContent": "center",
+              "gap": "12px",
+              "marginTop": "32px"
+            },
+            "indicators": [
+              {"active": false, "color": "#E0E0E0"},
+              {"active": true, "color": "#F4C542"},
+              {"active": false, "color": "#E0E0E0"},
+              {"active": false, "color": "#E0E0E0"},
+              {"active": false, "color": "#E0E0E0"}
+            ]
+          }
+        ]
+      },
+      {
+        "id": "special-events",
+        "type": "section",
+        "styling": {
+          "padding": "80px 32px",
+          "backgroundColor": "#F8F8F8"
+        },
+        "children": [
+          {
+            "type": "sectionHeader",
+            "children": [
+              {
+                "type": "heading",
+                "level": 2,
+                "text": "أحداث خاصة",
+                "styling": {
+                  "fontSize": "36px",
+                  "fontWeight": 800,
+                  "textAlign": "center",
+                  "marginBottom": "8px"
+                }
+              },
+              {
+                "type": "subtitle",
+                "text": "مخدماتنا",
+                "styling": {
+                  "fontSize": "18px",
+                  "fontWeight": 400,
+                  "textAlign": "center",
+                  "color": "#666666",
+                  "marginBottom": "64px"
+                }
+              }
+            ]
+          },
+          {
+            "type": "container",
+            "layout": "flex",
+            "direction": "column",
+            "gap": "40px",
+            "children": [
+              {
+                "type": "eventCard",
+                "layout": "horizontal",
+                "styling": {
+                  "display": "flex",
+                  "gap": "32px",
+                  "alignItems": "center",
+                  "backgroundColor": "#FFFFFF",
+                  "borderRadius": "24px",
+                  "padding": "40px",
+                  "border": "2px solid #F4C542"
+                },
+                "children": [
+                  {
+                    "type": "image",
+                    "placeholder": true,
+                    "width": "300px",
+                    "height": "240px",
+                    "borderRadius": "16px",
+                    "backgroundColor": "#E8E8E8"
+                  },
+                  {
+                    "type": "content",
+                    "children": [
+                      {
+                        "type": "heading",
+                        "level": 3,
+                        "text": "اقامات، ايميلات، وشهادة SSL",
+                        "styling": {
+                          "fontSize": "24px",
+                          "fontWeight": 700,
+                          "marginBottom": "16px",
+                          "textAlign": "right"
+                        }
+                      },
+                      {
+                        "type": "paragraph",
+                        "text": "في مجموعة متنوعة من الحلول الاحترافية التي تشمل الاستضافة، البريد الإلكتروني وشهادات الأمان SSL لضمان حماية بياناتكم وتوفير تجربة آمنة وموثوقة لعملائكم.",
+                        "styling": {
+                          "fontSize": "14px",
+                          "lineHeight": 1.7,
+                          "color": "#666666",
+                          "textAlign": "right",
+                          "marginBottom": "24px"
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "text": "ابدأ الآن",
+                        "styling": {
+                          "backgroundColor": "#F4C542",
+                          "color": "#000000",
+                          "padding": "12px 28px",
+                          "borderRadius": "8px",
+                          "fontSize": "14px",
+                          "fontWeight": 600,
+                          "border": "none",
+                          "cursor": "pointer"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "eventCard",
+                "layout": "horizontal-reverse",
+                "styling": {
+                  "display": "flex",
+                  "gap": "32px",
+                  "alignItems": "center",
+                  "backgroundColor": "#FFFFFF",
+                  "borderRadius": "24px",
+                  "padding": "40px"
+                },
+                "children": [
+                  {
+                    "type": "content",
+                    "children": [
+                      {
+                        "type": "heading",
+                        "level": 3,
+                        "text": "دورناات",
+                        "styling": {
+                          "fontSize": "24px",
+                          "fontWeight": 700,
+                          "marginBottom": "16px",
+                          "textAlign": "right"
+                        }
+                      },
+                      {
+                        "type": "paragraph",
+                        "text": "تعرفوا على خدمات WEBSCALE المميزة والتي تشمل أحدث التقنيات في عالم الاستضافة والخوادم، مع ضمان أعلى مستويات الأمان والسرعة والدعم الفني المتواصل.",
+                        "styling": {
+                          "fontSize": "14px",
+                          "lineHeight": 1.7,
+                          "color": "#666666",
+                          "textAlign": "right",
+                          "marginBottom": "24px"
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "text": "ابدأ الآن",
+                        "styling": {
+                          "backgroundColor": "#F4C542",
+                          "color": "#000000",
+                          "padding": "12px 28px",
+                          "borderRadius": "8px",
+                          "fontSize": "14px",
+                          "fontWeight": 600,
+                          "border": "none",
+                          "cursor": "pointer"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "image",
+                    "placeholder": true,
+                    "width": "400px",
+                    "height": "280px",
+                    "borderRadius": "16px",
+                    "backgroundColor": "#E8E8E8"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "testimonials",
+        "type": "section",
+        "styling": {
+          "padding": "80px 32px",
+          "backgroundColor": "#FFFFFF"
+        },
+        "children": [
+          {
+            "type": "sectionHeader",
+            "children": [
+              {
+                "type": "heading",
+                "level": 2,
+                "text": "آراء زبائننا",
+                "styling": {
+                  "fontSize": "36px",
+                  "fontWeight": 800,
+                  "textAlign": "center",
+                  "marginBottom": "8px"
+                }
+              },
+              {
+                "type": "subtitle",
+                "text": "ماذا يقولون عنا",
+                "styling": {
+                  "fontSize": "18px",
+                  "fontWeight": 400,
+                  "textAlign": "center",
+                  "color": "#666666",
+                  "marginBottom": "64px"
+                }
+              }
+            ]
+          },
+          {
+            "type": "grid",
+            "columns": 4,
+            "gap": "24px",
+            "styling": {
+              "maxWidth": "1200px",
+              "margin": "0 auto"
+            },
+            "children": [
+              {
+                "type": "testimonialCard",
+                "styling": {
+                  "backgroundColor": "#F8F8F8",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "center"
+                },
+                "children": [
+                  {
+                    "type": "avatar",
+                    "placeholder": true,
+                    "width": "80px",
+                    "height": "80px",
+                    "borderRadius": "50%",
+                    "backgroundColor": "#E8E8E8",
+                    "margin": "0 auto 16px"
+                  },
+                  {
+                    "type": "name",
+                    "text": "اسم العميل",
+                    "styling": {
+                      "fontSize": "16px",
+                      "fontWeight": 700,
+                      "marginBottom": "8px"
+                    }
+                  },
+                  {
+                    "type": "rating",
+                    "stars": 5,
+                    "styling": {
+                      "color": "#F4C542",
+                      "fontSize": "16px",
+                      "marginBottom": "12px"
+                    }
+                  },
+                  {
+                    "type": "testimonial",
+                    "text": "خدمة ممتازة وسريعة، الدعم الفني متعاون جداً",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "testimonialCard",
+                "styling": {
+                  "backgroundColor": "#F8F8F8",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "center"
+                },
+                "children": [
+                  {
+                    "type": "avatar",
+                    "placeholder": true,
+                    "width": "80px",
+                    "height": "80px",
+                    "borderRadius": "50%",
+                    "backgroundColor": "#E8E8E8",
+                    "margin": "0 auto 16px"
+                  },
+                  {
+                    "type": "name",
+                    "text": "اسم العميل",
+                    "styling": {
+                      "fontSize": "16px",
+                      "fontWeight": 700,
+                      "marginBottom": "8px"
+                    }
+                  },
+                  {
+                    "type": "rating",
+                    "stars": 5,
+                    "styling": {
+                      "color": "#F4C542",
+                      "fontSize": "16px",
+                      "marginBottom": "12px"
+                    }
+                  },
+                  {
+                    "type": "testimonial",
+                    "text": "أفضل منصة استضافة جربتها حتى الآن",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "testimonialCard",
+                "styling": {
+                  "backgroundColor": "#F8F8F8",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "center"
+                },
+                "children": [
+                  {
+                    "type": "avatar",
+                    "placeholder": true,
+                    "width": "80px",
+                    "height": "80px",
+                    "borderRadius": "50%",
+                    "backgroundColor": "#E8E8E8",
+                    "margin": "0 auto 16px"
+                  },
+                  {
+                    "type": "name",
+                    "text": "اسم العميل",
+                    "styling": {
+                      "fontSize": "16px",
+                      "fontWeight": 700,
+                      "marginBottom": "8px"
+                    }
+                  },
+                  {
+                    "type": "rating",
+                    "stars": 5,
+                    "styling": {
+                      "color": "#F4C542",
+                      "fontSize": "16px",
+                      "marginBottom": "12px"
+                    }
+                  },
+                  {
+                    "type": "testimonial",
+                    "text": "أسعار تنافسية وخدمات احترافية",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "testimonialCard",
+                "styling": {
+                  "backgroundColor": "#F8F8F8",
+                  "borderRadius": "16px",
+                  "padding": "32px",
+                  "textAlign": "center"
+                },
+                "children": [
+                  {
+                    "type": "avatar",
+                    "placeholder": true,
+                    "width": "80px",
+                    "height": "80px",
+                    "borderRadius": "50%",
+                    "backgroundColor": "#E8E8E8",
+                    "margin": "0 auto 16px"
+                  },
+                  {
+                    "type": "name",
+                    "text": "اسم العميل",
+                    "styling": {
+                      "fontSize": "16px",
+                      "fontWeight": 700,
+                      "marginBottom": "8px"
+                    }
+                  },
+                  {
+                    "type": "rating",
+                    "stars": 5,
+                    "styling": {
+                      "color": "#F4C542",
+                      "fontSize": "16px",
+                      "marginBottom": "12px"
+                    }
+                  },
+                  {
+                    "type": "testimonial",
+                    "text": "موثوقية عالية واستقرار في الخدمة",
+                    "styling": {
+                      "fontSize": "14px",
+                      "lineHeight": 1.6,
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "backgroundElements": [
+      {
+        "type": "logo-watermark",
+        "element": "W",
+        "styling": {
+          "position": "fixed",
+          "fontSize": "800px",
+          "fontWeight": 900,
+          "color": "rgba(244, 197, 66, 0.03)",
+          "zIndex": 0,
+          "pointerEvents": "none",
+          "top": "50%",
+          "left": "50%",
+          "transform": "translate(-50%, -50%)"
+        }
+      },
+      {
+        "type": "decorative-blob",
+        "styling": {
+          "position": "absolute",
+          "width": "400px",
+          "height": "400px",
+          "borderRadius": "50%",
+          "background": "radial-gradient(circle, rgba(244, 197, 66, 0.1) 0%, transparent 70%)",
+          "filter": "blur(60px)",
+          "zIndex": 0,
+          "pointerEvents": "none"
+        },
+        "instances": [
+          {"top": "10%", "right": "5%"},
+          {"bottom": "20%", "left": "10%"},
+          {"top": "60%", "right": "15%"}
+        ]
+      }
+    ],
+    "interactions": {
+      "carousels": {
+        "type": "swipeable",
+        "autoplay": false,
+        "navigation": true,
+        "pagination": true,
+        "slidesPerView": {
+          "mobile": 1,
+          "tablet": 2,
+          "desktop": 3
+        }
+      },
+      "buttons": {
+        "hoverEffect": "lift",
+        "transition": "all 0.3s ease"
+      },
+      "cards": {
+        "hoverEffect": "shadow-increase",
+        "transition": "all 0.3s ease"
+      }
+    },
+    "responsive": {
+      "mobile": {
+        "maxWidth": "768px",
+        "modifications": {
+          "grid": "1 column",
+          "fontSize": "scale down 20%",
+          "padding": "reduce to 16px",
+          "carousel": "1 slide visible"
+        }
+      },
+      "tablet": {
+        "maxWidth": "1024px",
+        "modifications": {
+          "grid": "2 columns",
+          "fontSize": "scale down 10%",
+          "carousel": "2 slides visible"
+        }
+      },
+      "desktop": {
+        "minWidth": "1024px",
+        "modifications": {
+          "grid": "full columns as designed",
+          "carousel": "3 slides visible"
+        }
+      }
+    },
+    "accessibility": {
+      "language": "ar",
+      "direction": "rtl",
+      "ariaLabels": true,
+      "keyboardNavigation": true,
+      "focusVisible": true,
+      "altTexts": "required for all images"
+    },
+    "notes": {
+      "fonts": "Use Cairo or Tajawal fonts from Google Fonts for Arabic text support",
+      "rtl": "Ensure all layout is right-to-left for proper Arabic display",
+      "images": "All image placeholders should be replaced with actual assets",
+      "icons": "Use icon library like Lucide React or Font Awesome",
+      "animations": "Add smooth transitions and hover effects for better UX",
+      "seo": "Add proper meta tags, structured data, and semantic HTML",
+      "performance": "Optimize images, lazy load sections, minimize bundle size"
+    }
+  }
