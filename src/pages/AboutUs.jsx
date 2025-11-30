@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
-import Testimonials from "@/components/Testimonials";
+// import Testimonials from "@/components/Testimonials";
 import heroVideo from "@/assets/video1.mp4";
 import { aboutNav, aboutPlatformLinks, aboutResourcesLinks, communityLinks } from "@/constants";
 
@@ -298,7 +298,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <Testimonials />
+        {/* <Testimonials /> */}
 
         <section id="contact" className="container mx-auto px-4 lg:px-8 py-20" dir="rtl">
           <div className="relative rounded-3xl bg-gradient-to-br from-[#fbbc05] via-[#fbbc05] to-[#d29c04] text-neutral-900 p-12 lg:p-16 flex flex-col lg:flex-row gap-12 items-center shadow-2xl overflow-hidden">
