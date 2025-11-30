@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import logo from "../assets/logo.png";
-import FormationRegistrationForm from "../components/formation/FormationRegistrationForm";
+import FormationRegistrationForm from "../components/formation";
 
 const FormationPage = () => {
   const [darkMode, setDarkMode] = useState(false);
