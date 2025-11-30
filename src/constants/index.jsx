@@ -29,6 +29,7 @@ export const registrationNav = {
     { label: "الرئيسية", href: "#hero" },
     { label: "الأسعار", href: "#pricing" },
     { label: "الأسئلة الشائعة", href: "#faq" },
+    { label: "من نحن", href: "/about" },
     { label: "تواصل معنا", href: "#contact" },
   ],
   actions: [
@@ -41,9 +42,8 @@ export const registrationNav = {
 export const aboutNav = {
   links: [
     { label: "رسالتنا", href: "#about-mission" },
-    { label: "قيمنا", href: "#about-values" },
-    { label: "الفريق", href: "#about-team" },
-    { label: "الأثر", href: "#about-impact" },
+    { label: "ماذا نفعل؟", href: "#about-services" },
+    { label: "لماذا نهتم؟", href: "#about-values" },
     { label: "تواصل معنا", href: "#contact" },
   ],
   actions: [
