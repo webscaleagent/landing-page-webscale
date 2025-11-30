@@ -1,8 +1,8 @@
 // src/App.jsx
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import BadgeCTA from "./components/BadgeCTA";
-import BadgeGeneration from "./pages/BadgeGeneration";
 import AboutUs from "./pages/AboutUs";
+import BadgeGeneration from "./pages/BadgeGeneration";
 import EventLandingPage from "./pages/EventLandingPage";
 import FormationPage from "./pages/FormationPage";
 import InvestorLandingPage from "./pages/InvestorLandingPage";
