@@ -140,108 +140,116 @@ const FormationPage = () => {
       </Helmet>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-lg shadow-lg border-b border-neutral-200/50 dark:border-neutral-700/50 transition-all duration-300">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
-            <div className="flex items-center gap-4">
-              <Link to="/" className="flex items-center gap-2 group">
-                <img src={logo} alt="Webscale Logo" className="h-10 w-auto transition-transform duration-300 group-hover:scale-110" />
-                <span className="text-xl font-bold text-neutral-800 dark:text-neutral-100 transition-colors group-hover:text-[#FABC05]">Webscale</span>
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl shadow-md border-b border-neutral-200/60 dark:border-neutral-700/60 transition-all duration-500 supports-[backdrop-filter]:bg-white/80 supports-[backdrop-filter]:dark:bg-neutral-900/80">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between py-3 md:py-4">
+            {/* Left: Logo */}
+            <div className="flex items-center">
+              <Link to="/" className="flex items-center gap-2 group relative">
+                <div className="relative">
+                  <img src={logo} alt="Webscale Logo" className="h-9 md:h-10 w-auto transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" />
+                  <div className="absolute inset-0 bg-[#FABC05]/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <span className="text-lg md:text-xl font-bold text-neutral-800 dark:text-neutral-100 transition-all duration-300 group-hover:text-[#FABC05] group-hover:scale-105">Webscale</span>
               </Link>
-              <button
-                onClick={toggleDarkMode}
-                className="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-300 hover:scale-110 hover:rotate-12"
-                aria-label="Toggle dark mode"
-              >
-                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-300 hover:scale-110"
-                aria-label="Toggle mobile menu"
-              >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
             </div>
 
-            <nav className={`hidden lg:flex items-center gap-6`}>
-              <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection("home"); }} className="relative px-3 py-2 text-neutral-700 dark:text-neutral-300 font-medium transition-all duration-300 hover:text-[#FABC05] group">
-                <span className="relative z-10">الرئيسية</span>
-                <span className="absolute inset-0 bg-[#FABC05]/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              </a>
-              <a href="#problem" onClick={(e) => { e.preventDefault(); scrollToSection("problem"); }} className="relative px-3 py-2 text-neutral-700 dark:text-neutral-300 font-medium transition-all duration-300 hover:text-[#FABC05] group">
-                <span className="relative z-10">المشكلة</span>
-                <span className="absolute inset-0 bg-[#FABC05]/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              </a>
-              <a href="#consultant" onClick={(e) => { e.preventDefault(); scrollToSection("consultant"); }} className="relative px-3 py-2 text-neutral-700 dark:text-neutral-300 font-medium transition-all duration-300 hover:text-[#FABC05] group">
-                <span className="relative z-10">المستشار</span>
-                <span className="absolute inset-0 bg-[#FABC05]/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              </a>
-              <a href="#benefits" onClick={(e) => { e.preventDefault(); scrollToSection("benefits"); }} className="relative px-3 py-2 text-neutral-700 dark:text-neutral-300 font-medium transition-all duration-300 hover:text-[#FABC05] group">
-                <span className="relative z-10">الفوائد</span>
-                <span className="absolute inset-0 bg-[#FABC05]/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              </a>
-              <a href="#program" onClick={(e) => { e.preventDefault(); scrollToSection("program"); }} className="relative px-3 py-2 text-neutral-700 dark:text-neutral-300 font-medium transition-all duration-300 hover:text-[#FABC05] group">
-                <span className="relative z-10">البرنامج</span>
-                <span className="absolute inset-0 bg-[#FABC05]/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              </a>
-              <a href="#pricing" onClick={(e) => { e.preventDefault(); scrollToSection("pricing"); }} className="relative px-3 py-2 text-neutral-700 dark:text-neutral-300 font-medium transition-all duration-300 hover:text-[#FABC05] group">
-                <span className="relative z-10">الأسعار</span>
-                <span className="absolute inset-0 bg-[#FABC05]/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              </a>
-              <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection("faq"); }} className="relative px-3 py-2 text-neutral-700 dark:text-neutral-300 font-medium transition-all duration-300 hover:text-[#FABC05] group">
-                <span className="relative z-10">الأسئلة الشائعة</span>
-                <span className="absolute inset-0 bg-[#FABC05]/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              </a>
-              <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection("contact"); }} className="relative px-3 py-2 text-neutral-700 dark:text-neutral-300 font-medium transition-all duration-300 hover:text-[#FABC05] group">
-                <span className="relative z-10">تواصل معنا</span>
-                <span className="absolute inset-0 bg-[#FABC05]/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
-              </a>
+            {/* Center: Navigation */}
+            <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
+              {[
+                { id: "home", label: "الرئيسية" },
+                { id: "problem", label: "المشكلة" },
+                { id: "consultant", label: "المستشار" },
+                { id: "benefits", label: "الفوائد" },
+                { id: "program", label: "البرنامج" },
+                { id: "pricing", label: "الأسعار" },
+                { id: "faq", label: "الأسئلة الشائعة" },
+                { id: "contact", label: "تواصل معنا" },
+              ].map((item) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={(e) => { e.preventDefault(); scrollToSection(item.id); }}
+                  className="relative px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 transition-all duration-300 hover:text-[#FABC05] group"
+                >
+                  <span className="relative z-10">{item.label}</span>
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#FABC05] to-[#FFD700] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full"></span>
+                  <span className="absolute inset-0 bg-[#FABC05]/5 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-0"></span>
+                </a>
+              ))}
             </nav>
 
-            <button
-              onClick={() => setShowRegistrationModal(true)}
-              className="hidden lg:block relative px-6 py-2.5 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-lg overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FABC05]/50"
-            >
-              <span className="relative z-10">احجز مقعدك الآن</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
+            {/* Right: All Action Buttons */}
+            <div className="flex items-center gap-2 md:gap-3">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 rounded-xl hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-all duration-300 hover:scale-110 hover:shadow-md group"
+                aria-label="Toggle mobile menu"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
+                ) : (
+                  <Menu className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
+                )}
+              </button>
+              <button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-xl hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-all duration-300 hover:scale-110 hover:rotate-12 hover:shadow-md group"
+                aria-label="Toggle dark mode"
+              >
+                {darkMode ? (
+                  <Sun className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
+                ) : (
+                  <Moon className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
+                )}
+              </button>
+              <button
+                onClick={() => setShowRegistrationModal(true)}
+                className="flex items-center gap-2 relative px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-[#FABC05] via-[#FFD700] to-[#FABC05] bg-size-200 bg-pos-0 hover:bg-pos-100 text-black font-semibold text-sm md:text-base rounded-xl overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#FABC05]/40"
+                style={{ backgroundSize: '200% 100%' }}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <span className="hidden md:inline">احجز مقعدك الآن</span>
+                  <span className="md:hidden">احجز</span>
+                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] via-[#FABC05] to-[#FFD700] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="lg:hidden pb-4 border-t border-neutral-200 dark:border-neutral-700 mt-4 pt-4 animate-in slide-in-from-top duration-300">
-              <nav className="flex flex-col gap-4">
-                <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection("home"); }} className="px-4 py-2 rounded-lg hover:bg-[#FABC05]/10 hover:text-[#FABC05] transition-all duration-300">
-                  الرئيسية
-                </a>
-                <a href="#problem" onClick={(e) => { e.preventDefault(); scrollToSection("problem"); }} className="px-4 py-2 rounded-lg hover:bg-[#FABC05]/10 hover:text-[#FABC05] transition-all duration-300">
-                  المشكلة
-                </a>
-                <a href="#consultant" onClick={(e) => { e.preventDefault(); scrollToSection("consultant"); }} className="px-4 py-2 rounded-lg hover:bg-[#FABC05]/10 hover:text-[#FABC05] transition-all duration-300">
-                  المستشار
-                </a>
-                <a href="#benefits" onClick={(e) => { e.preventDefault(); scrollToSection("benefits"); }} className="px-4 py-2 rounded-lg hover:bg-[#FABC05]/10 hover:text-[#FABC05] transition-all duration-300">
-                  الفوائد
-                </a>
-                <a href="#program" onClick={(e) => { e.preventDefault(); scrollToSection("program"); }} className="px-4 py-2 rounded-lg hover:bg-[#FABC05]/10 hover:text-[#FABC05] transition-all duration-300">
-                  البرنامج
-                </a>
-                <a href="#pricing" onClick={(e) => { e.preventDefault(); scrollToSection("pricing"); }} className="px-4 py-2 rounded-lg hover:bg-[#FABC05]/10 hover:text-[#FABC05] transition-all duration-300">
-                  الأسعار
-                </a>
-                <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection("faq"); }} className="px-4 py-2 rounded-lg hover:bg-[#FABC05]/10 hover:text-[#FABC05] transition-all duration-300">
-                  الأسئلة الشائعة
-                </a>
-                <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection("contact"); }} className="px-4 py-2 rounded-lg hover:bg-[#FABC05]/10 hover:text-[#FABC05] transition-all duration-300">
-                  تواصل معنا
-                </a>
+            <div className="lg:hidden border-t border-neutral-200/60 dark:border-neutral-700/60 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl">
+              <nav className="flex flex-col gap-1 py-3 animate-in slide-in-from-top duration-300">
+                {[
+                  { id: "home", label: "الرئيسية" },
+                  { id: "problem", label: "المشكلة" },
+                  { id: "consultant", label: "المستشار" },
+                  { id: "benefits", label: "الفوائد" },
+                  { id: "program", label: "البرنامج" },
+                  { id: "pricing", label: "الأسعار" },
+                  { id: "faq", label: "الأسئلة الشائعة" },
+                  { id: "contact", label: "تواصل معنا" },
+                ].map((item, index) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={(e) => { e.preventDefault(); scrollToSection(item.id); setMobileMenuOpen(false); }}
+                    className="px-4 py-3 rounded-lg hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 hover:text-[#FABC05] transition-all duration-300 font-medium text-neutral-700 dark:text-neutral-300 hover:translate-x-[-4px] hover:shadow-sm"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    {item.label}
+                  </a>
+                ))}
                 <button
                   onClick={() => {
                     setShowRegistrationModal(true);
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full px-6 py-2.5 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-lg hover:scale-105 transition-all duration-300 hover:shadow-lg mt-2"
+                  className="mx-4 mt-2 px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-[#FABC05]/40"
                 >
                   احجز مقعدك الآن
                 </button>
@@ -254,29 +262,45 @@ const FormationPage = () => {
       {/* Hero Section */}
       <section id="home" className="py-6 md:py-8 px-4">
         <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 leading-tight animate-in fade-in slide-in-from-bottom duration-700">
-              قلّل الأخطاء، نظم مؤسستك، واصنع انضباطًا حقيقيًا
-            </h1>
-            <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-100">
-              مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…
-            </p>
-            <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
-              تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.
-            </p>
-            <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 mb-4 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group">
-              <h2 className="text-2xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">لماذا هذا التكوين مختلف؟</h2>
-              <p className="text-lg text-neutral-700 dark:text-neutral-300">
-                لأنه مبني على تجربة مدير حقيقي أدار شركات جزائرية وعالمية، وعالج هذه المشاكل من الداخل— ليس من الكتب فقط.
-              </p>
+          <div className="max-w-4xl mx-auto">
+            <div className="flex flex-col md:flex-row items-center gap-8 mb-6">
+              <div className="flex-shrink-0">
+                <div className="relative group">
+                  <img
+                    src="/formation/2aa8566f-cd36-4ab2-8a88-817cc5683ee4.jpeg"
+                    alt="سليم بن عراب"
+                    className="w-full max-w-[250px] md:max-w-[300px] rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#FABC05]/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              </div>
+              <div className="flex-1 text-center md:text-right">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 leading-tight animate-in fade-in slide-in-from-bottom duration-700">
+                  قلّل الأخطاء، نظم مؤسستك، واصنع انضباطًا حقيقيًا
+                </h1>
+              </div>
             </div>
-            <button
-              onClick={() => setShowRegistrationModal(true)}
-              className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-            >
-              <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
+            <div className="text-center">
+              <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-100">
+                مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…
+              </p>
+              <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+                تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.
+              </p>
+              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 mb-4 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group">
+                <h2 className="text-2xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">لماذا هذا التكوين مختلف؟</h2>
+                <p className="text-lg text-neutral-700 dark:text-neutral-300">
+                  لأنه مبني على تجربة مدير حقيقي أدار شركات جزائرية وعالمية، وعالج هذه المشاكل من الداخل— ليس من الكتب فقط.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowRegistrationModal(true)}
+                className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
+              >
+                <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
