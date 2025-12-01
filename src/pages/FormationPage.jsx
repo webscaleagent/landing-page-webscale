@@ -1,7 +1,7 @@
+import { Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Moon, Sun, Menu, X } from "lucide-react";
 import logo from "../assets/logo.png";
 import FormationRegistrationForm from "../components/formation";
 
@@ -263,30 +263,68 @@ const FormationPage = () => {
       <section id="home" className="py-6 md:py-8 px-4">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center gap-8 mb-6">
+            {/* Desktop: Image next to title and paragraph */}
+            <div className="hidden md:flex md:flex-row md:items-start md:gap-8 mb-6">
+              {/* Image on desktop */}
               <div className="flex-shrink-0">
                 <div className="relative group">
                   <img
-                    src="/formation/2aa8566f-cd36-4ab2-8a88-817cc5683ee4.jpeg"
+                    src="/experts/benarab.png"
                     alt="سليم بن عراب"
-                    className="w-full max-w-[250px] md:max-w-[300px] rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
+                    className="w-full max-w-[250px] rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#FABC05]/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </div>
-              <div className="flex-1 text-center md:text-right">
+              
+              {/* Text content on desktop */}
+              <div className="flex-1 text-right">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 leading-tight animate-in fade-in slide-in-from-bottom duration-700">
+                  قلّل الأخطاء، نظم مؤسستك، واصنع انضباطًا حقيقيًا
+                </h1>
+                <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-100">
+                  مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…
+                </p>
+                <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+                  تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.
+                </p>
+              </div>
+            </div>
+            
+            {/* Mobile: Title, phrase, image, then paragraph */}
+            <div className="md:hidden mb-6">
+              {/* Title */}
+              <div className="text-center mb-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 leading-tight animate-in fade-in slide-in-from-bottom duration-700">
                   قلّل الأخطاء، نظم مؤسستك، واصنع انضباطًا حقيقيًا
                 </h1>
               </div>
+              
+              {/* Phrase */}
+              <div className="text-center mb-4">
+                <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-100">
+                  مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…
+                </p>
+                
+                {/* Image - appears under phrase ONLY on mobile */}
+                <div className="flex justify-center mb-4">
+                  <div className="relative group">
+                    <img
+                      src="/experts/benarab.png"
+                      alt="سليم بن عراب"
+                      className="w-full max-w-[200px] rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#FABC05]/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                </div>
+                
+                <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+                  تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.
+                </p>
+              </div>
             </div>
+            
             <div className="text-center">
-              <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-100">
-                مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…
-              </p>
-              <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
-                تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.
-              </p>
               <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 mb-4 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group">
                 <h2 className="text-2xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">لماذا هذا التكوين مختلف؟</h2>
                 <p className="text-lg text-neutral-700 dark:text-neutral-300">
@@ -846,4 +884,5 @@ const FormationPage = () => {
 };
 
 export default FormationPage;
+
 
