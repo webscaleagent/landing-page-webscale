@@ -269,7 +269,7 @@ const FormationPage = () => {
               <div className="flex-shrink-0">
                 <div className="relative group">
                   <img
-                    src="/experts/benarab.png"
+                    src="/experts/salim_ben_arab.jpeg"
                     alt="سليم بن عراب"
                     className="w-full max-w-[250px] rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
                   />
@@ -310,9 +310,9 @@ const FormationPage = () => {
                 <div className="flex justify-center mb-4">
                   <div className="relative group">
                     <img
-                      src="/experts/benarab.png"
+                      src="/experts/salim_ben_arab.jpeg"
                       alt="سليم بن عراب"
-                      className="w-full max-w-[200px] rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
+                      className="w-full max-w-[300px] rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#FABC05]/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
