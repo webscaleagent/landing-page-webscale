@@ -37,6 +37,7 @@ const initialForm = {
   email: "", // "الايميل" - required, unique, order 5
   cohort: "", // "اختر الفوج" - required, order 6
   state: "", // "الولاية" - optional, order 7
+  isWebscaleMember: "", // "هل أنت عضو في Webscale؟" - optional, order 8
   honey: "", // Honeypot for bot protection - DO NOT REMOVE
 };
 
@@ -55,6 +56,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
     email: useRef(null),
     cohort: useRef(null),
     state: useRef(null),
+    isWebscaleMember: useRef(null),
   };
 
   // Auto-close modal after 5 seconds
@@ -161,6 +163,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
           "الايميل": form.email,
           "اختر الفوج": form.cohort,
           "الولاية": form.state || "", // Optional field
+          "هل أنت عضو في Webscale؟": form.isWebscaleMember || "", // Optional field, order 8
         },
       };
 
@@ -415,6 +418,37 @@ export default function FormationRegistrationForm({ onSuccess }) {
             />
             {errors.state && <div className={errorText}>{errors.state}</div>}
           </div>
+        </div>
+
+        {/* Webscale Member Field - Order 8 (Optional) */}
+        <div>
+          <label className={labelBase}>هل أنت عضو في Webscale؟</label>
+          <div className="flex gap-4 mt-2">
+            <label className="flex items-center gap-2 cursor-pointer group">
+              <input
+                ref={fieldRefs.isWebscaleMember}
+                type="radio"
+                name="isWebscaleMember"
+                value="نعم"
+                checked={form.isWebscaleMember === "نعم"}
+                onChange={(e) => setForm({ ...form, isWebscaleMember: e.target.value })}
+                className="w-4 h-4 text-[#FABC05] border-gray-300 focus:ring-[#FABC05] focus:ring-2 cursor-pointer"
+              />
+              <span className="text-gray-700 dark:text-gray-300 group-hover:text-[#FABC05] transition-colors duration-300">نعم</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer group">
+              <input
+                type="radio"
+                name="isWebscaleMember"
+                value="لا"
+                checked={form.isWebscaleMember === "لا"}
+                onChange={(e) => setForm({ ...form, isWebscaleMember: e.target.value })}
+                className="w-4 h-4 text-[#FABC05] border-gray-300 focus:ring-[#FABC05] focus:ring-2 cursor-pointer"
+              />
+              <span className="text-gray-700 dark:text-gray-300 group-hover:text-[#FABC05] transition-colors duration-300">لا</span>
+            </label>
+          </div>
+          {errors.isWebscaleMember && <div className={errorText}>{errors.isWebscaleMember}</div>}
         </div>
 
         {/* Honeypot Field - DO NOT REMOVE */}

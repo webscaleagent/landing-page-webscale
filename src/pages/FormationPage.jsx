@@ -818,7 +818,7 @@ const FormationPage = () => {
             <img src={logo} alt="Webscale Logo" className="h-10 w-auto transition-transform duration-300 group-hover:scale-110" />
             <span className="text-xl font-bold group-hover:text-[#FABC05] transition-colors duration-300">Webscale</span>
           </div>
-          <p className="text-neutral-400 hover:text-neutral-300 transition-colors duration-300">&copy; 2024 Webscale. جميع الحقوق محفوظة. | دورة النظام الحقيقي لتسيير الجودة SMQ</p>
+          <p className="text-neutral-400 hover:text-neutral-300 transition-colors duration-300">&copy; 2025 Webscale. جميع الحقوق محفوظة. | دورة النظام الحقيقي لتسيير الجودة SMQ</p>
         </div>
       </footer>
 
