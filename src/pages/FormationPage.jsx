@@ -678,14 +678,47 @@ const FormationPage = () => {
                 </div>
               </div>
               <div className="mb-6">
-                <label className="flex items-center gap-3 cursor-pointer group/checkbox p-3 rounded-lg hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 transition-colors duration-300">
-                  <input
-                    type="checkbox"
-                    checked={isWebscaleMember}
-                    onChange={(e) => setIsWebscaleMember(e.target.checked)}
-                    className="w-5 h-5 rounded border-neutral-300 text-[#FABC05] focus:ring-[#FABC05] cursor-pointer transition-all duration-300 group-hover/checkbox:scale-110"
-                  />
-                  <span className="text-neutral-700 dark:text-neutral-300 group-hover/checkbox:text-[#FABC05] transition-colors duration-300">أنا عضو في Webscale</span>
+                <label className={`relative flex items-center gap-4 cursor-pointer group/checkbox p-4 rounded-xl bg-gradient-to-r transition-all duration-300 ${
+                  isWebscaleMember 
+                    ? "from-[#FABC05]/10 via-[#FFD700]/10 to-[#FABC05]/10 border-2 border-[#FABC05]/50 shadow-lg shadow-[#FABC05]/20 scale-[1.02]" 
+                    : "from-neutral-50 to-neutral-100/50 dark:from-neutral-700/30 dark:to-neutral-800/30 border-2 border-neutral-200 dark:border-neutral-600 hover:border-[#FABC05]/50 dark:hover:border-[#FABC05]/50 hover:shadow-lg hover:shadow-[#FABC05]/10 hover:scale-[1.02]"
+                }`}>
+                  <div className="relative flex-shrink-0">
+                    <input
+                      type="checkbox"
+                      checked={isWebscaleMember}
+                      onChange={(e) => setIsWebscaleMember(e.target.checked)}
+                      className="sr-only"
+                    />
+                    <div className={`w-7 h-7 rounded-lg border-2 transition-all duration-300 flex items-center justify-center group-hover/checkbox:scale-110 ${
+                      isWebscaleMember
+                        ? "bg-gradient-to-br from-[#FABC05] to-[#FFD700] border-[#FABC05] shadow-lg shadow-[#FABC05]/40"
+                        : "border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 group-hover/checkbox:border-[#FABC05]/70"
+                    }`}>
+                      {isWebscaleMember && (
+                        <svg 
+                          className="w-4 h-4 text-black font-bold animate-in zoom-in-95 duration-200" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          strokeWidth="3.5" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </div>
+                    {/* Animated pulse effect when checked */}
+                    {isWebscaleMember && (
+                      <div className="absolute inset-0 rounded-lg bg-[#FABC05]/20 animate-ping"></div>
+                    )}
+                  </div>
+                  <span className={`text-base font-medium transition-colors duration-300 select-none flex-1 ${
+                    isWebscaleMember
+                      ? "text-[#FABC05] dark:text-[#FFD700] font-semibold"
+                      : "text-neutral-700 dark:text-neutral-300 group-hover/checkbox:text-[#FABC05]"
+                  }`}>
+                    أنا عضو في Webscale
+                  </span>
                 </label>
               </div>
               <ul className="space-y-3 mb-6 text-neutral-700 dark:text-neutral-300">
