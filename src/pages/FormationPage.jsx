@@ -690,14 +690,26 @@ const FormationPage = () => {
                       onChange={(e) => setIsWebscaleMember(e.target.checked)}
                       className="sr-only"
                     />
-                    <div className={`w-7 h-7 rounded-lg border-2 transition-all duration-300 flex items-center justify-center group-hover/checkbox:scale-110 ${
+                    <div className={`w-7 h-7 rounded-lg border-2 transition-all duration-300 flex items-center justify-center group-hover/checkbox:scale-110 relative overflow-hidden ${
                       isWebscaleMember
                         ? "bg-gradient-to-br from-[#FABC05] to-[#FFD700] border-[#FABC05] shadow-lg shadow-[#FABC05]/40"
-                        : "border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 group-hover/checkbox:border-[#FABC05]/70"
+                        : "border-[#FABC05]/50 dark:border-[#FABC05]/50 bg-white dark:bg-neutral-800 group-hover/checkbox:border-[#FABC05]"
                     }`}>
+                      {/* Watermark inside checkbox when unchecked */}
+                      {!isWebscaleMember && (
+                        <svg 
+                          className="w-5 h-5 text-[#FABC05] dark:text-[#FFD700] absolute opacity-80" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          strokeWidth="3" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      )}
                       {isWebscaleMember && (
                         <svg 
-                          className="w-4 h-4 text-black font-bold animate-in zoom-in-95 duration-200" 
+                          className="w-4 h-4 text-black font-bold animate-in zoom-in-95 duration-200 relative z-10" 
                           fill="none" 
                           stroke="currentColor" 
                           strokeWidth="3.5" 
