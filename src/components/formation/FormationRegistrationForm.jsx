@@ -403,7 +403,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="فوج 13, 14, 15 ديسمبر">فوج 13, 14, 15 ديسمبر</SelectItem>
-                <SelectItem value="فوج 20, 21, 22 ديسمبر">فوج 20, 21, 22 ديسمبر</SelectItem>
+                <SelectItem value="فوج 27, 28, 29 ديسمبر">فوج 27, 28, 29 ديسمبر</SelectItem>
               </SelectContent>
             </Select>
             {errors.cohort && <div className={errorText}>{errors.cohort}</div>}
