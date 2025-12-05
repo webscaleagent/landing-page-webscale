@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import AlgeriaWilayas from "../shared/AlgeriaWilayas";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +9,6 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import AlgeriaWilayas from "../shared/AlgeriaWilayas";
 
 // ============================================
 // CONFIGURATION
@@ -402,8 +402,8 @@ export default function FormationRegistrationForm({ onSuccess }) {
                 <SelectValue placeholder="اختر الفوج" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="فوج 13, 14, 15 ديسمبر">فوج 13, 14, 15 ديسمبر</SelectItem>
-                <SelectItem value="فوج 27, 28, 29 ديسمبر">فوج 27, 28, 29 ديسمبر</SelectItem>
+                <SelectItem value="فوج 13, 14, 15 ديسمبر" disabled>فوج 13, 14, 15 ديسمبر (ممتلئ)</SelectItem>
+                <SelectItem value="فوج 27, 28, 29 ديسمبر">فوج 27, 28, 29 ديسمبر (متاح)</SelectItem>
               </SelectContent>
             </Select>
             {errors.cohort && <div className={errorText}>{errors.cohort}</div>}
