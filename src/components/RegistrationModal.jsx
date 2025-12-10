@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL;
+const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL || "https://crmgo.webscale.dz/api/v1/public/forms/47401ef7-042c-4994-8645-569b14749758/submit";
 
 const RegistrationModal = ({ isOpen, onClose }) => {
   const [status, setStatus] = useState("idle");
