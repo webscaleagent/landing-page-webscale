@@ -157,7 +157,7 @@ const FormationPage = () => {
             {/* Center: Navigation */}
             <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
               {[
-                { id: "home", label: "الرئيسية" },
+                { id: "home", label: "الرئيسية", isExternal: true },
                 { id: "problem", label: "المشكلة" },
                 { id: "consultant", label: "المستشار" },
                 { id: "benefits", label: "الفوائد" },
@@ -165,18 +165,30 @@ const FormationPage = () => {
                 { id: "pricing", label: "الأسعار" },
                 { id: "faq", label: "الأسئلة الشائعة" },
                 { id: "contact", label: "تواصل معنا" },
-              ].map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  onClick={(e) => { e.preventDefault(); scrollToSection(item.id); }}
-                  className="relative px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 transition-all duration-300 hover:text-[#FABC05] group"
-                >
-                  <span className="relative z-10">{item.label}</span>
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#FABC05] to-[#FFD700] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full"></span>
-                  <span className="absolute inset-0 bg-[#FABC05]/5 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-0"></span>
-                </a>
-              ))}
+              ].map((item) => 
+                item.isExternal ? (
+                  <Link
+                    key={item.id}
+                    to="/"
+                    className="relative px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 transition-all duration-300 hover:text-[#FABC05] group"
+                  >
+                    <span className="relative z-10">{item.label}</span>
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#FABC05] to-[#FFD700] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full"></span>
+                    <span className="absolute inset-0 bg-[#FABC05]/5 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-0"></span>
+                  </Link>
+                ) : (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={(e) => { e.preventDefault(); scrollToSection(item.id); }}
+                    className="relative px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 transition-all duration-300 hover:text-[#FABC05] group"
+                  >
+                    <span className="relative z-10">{item.label}</span>
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#FABC05] to-[#FFD700] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full"></span>
+                    <span className="absolute inset-0 bg-[#FABC05]/5 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-0"></span>
+                  </a>
+                )
+              )}
             </nav>
 
             {/* Right: All Action Buttons */}
@@ -225,7 +237,7 @@ const FormationPage = () => {
             <div className="lg:hidden border-t border-neutral-200/60 dark:border-neutral-700/60 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl">
               <nav className="flex flex-col gap-1 py-3 animate-in slide-in-from-top duration-300">
                 {[
-                  { id: "home", label: "الرئيسية" },
+                  { id: "home", label: "الرئيسية", isExternal: true },
                   { id: "problem", label: "المشكلة" },
                   { id: "consultant", label: "المستشار" },
                   { id: "benefits", label: "الفوائد" },
@@ -233,11 +245,21 @@ const FormationPage = () => {
                   { id: "pricing", label: "الأسعار" },
                   { id: "faq", label: "الأسئلة الشائعة" },
                   { id: "contact", label: "تواصل معنا" },
-                ].map((item, index) => (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    onClick={(e) => { e.preventDefault(); scrollToSection(item.id); setMobileMenuOpen(false); }}
+                ].map((item, index) => 
+                  item.isExternal ? (
+                    <Link
+                      key={item.id}
+                      to="/"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="px-4 py-3 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 hover:text-[#FABC05] transition-all duration-300 rounded-lg"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      onClick={(e) => { e.preventDefault(); scrollToSection(item.id); setMobileMenuOpen(false); }}
                     className="px-4 py-3 rounded-lg hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 hover:text-[#FABC05] transition-all duration-300 font-medium text-neutral-700 dark:text-neutral-300 hover:translate-x-[-4px] hover:shadow-sm"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
