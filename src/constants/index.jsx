@@ -30,10 +30,12 @@ export const registrationNav = {
     { label: "الأسعار", href: "#pricing" },
     { label: "الأسئلة الشائعة", href: "#faq" },
     { label: "من نحن", href: "/about" },
+    { label: "الدورات", href: "/formation" },
     { label: "تواصل معنا", href: "#contact" },
   ],
   actions: [
     { label: "إشترك الان", href: "#register", type: "primary" },
+    { label: "الدورات", href: "/formation", type: "secondary" },
     // { label: "فرص الاستثمار", href: "/investor", type: "secondary" },
     // { label: "تفاصيل الملتقى", href: "#about", type: "secondary" },
   ],
