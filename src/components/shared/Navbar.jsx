@@ -101,8 +101,38 @@ const Navbar = ({ navConfig }) => {
           </button>
         </div>
 
-        {/* 🔹 Mobile Menu Button */}
-        <div className="lg:hidden">
+        {/* 🔹 Mobile Actions & Menu Button */}
+        <div className="lg:hidden flex items-center gap-1.5">
+          {/* Mobile Action Buttons */}
+          <div className="flex items-center gap-1.5">
+            {actions.map((action, index) => (
+              action.href.startsWith('/') ? (
+                <Link
+                  key={index}
+                  to={action.href}
+                  className={
+                    action.type === "primary"
+                      ? "py-2 px-2.5 text-xs sm:text-sm rounded-md bg-gradient-to-r from-[#FABC05]/90 to-[#c89d1b]/90 text-neutral-100 font-semibold shadow-sm hover:scale-105 transition-all whitespace-nowrap"
+                      : "py-2 px-2.5 text-xs sm:text-sm rounded-md bg-neutral-200 text-neutral-700 dark:text-[#FABC05] dark:bg-neutral-600 font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
+                  }
+                >
+                  {action.label}
+                </Link>
+              ) : (
+                <a
+                  key={index}
+                  href={action.href}
+                  className={
+                    action.type === "primary"
+                      ? "py-2 px-2.5 text-xs sm:text-sm rounded-md bg-gradient-to-r from-[#FABC05]/90 to-[#c89d1b]/90 text-neutral-100 font-semibold shadow-sm hover:scale-105 transition-all whitespace-nowrap"
+                      : "py-2 px-2.5 text-xs sm:text-sm rounded-md bg-neutral-200 text-neutral-700 dark:text-[#FABC05] dark:bg-neutral-600 font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
+                  }
+                >
+                  {action.label}
+                </a>
+              )
+            ))}
+          </div>
           <button onClick={toggleNavbar} className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-md transition">
             {mobileDrawerOpen ? <X /> : <Menu />}
           </button>

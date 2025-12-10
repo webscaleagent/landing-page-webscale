@@ -30,7 +30,6 @@ export const registrationNav = {
     { label: "الأسعار", href: "#pricing" },
     { label: "الأسئلة الشائعة", href: "#faq" },
     { label: "من نحن", href: "/about" },
-    { label: "الدورات", href: "/formation" },
     { label: "تواصل معنا", href: "#contact" },
   ],
   actions: [
