@@ -166,7 +166,6 @@ const validateForm = (formData) => {
     if (!formData.get('jobTitle')) errors.jobTitle = 'اختر المسمى الوظيفي';
     if (!formData.get('organization')?.trim()) errors.organization = 'هذا الحقل مطلوب';
     if (!formData.get('sector')?.trim()) errors.sector = 'هذا الحقل مطلوب';
-    if (!formData.get('cohort')) errors.cohort = 'اختر الفوج';
     if (!formData.get('employeeCount')) errors.employeeCount = 'اختر عدد الموظفين';
     
     // Email format validation
@@ -343,7 +342,6 @@ const handleFormSubmit = async (form, formId) => {
                 'الولاية': formData.get('state'),
                 'اسم المؤسسة': formData.get('organization'),
                 'القطاع الذي تعمل فيه': formData.get('sector'),
-                'الفوج': formData.get('cohort'),
                 'عدد الموظفين في الشركة': formData.get('employeeCount')
             }
         };

@@ -35,7 +35,6 @@ const initialForm = {
   fullName: "", // "الاسم واللقب" - required, order 3
   phone: "", // "رقم الواتس آب" - required, unique, order 4
   email: "", // "الايميل" - required, unique, order 5
-  cohort: "", // "اختر الفوج" - required, order 6
   state: "", // "الولاية" - optional, order 7
   isWebscaleMember: "", // "هل أنت عضو في Webscale؟" - optional, order 8
   honey: "", // Honeypot for bot protection - DO NOT REMOVE
@@ -54,7 +53,6 @@ export default function FormationRegistrationForm({ onSuccess }) {
     fullName: useRef(null),
     phone: useRef(null),
     email: useRef(null),
-    cohort: useRef(null),
     state: useRef(null),
     isWebscaleMember: useRef(null),
   };
@@ -76,8 +74,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
         form.employeeCount &&
         form.fullName &&
         form.phone &&
-        form.email &&
-        form.cohort
+        form.email
       )
     );
   }, [form, isSubmitting]);
@@ -92,7 +89,6 @@ export default function FormationRegistrationForm({ onSuccess }) {
     if (!form.fullName.trim()) e.fullName = "هذا الحقل مطلوب";
     if (!form.phone.trim()) e.phone = "هذا الحقل مطلوب";
     if (!form.email.trim()) e.email = "هذا الحقل مطلوب";
-    if (!form.cohort) e.cohort = "اختر الفوج";
 
     // Email format validation
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
@@ -161,7 +157,6 @@ export default function FormationRegistrationForm({ onSuccess }) {
           "الاسم واللقب": form.fullName,
           "رقم الواتس آب": form.phone,
           "الايميل": form.email,
-          "اختر الفوج": form.cohort,
           "الولاية": form.state || "", // Optional field
           "هل أنت عضو في Webscale؟": form.isWebscaleMember || "", // Optional field, order 8
         },
@@ -388,36 +383,14 @@ export default function FormationRegistrationForm({ onSuccess }) {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
-          {/* Cohort Field - Order 6 */}
-          <div>
-            <label className={labelBase}>
-              اختر الفوج <span className="text-red-500">*</span>
-            </label>
-            <Select
-              value={form.cohort}
-              onValueChange={(value) => setForm({ ...form, cohort: value })}
-            >
-              <SelectTrigger className={fieldBase}>
-                <SelectValue placeholder="اختر الفوج" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="فوج 13, 14, 15 ديسمبر" disabled>فوج 13, 14, 15 ديسمبر (ممتلئ)</SelectItem>
-                <SelectItem value="فوج 27, 28, 29 ديسمبر">فوج 27, 28, 29 ديسمبر (متاح)</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.cohort && <div className={errorText}>{errors.cohort}</div>}
-          </div>
-
-          {/* State Field - Order 7 (Optional) */}
-          <div>
-            <label className={labelBase}>الولاية</label>
-            <AlgeriaWilayas
-              value={form.state}
-              onChange={(value) => setForm({ ...form, state: value })}
-            />
-            {errors.state && <div className={errorText}>{errors.state}</div>}
-          </div>
+        {/* State Field - Order 7 (Optional) */}
+        <div>
+          <label className={labelBase}>الولاية</label>
+          <AlgeriaWilayas
+            value={form.state}
+            onChange={(value) => setForm({ ...form, state: value })}
+          />
+          {errors.state && <div className={errorText}>{errors.state}</div>}
         </div>
 
         {/* Webscale Member Field - Order 8 (Optional) */}
