@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import AlgeriaWilayas from "./shared/AlgeriaWilayas";
 
-const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL;
+const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL || "https://crmgo.webscale.dz/api/v1/public/forms/47401ef7-042c-4994-8645-569b14749758/submit";
 
 // زر اختيار
 const ChoiceButton = ({ value, selected, onClick }) => (

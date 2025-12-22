@@ -34,6 +34,7 @@ export const registrationNav = {
   ],
   actions: [
     { label: "إشترك الان", href: "#register", type: "primary" },
+    { label: "الدورات", href: "/formation", type: "secondary" },
     // { label: "فرص الاستثمار", href: "/investor", type: "secondary" },
     // { label: "تفاصيل الملتقى", href: "#about", type: "secondary" },
   ],

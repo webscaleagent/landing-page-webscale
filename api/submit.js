@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const PUBLIC_FORM_ID = "47401ef7-042c-4994-8645-569b14749758";
-const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.com/api/v1/public/forms/${PUBLIC_FORM_ID}/submit`;
+const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/${PUBLIC_FORM_ID}/submit`;
 
 export default async function handler(req, res) {
   // Enable CORS

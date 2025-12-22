@@ -203,6 +203,15 @@ const FormationPage = () => {
                   <Moon className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
                 )}
               </button>
+              <Link
+                to="/"
+                className="hidden md:flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 font-semibold text-sm md:text-base rounded-xl hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all duration-300 hover:scale-105 hover:shadow-md"
+              >
+                <span>المجتمع</span>
+                <svg className="w-4 h-4 transition-transform duration-300 hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+              </Link>
               <button
                 onClick={() => setShowRegistrationModal(true)}
                 className="flex items-center gap-2 relative px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-[#FABC05] via-[#FFD700] to-[#FABC05] bg-size-200 bg-pos-0 hover:bg-pos-100 text-black font-semibold text-sm md:text-base rounded-xl overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#FABC05]/40"
@@ -244,6 +253,16 @@ const FormationPage = () => {
                     {item.label}
                   </a>
                 ))}
+                <Link
+                  to="/"
+                  className="mx-4 mt-2 px-6 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 font-semibold rounded-xl hover:bg-neutral-300 dark:hover:bg-neutral-600 hover:scale-105 transition-all duration-300 hover:shadow-md flex items-center justify-center gap-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span>المجتمع</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                </Link>
                 <button
                   onClick={() => {
                     setShowRegistrationModal(true);
