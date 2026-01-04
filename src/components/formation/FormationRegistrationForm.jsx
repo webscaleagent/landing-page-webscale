@@ -76,6 +76,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
       !(
         form.companyName &&
         form.employeeCount &&
+        form.jobTitle &&
         form.fullName &&
         form.phone &&
         form.email &&
@@ -91,6 +92,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
     // Required fields (matching CRM requirements)
     if (!form.companyName.trim()) e.companyName = "هذا الحقل مطلوب";
     if (!form.employeeCount) e.employeeCount = "اختر عدد الموظفين";
+    if (!form.jobTitle) e.jobTitle = "اختر المنصب الوظيفي";
     if (!form.fullName.trim()) e.fullName = "هذا الحقل مطلوب";
     if (!form.phone.trim()) e.phone = "هذا الحقل مطلوب";
     if (!form.email.trim()) e.email = "هذا الحقل مطلوب";
@@ -160,7 +162,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
         data: {
           "اسم الشركة": form.companyName,
           "عدد الموظفين": form.employeeCount,
-          "المنصب الوظيفي": form.jobTitle || "", // Optional field
+          "المنصب الوظيفي": form.jobTitle,
           "الاسم واللقب": form.fullName,
           "رقم الواتس آب": form.phone,
           "الايميل": form.email,
@@ -328,6 +330,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
           <Select
             value={form.employeeCount}
             onValueChange={(value) => setForm({ ...form, employeeCount: value })}
+            
           >
             <SelectTrigger className={fieldBase}>
               <SelectValue placeholder="اختر عدد الموظفين" />
@@ -344,7 +347,9 @@ export default function FormationRegistrationForm({ onSuccess }) {
 
         {/* Job Title Field */}
         <div>
-          <label className={labelBase}>المنصب الوظيفي</label>
+          <label className={labelBase}>
+            المنصب الوظيفي <span className="text-red-500">*</span>
+          </label>
           <Select
             value={form.jobTitle}
             onValueChange={(value) => setForm({ ...form, jobTitle: value })}
