@@ -32,6 +32,7 @@ const errorText = "mt-1 text-xs text-red-600 dark:text-red-400";
 const initialForm = {
   companyName: "", // "اسم الشركة" - required, order 1
   employeeCount: "", // "عدد الموظفين" - required, order 2
+  jobTitle: "", // "Job Title" - optional
   fullName: "", // "الاسم واللقب" - required, order 3
   phone: "", // "رقم الواتس آب" - required, unique, order 4
   email: "", // "الايميل" - required, unique, order 5
@@ -51,6 +52,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
   const fieldRefs = {
     companyName: useRef(null),
     employeeCount: useRef(null),
+    jobTitle: useRef(null),
     fullName: useRef(null),
     phone: useRef(null),
     email: useRef(null),
@@ -158,6 +160,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
         data: {
           "اسم الشركة": form.companyName,
           "عدد الموظفين": form.employeeCount,
+          "المنصب الوظيفي": form.jobTitle || "", // Optional field
           "الاسم واللقب": form.fullName,
           "رقم الواتس آب": form.phone,
           "الايميل": form.email,
@@ -330,12 +333,32 @@ export default function FormationRegistrationForm({ onSuccess }) {
               <SelectValue placeholder="اختر عدد الموظفين" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="من 01 إلى 10 موظفين">من 01 إلى 10 موظفين</SelectItem>
+              <SelectItem value="أقل من 5">أقل من 5</SelectItem>
+              <SelectItem value="من 05 إلى 10 موظفين">من 05 إلى 10 موظفين</SelectItem>
               <SelectItem value="من 10 إلى 50 موظف">من 10 إلى 50 موظف</SelectItem>
               <SelectItem value="من 50 موظف فما فوق">من 50 موظف فما فوق</SelectItem>
             </SelectContent>
           </Select>
           {errors.employeeCount && <div className={errorText}>{errors.employeeCount}</div>}
+        </div>
+
+        {/* Job Title Field */}
+        <div>
+          <label className={labelBase}>المنصب الوظيفي</label>
+          <Select
+            value={form.jobTitle}
+            onValueChange={(value) => setForm({ ...form, jobTitle: value })}
+          >
+            <SelectTrigger className={fieldBase} ref={fieldRefs.jobTitle}>
+              <SelectValue placeholder="اختر المنصب الوظيفي" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="رئيس الشركة">رئيس الشركة</SelectItem>
+              <SelectItem value="مدير">مسير</SelectItem>
+              <SelectItem value="موظف">موظف</SelectItem>
+            </SelectContent>
+          </Select>
+          {errors.jobTitle && <div className={errorText}>{errors.jobTitle}</div>}
         </div>
 
         {/* Full Name Field - Order 3 */}
