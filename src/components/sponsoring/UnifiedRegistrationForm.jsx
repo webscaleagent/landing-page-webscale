@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { getUTMParams } from "../../utils/utm";
 import AlgeriaWilayas from "../shared/AlgeriaWilayas";
 
 const SCRIPT_URL = "https://crmgo.webscale.dz/api/v1/public/forms/e8558b7d-60ae-4d89-9be3-1a4ebe4175b2/submit";
@@ -68,8 +69,10 @@ export default function UnifiedRegistrationForm({ mode = "inline", isOpen = fals
     setErrorMessage(""); // Clear any previous error messages
     try {
       // Map form data to the required Arabic field names
+      const utmParams = getUTMParams();
       const payload = {
         user_id: "public-user",
+        ...utmParams,
         data: {
           "اسم الشركة / المؤسسة": formData.companyName,
           "المجال أو القطاع": formData.sector === "أخرى" ? formData.otherSector : formData.sector,

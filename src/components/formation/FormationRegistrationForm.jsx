@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { getUTMParams } from "../../utils/utm";
 import AlgeriaWilayas from "../shared/AlgeriaWilayas";
 import {
   Dialog,
@@ -156,9 +157,11 @@ export default function FormationRegistrationForm({ onSuccess }) {
     setIsSubmitting(true);
 
     try {
+      const utmParams = getUTMParams();
       // Map form data to CRM fields (using exact Arabic labels from CRM)
       const payload = {
         user_id: "public-user",
+        ...utmParams,
         data: {
           "اسم الشركة": form.companyName,
           "عدد الموظفين": form.employeeCount,
@@ -359,7 +362,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="رئيس الشركة">رئيس الشركة</SelectItem>
-              <SelectItem value="مدير">مسير</SelectItem>
+              <SelectItem value="مسير">مسير</SelectItem>
               <SelectItem value="موظف">موظف</SelectItem>
             </SelectContent>
           </Select>

@@ -1,5 +1,6 @@
 // src/components/workshop/WorkshopRegistrationForm.jsx
 import { useState } from "react";
+import { getUTMParams } from "../../utils/utm";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
@@ -49,8 +50,10 @@ const WorkshopRegistrationForm = ({ workshops }) => {
 
     try {
       // Map form data to the required field structure
+      const utmParams = getUTMParams();
       const payload = {
         user_id: "public-user",
+        ...utmParams,
         data: {
           "الاسم الكامل": formData.fullName,
           "البريد الإلكتروني": formData.email,

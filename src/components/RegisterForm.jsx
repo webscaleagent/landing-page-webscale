@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { getUTMParams } from "../utils/utm";
 import AlgeriaWilayas from "./shared/AlgeriaWilayas";
 
 const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL || "https://crmgo.webscale.dz/api/v1/public/forms/47401ef7-042c-4994-8645-569b14749758/submit";
@@ -94,6 +95,15 @@ export default function RegistrationForm() {
     setStatus("loading");
     try {
       const formData = new FormData(e.target);
+      
+      // Capture UTM parameters
+      const utms = getUTMParams();
+
+      // Set UTM fields in FormData
+      Object.entries(utms).forEach(([k, v]) => {
+        if (v) formData.set(k, v);
+      });
+
       Object.entries(finalState).forEach(([k, v]) =>
         formData.set(k, Array.isArray(v) ? v.join(", ") : v)
       );
