@@ -437,7 +437,7 @@ export default function FormationRegistrationForm({ onSuccess }) {
                 <SelectItem value="فوج 27, 28, 29 ديسمبر" disabled>فوج 27, 28, 29 ديسمبر (ممتلئ)</SelectItem>
                 <SelectItem value="الفوج الثالث - 10, 11, 12 جانفي" disabled>الفوج الثالث - 10, 11, 12 جانفي (ممتلئ)</SelectItem>
                 <SelectItem value="الفوج الرابع - 13, 14, 15 جانفي">الفوج الرابع - 13, 14, 15 جانفي</SelectItem>
-                <SelectItem value="الفوج الخامس - 17, 18, 19 جانفي">الفوج الخامس - 17, 18, 19 جانفي</SelectItem>
+                <SelectItem value="الفوج الخامس - 17, 18, 19 جانفي" disabled>الفوج الخامس - 17, 18, 19 جانفي (ممتلئ)</SelectItem>
                 <SelectItem value="الفوج السادس - 20, 21, 22 جانفي" disabled>الفوج السادس - 20, 21, 22 جانفي (ممتلئ)</SelectItem>
               </SelectContent>
             </Select>
