@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getUTMParams } from "../../utils/utm";
+import OptionPills from "../registration/OptionPills";
 import AlgeriaWilayas from "../shared/AlgeriaWilayas";
 import {
   Dialog,
@@ -10,7 +11,6 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import OptionPills from "../registration/OptionPills";
 
 // ============================================
 // CONFIGURATION
@@ -64,7 +64,8 @@ const initialForm = {
 export default function FormationRegistrationForm({ 
   onSuccess, 
   formId = DEFAULT_FORM_ID,
-  cohorts = DEFAULT_COHORTS 
+  cohorts = DEFAULT_COHORTS,
+  fieldsConfig = {}
 }) {
   const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/${formId}/submit`;
   
@@ -96,6 +97,18 @@ export default function FormationRegistrationForm({
   const [showOtherBusinessSector, setShowOtherBusinessSector] = useState(false);
   const [showOtherLegalForm, setShowOtherLegalForm] = useState(false);
 
+  // Helper functions for field configuration
+  const isRequired = (field) => {
+    if (fieldsConfig?.[field]?.required !== undefined) return fieldsConfig[field].required;
+    const defaultRequired = [
+      "companyName", "employeeCount", "legalForm", "companyEstablished", 
+      "jobTitle", "fullName", "phone", "email", "cohort"
+    ];
+    return defaultRequired.includes(field);
+  };
+
+  const isHidden = (field) => fieldsConfig?.[field]?.hidden === true;
+
   // Auto-close modal after 5 seconds
   useEffect(() => {
     if (modal) {
@@ -106,42 +119,40 @@ export default function FormationRegistrationForm({
 
   // Form disabled state
   const disabled = useMemo(() => {
-    return (
-      isSubmitting ||
-      !(
-        form.companyName &&
-        form.employeeCount &&
-        form.legalForm &&
-        form.companyEstablished &&
-        form.jobTitle &&
-        form.fullName &&
-        form.phone &&
-        form.email &&
-        form.cohort
-      )
-    );
-  }, [form, isSubmitting]);
+    if (isSubmitting) return true;
+
+    const fieldsToCheck = [
+      "companyName", "employeeCount", "legalForm", "companyEstablished", 
+      "jobTitle", "fullName", "phone", "email", "cohort"
+    ];
+
+    for (const field of fieldsToCheck) {
+      if (!isHidden(field) && isRequired(field) && !form[field]) return true;
+    }
+
+    return false;
+  }, [form, isSubmitting, fieldsConfig]);
 
   // Validation logic
   const validate = () => {
     const e = {};
 
     // Required fields (matching CRM requirements)
-    if (!form.companyName.trim()) e.companyName = "هذا الحقل مطلوب";
-    if (!form.employeeCount) e.employeeCount = "اختر عدد الموظفين";
-    if (!form.legalForm) e.legalForm = "اختر الشكل القانوني للشركة";
-    if (!form.companyEstablished) e.companyEstablished = "اختر تاريخ تأسيس الشركة";
-    if (!form.jobTitle) e.jobTitle = "اختر المنصب الوظيفي";
+    if (!isHidden("companyName") && isRequired("companyName") && !form.companyName.trim()) e.companyName = "هذا الحقل مطلوب";
+    if (!isHidden("employeeCount") && isRequired("employeeCount") && !form.employeeCount) e.employeeCount = "اختر عدد الموظفين";
+    if (!isHidden("legalForm") && isRequired("legalForm") && !form.legalForm) e.legalForm = "اختر الشكل القانوني للشركة";
+    if (!isHidden("companyEstablished") && isRequired("companyEstablished") && !form.companyEstablished) e.companyEstablished = "اختر تاريخ تأسيس الشركة";
+    if (!isHidden("jobTitle") && isRequired("jobTitle") && !form.jobTitle) e.jobTitle = "اختر المنصب الوظيفي";
     
     // If job title is "مسير", manager experience duration is required
-    if (form.jobTitle === "مسير" && !form.managerExperienceDuration) {
+    if (!isHidden("managerExperienceDuration") && form.jobTitle === "مسير" && !form.managerExperienceDuration) {
       e.managerExperienceDuration = "هذا الحقل مطلوب";
     }
     
-    if (!form.fullName.trim()) e.fullName = "هذا الحقل مطلوب";
-    if (!form.phone.trim()) e.phone = "هذا الحقل مطلوب";
-    if (!form.email.trim()) e.email = "هذا الحقل مطلوب";
-    if (!form.cohort) e.cohort = "اختر الفوج";
+    if (!isHidden("fullName") && isRequired("fullName") && !form.fullName.trim()) e.fullName = "هذا الحقل مطلوب";
+    if (!isHidden("phone") && isRequired("phone") && !form.phone.trim()) e.phone = "هذا الحقل مطلوب";
+    if (!isHidden("email") && isRequired("email") && !form.email.trim()) e.email = "هذا الحقل مطلوب";
+    if (!isHidden("cohort") && isRequired("cohort") && !form.cohort) e.cohort = "اختر الفوج";
 
     // Email format validation
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
@@ -149,12 +160,12 @@ export default function FormationRegistrationForm({
     }
 
     // If "أخرى" is selected for legal form, otherLegalForm is required
-    if (form.legalForm === "أخرى" && !form.otherLegalForm.trim()) {
+    if (!isHidden("legalForm") && form.legalForm === "أخرى" && !form.otherLegalForm.trim()) {
       e.otherLegalForm = "يرجى تحديد الشكل القانوني";
     }
 
     // If "أخرى" is selected for business sector, otherBusinessSector is required
-    if (form.businessSector === "أخرى" && !form.otherBusinessSector.trim()) {
+    if (!isHidden("businessSector") && form.businessSector === "أخرى" && !form.otherBusinessSector.trim()) {
       e.otherBusinessSector = "يرجى تحديد القطاع";
     }
 
@@ -221,7 +232,7 @@ export default function FormationRegistrationForm({
           "عدد الموظفين": form.employeeCount,
           "ما هو الشكل القانوني لشركتك؟": form.legalForm === "أخرى" ? form.otherLegalForm : form.legalForm || "",
           "منذ متى تأسست شركتك؟": form.companyEstablished || "",
-          "القطاع": form.businessSector === "أخرى" ? form.otherBusinessSector : form.businessSector || "",
+          [fieldsConfig?.businessSector?.label || "القطاع"]: form.businessSector === "أخرى" ? form.otherBusinessSector : form.businessSector || "",
           "المنصب الوظيفي": form.jobTitle,
           "مدة الخبرة في منصب المسير": form.managerExperienceDuration || "",
           "الاسم واللقب": form.fullName,
@@ -373,9 +384,10 @@ export default function FormationRegistrationForm({
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Company Name Field - Order 1 */}
+        {!isHidden("companyName") && (
         <div>
           <label className={labelBase}>
-            اسم الشركة <span className="text-red-500">*</span>
+            اسم الشركة {isRequired("companyName") && <span className="text-red-500">*</span>}
           </label>
           <input
             ref={fieldRefs.companyName}
@@ -386,11 +398,13 @@ export default function FormationRegistrationForm({
           />
           {errors.companyName && <div className={errorText}>{errors.companyName}</div>}
         </div>
+        )}
 
         {/* Employee Count Field - Order 2 */}
+        {!isHidden("employeeCount") && (
         <div>
           <label className={labelBase}>
-            عدد الموظفين <span className="text-red-500">*</span>
+            عدد الموظفين {isRequired("employeeCount") && <span className="text-red-500">*</span>}
           </label>
           <Select
             value={form.employeeCount}
@@ -409,12 +423,14 @@ export default function FormationRegistrationForm({
           </Select>
           {errors.employeeCount && <div className={errorText}>{errors.employeeCount}</div>}
         </div>
+        )}
 
         {/* Legal Form Field */}
+        {!isHidden("legalForm") && (
         <div>
           <OptionPills
-            label="ما هو الشكل القانوني لشركتك؟"
-            required
+            label={<>ما هو الشكل القانوني لشركتك؟ {isRequired("legalForm") && <span className="text-red-500">*</span>}</>}
+            required={isRequired("legalForm")}
             name="legalForm"
             options={[
               "مؤسسة فردية",
@@ -438,35 +454,39 @@ export default function FormationRegistrationForm({
                 className={`${fieldBase} mt-2`}
                 value={form.otherLegalForm}
                 onChange={(e) => setForm({ ...form, otherLegalForm: e.target.value })}
-                placeholder="أخرى .."
+                placeholder="أخرى.."
               />
               {errors.otherLegalForm && <div className={errorText}>{errors.otherLegalForm}</div>}
             </>
           )}
           {errors.legalForm && <div className={errorText}>{errors.legalForm}</div>}
         </div>
+        )}
 
         {/* Company Established Field */}
+        {!isHidden("companyEstablished") && (
         <div>
           <OptionPills
-            label="منذ متى تأسست شركتك؟"
-            required
+            label={<>منذ متى تأسست شركتك؟ {isRequired("companyEstablished") && <span className="text-red-500">*</span>}</>}
+            required={isRequired("companyEstablished")}
             name="companyEstablished"
             options={[
               "أقل من سنة",
               "من 1 إلى 3 سنوات",
               "من 3 إلى 5 سنوات",
-              "أكثر من 5 سنوات"
+              "أكثر من 5 سنوات."
             ]}
             value={form.companyEstablished}
             onChange={(val) => setForm({ ...form, companyEstablished: val })}
           />
           {errors.companyEstablished && <div className={errorText}>{errors.companyEstablished}</div>}
         </div>
+        )}
 
         {/* Business Sector Field */}
+        {!isHidden("businessSector") && (
         <div>
-          <label className={labelBase}>القطاع</label>
+          <label className={labelBase}>{fieldsConfig?.businessSector?.label || "القطاع"} {isRequired("businessSector") && <span className="text-red-500">*</span>}</label>
           <Select
             value={form.businessSector}
             onValueChange={(value) => {
@@ -475,7 +495,7 @@ export default function FormationRegistrationForm({
             }}
           >
             <SelectTrigger className={fieldBase} ref={fieldRefs.businessSector}>
-              <SelectValue placeholder="اختر القطاع" />
+              <SelectValue placeholder={fieldsConfig?.businessSector?.placeholder || "اختر القطاع"} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="خدمات">خدمات</SelectItem>
@@ -497,18 +517,20 @@ export default function FormationRegistrationForm({
                 className={`${fieldBase} mt-2`}
                 value={form.otherBusinessSector}
                 onChange={(e) => setForm({ ...form, otherBusinessSector: e.target.value })}
-                placeholder="اذكر القطاع"
+                placeholder="أخرى (يرجى التحديد)"
               />
               {errors.otherBusinessSector && <div className={errorText}>{errors.otherBusinessSector}</div>}
             </>
           )}
           {errors.businessSector && <div className={errorText}>{errors.businessSector}</div>}
         </div>
+        )}
 
         {/* Job Title Field */}
+        {!isHidden("jobTitle") && (
         <div>
           <label className={labelBase}>
-            المنصب الوظيفي <span className="text-red-500">*</span>
+            المنصب الوظيفي {isRequired("jobTitle") && <span className="text-red-500">*</span>}
           </label>
           <Select
             value={form.jobTitle}
@@ -527,12 +549,13 @@ export default function FormationRegistrationForm({
           </Select>
           {errors.jobTitle && <div className={errorText}>{errors.jobTitle}</div>}
         </div>
+        )}
 
         {/* Manager Experience Duration - Conditional Field */}
-        {form.jobTitle === "مسير" && (
+        {!isHidden("managerExperienceDuration") && form.jobTitle === "مسير" && (
           <div>
             <label className={labelBase}>
-              خبرتك الحالية في منصب المسير (بالسنوات) <span className="text-red-500">*</span>
+              خبرتك الحالية في منصب المسير (بالسنوات) {isRequired("managerExperienceDuration") && <span className="text-red-500">*</span>}
             </label>
             <Select
               value={form.managerExperienceDuration}
@@ -554,9 +577,10 @@ export default function FormationRegistrationForm({
         )}
 
         {/* Full Name Field - Order 3 */}
+        {!isHidden("fullName") && (
         <div>
           <label className={labelBase}>
-            الاسم واللقب <span className="text-red-500">*</span>
+            الاسم واللقب {isRequired("fullName") && <span className="text-red-500">*</span>}
           </label>
           <input
             ref={fieldRefs.fullName}
@@ -567,12 +591,14 @@ export default function FormationRegistrationForm({
           />
           {errors.fullName && <div className={errorText}>{errors.fullName}</div>}
         </div>
+        )}
 
         <div className="grid md:grid-cols-2 gap-4">
           {/* Phone Field - Order 4 */}
+          {!isHidden("phone") && (
           <div>
             <label className={labelBase}>
-              رقم الواتس آب <span className="text-red-500">*</span>
+              رقم الواتس آب {isRequired("phone") && <span className="text-red-500">*</span>}
             </label>
             <input
               ref={fieldRefs.phone}
@@ -585,11 +611,13 @@ export default function FormationRegistrationForm({
             />
             {errors.phone && <div className={errorText}>{errors.phone}</div>}
           </div>
+          )}
 
           {/* Email Field - Order 5 */}
+          {!isHidden("email") && (
           <div>
             <label className={labelBase}>
-              الايميل <span className="text-red-500">*</span>
+              الايميل {isRequired("email") && <span className="text-red-500">*</span>}
             </label>
             <input
               ref={fieldRefs.email}
@@ -601,13 +629,15 @@ export default function FormationRegistrationForm({
             />
             {errors.email && <div className={errorText}>{errors.email}</div>}
           </div>
+          )}
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
           {/* Cohort Field - Order 6 */}
+          {!isHidden("cohort") && (
           <div>
             <label className={labelBase}>
-              اختر الفوج <span className="text-red-500">*</span>
+              اختر الفوج {isRequired("cohort") && <span className="text-red-500">*</span>}
             </label>
             <Select
               value={form.cohort}
@@ -630,21 +660,25 @@ export default function FormationRegistrationForm({
             </Select>
             {errors.cohort && <div className={errorText}>{errors.cohort}</div>}
           </div>
+          )}
 
           {/* State Field - Order 7 (Optional) */}
+          {!isHidden("state") && (
           <div>
-            <label className={labelBase}>الولاية</label>
+            <label className={labelBase}>الولاية {isRequired("state") && <span className="text-red-500">*</span>}</label>
             <AlgeriaWilayas
               value={form.state}
               onChange={(value) => setForm({ ...form, state: value })}
             />
             {errors.state && <div className={errorText}>{errors.state}</div>}
           </div>
+          )}
         </div>
 
         {/* Webscale Member Field - Order 8 (Optional) */}
+        {!isHidden("isWebscaleMember") && (
         <div>
-          <label className={labelBase}>هل أنت عضو في Webscale؟</label>
+          <label className={labelBase}>هل أنت عضو في Webscale؟ {isRequired("isWebscaleMember") && <span className="text-red-500">*</span>}</label>
           <div className="flex gap-4 mt-2">
             <label className="flex items-center gap-2 cursor-pointer group">
               <input
@@ -672,6 +706,7 @@ export default function FormationRegistrationForm({
           </div>
           {errors.isWebscaleMember && <div className={errorText}>{errors.isWebscaleMember}</div>}
         </div>
+        )}
 
         {/* Honeypot Field - DO NOT REMOVE */}
         <input
