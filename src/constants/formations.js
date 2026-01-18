@@ -1,0 +1,461 @@
+// Formations Configuration
+// This file contains all formation data that can be easily modified or extended
+
+export const formations = {
+  // Existing SMQ Formation
+  smq: {
+    id: "smq",
+    slug: "smq",
+    route: "/formation/smq", // or keep "/formation" for backward compatibility
+    title: "قلّل الأخطاء، نظم مؤسستك، واصنع انضباطًا حقيقيًا",
+    subtitle: "مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…",
+    description: "تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.",
+    meta: {
+      title: "قلّل الأخطاء، نظم مؤسستك - تكوين تطبيقي مع سليم بن عراب",
+      description: "تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج. مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…",
+    },
+    formId: "9699183e-5d2b-4969-832b-9abf4dddea48", // CRM Form ID
+    pricing: {
+      regular: "45.000",
+      webscaleMember: "39.000",
+      discount: "6.000",
+      currency: "د.ج",
+      taxNote: "HT",
+    },
+    consultant: {
+      name: "سليم بن عراب",
+      title: "مستشار في إدارة الجودة والعمليات",
+      image: "/experts/salim_ben_arab.jpeg",
+      experience: "25+ سنة خبرة",
+      description: "25 سنة خبرة داخل شركات:",
+      companies: [
+        { logo: "/formation/logos/photo_2025-11-30_15-00-42.jpg" },
+        { logo: "/formation/logos/photo_2025-11-30_15-01-00.jpg" },
+        { logo: "/formation/logos/photo_2025-11-30_15-01-49.jpg" },
+        { logo: "/formation/logos/photo_2025-11-30_15-01-55.jpg" },
+        { logo: "/formation/logos/photo_2025-11-30_15-02-24.jpg" },
+        { logo: "/formation/logos/photo_2025-11-30_15-23-31.jpg" },
+      ],
+      results: [
+        "خفض الديون بـ 43%",
+        "رفع هامش الربح بـ +42%",
+        "قيادة فرق تصل إلى 580 موظف",
+        "إدارة مداخيل تفوق 78 مليون يورو",
+        "إعادة تشغيل وحدات إنتاج",
+        "تحسين مؤشرات التوزيع والعمليات على مستوى 23 ولاية",
+        "خبرة ISO (9001 / 18000 / 22000)",
+      ],
+      quote: "كل ما ستتعلّمه في هذا التكوين خرج من تجارب ميدانية حقيقية.",
+    },
+    program: [
+      {
+        id: "opening",
+        title: "كلمة الافتتاح — Mot d'ouverture",
+        items: [],
+      },
+      {
+        id: "introduction",
+        title: "مقدمة حول الموضوع — Introduction à la thématique",
+        items: [
+          "فهم المؤسسة — Comprendre l'Entreprise",
+          "ملف المدير / صاحب المؤسسة — Profil du Chef d'entreprise",
+          "ما هو نظام إدارة الجودة (SMQ)؟ — Qu'est-ce qu'un Système de Management de la Qualité (SMQ) ?",
+          "التعريف، الأهداف، وأمثلة — Définition, Objectifs et exemples",
+          "المكوّنات الأساسية — Composantes Clés",
+          "المبادئ السبعة في نظام إدارة الجودة — Les 7 principes dans le système Management qualité",
+          "المزايا السبعة لنظام إدارة الجودة — Les 7 Avantages du système Management qualité",
+          "التحديات الشائعة وكيفية التغلب عليها — Les Défis Courants et Comment les Surmonter",
+          "من هم الفاعلون داخل SMQ؟ — Qui sont les acteurs du SMQ ?",
+          "أدوات مراقبة نظام إدارة الجودة — Outils pour surveiller un SMQ ?",
+        ],
+      },
+      {
+        id: "processes",
+        title: "التفكير والعمل بمنطق العمليات — Raisonnez et travaillez en processus",
+        items: [
+          "ما هي العملية (Processus)؟ — Qu'est ce qu'un processus",
+          "ما الفرق بين: عملية، إجراء، وبروسيس؟ — Quelle différence entre processus ; procédure ; process ?",
+          "ما هي نمذجة العمليات؟ — Qu'est-ce que la modélisation des processus ?",
+          "المؤسسة مرسومة في شكل عمليات — L'entreprise Cartographié en processus",
+          "مخطط التدفقات — diagramme des flux",
+        ],
+      },
+      {
+        id: "process-types",
+        title: "أنواع العمليات في جميع المؤسسات…؟ — Les types de processus dans toutes entreprises…?",
+        items: [],
+      },
+      {
+        id: "mapping",
+        title: "خريطة المؤسسة من خلال العمليات… — Cartographie de l'Entreprise en processus …",
+        items: [],
+      },
+      {
+        id: "exercises",
+        title: "تطبيقات وتمارين — Exercices et pratiques",
+        items: [],
+      },
+      {
+        id: "discussion",
+        title: "نقاش وتبادل الآراء في مجال تسيير المؤسسات — Discussion et échange d'opinions dans le domaine de la gestion d'entreprise",
+        items: [],
+      },
+      {
+        id: "closing",
+        title: "كلمة الختام — Mot de Clôture",
+        items: [],
+      },
+    ],
+    cohorts: [
+      { value: "فوج 13, 14, 15 ديسمبر", label: "فوج 13, 14, 15 ديسمبر (ممتلئ)", disabled: true },
+      { value: "فوج 27, 28, 29 ديسمبر", label: "فوج 27, 28, 29 ديسمبر (ممتلئ)", disabled: true },
+      { value: "الفوج الثالث - 10, 11, 12 جانفي", label: "الفوج الثالث - 10, 11, 12 جانفي (ممتلئ)", disabled: true },
+      { value: "الفوج الرابع - 13, 14, 15 جانفي", label: "الفوج الرابع - 13, 14, 15 جانفي", disabled: false },
+      { value: "الفوج الخامس - 17, 18, 19 جانفي", label: "الفوج الخامس - 17, 18, 19 جانفي (مؤجل)", disabled: true },
+      { value: "الفوج السادس - 20, 21, 22 جانفي", label: "الفوج السادس - 20, 21, 22 جانفي (ممتلئ)", disabled: true },
+      { value: "الفوج السابع - 31 جانفي 02 , 01 فيفري", label: "الفوج السابع - 31 جانفي 02 , 01 فيفري", disabled: false },
+    ],
+    faq: [
+      {
+        question: "كيف يمكنني التسجيل في الدورة؟",
+        answer: "يمكنك التسجيل بسهولة من خلال النقر على زر \"سجل الآن\" وملء النموذج. الأماكن محدودة (20 مشارك فقط)، لذا ننصح بالتسجيل المبكر.",
+      },
+      {
+        question: "ما هو الفرق بين السعر العام وسعر أعضاء Webscale؟",
+        answer: "السعر العام للدورة هو 45.000 دج HT، بينما يحصل أعضاء مجتمع Webscale على خصم خاص بقيمة 6000 دج HT.",
+      },
+      {
+        question: "ما الذي أحتاجه لحضور الدورة؟",
+        answer: "الدورة حضورية في مقر Webscale بالجزائر. تحتاج فقط إلى الحضور في الوقت المحدد (من 09:00 إلى 16:00) لمدة 3 أيام متتالية. سيتم توفير جميع المواد التعليمية اللازمة.",
+      },
+      {
+        question: "ما هي طرق الدفع المتاحة؟",
+        answer: "نقبل الدفع عبر البطاقات الائتمانية، التحويل البنكي، والدفع الإلكتروني. يمكنك التواصل معنا لمعرفة التفاصيل.",
+      },
+      {
+        question: "هل الدورة مناسبة للمبتدئين؟",
+        answer: "نعم، الدورة موجهة للمديرين والمسيرين في مختلف المستويات. يبدأ البرنامج من الأساسيات ويتدرج إلى التطبيق العملي، مما يجعلها مناسبة للجميع.",
+      },
+    ],
+    problems: [
+      "أخطاء متكررة وضياع وقت",
+      "نقص التنسيق بين الفرق",
+      "قرارات يومية بلا بيانات",
+      "ضغط دائم على المدير لمتابعة كل شيء",
+    ],
+    solutions: [
+      "تشخيص أصل المشاكل داخل مؤسستك",
+      "تقليل الأخطاء التشغيلية وتحسين الانضباط",
+      "بناء نظام جودة عملي وبسيط",
+      "تنظيم العمل داخل الفرق",
+      "استخدام أدوات فعلية للشركات الكبرى",
+      "اتخاذ قرارات دقيقة اعتمادًا على البيانات",
+    ],
+    benefits: [
+      "طريقة واضحة لقراءة مؤسستك وتشخيص أصل المشاكل",
+      "تقليل الأخطاء التشغيلية وتحسين الانضباط",
+      "بناء نظام جودة بسيط وعملي",
+      "ضبط العمليات لتنظيم العمل داخل الفرق",
+      "اعتماد أدوات تُستخدم فعليًا في المؤسسات الكبرى",
+      "القدرة على اتخاذ قرارات دقيقة اعتمادًا على العمليات والبيانات",
+      "إنهاء \"إطفاء الحرائق اليومية\"",
+    ],
+    targetAudience: [
+      "تقليل الأخطاء اليومية",
+      "تنظيم العمل داخل شركتك",
+      "فهم العمليات بدل الاعتماد على الحدس",
+      "بناء نظام يشتغل حتى لو تغيّر الموظفون",
+      "تحسين الأداء بدون رفع التكاليف",
+    ],
+    maxParticipants: 20,
+    duration: "3 أيام متتالية",
+    schedule: "من 09:00 إلى 16:00",
+    location: "مقر Webscale بالجزائر",
+  },
+
+  // Comptabilité pour non Comptable Formation
+  comptabilite: {
+    id: "comptabilite",
+    slug: "comptabilite",
+    route: "/formation/comptabilite",
+    title: "المحاسبة لغير المحاسبين",
+    subtitle: "مع السيد فريد مقران - تكوين شامل في المحاسبة المالية والتحليل المالي",
+    description: "تعلم لغة المحاسبة، قراءة القوائم المالية، والتحليل المالي لاتخاذ قرارات مالية مدروسة",
+    meta: {
+      title: "المحاسبة لغير المحاسبين - تكوين مع مقران فريد | Webscale",
+      description: "تكوين شامل في أساسيات المحاسبة المالية للمديرين وكل من يريد فهم لغة المحاسبة وقراءة القوائم المالية",
+    },
+    formId: "YOUR_CRM_FORM_ID_HERE", // ⚠️ Replace with your actual CRM Form ID
+    pricing: {
+      regular: "45.000",
+      webscaleMember: "39.000",
+      discount: "6.000",
+      currency: "د.ج",
+      taxNote: "HT",
+    },
+    consultant: {
+      name: "مقران فريد",
+      title: "خبير في المحاسبة المالية",
+      image: "/experts/mokrane_farid.jpeg",
+      experience: "خبير محاسبة مالية",
+      description: "",
+      companies: [
+        // Add company logos if available
+      ],
+      results: [
+        "خبرة واسعة في المحاسبة المالية",
+        "تدريب المديرين على قراءة القوائم المالية",
+        "مساعدة المؤسسات في فهم المعلومات المالية",
+      ],
+      quote: "فهم المحاسبة هو أساس اتخاذ القرارات المالية الصحيحة",
+    },
+    program: [
+      {
+        id: "objectifs-generaux",
+        title: "أهداف التكوين",
+        items: [
+          "تعلم لغة المحاسبة وإدارة الحوار المالي",
+          "قراءة وتفسير القوائم المالية",
+          "استخدام المعلومات المحاسبية كأداة مساعدة في اتخاذ القرار",
+          "إجراء مقارنات دورية وتقييم تطور الكيان",
+          "أساسيات التحليل المالي، أداة التحليل والتنبؤ",
+        ],
+      },
+      {
+        id: "axes-principaux",
+        title: "المحاور الرئيسية",
+        items: [
+          "فهم المصطلحات والأساسيات المحاسبية والمالية للمؤسسة",
+          "تمييز أدوار المحاسبة والمالية",
+          "عرض الواقعة المالية في المؤسسة",
+          "فهم الكتل الكبيرة في الميزانية",
+          "الدورات الثلاثة للنشاط المالي: الاستغلال، الاستثمار، التمويل",
+          "مصادر تمويل الاستثمارات ومفهوم رأس المال العامل (FR)",
+          "الحاجة إلى رأس المال العامل (BFR) وتكوين الخزينة",
+        ],
+      },
+      {
+        id: "jour1-matin",
+        title: "اليوم الأول - الصباح: المقدمة",
+        items: [
+          "تعريف المحاسبة والتدفقات التي تمس الكيان",
+          "تعريف الإطار التنظيمي والمفاهيمي لنظام المحاسبة المالية (SCF)",
+          "الإطار التنظيمي والمفاهيمي للمحاسبة المالية (SCF)",
+          "التدفقات والتسجيل",
+        ],
+      },
+      {
+        id: "jour1-apres-midi",
+        title: "اليوم الأول - بعد الظهر: التنظيم المحاسبي وتصنيف الحسابات",
+        items: [
+          "فهم عمل وترميز الحسابات",
+          "التنظيم المحاسبي",
+          "تصنيف الحسابات (Nomenclature des comptes)",
+        ],
+      },
+      {
+        id: "jour2-matin",
+        title: "اليوم الثاني - الصباح: القوائم المالية والدفاتر المحاسبية",
+        items: [
+          "تعريف وفهم التقاطعات بين القوائم المالية",
+          "الدفاتر المحاسبية",
+          "العلاقة بين القوائم المالية والدفاتر المحاسبية",
+        ],
+      },
+      {
+        id: "jour2-apres-midi",
+        title: "اليوم الثاني - بعد الظهر: المبادئ المحاسبية",
+        items: [
+          "فهم المبادئ المحاسبية",
+          "تطبيقات المبادئ المحاسبية",
+        ],
+      },
+      {
+        id: "jour3-matin",
+        title: "اليوم الثالث - الصباح: أساسيات التحليل المالي",
+        items: [
+          "فهم أساسيات التحليل المالي",
+          "المقاربات: الميزانية الوظيفية",
+          "الميزانية المالية (Bilan patrimonial)",
+        ],
+      },
+      {
+        id: "jour3-apres-midi",
+        title: "اليوم الثالث - بعد الظهر: رأس المال العامل والحاجة إلى رأس المال العامل",
+        items: [
+          "رأس المال العامل (Fonds de Roulement - FR)",
+          "الحاجة إلى رأس المال العامل (Besoin en Fonds de Roulement - BFR)",
+          "الخزينة (Trésorerie)",
+          "الخلاصات ونهاية التكوين",
+        ],
+      },
+    ],
+    cohorts: [
+      { value: "فوج 1", label: "فوج 1 - سيتم الإعلان عن التاريخ قريباً", disabled: false },
+      // Add more cohorts as they become available
+    ],
+    faq: [
+      {
+        question: "لمن هذا التكوين؟",
+        answer: "هذا التكوين موجه لإطارات الشركات والمؤسسات، المهنيين الراغبين في اكتساب أساسيات قوية في المحاسبة المالية، والمديرين والأشخاص الذين لا يملكون تكوينًا أوليًا في المحاسبة.",
+      },
+      {
+        question: "ما هي مدة التكوين؟",
+        answer: "التكوين يستمر 3 أيام (24 ساعة) في مقر Webscale بالجزائر.",
+      },
+      {
+        question: "ما هي أهداف هذا التكوين؟",
+        answer: "تعلم لغة المحاسبة وإدارة الحوار المالي، قراءة وتفسير القوائم المالية، استخدام المعلومات المحاسبية كأداة مساعدة في اتخاذ القرار، إجراء مقارنات دورية وتقييم تطور الكيان، وفهم أساسيات التحليل المالي كأداة للتحليل والتنبؤ.",
+      },
+      {
+        question: "هل أحتاج إلى معرفة مسبقة في المحاسبة؟",
+        answer: "لا، هذا التكوين مصمم خصيصًا للأشخاص الذين لا يملكون تكوينًا أوليًا في المحاسبة. سيبدأ من الأساسيات.",
+      },
+      {
+        question: "ما الذي سأتعلمه في نهاية التكوين؟",
+        answer: "ستتمكن من فهم لغة المحاسبة، قراءة وتفسير القوائم المالية والدفاتر المحاسبية، فهم المبادئ المحاسبية وتطبيقاتها، معرفة التنظيم المحاسبي وتصنيف الحسابات، فهم أساسيات التحليل المالي والميزانية الوظيفية، وحساب رأس المال العامل والحاجة إلى رأس المال العامل والخزينة.",
+      },
+    ],
+    problems: [
+      "عدم فهم لغة المحاسبة والبيانات المالية",
+      "صعوبة قراءة وتفسير القوائم المالية",
+      "عدم القدرة على استخدام المعلومات المالية في اتخاذ القرارات",
+      "عدم فهم تطور المؤسسة من الناحية المالية",
+    ],
+    solutions: [
+      "تعلم لغة المحاسبة وإدارة الحوار المالي بثقة",
+      "قراءة وتفسير القوائم المالية (الميزانية وقائمة الدخل)",
+      "استخدام المعلومات المحاسبية كأداة مساعدة في اتخاذ القرار",
+      "إجراء مقارنات دورية وتقييم تطور الكيان",
+      "فهم المبادئ المحاسبية الأساسية وتطبيقاتها",
+      "معرفة كيفية تنظيم النظام المحاسبي وتصنيف الحسابات",
+      "فهم أساسيات التحليل المالي والميزانية الوظيفية",
+      "حساب رأس المال العامل والحاجة إلى رأس المال العامل والخزينة",
+    ],
+    benefits: [
+      "فهم لغة المحاسبة وإدارة الحوار المالي بثقة",
+      "قراءة وتفسير القوائم المالية والدفاتر المحاسبية",
+      "استخدام المعلومات المحاسبية في اتخاذ القرار",
+      "فهم المبادئ المحاسبية وتطبيقاتها العملية",
+      "أساسيات التحليل المالي وإدارة رأس المال العامل",
+    ],
+    targetAudience: [
+      "إطارات الشركات والمؤسسات",
+      "المهنيون الراغبون في اكتساب أساسيات قوية في المحاسبة المالية",
+      "المديرين الذين يريدون فهم اللغة المالية",
+      "الأشخاص الذين لا يملكون تكوينًا أوليًا في المحاسبة",
+      "كل من يرغب في فهم القوائم المالية والتحليل المالي",
+      "المسيرين الذين يحتاجون لاتخاذ قرارات مالية مدروسة",
+    ],
+    maxParticipants: 20,
+    duration: "3 أيام / 24 ساعة",
+    schedule: "من 09:00 إلى 16:00",
+    location: "مقر Webscale بالجزائر",
+  },
+
+  // ============================================
+  // TEMPLATE: Add Your New Formation Here
+  // ============================================
+  // Copy this template, uncomment it, and fill in your information
+  // Then access it at: /formation/your-formation-slug
+  
+  // yourFormationName: {
+  //   id: "your-formation-id",                    // Unique ID (e.g., "digital-marketing")
+  //   slug: "your-formation-slug",                // URL slug (e.g., "digital-marketing")
+  //   route: "/formation/your-formation-slug",   // Full route path
+  //   title: "عنوان التكوين الرئيسي",              // Main title (shown in hero)
+  //   subtitle: "العنوان الفرعي",                 // Subtitle (shown in hero)
+  //   description: "وصف قصير للتكوين",             // Short description
+  //   meta: {
+  //     title: "عنوان الصفحة في المتصفح",           // Browser tab title
+  //     description: "وصف SEO للصفحة",             // SEO description
+  //   },
+  //   formId: "YOUR_CRM_FORM_ID_HERE",            // ⚠️ Get from CRM (UUID format)
+  //   pricing: {
+  //     regular: "45.000",                         // Regular price
+  //     webscaleMember: "39.000",                 // Webscale member price
+  //     discount: "6.000",                          // Discount amount
+  //     currency: "د.ج",                           // Currency
+  //     taxNote: "HT",                             // Tax note
+  //   },
+  //   consultant: {
+  //     name: "اسم المستشار",
+  //     title: "منصب المستشار",
+  //     image: "/experts/consultant-photo.jpg",    // Path from public folder
+  //     experience: "10+ سنة خبرة",
+  //     description: "وصف المستشار",
+  //     companies: [                                // Company logos
+  //       { logo: "/formation/logos/company1.jpg" },
+  //       { logo: "/formation/logos/company2.jpg" },
+  //     ],
+  //     results: [                                  // Consultant achievements
+  //       "نتيجة 1",
+  //       "نتيجة 2",
+  //     ],
+  //     quote: "اقتباس من المستشار",
+  //   },
+  //   program: [                                    // Training program sections
+  //     {
+  //       id: "section1",
+  //       title: "عنوان القسم",
+  //       items: [                                  // Items in this section
+  //         "عنصر 1",
+  //         "عنصر 2",
+  //       ],
+  //     },
+  //     {
+  //       id: "section2",
+  //       title: "قسم آخر",
+  //       items: [],
+  //     },
+  //   ],
+  //   cohorts: [                                    // Available cohorts/dates
+  //     { value: "فوج 1", label: "فوج 1 - 15 جانفي", disabled: false },
+  //     { value: "فوج 2", label: "فوج 2 - 20 جانفي (ممتلئ)", disabled: true },
+  //   ],
+  //   faq: [                                        // Frequently asked questions
+  //     {
+  //       question: "السؤال الأول؟",
+  //       answer: "الجواب على السؤال الأول",
+  //     },
+  //     {
+  //       question: "السؤال الثاني؟",
+  //       answer: "الجواب على السؤال الثاني",
+  //     },
+  //   ],
+  //   problems: [                                   // Problems this solves
+  //     "المشكلة 1",
+  //     "المشكلة 2",
+  //   ],
+  //   solutions: [                                  // Solutions provided
+  //     "الحل 1",
+  //     "الحل 2",
+  //   ],
+  //   benefits: [                                  // Benefits after training
+  //     "الفائدة 1",
+  //     "الفائدة 2",
+  //   ],
+  //   targetAudience: [                            // Who is this for
+  //     "الجمهور المستهدف 1",
+  //     "الجمهور المستهدف 2",
+  //   ],
+  //   maxParticipants: 14,                         // Maximum participants
+  //   duration: "3 أيام متتالية",                  // Duration
+  //   schedule: "من 09:00 إلى 16:00",              // Schedule
+  //   location: "مقر Webscale بالجزائر",           // Location
+  // },
+};
+
+// Helper function to get formation by slug
+export const getFormationBySlug = (slug) => {
+  return Object.values(formations).find((formation) => formation.slug === slug) || formations.smq;
+};
+
+// Helper function to get formation by route
+export const getFormationByRoute = (route) => {
+  return Object.values(formations).find((formation) => formation.route === route) || formations.smq;
+};
+
+// Export all formation IDs for easy reference
+export const formationIds = Object.keys(formations);
+

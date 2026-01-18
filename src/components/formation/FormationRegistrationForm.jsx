@@ -10,12 +10,24 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import OptionPills from "../registration/OptionPills";
 
 // ============================================
 // CONFIGURATION
 // ============================================
-const FORM_ID = "9699183e-5d2b-4969-832b-9abf4dddea48";
-const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/${FORM_ID}/submit`;
+// Default form ID for backward compatibility
+const DEFAULT_FORM_ID = "9699183e-5d2b-4969-832b-9abf4dddea48";
+
+// Default cohorts for backward compatibility
+const DEFAULT_COHORTS = [
+  { value: "فوج 13, 14, 15 ديسمبر", label: "فوج 13, 14, 15 ديسمبر (ممتلئ)", disabled: true },
+  { value: "فوج 27, 28, 29 ديسمبر", label: "فوج 27, 28, 29 ديسمبر (ممتلئ)", disabled: true },
+  { value: "الفوج الثالث - 10, 11, 12 جانفي", label: "الفوج الثالث - 10, 11, 12 جانفي (ممتلئ)", disabled: true },
+  { value: "الفوج الرابع - 13, 14, 15 جانفي", label: "الفوج الرابع - 13, 14, 15 جانفي", disabled: false },
+  { value: "الفوج الخامس - 17, 18, 19 جانفي", label: "الفوج الخامس - 17, 18, 19 جانفي (مؤجل)", disabled: true },
+  { value: "الفوج السادس - 20, 21, 22 جانفي", label: "الفوج السادس - 20, 21, 22 جانفي (ممتلئ)", disabled: true },
+  { value: "الفوج السابع - 31 جانفي 02 , 01 فيفري", label: "الفوج السابع - 31 جانفي 02 , 01 فيفري", disabled: false },
+];
 
 const fieldBase =
   "w-full rounded-xl border px-3 py-2 outline-none transition " +
@@ -33,7 +45,13 @@ const errorText = "mt-1 text-xs text-red-600 dark:text-red-400";
 const initialForm = {
   companyName: "", // "اسم الشركة" - required, order 1
   employeeCount: "", // "عدد الموظفين" - required, order 2
+  legalForm: "", // "ما هو الشكل القانوني لشركتك؟" - required
+  otherLegalForm: "", // "شكل قانوني آخر" - optional, shown when legalForm is "أخرى"
+  companyEstablished: "", // "منذ متى تأسست شركتك؟" - required
+  businessSector: "", // "القطاع" - optional
+  otherBusinessSector: "", // "قطاع آخر" - optional, shown when businessSector is "أخرى"
   jobTitle: "", // "Job Title" - optional
+  managerExperienceDuration: "", // "مدة الخبرة في المنصب" - optional, shown when jobTitle is "مسير"
   fullName: "", // "الاسم واللقب" - required, order 3
   phone: "", // "رقم الواتس آب" - required, unique, order 4
   email: "", // "الايميل" - required, unique, order 5
@@ -43,7 +61,13 @@ const initialForm = {
   honey: "", // Honeypot for bot protection - DO NOT REMOVE
 };
 
-export default function FormationRegistrationForm({ onSuccess }) {
+export default function FormationRegistrationForm({ 
+  onSuccess, 
+  formId = DEFAULT_FORM_ID,
+  cohorts = DEFAULT_COHORTS 
+}) {
+  const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/${formId}/submit`;
+  
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,7 +77,13 @@ export default function FormationRegistrationForm({ onSuccess }) {
   const fieldRefs = {
     companyName: useRef(null),
     employeeCount: useRef(null),
+    legalForm: useRef(null),
+    otherLegalForm: useRef(null),
+    companyEstablished: useRef(null),
+    businessSector: useRef(null),
+    otherBusinessSector: useRef(null),
     jobTitle: useRef(null),
+    managerExperienceDuration: useRef(null),
     fullName: useRef(null),
     phone: useRef(null),
     email: useRef(null),
@@ -61,6 +91,10 @@ export default function FormationRegistrationForm({ onSuccess }) {
     state: useRef(null),
     isWebscaleMember: useRef(null),
   };
+
+  // State for conditional fields visibility
+  const [showOtherBusinessSector, setShowOtherBusinessSector] = useState(false);
+  const [showOtherLegalForm, setShowOtherLegalForm] = useState(false);
 
   // Auto-close modal after 5 seconds
   useEffect(() => {
@@ -77,6 +111,8 @@ export default function FormationRegistrationForm({ onSuccess }) {
       !(
         form.companyName &&
         form.employeeCount &&
+        form.legalForm &&
+        form.companyEstablished &&
         form.jobTitle &&
         form.fullName &&
         form.phone &&
@@ -93,7 +129,15 @@ export default function FormationRegistrationForm({ onSuccess }) {
     // Required fields (matching CRM requirements)
     if (!form.companyName.trim()) e.companyName = "هذا الحقل مطلوب";
     if (!form.employeeCount) e.employeeCount = "اختر عدد الموظفين";
+    if (!form.legalForm) e.legalForm = "اختر الشكل القانوني للشركة";
+    if (!form.companyEstablished) e.companyEstablished = "اختر تاريخ تأسيس الشركة";
     if (!form.jobTitle) e.jobTitle = "اختر المنصب الوظيفي";
+    
+    // If job title is "مسير", manager experience duration is required
+    if (form.jobTitle === "مسير" && !form.managerExperienceDuration) {
+      e.managerExperienceDuration = "هذا الحقل مطلوب";
+    }
+    
     if (!form.fullName.trim()) e.fullName = "هذا الحقل مطلوب";
     if (!form.phone.trim()) e.phone = "هذا الحقل مطلوب";
     if (!form.email.trim()) e.email = "هذا الحقل مطلوب";
@@ -102,6 +146,16 @@ export default function FormationRegistrationForm({ onSuccess }) {
     // Email format validation
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       e.email = "بريد غير صحيح";
+    }
+
+    // If "أخرى" is selected for legal form, otherLegalForm is required
+    if (form.legalForm === "أخرى" && !form.otherLegalForm.trim()) {
+      e.otherLegalForm = "يرجى تحديد الشكل القانوني";
+    }
+
+    // If "أخرى" is selected for business sector, otherBusinessSector is required
+    if (form.businessSector === "أخرى" && !form.otherBusinessSector.trim()) {
+      e.otherBusinessSector = "يرجى تحديد القطاع";
     }
 
     // State is optional, no validation needed
@@ -165,7 +219,11 @@ export default function FormationRegistrationForm({ onSuccess }) {
         data: {
           "اسم الشركة": form.companyName,
           "عدد الموظفين": form.employeeCount,
+          "ما هو الشكل القانوني لشركتك؟": form.legalForm === "أخرى" ? form.otherLegalForm : form.legalForm || "",
+          "منذ متى تأسست شركتك؟": form.companyEstablished || "",
+          "القطاع": form.businessSector === "أخرى" ? form.otherBusinessSector : form.businessSector || "",
           "المنصب الوظيفي": form.jobTitle,
+          "مدة الخبرة في منصب المسير": form.managerExperienceDuration || "",
           "الاسم واللقب": form.fullName,
           "رقم الواتس آب": form.phone,
           "الايميل": form.email,
@@ -195,6 +253,8 @@ export default function FormationRegistrationForm({ onSuccess }) {
             message: "✅ تم إرسال طلبك بنجاح! سنتواصل معك قريبًا.",
           });
           setForm(initialForm); // Reset form
+          setShowOtherBusinessSector(false); // Reset conditional state
+          setShowOtherLegalForm(false); // Reset conditional state
           if (onSuccess) onSuccess();
           return;
         }
@@ -244,6 +304,8 @@ export default function FormationRegistrationForm({ onSuccess }) {
             message: "✅ تم إرسال طلبك. سنراجعه ونتواصل معك قريبًا.",
           });
           setForm(initialForm);
+          setShowOtherBusinessSector(false); // Reset conditional state
+          setShowOtherLegalForm(false); // Reset conditional state
           if (onSuccess) onSuccess();
         } catch (e) {
           setModal({
@@ -348,6 +410,101 @@ export default function FormationRegistrationForm({ onSuccess }) {
           {errors.employeeCount && <div className={errorText}>{errors.employeeCount}</div>}
         </div>
 
+        {/* Legal Form Field */}
+        <div>
+          <OptionPills
+            label="ما هو الشكل القانوني لشركتك؟"
+            required
+            name="legalForm"
+            options={[
+              "مؤسسة فردية",
+              "شركة ذات مسؤولية محدودة (SARL)",
+              "شركة مساهمة (SPA)",
+              "شركة تضامن",
+              "تعاونية",
+              "شركة ناشئة (Startup)",
+              "أخرى"
+            ]}
+            value={form.legalForm}
+            onChange={(val) => {
+              setForm({ ...form, legalForm: val, otherLegalForm: "" });
+              setShowOtherLegalForm(val === "أخرى");
+            }}
+          />
+          {showOtherLegalForm && (
+            <>
+              <input
+                ref={fieldRefs.otherLegalForm}
+                className={`${fieldBase} mt-2`}
+                value={form.otherLegalForm}
+                onChange={(e) => setForm({ ...form, otherLegalForm: e.target.value })}
+                placeholder="أخرى .."
+              />
+              {errors.otherLegalForm && <div className={errorText}>{errors.otherLegalForm}</div>}
+            </>
+          )}
+          {errors.legalForm && <div className={errorText}>{errors.legalForm}</div>}
+        </div>
+
+        {/* Company Established Field */}
+        <div>
+          <OptionPills
+            label="منذ متى تأسست شركتك؟"
+            required
+            name="companyEstablished"
+            options={[
+              "أقل من سنة",
+              "من 1 إلى 3 سنوات",
+              "من 3 إلى 5 سنوات",
+              "أكثر من 5 سنوات"
+            ]}
+            value={form.companyEstablished}
+            onChange={(val) => setForm({ ...form, companyEstablished: val })}
+          />
+          {errors.companyEstablished && <div className={errorText}>{errors.companyEstablished}</div>}
+        </div>
+
+        {/* Business Sector Field */}
+        <div>
+          <label className={labelBase}>القطاع</label>
+          <Select
+            value={form.businessSector}
+            onValueChange={(value) => {
+              setForm({ ...form, businessSector: value, otherBusinessSector: "" });
+              setShowOtherBusinessSector(value === "أخرى");
+            }}
+          >
+            <SelectTrigger className={fieldBase} ref={fieldRefs.businessSector}>
+              <SelectValue placeholder="اختر القطاع" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="خدمات">خدمات</SelectItem>
+              <SelectItem value="تجارة (جملة / تجزئة)">تجارة (جملة / تجزئة)</SelectItem>
+              <SelectItem value="صناعة / إنتاج">صناعة / إنتاج</SelectItem>
+              <SelectItem value="فلاحية / زراعية">فلاحية / زراعية</SelectItem>
+              <SelectItem value="تكنولوجيا / شركة رقمية">تكنولوجيا / شركة رقمية</SelectItem>
+              <SelectItem value="مقاولات / أشغال عمومية">مقاولات / أشغال عمومية</SelectItem>
+              <SelectItem value="تعليم وتكوين">تعليم وتكوين</SelectItem>
+              <SelectItem value="صحة">صحة</SelectItem>
+              <SelectItem value="سياحة">سياحة</SelectItem>
+              <SelectItem value="أخرى">أخرى</SelectItem>
+            </SelectContent>
+          </Select>
+          {showOtherBusinessSector && (
+            <>
+              <input
+                ref={fieldRefs.otherBusinessSector}
+                className={`${fieldBase} mt-2`}
+                value={form.otherBusinessSector}
+                onChange={(e) => setForm({ ...form, otherBusinessSector: e.target.value })}
+                placeholder="اذكر القطاع"
+              />
+              {errors.otherBusinessSector && <div className={errorText}>{errors.otherBusinessSector}</div>}
+            </>
+          )}
+          {errors.businessSector && <div className={errorText}>{errors.businessSector}</div>}
+        </div>
+
         {/* Job Title Field */}
         <div>
           <label className={labelBase}>
@@ -355,7 +512,9 @@ export default function FormationRegistrationForm({ onSuccess }) {
           </label>
           <Select
             value={form.jobTitle}
-            onValueChange={(value) => setForm({ ...form, jobTitle: value })}
+            onValueChange={(value) => {
+              setForm({ ...form, jobTitle: value, managerExperienceDuration: "" });
+            }}
           >
             <SelectTrigger className={fieldBase} ref={fieldRefs.jobTitle}>
               <SelectValue placeholder="اختر المنصب الوظيفي" />
@@ -368,6 +527,31 @@ export default function FormationRegistrationForm({ onSuccess }) {
           </Select>
           {errors.jobTitle && <div className={errorText}>{errors.jobTitle}</div>}
         </div>
+
+        {/* Manager Experience Duration - Conditional Field */}
+        {form.jobTitle === "مسير" && (
+          <div>
+            <label className={labelBase}>
+              خبرتك الحالية في منصب المسير (بالسنوات) <span className="text-red-500">*</span>
+            </label>
+            <Select
+              value={form.managerExperienceDuration}
+              onValueChange={(value) => setForm({ ...form, managerExperienceDuration: value })}
+            >
+              <SelectTrigger className={fieldBase} ref={fieldRefs.managerExperienceDuration}>
+                <SelectValue placeholder="اختر المدة" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="أقل من سنة">أقل من سنة</SelectItem>
+                <SelectItem value="من سنة إلى سنتين">من سنة إلى سنتين</SelectItem>
+                <SelectItem value="من سنتين إلى 5 سنوات">من سنتين إلى 5 سنوات</SelectItem>
+                <SelectItem value="من 5 سنوات إلى 10 سنوات">من 5 سنوات إلى 10 سنوات</SelectItem>
+                <SelectItem value="أكثر من 10 سنوات">أكثر من 10 سنوات</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.managerExperienceDuration && <div className={errorText}>{errors.managerExperienceDuration}</div>}
+          </div>
+        )}
 
         {/* Full Name Field - Order 3 */}
         <div>
@@ -433,13 +617,15 @@ export default function FormationRegistrationForm({ onSuccess }) {
                 <SelectValue placeholder="اختر الفوج" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="فوج 13, 14, 15 ديسمبر" disabled>فوج 13, 14, 15 ديسمبر (ممتلئ)</SelectItem>
-                <SelectItem value="فوج 27, 28, 29 ديسمبر" disabled>فوج 27, 28, 29 ديسمبر (ممتلئ)</SelectItem>
-                <SelectItem value="الفوج الثالث - 10, 11, 12 جانفي" disabled>الفوج الثالث - 10, 11, 12 جانفي (ممتلئ)</SelectItem>
-                <SelectItem value="الفوج الرابع - 13, 14, 15 جانفي">الفوج الرابع - 13, 14, 15 جانفي</SelectItem>
-                <SelectItem value="الفوج الخامس - 17, 18, 19 جانفي" disabled>الفوج الخامس - 17, 18, 19 جانفي (مؤجل)</SelectItem>
-                <SelectItem value="الفوج السادس - 20, 21, 22 جانفي" disabled>الفوج السادس - 20, 21, 22 جانفي (ممتلئ)</SelectItem>
-                <SelectItem value="الفوج السابع - 31 جانفي 02 , 01 فيفري">الفوج السابع - 31 جانفي 02 , 01 فيفري</SelectItem>
+                {cohorts.map((cohort) => (
+                  <SelectItem 
+                    key={cohort.value} 
+                    value={cohort.value} 
+                    disabled={cohort.disabled}
+                  >
+                    {cohort.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
             {errors.cohort && <div className={errorText}>{errors.cohort}</div>}
