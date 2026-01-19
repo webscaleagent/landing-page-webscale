@@ -24,7 +24,7 @@ const CommunitySection = () => {
     {
       name: "أ. سليم بن اعراب",
       specialty: "الادارة والتسيير",
-      image: "/experts/benarab.png",
+      image: "/experts/salim_ben_arab.jpeg",
       color: "from-amber-500 to-orange-500",
       bgColor: "bg-orange-50",
       buttonColor: "bg-orange-500"

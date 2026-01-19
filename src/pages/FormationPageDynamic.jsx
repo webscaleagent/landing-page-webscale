@@ -321,7 +321,7 @@ const FormationPageDynamic = ({ formation }) => {
               <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#FFD700]/10 to-transparent rounded-full blur-3xl"></div>
               
               <div className="relative p-8 md:p-12">
-                <div className="grid md:grid-cols-[280px_1fr] gap-8 lg:gap-12 items-start">
+                <div className="grid md:grid-cols-[450px_1fr] gap-8 lg:gap-12 items-start">
                   {/* Left: Consultant Image & Info */}
                   <div className="flex flex-col items-center">
                     {/* Image with Modern Frame */}
@@ -331,7 +331,7 @@ const FormationPageDynamic = ({ formation }) => {
                         <img
                           src={formation.consultant.image}
                           alt={formation.consultant.name}
-                          className="w-full max-w-[280px] rounded-2xl shadow-2xl ring-4 ring-white dark:ring-neutral-800 transition-transform duration-500 group-hover:scale-105"
+                          className="w-full max-w-[450px] rounded-2xl shadow-2xl ring-4 ring-white dark:ring-neutral-800 transition-transform duration-500 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
@@ -339,7 +339,7 @@ const FormationPageDynamic = ({ formation }) => {
                     
                     {/* Consultant Info Card */}
                     <div className="w-full bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50">
-                      <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100 mb-2 text-center">
+                      <h3 className="text-4xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-100 mb-2 text-center">
                         {formation.consultant.name}
                       </h3>
                       <p className="text-base text-[#FABC05] font-semibold mb-4 text-center">

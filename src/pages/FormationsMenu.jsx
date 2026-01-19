@@ -69,7 +69,7 @@ const FormationsMenu = () => {
             <Link
               key={formation.id}
               to={formation.route}
-              className="group relative block h-[600px] rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]"
+              className="group relative block min-h-[600px] rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]"
             >
               {/* Background Image with Overlay */}
               <div
@@ -105,19 +105,19 @@ const FormationsMenu = () => {
 
                   {/* Consultant Name */}
                   <div className="mt-auto">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-12 h-12 rounded-full border-2 border-white/50 overflow-hidden bg-white/20 backdrop-blur-sm">
+                    <div className="flex items-center gap-6 mb-2">
+                      <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl border-4 border-white/60 overflow-hidden bg-white/20 backdrop-blur-sm shadow-2xl flex-shrink-0">
                         <img
                           src={formation.consultant.image}
                           alt={formation.consultant.name}
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div>
-                        <p className="font-semibold text-lg">
+                      <div className="flex-1">
+                        <p className="font-bold text-2xl md:text-3xl lg:text-4xl mb-2">
                           {formation.consultant.name}
                         </p>
-                        <p className="text-sm text-white/80">
+                        <p className="text-base md:text-lg text-white/90 font-medium">
                           {formation.consultant.experience}
                         </p>
                       </div>
@@ -130,25 +130,42 @@ const FormationsMenu = () => {
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div>
                       <p className="text-sm text-white/70 mb-1">المدة</p>
-                      <p className="font-semibold">{formation.duration}</p>
+                      <p className="font-semibold text-white">{formation.duration}</p>
                     </div>
                     <div>
                       <p className="text-sm text-white/70 mb-1">الموقع</p>
-                      <p className="font-semibold text-sm">{formation.location}</p>
+                      <p className="font-semibold text-white text-sm">{formation.location}</p>
+                    </div>
+                  </div>
+
+                  {/* Pricing Section */}
+                  <div className="mb-6 space-y-3">
+                    {/* Public Price */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-white/80">السعر العام</span>
+                      <span className="text-base text-white/90 font-medium">
+                        {formation.pricing.regular} {formation.pricing.currency}
+                      </span>
+                    </div>
+                    
+                    {/* Discount Badge */}
+                    <div className="flex items-center justify-center py-2">
+                      <span className="px-4 py-2 bg-[#FABC05] rounded-full text-xs md:text-sm font-semibold text-black border border-[#FFD700]/50 shadow-lg">
+                        خصم {formation.pricing.discount} {formation.pricing.currency} لأعضاء Webscale
+                      </span>
+                    </div>
+                    
+                    {/* Final Webscale Members Price */}
+                    <div className="flex items-center justify-between pt-3 border-t border-white/30">
+                      <span className="text-base md:text-lg font-bold text-white">السعر لأعضاء Webscale</span>
+                      <span className="text-xl md:text-2xl font-bold text-[#FABC05]">
+                        {formation.pricing.webscaleMember} {formation.pricing.currency}
+                      </span>
                     </div>
                   </div>
 
                   {/* CTA Button */}
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm text-white/80">
-                      <span className="font-semibold text-white">
-                        {formation.pricing.regular} {formation.pricing.currency}
-                      </span>
-                      <span className="mx-2">•</span>
-                      <span>
-                        أعضاء Webscale: {formation.pricing.webscaleMember} {formation.pricing.currency}
-                      </span>
-                    </div>
+                  <div className="flex items-center justify-center">
                     <div className="px-6 py-3 bg-[#FABC05] text-black font-bold rounded-lg group-hover:bg-[#FFD700] transition-colors duration-300 shadow-lg">
                       اكتشف المزيد →
                     </div>

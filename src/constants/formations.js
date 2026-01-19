@@ -7,7 +7,7 @@ export const formations = {
     id: "smq",
     slug: "smq",
     route: "/formations/smq",
-    title: "قلّل الأخطاء، نظم مؤسستك، واصنع انضباطًا حقيقيًا",
+    title: "دورة الادارة بالجودة",
     subtitle: "مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…",
     description: "تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.",
     meta: {
@@ -25,7 +25,7 @@ export const formations = {
     consultant: {
       name: "سليم بن عراب",
       title: "مستشار في إدارة الجودة والعمليات",
-      image: "/experts/salim_ben_arab.jpeg",
+      image: "/experts/benarab.png",
       experience: "25+ سنة خبرة",
       description: "25 سنة خبرة داخل شركات:",
       companies: [
