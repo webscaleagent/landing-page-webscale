@@ -1,4 +1,4 @@
-import { Menu, Moon, Sun, X, Users, Briefcase, GraduationCap, Target, TrendingUp, CheckCircle2 } from "lucide-react";
+import { Briefcase, CheckCircle2, GraduationCap, Menu, Moon, Sun, Target, TrendingUp, Users, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -711,6 +711,7 @@ const FormationPageDynamic = ({ formation }) => {
             <FormationRegistrationForm 
               formId={formation.formId}
               cohorts={formation.cohorts}
+              fieldsConfig={formation.fieldsConfig}
             />
           </div>
         </div>

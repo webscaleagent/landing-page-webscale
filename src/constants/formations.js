@@ -186,7 +186,15 @@ export const formations = {
       title: "المحاسبة لغير المحاسبين - تكوين مع مقران فريد | Webscale",
       description: "تكوين شامل في أساسيات المحاسبة المالية للمديرين وكل من يريد فهم لغة المحاسبة وقراءة القوائم المالية",
     },
-    formId: "YOUR_CRM_FORM_ID_HERE", // ⚠️ Replace with your actual CRM Form ID
+    formId: "a53dae24-f5ac-4457-91f5-4011d74e5a0e",
+    fieldsConfig: {
+      jobTitle: { required: false },
+      cohort: { required: false },
+      state: { required: false },
+      isWebscaleMember: { required: false },
+      managerExperienceDuration: { hidden: true },
+      businessSector: { label: "ما هو مجال نشاط شركتك؟" },
+    },
     pricing: {
       regular: "45.000",
       webscaleMember: "39.000",
@@ -292,8 +300,7 @@ export const formations = {
       },
     ],
     cohorts: [
-      { value: "فوج 1", label: "فوج 1 - سيتم الإعلان عن التاريخ قريباً", disabled: false },
-      // Add more cohorts as they become available
+      { value: "فوج 10 فيفري", label: "فوج 10 فيفري", disabled: false },
     ],
     faq: [
       {
@@ -359,7 +366,7 @@ export const formations = {
   // ============================================
   // Copy this template, uncomment it, and fill in your information
   // Then access it at: /formation/your-formation-slug
-  
+
   // yourFormationName: {
   //   id: "your-formation-id",                    // Unique ID (e.g., "digital-marketing")
   //   slug: "your-formation-slug",                // URL slug (e.g., "digital-marketing")
