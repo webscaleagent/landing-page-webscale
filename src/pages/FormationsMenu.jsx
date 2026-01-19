@@ -53,23 +53,23 @@ const FormationsMenu = () => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
             اختر التكوين المناسب لك
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
             تكوينات تطبيقية مع خبراء متمرسين
           </p>
         </div>
 
         {/* Formation Cards Grid */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-          {formationCards.map(({ formation, gradient }) => (
+        <div className="flex flex-row md:grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 snap-x snap-mandatory scrollbar-hide -mx-4 md:mx-0 px-4 md:px-0">
+          {formationCards.map(({ formation, gradient }, index) => (
             <Link
               key={formation.id}
               to={formation.route}
-              className="group relative block min-h-[600px] rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]"
+              className="group relative block min-h-[550px] md:min-h-[600px] w-[340px] md:w-auto flex-shrink-0 md:flex-shrink rounded-3xl overflow-hidden shadow-xl md:shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.01] md:hover:scale-[1.02] snap-center"
             >
               {/* Background Image with Overlay */}
               <div
@@ -88,36 +88,36 @@ const FormationsMenu = () => {
               </div>
 
               {/* Content */}
-              <div className="relative h-full flex flex-col justify-between p-8 lg:p-12 text-white">
+              <div className="relative h-full flex flex-col justify-between p-6 md:p-8 lg:p-12 text-white">
                 {/* Top Section - Consultant Info */}
                 <div className="flex-1 flex flex-col justify-start">
-                  <div className="mb-6">
-                    <div className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold mb-4 border border-white/30">
+                  <div className="mb-4 md:mb-6">
+                    <div className="inline-block px-3 md:px-4 py-1.5 md:py-2 bg-white/20 backdrop-blur-sm rounded-full text-xs md:text-sm font-semibold mb-3 md:mb-4 border border-white/30">
                       {formation.consultant.title}
                     </div>
-                    <h3 className="text-3xl lg:text-4xl font-bold mb-3 leading-tight">
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-3 leading-tight">
                       {formation.title}
                     </h3>
-                    <p className="text-lg lg:text-xl text-white/90 mb-4 line-clamp-2">
+                    <p className="text-base md:text-lg lg:text-xl text-white/90 mb-3 md:mb-4 line-clamp-2">
                       {formation.subtitle}
                     </p>
                   </div>
 
                   {/* Consultant Name */}
                   <div className="mt-auto">
-                    <div className="flex items-center gap-6 mb-2">
-                      <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl border-4 border-white/60 overflow-hidden bg-white/20 backdrop-blur-sm shadow-2xl flex-shrink-0">
+                    <div className="flex items-center gap-4 md:gap-6 mb-2">
+                      <div className="w-28 h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-2xl border-2 md:border-4 border-white/60 overflow-hidden bg-white/20 backdrop-blur-sm shadow-2xl flex-shrink-0">
                         <img
                           src={formation.consultant.image}
                           alt={formation.consultant.name}
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div className="flex-1">
-                        <p className="font-bold text-2xl md:text-3xl lg:text-4xl mb-2">
+                      <div className="flex-1 min-w-0">
+                        <p className="font-bold text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-1 md:mb-2 truncate">
                           {formation.consultant.name}
                         </p>
-                        <p className="text-base md:text-lg text-white/90 font-medium">
+                        <p className="text-sm md:text-base lg:text-lg text-white/90 font-medium">
                           {formation.consultant.experience}
                         </p>
                       </div>
@@ -126,39 +126,39 @@ const FormationsMenu = () => {
                 </div>
 
                 {/* Bottom Section - Key Info */}
-                <div className="mt-8 pt-6 border-t border-white/20">
-                  <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/20">
+                  <div className="grid grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6">
                     <div>
-                      <p className="text-sm text-white/70 mb-1">المدة</p>
-                      <p className="font-semibold text-white">{formation.duration}</p>
+                      <p className="text-xs md:text-sm text-white/70 mb-1">المدة</p>
+                      <p className="font-semibold text-white text-sm md:text-base">{formation.duration}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-white/70 mb-1">الموقع</p>
-                      <p className="font-semibold text-white text-sm">{formation.location}</p>
+                      <p className="text-xs md:text-sm text-white/70 mb-1">الموقع</p>
+                      <p className="font-semibold text-white text-xs md:text-sm">{formation.location}</p>
                     </div>
                   </div>
 
                   {/* Pricing Section */}
-                  <div className="mb-6 space-y-3">
+                  <div className="mb-4 md:mb-6 space-y-2.5 md:space-y-3">
                     {/* Public Price */}
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-white/80">السعر العام</span>
-                      <span className="text-base text-white/90 font-medium">
+                      <span className="text-xs md:text-sm text-white/80">السعر العام</span>
+                      <span className="text-sm md:text-base text-white/90 font-medium">
                         {formation.pricing.regular} {formation.pricing.currency}
                       </span>
                     </div>
                     
                     {/* Discount Badge */}
-                    <div className="flex items-center justify-center py-2">
-                      <span className="px-4 py-2 bg-[#FABC05] rounded-full text-xs md:text-sm font-semibold text-black border border-[#FFD700]/50 shadow-lg">
+                    <div className="flex items-center justify-center py-1.5 md:py-2">
+                      <span className="px-3 md:px-4 py-1.5 md:py-2 bg-[#FABC05] rounded-full text-xs md:text-sm font-semibold text-black border border-[#FFD700]/50 shadow-lg">
                         خصم {formation.pricing.discount} {formation.pricing.currency} لأعضاء Webscale
                       </span>
                     </div>
                     
                     {/* Final Webscale Members Price */}
-                    <div className="flex items-center justify-between pt-3 border-t border-white/30">
-                      <span className="text-base md:text-lg font-bold text-white">السعر لأعضاء Webscale</span>
-                      <span className="text-xl md:text-2xl font-bold text-[#FABC05]">
+                    <div className="flex items-center justify-between pt-2 md:pt-3 border-t border-white/30">
+                      <span className="text-sm md:text-base lg:text-lg font-bold text-white">السعر لأعضاء Webscale</span>
+                      <span className="text-lg md:text-xl lg:text-2xl font-bold text-[#FABC05]">
                         {formation.pricing.webscaleMember} {formation.pricing.currency}
                       </span>
                     </div>
@@ -166,7 +166,7 @@ const FormationsMenu = () => {
 
                   {/* CTA Button */}
                   <div className="flex items-center justify-center">
-                    <div className="px-6 py-3 bg-[#FABC05] text-black font-bold rounded-lg group-hover:bg-[#FFD700] transition-colors duration-300 shadow-lg">
+                    <div className="w-full md:w-auto px-5 md:px-6 py-2.5 md:py-3 bg-[#FABC05] text-black font-bold rounded-lg group-hover:bg-[#FFD700] transition-colors duration-300 shadow-lg text-sm md:text-base text-center">
                       اكتشف المزيد →
                     </div>
                   </div>
