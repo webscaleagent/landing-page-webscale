@@ -4,8 +4,8 @@ import BadgeCTA from "./components/BadgeCTA";
 import AboutUs from "./pages/AboutUs";
 import BadgeGeneration from "./pages/BadgeGeneration";
 import EventLandingPage from "./pages/EventLandingPage";
-import FormationPage from "./pages/FormationPage";
 import FormationPageWrapper from "./pages/FormationPageWrapper";
+import FormationsMenu from "./pages/FormationsMenu";
 import InvestorLandingPage from "./pages/InvestorLandingPage";
 import MobileFormPage from "./pages/MobileFormPage";
 import QRGeneratorPage from "./pages/QRGeneratorPage";
@@ -19,8 +19,8 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/event" element={<EventLandingPage />} />
-        <Route path="/formation" element={<FormationPage />} />
-        <Route path="/formation/:slug" element={<FormationPageWrapper />} />
+        <Route path="/formations" element={<FormationsMenu />} />
+        <Route path="/formations/:slug" element={<FormationPageWrapper />} />
         <Route path="/investor" element={<InvestorLandingPage />} />
         <Route path="/workshop-event" element={<WorkshopEventPage />} />
         <Route path="/about" element={<AboutUs />} />

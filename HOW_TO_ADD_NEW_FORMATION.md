@@ -25,8 +25,8 @@ export const formations = {
   
   yourFormationId: {
     id: "your-formation-id",
-    slug: "your-formation-slug",  // Used in URL: /formation/your-formation-slug
-    route: "/formation/your-formation-slug",
+    slug: "your-formation-slug",  // Used in URL: /formations/your-formation-slug
+    route: "/formations/your-formation-slug",
     title: "عنوان التكوين الرئيسي",
     subtitle: "العنوان الفرعي أو الوصف القصير",
     description: "وصف التكوين",
@@ -130,19 +130,20 @@ Update the paths in your formation configuration.
 ### Step 4: Test Your Formation
 
 1. Start the development server: `npm run dev`
-2. Navigate to: `http://localhost:5173/formation/your-formation-slug`
+2. Navigate to: `http://localhost:5173/formations/your-formation-slug`
 3. Verify all sections display correctly
 4. Test the registration form submission
 
 ## Routes
 
-- **Old route (backward compatible)**: `/formation` → Shows SMQ formation
-- **New dynamic route**: `/formation/:slug` → Shows formation based on slug
+- **Formations menu**: `/formations` → Shows menu with all available formations
+- **Dynamic route**: `/formations/:slug` → Shows formation based on slug
 
 Examples:
-- `/formation` → SMQ formation (default)
-- `/formation/smq` → SMQ formation
-- `/formation/your-formation-slug` → Your new formation
+- `/formations` → Formations menu page
+- `/formations/smq` → SMQ formation
+- `/formations/comptabilite` → Comptabilité formation
+- `/formations/your-formation-slug` → Your new formation
 
 ## Key Features
 
@@ -173,7 +174,7 @@ Examples:
 digitalMarketing: {
   id: "digital-marketing",
   slug: "digital-marketing",
-  route: "/formation/digital-marketing",
+  route: "/formations/digital-marketing",
   title: "تسويق رقمي متقدم",
   subtitle: "تعلم أحدث استراتيجيات التسويق الرقمي",
   description: "دورة شاملة في التسويق الرقمي للمسيرين",
@@ -283,7 +284,7 @@ Adding a new formation is now as simple as:
 1. ✅ Add configuration to `formations.js`
 2. ✅ Get CRM form ID
 3. ✅ Add images to `public/` folder
-4. ✅ Test at `/formation/your-slug`
+4. ✅ Test at `/formations/your-slug`
 
 The system automatically handles routing, rendering, and form submission!
 

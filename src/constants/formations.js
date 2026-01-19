@@ -6,7 +6,7 @@ export const formations = {
   smq: {
     id: "smq",
     slug: "smq",
-    route: "/formation/smq", // or keep "/formation" for backward compatibility
+    route: "/formations/smq",
     title: "قلّل الأخطاء، نظم مؤسستك، واصنع انضباطًا حقيقيًا",
     subtitle: "مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…",
     description: "تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.",
@@ -178,7 +178,7 @@ export const formations = {
   comptabilite: {
     id: "comptabilite",
     slug: "comptabilite",
-    route: "/formation/comptabilite",
+    route: "/formations/comptabilite",
     title: "المحاسبة لغير المحاسبين",
     subtitle: "مع السيد فريد مقران - تكوين شامل في المحاسبة المالية والتحليل المالي",
     description: "تعلم لغة المحاسبة، قراءة القوائم المالية، والتحليل المالي لاتخاذ قرارات مالية مدروسة",
@@ -365,12 +365,12 @@ export const formations = {
   // TEMPLATE: Add Your New Formation Here
   // ============================================
   // Copy this template, uncomment it, and fill in your information
-  // Then access it at: /formation/your-formation-slug
+  // Then access it at: /formations/your-formation-slug
 
   // yourFormationName: {
   //   id: "your-formation-id",                    // Unique ID (e.g., "digital-marketing")
   //   slug: "your-formation-slug",                // URL slug (e.g., "digital-marketing")
-  //   route: "/formation/your-formation-slug",   // Full route path
+  //   route: "/formations/your-formation-slug",   // Full route path
   //   title: "عنوان التكوين الرئيسي",              // Main title (shown in hero)
   //   subtitle: "العنوان الفرعي",                 // Subtitle (shown in hero)
   //   description: "وصف قصير للتكوين",             // Short description
