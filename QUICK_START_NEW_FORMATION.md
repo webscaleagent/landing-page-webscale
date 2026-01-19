@@ -141,3 +141,4 @@ Then visit: `http://localhost:5173/formation/digital-marketing`
 
 Once you add the configuration, your landing page will automatically work at `/formation/your-slug`
 
+

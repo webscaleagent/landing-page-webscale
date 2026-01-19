@@ -706,7 +706,7 @@ const FormationPageDynamic = ({ formation }) => {
 
           <div className="max-w-4xl mx-auto">
             <p className="text-center text-lg mb-4 text-neutral-700 dark:text-neutral-300">
-              <strong className="text-[#FABC05]">الأماكن محدودة</strong> - {formation.maxParticipants} مشارك فقط
+              <strong className="text-[#FABC05]">الأماكن محدودة</strong>
             </p>
             <FormationRegistrationForm 
               formId={formation.formId}

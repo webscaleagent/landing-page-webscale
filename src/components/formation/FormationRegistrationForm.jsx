@@ -20,13 +20,14 @@ const DEFAULT_FORM_ID = "9699183e-5d2b-4969-832b-9abf4dddea48";
 
 // Default cohorts for backward compatibility
 const DEFAULT_COHORTS = [
+  { value: "قائمة الانتظار", label: "✅ قائمة الانتظار - احصل على أولوية عند فتح مقاعد جديدة", disabled: false },
   { value: "فوج 13, 14, 15 ديسمبر", label: "فوج 13, 14, 15 ديسمبر (ممتلئ)", disabled: true },
   { value: "فوج 27, 28, 29 ديسمبر", label: "فوج 27, 28, 29 ديسمبر (ممتلئ)", disabled: true },
   { value: "الفوج الثالث - 10, 11, 12 جانفي", label: "الفوج الثالث - 10, 11, 12 جانفي (ممتلئ)", disabled: true },
-  { value: "الفوج الرابع - 13, 14, 15 جانفي", label: "الفوج الرابع - 13, 14, 15 جانفي", disabled: false },
-  { value: "الفوج الخامس - 17, 18, 19 جانفي", label: "الفوج الخامس - 17, 18, 19 جانفي (مؤجل)", disabled: true },
+  { value: "الفوج الرابع - 13, 14, 15 جانفي", label: "الفوج الرابع - 13, 14, 15 جانفي (ممتلئ)", disabled: true },
+  { value: "الفوج الخامس - 17, 18, 19 جانفي", label: "الفوج الخامس - 17, 18, 19 جانفي (ممتلئ)", disabled: true },
   { value: "الفوج السادس - 20, 21, 22 جانفي", label: "الفوج السادس - 20, 21, 22 جانفي (ممتلئ)", disabled: true },
-  { value: "الفوج السابع - 31 جانفي 02 , 01 فيفري", label: "الفوج السابع - 31 جانفي 02 , 01 فيفري", disabled: false },
+  { value: "الفوج السابع - 31 جانفي 02 , 01 فيفري", label: "الفوج السابع - 31 جانفي 02 , 01 فيفري (ممتلئ)", disabled: true },
 ];
 
 const fieldBase =
@@ -417,7 +418,7 @@ export default function FormationRegistrationForm({
             required
             name="legalForm"
             options={[
-              "مؤسسة فردية",
+              "مؤسسة فردية (EURL)",
               "شركة ذات مسؤولية محدودة (SARL)",
               "شركة مساهمة (SPA)",
               "شركة تضامن",
