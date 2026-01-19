@@ -1,5 +1,6 @@
 import { ArrowLeft, GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 import { formations } from "../constants/formations";
 
 const FormationsMenu = () => {
@@ -31,6 +32,16 @@ const FormationsMenu = () => {
               <ArrowLeft className="w-5 h-5" />
               <span>العودة للرئيسية</span>
             </Link>
+            
+            {/* Center: Logo and Title */}
+            <Link to="/" className="flex items-center gap-2 group relative">
+              <div className="relative">
+                <img src={logo} alt="Webscale Logo" className="h-9 md:h-10 w-auto transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" />
+                <div className="absolute inset-0 bg-[#FABC05]/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <span className="text-lg md:text-xl font-bold text-neutral-800 dark:text-neutral-100 transition-all duration-300 group-hover:text-[#FABC05] group-hover:scale-105">webscale</span>
+            </Link>
+
             <div className="flex items-center gap-2">
               <GraduationCap className="w-6 h-6 text-[#FABC05]" />
               <h1 className="text-xl font-bold text-gray-900 dark:text-white">
