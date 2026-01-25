@@ -1,5 +1,5 @@
 // src/App.jsx
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Navigate, Route, BrowserRouter as Router, Routes, useParams } from "react-router-dom";
 import BadgeCTA from "./components/BadgeCTA";
 import AboutUs from "./pages/AboutUs";
 import BadgeGeneration from "./pages/BadgeGeneration";
@@ -14,10 +14,18 @@ import SubmissionDetails from "./pages/SubmissionDetails";
 import SubmissionsCarouselPage from "./pages/SubmissionsCarouselPage";
 import WorkshopEventPage from "./pages/WorkshopEventPage";
 
+// Redirect component for /formation/:slug -> /formations/:slug
+function FormationSlugRedirect() {
+  const { slug } = useParams();
+  return <Navigate to={`/formations/${slug}`} replace />;
+}
+
 export default function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/formation" element={<Navigate to="/formations" replace />} />
+        <Route path="/formation/:slug" element={<FormationSlugRedirect />} />
         <Route path="/event" element={<EventLandingPage />} />
         <Route path="/formations" element={<FormationsMenu />} />
         <Route path="/formations/:slug" element={<FormationPageWrapper />} />
