@@ -434,7 +434,7 @@ export default function FormationRegistrationForm({
             required={isRequired("legalForm")}
             name="legalForm"
             options={[
-              "مؤسسة فردية (EURL)",
+              "مؤسسة فردية",
               "شركة ذات مسؤولية محدودة (SARL)",
               "شركة مساهمة (SPA)",
               "شركة تضامن",
@@ -527,55 +527,7 @@ export default function FormationRegistrationForm({
         </div>
         )}
 
-        {/* Job Title Field */}
-        {!isHidden("jobTitle") && (
-        <div>
-          <label className={labelBase}>
-            المنصب الوظيفي {isRequired("jobTitle") && <span className="text-red-500">*</span>}
-          </label>
-          <Select
-            value={form.jobTitle}
-            onValueChange={(value) => {
-              setForm({ ...form, jobTitle: value, managerExperienceDuration: "" });
-            }}
-          >
-            <SelectTrigger className={fieldBase} ref={fieldRefs.jobTitle}>
-              <SelectValue placeholder="اختر المنصب الوظيفي" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="رئيس الشركة">رئيس الشركة</SelectItem>
-              <SelectItem value="مسير">مسير</SelectItem>
-              <SelectItem value="موظف">موظف</SelectItem>
-            </SelectContent>
-          </Select>
-          {errors.jobTitle && <div className={errorText}>{errors.jobTitle}</div>}
-        </div>
-        )}
 
-        {/* Manager Experience Duration - Conditional Field */}
-        {!isHidden("managerExperienceDuration") && form.jobTitle === "مسير" && (
-          <div>
-            <label className={labelBase}>
-              خبرتك الحالية في منصب المسير (بالسنوات) {isRequired("managerExperienceDuration") && <span className="text-red-500">*</span>}
-            </label>
-            <Select
-              value={form.managerExperienceDuration}
-              onValueChange={(value) => setForm({ ...form, managerExperienceDuration: value })}
-            >
-              <SelectTrigger className={fieldBase} ref={fieldRefs.managerExperienceDuration}>
-                <SelectValue placeholder="اختر المدة" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="أقل من سنة">أقل من سنة</SelectItem>
-                <SelectItem value="من سنة إلى سنتين">من سنة إلى سنتين</SelectItem>
-                <SelectItem value="من سنتين إلى 5 سنوات">من سنتين إلى 5 سنوات</SelectItem>
-                <SelectItem value="من 5 سنوات إلى 10 سنوات">من 5 سنوات إلى 10 سنوات</SelectItem>
-                <SelectItem value="أكثر من 10 سنوات">أكثر من 10 سنوات</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.managerExperienceDuration && <div className={errorText}>{errors.managerExperienceDuration}</div>}
-          </div>
-        )}
 
         {/* Full Name Field - Order 3 */}
         {!isHidden("fullName") && (
@@ -707,6 +659,57 @@ export default function FormationRegistrationForm({
           </div>
           {errors.isWebscaleMember && <div className={errorText}>{errors.isWebscaleMember}</div>}
         </div>
+        )}
+
+
+        {/* Job Title Field - Order 9 */}
+        {!isHidden("jobTitle") && (
+        <div>
+          <label className={labelBase}>
+            المنصب الوظيفي {isRequired("jobTitle") && <span className="text-red-500">*</span>}
+          </label>
+          <Select
+            value={form.jobTitle}
+            onValueChange={(value) => {
+              setForm({ ...form, jobTitle: value, managerExperienceDuration: "" });
+            }}
+          >
+            <SelectTrigger className={fieldBase} ref={fieldRefs.jobTitle}>
+              <SelectValue placeholder="اختر المنصب الوظيفي" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="رئيس الشركة">رئيس الشركة</SelectItem>
+              <SelectItem value="مسير">مسير</SelectItem>
+              <SelectItem value="موظف">موظف</SelectItem>
+            </SelectContent>
+          </Select>
+          {errors.jobTitle && <div className={errorText}>{errors.jobTitle}</div>}
+        </div>
+        )}
+
+        {/* Manager Experience Duration - Conditional Field */}
+        {!isHidden("managerExperienceDuration") && form.jobTitle === "مسير" && (
+          <div>
+            <label className={labelBase}>
+              خبرتك الحالية في منصب المسير (بالسنوات) {isRequired("managerExperienceDuration") && <span className="text-red-500">*</span>}
+            </label>
+            <Select
+              value={form.managerExperienceDuration}
+              onValueChange={(value) => setForm({ ...form, managerExperienceDuration: value })}
+            >
+              <SelectTrigger className={fieldBase} ref={fieldRefs.managerExperienceDuration}>
+                <SelectValue placeholder="اختر المدة" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="أقل من سنة">أقل من سنة</SelectItem>
+                <SelectItem value="من سنة إلى سنتين">من سنة إلى سنتين</SelectItem>
+                <SelectItem value="من سنتين إلى 5 سنوات">من سنتين إلى 5 سنوات</SelectItem>
+                <SelectItem value="من 5 سنوات إلى 10 سنوات">من 5 سنوات إلى 10 سنوات</SelectItem>
+                <SelectItem value="أكثر من 10 سنوات">أكثر من 10 سنوات</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.managerExperienceDuration && <div className={errorText}>{errors.managerExperienceDuration}</div>}
+          </div>
         )}
 
         {/* Honeypot Field - DO NOT REMOVE */}
