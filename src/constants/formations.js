@@ -206,7 +206,7 @@ export const formations = {
       name: "مقران فريد",
       title: "خبير في المحاسبة المالية",
       image: "/experts/mokrane_farid.jpeg",
-      experience: "خبير محاسبة مالية",
+      experience: " مختص في المحاسبة و المالية",
       description: "",
       companies: [
         // Add company logos if available
