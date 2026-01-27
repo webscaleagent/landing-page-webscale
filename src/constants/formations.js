@@ -188,10 +188,10 @@ export const formations = {
     },
     formId: "a53dae24-f5ac-4457-91f5-4011d74e5a0e",
     fieldsConfig: {
-      jobTitle: { required: false },
+      jobTitle: { required: true },
       cohort: { required: false },
       state: { required: false },
-      isWebscaleMember: { required: false },
+      isWebscaleMember: { required: true },
       managerExperienceDuration: { hidden: true },
       businessSector: { label: "ما هو مجال نشاط شركتك؟" },
     },

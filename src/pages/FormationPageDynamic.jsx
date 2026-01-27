@@ -9,7 +9,6 @@ import FormationRegistrationForm from "../components/formation";
 const FormationPageDynamic = ({ formation }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [expandedSections, setExpandedSections] = useState({});
   const [isWebscaleMember, setIsWebscaleMember] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
@@ -127,7 +126,7 @@ const FormationPageDynamic = ({ formation }) => {
                 </svg>
               </Link>
               <button
-                onClick={() => setShowRegistrationModal(true)}
+                onClick={() => scrollToSection("registration-form")}
                 className="flex items-center gap-2 relative px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-[#FABC05] via-[#FFD700] to-[#FABC05] bg-size-200 bg-pos-0 hover:bg-pos-100 text-black font-semibold text-sm md:text-base rounded-xl overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#FABC05]/40"
                 style={{ backgroundSize: '200% 100%' }}
               >
@@ -170,7 +169,7 @@ const FormationPageDynamic = ({ formation }) => {
                 </Link>
                 <button
                   onClick={() => {
-                    setShowRegistrationModal(true);
+                    scrollToSection("registration-form");
                     setMobileMenuOpen(false);
                   }}
                   className="mx-4 mt-2 px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-[#FABC05]/40"
@@ -256,7 +255,7 @@ const FormationPageDynamic = ({ formation }) => {
                 </p>
               </div>
               <button
-                onClick={() => setShowRegistrationModal(true)}
+                onClick={() => scrollToSection("registration-form")}
                 className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
               >
                 <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
@@ -299,7 +298,7 @@ const FormationPageDynamic = ({ formation }) => {
             </div>
             <div className="text-center">
               <button
-                onClick={() => setShowRegistrationModal(true)}
+                onClick={() => scrollToSection("registration-form")}
                 className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
               >
                 <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
@@ -411,7 +410,7 @@ const FormationPageDynamic = ({ formation }) => {
             {/* CTA Button */}
             <div className="text-center mt-8">
               <button
-                onClick={() => setShowRegistrationModal(true)}
+                onClick={() => scrollToSection("registration-form")}
                 className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
               >
                 <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
@@ -440,7 +439,7 @@ const FormationPageDynamic = ({ formation }) => {
           </div>
           <div className="text-center mt-6">
             <button
-              onClick={() => setShowRegistrationModal(true)}
+              onClick={() => scrollToSection("registration-form")}
               className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
             >
               <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
@@ -590,7 +589,7 @@ const FormationPageDynamic = ({ formation }) => {
               فهذه الدورة تقدم لك منهجية ميدانية استُخدمت فعليًا لرفع أداء شركات كبيرة تعمل في الجزائر.
             </p>
             <button
-              onClick={() => setShowRegistrationModal(true)}
+              onClick={() => scrollToSection("registration-form")}
               className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
             >
               <span className="relative z-10">احجز مكانك الآن وابدأ في إعادة ترتيب شركتك بطريقة احترافية وواضحة.</span>
@@ -695,7 +694,7 @@ const FormationPageDynamic = ({ formation }) => {
                 )}
               </ul>
               <button
-                onClick={() => setShowRegistrationModal(true)}
+                onClick={() => scrollToSection("registration-form")}
                 className="relative w-full px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-lg overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FABC05]/50"
               >
                 <span className="relative z-10">احجز مقعدك الآن</span>
@@ -704,7 +703,7 @@ const FormationPageDynamic = ({ formation }) => {
             </div>
           </div>
 
-          <div className="max-w-4xl mx-auto">
+          <div id="registration-form" className="max-w-4xl mx-auto">
             <p className="text-center text-lg mb-4 text-neutral-700 dark:text-neutral-300">
               <strong className="text-[#FABC05]">الأماكن محدودة</strong>
             </p>
@@ -854,28 +853,7 @@ const FormationPageDynamic = ({ formation }) => {
       </footer>
 
       {/* Registration Modal */}
-      {showRegistrationModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="bg-white/95 dark:bg-neutral-800/95 backdrop-blur-lg rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-neutral-200/50 dark:border-neutral-700/50 animate-in zoom-in-95 duration-300">
-            <div className="sticky top-0 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-lg border-b border-neutral-200/50 dark:border-neutral-700/50 p-4 flex items-center justify-between rounded-t-2xl z-10">
-              <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">احجز مقعدك الآن</h2>
-              <button
-                onClick={() => setShowRegistrationModal(false)}
-                className="p-2 hover:bg-[#FABC05]/20 dark:hover:bg-[#FABC05]/20 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-90"
-              >
-                <X className="w-6 h-6 text-neutral-700 dark:text-neutral-300 hover:text-[#FABC05] transition-colors duration-300" />
-              </button>
-            </div>
-            <div className="p-6">
-              <FormationRegistrationForm 
-                onSuccess={() => setShowRegistrationModal(false)}
-                formId={formation.formId}
-                cohorts={formation.cohorts}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };
