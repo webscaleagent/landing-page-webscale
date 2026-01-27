@@ -180,11 +180,11 @@ export const formations = {
     slug: "comptabilite",
     route: "/formations/comptabilite",
     title: "المحاسبة لغير المحاسبين",
-    subtitle: "مع السيد فريد مقران - تكوين شامل في المحاسبة المالية والتحليل المالي",
+    subtitle: "مع السيد فريد مقران -تكوين شامل في مفهوم المحاسبة المالية مع اساسيات التحليل المالي",
     description: "تعلم لغة المحاسبة، قراءة القوائم المالية، والتحليل المالي لاتخاذ قرارات مالية مدروسة",
     meta: {
       title: "المحاسبة لغير المحاسبين - تكوين مع مقران فريد | Webscale",
-      description: "تكوين شامل في أساسيات المحاسبة المالية للمديرين وكل من يريد فهم لغة المحاسبة وقراءة القوائم المالية",
+      description: "تكوين شامل في أساسيات المحاسبة المالية للمديرين وكل من يريد فهم لغة المحاسبة وقراءة القوائم المالي مع السيد فريد مقران -",
     },
     formId: "a53dae24-f5ac-4457-91f5-4011d74e5a0e",
     fieldsConfig: {
@@ -209,7 +209,10 @@ export const formations = {
       experience: " مختص في المحاسبة و المالية",
       description: "",
       companies: [
-        // Add company logos if available
+        { logo: "/formation/logos/WhatsApp Image 2026-01-27 at 12.26.07 PM (1).jpeg" },
+        { logo: "/formation/logos/WhatsApp Image 2026-01-27 at 12.26.07 PM (2).jpeg" },
+        { logo: "/formation/logos/WhatsApp Image 2026-01-27 at 12.26.07 PM.jpeg" },
+        { logo: "/formation/logos/WhatsApp Image 2026-01-27 at 12.26.08 PM.jpeg" },
       ],
       results: [
         "خبرة واسعة في المحاسبة المالية",

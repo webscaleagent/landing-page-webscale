@@ -5,6 +5,13 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import FormationRegistrationForm from "../components/formation";
 
+// Helper function to properly encode image URLs
+const encodeImageUrl = (url) => {
+  // Split the path and encode each segment (but keep slashes)
+  const parts = url.split('/');
+  return parts.map(part => part ? encodeURIComponent(part) : '').join('/');
+};
+
 // This is a reusable FormationPage component that accepts formation configuration
 const FormationPageDynamic = ({ formation }) => {
   const [darkMode, setDarkMode] = useState(false);
@@ -211,6 +218,46 @@ const FormationPageDynamic = ({ formation }) => {
                 <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
                   {formation.description}
                 </p>
+                
+                {/* Company Logos - Desktop */}
+                {formation.consultant.companies && formation.consultant.companies.length > 0 && (
+                  <div className="mt-8 mb-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                      {formation.consultant.companies.map((company, idx) => {
+                        const encodedUrl = encodeImageUrl(company.logo);
+                        return (
+                          <div 
+                            key={idx} 
+                            className="group bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-md hover:border-[#FABC05]/30 transition-all duration-300 flex items-center justify-center cursor-pointer"
+                            style={{ 
+                              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+                              width: '100%',
+                              height: '120px',
+                              padding: '16px'
+                            }}
+                          >
+                            <img
+                              src={encodedUrl}
+                              alt={`Company Logo ${idx + 1}`}
+                              className="object-contain transition-transform duration-300 group-hover:scale-110"
+                              style={{ 
+                                width: '80px',
+                                height: '80px',
+                                maxWidth: '100%',
+                                maxHeight: '100%',
+                                objectFit: 'contain'
+                              }}
+                              onError={(e) => {
+                                console.error('Failed to load logo:', company.logo, 'Encoded:', encodedUrl);
+                                e.target.style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             
@@ -244,6 +291,46 @@ const FormationPageDynamic = ({ formation }) => {
                 <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
                   {formation.description}
                 </p>
+                
+                {/* Company Logos - Mobile */}
+                {formation.consultant.companies && formation.consultant.companies.length > 0 && (
+                  <div className="mt-8 mb-6">
+                    <div className="grid grid-cols-2 gap-4">
+                      {formation.consultant.companies.map((company, idx) => {
+                        const encodedUrl = encodeImageUrl(company.logo);
+                        return (
+                          <div 
+                            key={idx} 
+                            className="group bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-md hover:border-[#FABC05]/30 transition-all duration-300 flex items-center justify-center cursor-pointer"
+                            style={{ 
+                              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+                              width: '100%',
+                              height: '120px',
+                              padding: '16px'
+                            }}
+                          >
+                            <img
+                              src={encodedUrl}
+                              alt={`Company Logo ${idx + 1}`}
+                              className="object-contain transition-transform duration-300 group-hover:scale-110"
+                              style={{ 
+                                width: '80px',
+                                height: '80px',
+                                maxWidth: '100%',
+                                maxHeight: '100%',
+                                objectFit: 'contain'
+                              }}
+                              onError={(e) => {
+                                console.error('Failed to load logo:', company.logo, 'Encoded:', encodedUrl);
+                                e.target.style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             
@@ -310,84 +397,64 @@ const FormationPageDynamic = ({ formation }) => {
       </section>
 
       {/* Consultant Section */}
-      <section id="consultant" className="py-6 md:py-8 px-4">
+      <section id="consultant" className="py-4 md:py-6 px-4">
         <div className="container mx-auto">
           <div className="max-w-6xl mx-auto">
             {/* Modern Consultant Card */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-white via-yellow-50/30 to-white dark:from-neutral-800 dark:via-neutral-900 dark:to-neutral-800 rounded-3xl shadow-2xl border border-neutral-200/50 dark:border-neutral-700/50">
+            <div className="relative overflow-hidden bg-gradient-to-br from-white via-yellow-50/30 to-white dark:from-neutral-800 dark:via-neutral-900 dark:to-neutral-800 rounded-2xl shadow-2xl border border-neutral-200/50 dark:border-neutral-700/50">
               {/* Decorative Background Elements */}
               <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#FABC05]/10 to-transparent rounded-full blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#FFD700]/10 to-transparent rounded-full blur-3xl"></div>
               
-              <div className="relative p-8 md:p-12">
-                <div className="grid md:grid-cols-[450px_1fr] gap-8 lg:gap-12 items-start">
+              <div className="relative p-4 md:p-6">
+                <div className="grid md:grid-cols-[280px_1fr] gap-4 lg:gap-6 items-start">
                   {/* Left: Consultant Image & Info */}
                   <div className="flex flex-col items-center">
                     {/* Image with Modern Frame */}
-                    <div className="relative mb-6 group">
-                      <div className="absolute -inset-4 bg-gradient-to-r from-[#FABC05] via-[#FFD700] to-[#FABC05] rounded-2xl opacity-20 group-hover:opacity-30 blur-xl transition-opacity duration-300"></div>
+                    <div className="relative mb-3 group">
+                      <div className="absolute -inset-2 bg-gradient-to-r from-[#FABC05] via-[#FFD700] to-[#FABC05] rounded-xl opacity-20 group-hover:opacity-30 blur-lg transition-opacity duration-300"></div>
                       <div className="relative">
                         <img
                           src={formation.consultant.image}
                           alt={formation.consultant.name}
-                          className="w-full max-w-[450px] rounded-2xl shadow-2xl ring-4 ring-white dark:ring-neutral-800 transition-transform duration-500 group-hover:scale-105"
+                          className="w-full max-w-[280px] rounded-xl shadow-xl ring-2 ring-white dark:ring-neutral-800 transition-transform duration-500 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
                     </div>
                     
                     {/* Consultant Info Card */}
-                    <div className="w-full bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50">
-                      <h3 className="text-4xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-100 mb-2 text-center">
+                    <div className="w-full bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm p-3 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50">
+                      <h3 className="text-2xl md:text-3xl font-bold text-neutral-800 dark:text-neutral-100 mb-1 text-center">
                         {formation.consultant.name}
                       </h3>
-                      <p className="text-base text-[#FABC05] font-semibold mb-4 text-center">
+                      <p className="text-sm text-[#FABC05] font-semibold mb-2 text-center">
                         {formation.consultant.title}
                       </p>
-                      <div className="flex items-center justify-center gap-2 text-neutral-600 dark:text-neutral-400 mb-4">
-                        <svg className="w-5 h-5 text-[#FABC05]" fill="currentColor" viewBox="0 0 24 24">
+                      <div className="flex items-center justify-center gap-2 text-neutral-600 dark:text-neutral-400">
+                        <svg className="w-4 h-4 text-[#FABC05]" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                         </svg>
-                        <span className="text-sm font-medium">{formation.consultant.experience}</span>
+                        <span className="text-xs font-medium">{formation.consultant.experience}</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Right: Content */}
-                  <div className="space-y-6">
-                    {/* Companies Logos */}
-                    {formation.consultant.companies.length > 0 && (
-                      <div>
-                        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-                          {formation.consultant.companies.map((company, idx) => (
-                            <div 
-                              key={idx} 
-                              className="bg-white/80 dark:bg-neutral-700/80 backdrop-blur-sm p-3 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-600/50 hover:shadow-xl hover:scale-110 hover:border-[#FABC05]/50 transition-all duration-300 flex items-center justify-center cursor-pointer group"
-                            >
-                              <img
-                                src={company.logo}
-                                alt={`Company Logo ${idx + 1}`}
-                                className="w-full h-auto object-contain max-h-12 rounded transition-transform duration-300 group-hover:scale-110"
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
+                  <div className="space-y-3">
                     {/* Documented Results */}
                     <div>
-                      <h4 className="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-4 flex items-center gap-2">
-                        <span className="w-1 h-6 bg-gradient-to-b from-[#FABC05] to-[#FFD700] rounded-full"></span>
+                      <h4 className="text-lg font-bold text-neutral-800 dark:text-neutral-100 mb-2 flex items-center gap-2">
+                        <span className="w-1 h-5 bg-gradient-to-b from-[#FABC05] to-[#FFD700] rounded-full"></span>
                         نتائج موثقة
                       </h4>
-                      <ul className="space-y-3">
+                      <ul className="space-y-2">
                         {formation.consultant.results.map((result, idx) => (
-                          <li key={idx} className="flex items-start gap-3 group/item">
+                          <li key={idx} className="flex items-start gap-2 group/item">
                             <div className="flex-shrink-0 mt-1">
-                              <div className="w-2 h-2 rounded-full bg-[#FABC05] group-hover/item:scale-150 transition-transform duration-300"></div>
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#FABC05] group-hover/item:scale-150 transition-transform duration-300"></div>
                             </div>
-                            <span className="text-neutral-700 dark:text-neutral-300 group-hover/item:text-[#FABC05] transition-colors duration-300 leading-relaxed">
+                            <span className="text-sm text-neutral-700 dark:text-neutral-300 group-hover/item:text-[#FABC05] transition-colors duration-300 leading-relaxed">
                               {result}
                             </span>
                           </li>
@@ -395,10 +462,33 @@ const FormationPageDynamic = ({ formation }) => {
                       </ul>
                     </div>
 
+                    {/* Companies Logos */}
+                    {formation.consultant.companies.length > 0 && (
+                      <div>
+                        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                          {formation.consultant.companies.map((company, idx) => {
+                            const encodedUrl = encodeImageUrl(company.logo);
+                            return (
+                            <div 
+                              key={idx} 
+                              className="bg-white/80 dark:bg-neutral-700/80 backdrop-blur-sm p-2 rounded-lg shadow-md border border-neutral-200/50 dark:border-neutral-600/50 hover:shadow-xl hover:scale-110 hover:border-[#FABC05]/50 transition-all duration-300 flex items-center justify-center cursor-pointer group"
+                            >
+                              <img
+                                src={encodedUrl}
+                                alt={`Company Logo ${idx + 1}`}
+                                className="w-full h-auto object-contain max-h-10 rounded transition-transform duration-300 group-hover:scale-110"
+                              />
+                            </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
                     {/* Quote */}
-                    <div className="relative bg-gradient-to-r from-[#FABC05]/10 via-[#FFD700]/10 to-[#FABC05]/10 dark:from-[#FABC05]/20 dark:via-[#FFD700]/20 dark:to-[#FABC05]/20 p-6 rounded-2xl border-l-4 border-[#FABC05]">
-                      <div className="absolute top-4 right-4 text-6xl text-[#FABC05]/20 font-serif leading-none">"</div>
-                      <p className="text-[#FABC05] dark:text-[#FFD700] font-semibold text-lg leading-relaxed relative z-10">
+                    <div className="relative bg-gradient-to-r from-[#FABC05]/10 via-[#FFD700]/10 to-[#FABC05]/10 dark:from-[#FABC05]/20 dark:via-[#FFD700]/20 dark:to-[#FABC05]/20 p-4 rounded-xl border-l-4 border-[#FABC05]">
+                      <div className="absolute top-2 right-2 text-4xl text-[#FABC05]/20 font-serif leading-none">"</div>
+                      <p className="text-[#FABC05] dark:text-[#FFD700] font-semibold text-base leading-relaxed relative z-10">
                         {formation.consultant.quote}
                       </p>
                     </div>
@@ -408,10 +498,10 @@ const FormationPageDynamic = ({ formation }) => {
             </div>
 
             {/* CTA Button */}
-            <div className="text-center mt-8">
+            <div className="text-center mt-4">
               <button
                 onClick={() => scrollToSection("registration-form")}
-                className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
+                className="relative px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-base overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
               >
                 <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
                 <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>

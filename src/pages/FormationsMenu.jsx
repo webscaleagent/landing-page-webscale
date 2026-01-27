@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { formations } from "../constants/formations";
 
+// Helper function to properly encode image URLs
+const encodeImageUrl = (url) => {
+  // Split the path and encode each segment (but keep slashes)
+  const parts = url.split('/');
+  return parts.map(part => part ? encodeURIComponent(part) : '').join('/');
+};
+
 const FormationsMenu = () => {
   // Get the two formations
   const smqFormation = formations.smq;
@@ -105,7 +112,7 @@ const FormationsMenu = () => {
 
                   {/* Consultant Name */}
                   <div className="mt-auto">
-                    <div className="flex items-center gap-4 md:gap-6 mb-2">
+                    <div className="flex items-center gap-4 md:gap-6 mb-4 md:mb-5">
                       <div className="w-28 h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-2xl border-2 md:border-4 border-white/60 overflow-hidden bg-white/20 backdrop-blur-sm shadow-2xl flex-shrink-0">
                         <img
                           src={formation.consultant.image}
@@ -122,6 +129,49 @@ const FormationsMenu = () => {
                         </p>
                       </div>
                     </div>
+
+                    {/* Company Logos */}
+                    {formation.consultant.companies && formation.consultant.companies.length > 0 && (
+                      <div className="mb-4 md:mb-5">
+                        <div className="flex items-center gap-2 md:gap-3 flex-wrap">
+                          {formation.consultant.companies.slice(0, 4).map((company, idx) => {
+                            const encodedUrl = encodeImageUrl(company.logo);
+                            return (
+                              <div 
+                                key={idx} 
+                                className="group bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 hover:border-white/40 hover:bg-white/20 transition-all duration-300 flex items-center justify-center"
+                                style={{ 
+                                  width: '56px',
+                                  height: '40px',
+                                  padding: '8px',
+                                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                                }}
+                              >
+                                <img
+                                  src={encodedUrl}
+                                  alt={`Company Logo ${idx + 1}`}
+                                  className="object-contain transition-transform duration-300 group-hover:scale-110"
+                                  style={{ 
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'contain'
+                                  }}
+                                  onError={(e) => {
+                                    console.error('Failed to load logo:', company.logo, 'Encoded:', encodedUrl);
+                                    e.target.style.display = 'none';
+                                  }}
+                                />
+                              </div>
+                            );
+                          })}
+                          {formation.consultant.companies.length > 4 && (
+                            <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center text-xs font-semibold text-white" style={{ width: '56px', height: '40px' }}>
+                              +{formation.consultant.companies.length - 4}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
