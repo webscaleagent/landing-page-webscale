@@ -303,7 +303,7 @@ export const formations = {
       },
     ],
     cohorts: [
-      { value: "فوج 10 فيفري", label: "فوج 10 فيفري", disabled: false },
+      { value: "فوج 7, 8, 9 فيفري", label: "فوج 7, 8, 9 فيفري", disabled: false },
     ],
     faq: [
       {
