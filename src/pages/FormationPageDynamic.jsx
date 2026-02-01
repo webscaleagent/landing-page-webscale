@@ -724,105 +724,188 @@ const FormationPageDynamic = ({ formation }) => {
       <section id="pricing" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">الأثمان وطرق التسجيل</h2>
-          <div className="max-w-2xl mx-auto mb-6">
-            <div className={`bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border-2 ${isWebscaleMember ? "border-[#FABC05] shadow-[#FABC05]/20" : "border-neutral-200/50 dark:border-neutral-700/50"} transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]`}>
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
-                  {isWebscaleMember ? "أعضاء Webscale" : "سعر الدورة"}
-                </h3>
-                {isWebscaleMember && (
-                  <span className="px-3 py-1 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black text-sm font-semibold rounded-full animate-pulse">عرض خاص</span>
-                )}
-              </div>
-              <div className="text-center mb-6">
-                <div className="flex items-baseline justify-center gap-2">
-                  <span className="text-5xl font-bold text-neutral-800 dark:text-neutral-100">
-                    {isWebscaleMember ? formation.pricing.webscaleMember : formation.pricing.regular}
-                  </span>
-                  <span className="text-2xl text-neutral-600 dark:text-neutral-400">{formation.pricing.currency}</span>
-                  <span className="text-lg text-neutral-500 dark:text-neutral-500">{formation.pricing.taxNote}</span>
+          
+          {/* Check if we have three-tier pricing with notes */}
+          {formation.pricing.notes && formation.pricing.notes.length > 0 ? (
+            <div className="max-w-5xl mx-auto mb-6">
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                {/* Non-members pricing */}
+                <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-2xl shadow-xl border-2 border-neutral-200/50 dark:border-neutral-700/50 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-[#FABC05]/30">
+                  <div className="text-center mb-4">
+                    <h3 className="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-2">لغير الأعضاء</h3>
+                    <div className="flex items-baseline justify-center gap-2">
+                      <span className="text-4xl font-bold text-neutral-800 dark:text-neutral-100">{formation.pricing.regular}</span>
+                      <span className="text-xl text-neutral-600 dark:text-neutral-400">{formation.pricing.currency}</span>
+                    </div>
+                    <span className="text-sm text-neutral-500 dark:text-neutral-500">{formation.pricing.taxNote}</span>
+                  </div>
+                  <ul className="space-y-2 text-sm text-neutral-700 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">✓ <span>دورة حضورية {formation.duration}</span></li>
+                    <li className="flex items-center gap-2">✓ <span>محتوى عملي وتطبيقي</span></li>
+                    <li className="flex items-center gap-2">✓ <span>شهادة إتمام</span></li>
+                  </ul>
+                </div>
+
+                {/* Webscale members (first time) */}
+                <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-2xl shadow-xl border-2 border-[#FABC05]/50 transition-all duration-300 hover:shadow-2xl hover:scale-[1.05] relative overflow-hidden">
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2 py-1 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black text-xs font-semibold rounded-full">شائع</span>
+                  </div>
+                  <div className="text-center mb-4 mt-6">
+                    <h3 className="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-2">أعضاء Webscale</h3>
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2">لم يحضر أي دورة من قبل</p>
+                    <div className="flex items-baseline justify-center gap-2">
+                      <span className="text-4xl font-bold text-[#FABC05]">{formation.pricing.webscaleMember}</span>
+                      <span className="text-xl text-neutral-600 dark:text-neutral-400">{formation.pricing.currency}</span>
+                    </div>
+                    <span className="text-sm text-neutral-500 dark:text-neutral-500">{formation.pricing.taxNote}</span>
+                  </div>
+                  <ul className="space-y-2 text-sm text-neutral-700 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">✓ <span>دورة حضورية {formation.duration}</span></li>
+                    <li className="flex items-center gap-2">✓ <span>محتوى عملي وتطبيقي</span></li>
+                    <li className="flex items-center gap-2">✓ <span>شهادة إتمام</span></li>
+                    <li className="flex items-center gap-2 text-[#FABC05] font-semibold">✓ <span>خصم للأعضاء</span></li>
+                  </ul>
+                </div>
+
+                {/* Returning participants */}
+                <div className="bg-gradient-to-br from-[#FABC05]/10 via-[#FFD700]/5 to-white dark:from-[#FABC05]/20 dark:via-[#FFD700]/10 dark:to-neutral-800/80 backdrop-blur-sm p-6 rounded-2xl shadow-xl border-2 border-[#FABC05] transition-all duration-300 hover:shadow-2xl hover:scale-[1.05] relative overflow-hidden">
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2 py-1 bg-gradient-to-r from-[#FFD700] to-[#FABC05] text-black text-xs font-semibold rounded-full animate-pulse">أفضل سعر</span>
+                  </div>
+                  <div className="text-center mb-4 mt-6">
+                    <h3 className="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-2">المشاركون السابقون</h3>
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2">حضر معنا دورات سابقا</p>
+                    <div className="flex items-baseline justify-center gap-2">
+                      <span className="text-4xl font-bold text-[#FABC05]">{formation.pricing.returningParticipant}</span>
+                      <span className="text-xl text-neutral-600 dark:text-neutral-400">{formation.pricing.currency}</span>
+                    </div>
+                    <span className="text-sm text-neutral-500 dark:text-neutral-500">{formation.pricing.taxNote}</span>
+                  </div>
+                  <ul className="space-y-2 text-sm text-neutral-700 dark:text-neutral-300">
+                    <li className="flex items-center gap-2">✓ <span>دورة حضورية {formation.duration}</span></li>
+                    <li className="flex items-center gap-2">✓ <span>محتوى عملي وتطبيقي</span></li>
+                    <li className="flex items-center gap-2">✓ <span>شهادة إتمام</span></li>
+                    <li className="flex items-center gap-2 text-[#FABC05] font-semibold">✓ <span>خصم خاص للعملاء الدائمين</span></li>
+                  </ul>
                 </div>
               </div>
-              <div className="mb-6">
-                <label className={`relative flex items-center gap-4 cursor-pointer group/checkbox p-4 rounded-xl bg-gradient-to-r transition-all duration-300 ${
-                  isWebscaleMember 
-                    ? "from-[#FABC05]/10 via-[#FFD700]/10 to-[#FABC05]/10 border-2 border-[#FABC05]/50 shadow-lg shadow-[#FABC05]/20 scale-[1.02]" 
-                    : "from-neutral-50 to-neutral-100/50 dark:from-neutral-700/30 dark:to-neutral-800/30 border-2 border-neutral-200 dark:border-neutral-600 hover:border-[#FABC05]/50 dark:hover:border-[#FABC05]/50 hover:shadow-lg hover:shadow-[#FABC05]/10 hover:scale-[1.02]"
-                }`}>
-                  <div className="relative flex-shrink-0">
-                    <input
-                      type="checkbox"
-                      checked={isWebscaleMember}
-                      onChange={(e) => setIsWebscaleMember(e.target.checked)}
-                      className="sr-only"
-                    />
-                    <div className={`w-7 h-7 rounded-lg border-2 transition-all duration-300 flex items-center justify-center group-hover/checkbox:scale-110 relative overflow-hidden ${
-                      isWebscaleMember
-                        ? "bg-gradient-to-br from-[#FABC05] to-[#FFD700] border-[#FABC05] shadow-lg shadow-[#FABC05]/40"
-                        : "border-[#FABC05]/50 dark:border-[#FABC05]/50 bg-white dark:bg-neutral-800 group-hover/checkbox:border-[#FABC05]"
-                    }`}>
-                      {!isWebscaleMember && (
-                        <svg 
-                          className="w-5 h-5 text-[#FABC05] dark:text-[#FFD700] absolute opacity-80" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="3" 
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      )}
+
+              {/* Pricing notes */}
+              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 mb-6">
+                <h3 className="text-lg font-bold text-neutral-800 dark:text-neutral-100 mb-4 text-center">تفاصيل الأسعار</h3>
+                <ul className="space-y-2 text-neutral-700 dark:text-neutral-300">
+                  {formation.pricing.notes.map((note, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-[#FABC05] font-bold mt-1">•</span>
+                      <span>{note}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            /* Original two-tier pricing for formations without notes */
+            <div className="max-w-2xl mx-auto mb-6">
+              <div className={`bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border-2 ${isWebscaleMember ? "border-[#FABC05] shadow-[#FABC05]/20" : "border-neutral-200/50 dark:border-neutral-700/50"} transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]`}>
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                    {isWebscaleMember ? "أعضاء Webscale" : "سعر الدورة"}
+                  </h3>
+                  {isWebscaleMember && (
+                    <span className="px-3 py-1 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black text-sm font-semibold rounded-full animate-pulse">عرض خاص</span>
+                  )}
+                </div>
+                <div className="text-center mb-6">
+                  <div className="flex items-baseline justify-center gap-2">
+                    <span className="text-5xl font-bold text-neutral-800 dark:text-neutral-100">
+                      {isWebscaleMember ? formation.pricing.webscaleMember : formation.pricing.regular}
+                    </span>
+                    <span className="text-2xl text-neutral-600 dark:text-neutral-400">{formation.pricing.currency}</span>
+                    <span className="text-lg text-neutral-500 dark:text-neutral-500">{formation.pricing.taxNote}</span>
+                  </div>
+                </div>
+                <div className="mb-6">
+                  <label className={`relative flex items-center gap-4 cursor-pointer group/checkbox p-4 rounded-xl bg-gradient-to-r transition-all duration-300 ${
+                    isWebscaleMember 
+                      ? "from-[#FABC05]/10 via-[#FFD700]/10 to-[#FABC05]/10 border-2 border-[#FABC05]/50 shadow-lg shadow-[#FABC05]/20 scale-[1.02]" 
+                      : "from-neutral-50 to-neutral-100/50 dark:from-neutral-700/30 dark:to-neutral-800/30 border-2 border-neutral-200 dark:border-neutral-600 hover:border-[#FABC05]/50 dark:hover:border-[#FABC05]/50 hover:shadow-lg hover:shadow-[#FABC05]/10 hover:scale-[1.02]"
+                  }`}>
+                    <div className="relative flex-shrink-0">
+                      <input
+                        type="checkbox"
+                        checked={isWebscaleMember}
+                        onChange={(e) => setIsWebscaleMember(e.target.checked)}
+                        className="sr-only"
+                      />
+                      <div className={`w-7 h-7 rounded-lg border-2 transition-all duration-300 flex items-center justify-center group-hover/checkbox:scale-110 relative overflow-hidden ${
+                        isWebscaleMember
+                          ? "bg-gradient-to-br from-[#FABC05] to-[#FFD700] border-[#FABC05] shadow-lg shadow-[#FABC05]/40"
+                          : "border-[#FABC05]/50 dark:border-[#FABC05]/50 bg-white dark:bg-neutral-800 group-hover/checkbox:border-[#FABC05]"
+                      }`}>
+                        {!isWebscaleMember && (
+                          <svg 
+                            className="w-5 h-5 text-[#FABC05] dark:text-[#FFD700] absolute opacity-80" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="3" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        )}
+                        {isWebscaleMember && (
+                          <svg 
+                            className="w-4 h-4 text-black font-bold animate-in zoom-in-95 duration-200 relative z-10" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="3.5" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </div>
                       {isWebscaleMember && (
-                        <svg 
-                          className="w-4 h-4 text-black font-bold animate-in zoom-in-95 duration-200 relative z-10" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="3.5" 
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <div className="absolute inset-0 rounded-lg bg-[#FABC05]/20 animate-ping"></div>
                       )}
                     </div>
-                    {isWebscaleMember && (
-                      <div className="absolute inset-0 rounded-lg bg-[#FABC05]/20 animate-ping"></div>
-                    )}
-                  </div>
-                  <span className={`text-base font-medium transition-colors duration-300 select-none flex-1 ${
-                    isWebscaleMember
-                      ? "text-[#FABC05] dark:text-[#FFD700] font-semibold"
-                      : "text-neutral-700 dark:text-neutral-300 group-hover/checkbox:text-[#FABC05]"
-                  }`}>
-                    أنا عضو في Webscale
-                  </span>
-                </label>
+                    <span className={`text-base font-medium transition-colors duration-300 select-none flex-1 ${
+                      isWebscaleMember
+                        ? "text-[#FABC05] dark:text-[#FFD700] font-semibold"
+                        : "text-neutral-700 dark:text-neutral-300 group-hover/checkbox:text-[#FABC05]"
+                    }`}>
+                      أنا عضو في Webscale
+                    </span>
+                  </label>
+                </div>
+                <ul className="space-y-3 mb-6 text-neutral-700 dark:text-neutral-300">
+                  {isWebscaleMember ? (
+                    <>
+                      <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>نفس المميزات</span></li>
+                      <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>خصم {formation.pricing.discount} {formation.pricing.currency}</span></li>
+                      <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>دورة حضورية مكثفة {formation.duration}</span></li>
+                      <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>محتوى عملي وتطبيقي</span></li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>دورة حضورية مكثفة {formation.duration}</span></li>
+                      <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>محتوى عملي وتطبيقي</span></li>
+                      <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>شهادة إتمام</span></li>
+                      <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>خطة تطبيق فردية</span></li>
+                    </>
+                  )}
+                </ul>
+                <button
+                  onClick={() => scrollToSection("registration-form")}
+                  className="relative w-full px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-lg overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FABC05]/50"
+                >
+                  <span className="relative z-10">احجز مقعدك الآن</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                </button>
               </div>
-              <ul className="space-y-3 mb-6 text-neutral-700 dark:text-neutral-300">
-                {isWebscaleMember ? (
-                  <>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>نفس المميزات</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>خصم {formation.pricing.discount} {formation.pricing.currency}</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>دورة حضورية مكثفة {formation.duration}</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>محتوى عملي وتطبيقي</span></li>
-                  </>
-                ) : (
-                  <>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>دورة حضورية مكثفة {formation.duration}</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>محتوى عملي وتطبيقي</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>شهادة إتمام</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>خطة تطبيق فردية</span></li>
-                  </>
-                )}
-              </ul>
-              <button
-                onClick={() => scrollToSection("registration-form")}
-                className="relative w-full px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-lg overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FABC05]/50"
-              >
-                <span className="relative z-10">احجز مقعدك الآن</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
             </div>
-          </div>
+          )}
 
           <div id="registration-form" className="max-w-4xl mx-auto">
             <p className="text-center text-lg mb-4 text-neutral-700 dark:text-neutral-300">

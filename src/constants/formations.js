@@ -378,11 +378,16 @@ export const formations = {
     },
     formId: "YOUR_CRM_FORM_ID_HERE", // ⚠️ Get from CRM (UUID format)
     pricing: {
-      regular: "30.000",
-      webscaleMember: "26.000",
-      discount: "4.000",
+      regular: "40.000",
+      webscaleMember: "37.000",
+      returningParticipant: "35.000",
       currency: "د.ج",
       taxNote: "HT",
+      notes: [
+        "السعر تع الدورة تعي 40000 HT لغير الاعضاء",
+        "الاعضاء تع واب سكايل ولم يحضر اي دورة من قبل 37000 دج",
+        "لمن حضر معنا الدورات سابقا 35000 دج"
+      ]
     },
     consultant: {
       name: "عبد الرحيم عبد اللاوي",
@@ -390,7 +395,11 @@ export const formations = {
       image: "/experts/abderrahim.jpg",
       experience: "دكتور في العلوم الاقتصادية",
       description: "المؤسس والمدير التنفيذي لـ Webscale. أحد صناع المحتوى الاقتصادي الاحترافي في الجزائر وشمال إفريقيا",
-      companies: [],
+      companies: [
+        { logo: "/promotionsbrands/hanooty.jpg" },
+        { logo: "/promotionsbrands/mourin.jpg" },
+        { logo: "/promotionsbrands/yinvesti.jpg" },
+      ],
       results: [
         "مؤسس ومدير تنفيذي لـ Webscale",
         "صانع محتوى اقتصادي احترافي في الجزائر وشمال إفريقيا",
