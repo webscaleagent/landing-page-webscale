@@ -3,12 +3,12 @@ import { getUTMParams } from "../../utils/utm";
 import OptionPills from "../registration/OptionPills";
 import AlgeriaWilayas from "../shared/AlgeriaWilayas";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from "../ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
@@ -681,6 +681,8 @@ export default function FormationRegistrationForm({
               <SelectItem value="رئيس الشركة">رئيس الشركة</SelectItem>
               <SelectItem value="مسير">مسير</SelectItem>
               <SelectItem value="موظف">موظف</SelectItem>
+              <SelectItem value="مدير قسم التسويق">مدير قسم التسويق</SelectItem>
+              <SelectItem value="مدير قسم المبيعات">مدير قسم المبيعات</SelectItem>
             </SelectContent>
           </Select>
           {errors.jobTitle && <div className={errorText}>{errors.jobTitle}</div>}

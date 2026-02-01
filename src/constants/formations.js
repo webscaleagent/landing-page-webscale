@@ -376,7 +376,7 @@ export const formations = {
       title: "PROMOTION DAYS - دورة الترويج الاستراتيجي | Webscale",
       description: "في يومين، اصنع نقلة نوعية في الترويج لشركتك. دورة تدريبية مع الدكتور عبد الرحيم عبد اللاوي، مستشار في التسويق الاستراتيجي وبناء العلامات التجارية.",
     },
-    formId: "YOUR_CRM_FORM_ID_HERE", // ⚠️ Get from CRM (UUID format)
+    formId: "8129a431-0fc1-42b2-9a62-1faf034d7fae", // Promotion Days form ID
     pricing: {
       regular: "40.000",
       webscaleMember: "37.000",
@@ -508,7 +508,7 @@ export const formations = {
       },
     ],
     cohorts: [
-      { value: "قائمة الانتظار", label: "✅ قائمة الانتظار - احصل على أولوية عند فتح مقاعد جديدة", disabled: false },
+      { value: "فوج 15 ، 16 فيفري", label: "فوج 15 ، 16 فيفري", disabled: false },
     ],
     faq: [
       {
