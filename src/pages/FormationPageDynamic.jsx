@@ -372,13 +372,16 @@ const FormationPageDynamic = ({ formation }) => {
             </div>
             <div className="bg-gradient-to-br from-[#FABC05]/10 via-[#FABC05]/5 to-transparent dark:from-[#FABC05]/20 dark:via-[#FABC05]/10 dark:to-transparent p-8 rounded-2xl mb-4 border border-[#FABC05]/20 dark:border-[#FABC05]/30 hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
               <h3 className="text-2xl font-bold mb-6 text-neutral-800 dark:text-neutral-100">
-                هذا التكوين يعطيك الطريقة التي تعتمدها الشركات القوية لتفادي هذه الفوضى:
+                أهداف الدورة
               </h3>
+              <p className="text-lg font-semibold mb-6 text-neutral-800 dark:text-neutral-100">
+                تهدف دورة Promotion DAYS إلى تمكين المشاركين من:
+              </p>
               <ul className="space-y-4 text-lg text-neutral-700 dark:text-neutral-300">
                 {formation.solutions.map((solution, idx) => (
                   <li key={idx} className="flex items-start gap-3 group/item">
-                    <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300">✔</span>
-                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">{solution}</span>
+                    <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300 flex-shrink-0 mt-1">✔</span>
+                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300 leading-relaxed">{solution}</span>
                   </li>
                 ))}
               </ul>
