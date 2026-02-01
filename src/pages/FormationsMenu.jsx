@@ -11,9 +11,10 @@ const encodeImageUrl = (url) => {
 };
 
 const FormationsMenu = () => {
-  // Get the two formations
+  // Get all formations
   const smqFormation = formations.smq;
   const comptabiliteFormation = formations.comptabilite;
+  const promotionDaysFormation = formations.promotionDays;
 
   const formationCards = [
     {
@@ -23,6 +24,10 @@ const FormationsMenu = () => {
     {
       formation: comptabiliteFormation,
       gradient: "from-purple-600/90 to-pink-800/90",
+    },
+    {
+      formation: promotionDaysFormation,
+      gradient: "from-orange-600/90 to-red-800/90",
     },
   ];
 

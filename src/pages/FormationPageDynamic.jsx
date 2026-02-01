@@ -1,4 +1,4 @@
-import { Briefcase, CheckCircle2, GraduationCap, Menu, Moon, Sun, Target, TrendingUp, Users, X } from "lucide-react";
+import { Briefcase, CheckCircle2, Facebook, GraduationCap, Instagram, Linkedin, Menu, Moon, Sun, Target, TrendingUp, Users, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -488,9 +488,45 @@ const FormationPageDynamic = ({ formation }) => {
                     {/* Quote */}
                     <div className="relative bg-gradient-to-r from-[#FABC05]/10 via-[#FFD700]/10 to-[#FABC05]/10 dark:from-[#FABC05]/20 dark:via-[#FFD700]/20 dark:to-[#FABC05]/20 p-4 rounded-xl border-l-4 border-[#FABC05]">
                       <div className="absolute top-2 right-2 text-4xl text-[#FABC05]/20 font-serif leading-none">"</div>
-                      <p className="text-[#FABC05] dark:text-[#FFD700] font-semibold text-base leading-relaxed relative z-10">
+                      <p className="text-[#FABC05] dark:text-[#FFD700] font-semibold text-base leading-relaxed relative z-10 mb-4">
                         {formation.consultant.quote}
                       </p>
+                      
+                      {/* Social Media Icons */}
+                      <div className="pt-3 border-t border-[#FABC05]/20 dark:border-[#FFD700]/20">
+                        <p className="text-center text-sm text-neutral-700 dark:text-neutral-300 mb-3 font-medium">
+                          تابعنا على وسائل التواصل الاجتماعي
+                        </p>
+                        <div className="flex items-center justify-center gap-3">
+                          <a
+                            href="https://www.facebook.com/abderahime.abdellaoui"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex items-center justify-center w-9 h-9 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-600/50"
+                            aria-label="Facebook"
+                          >
+                            <Facebook className="w-4 h-4" />
+                          </a>
+                          <a
+                            href="https://www.instagram.com/abderrahime_abdellaoui/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-600/50"
+                            aria-label="Instagram"
+                          >
+                            <Instagram className="w-4 h-4" />
+                          </a>
+                          <a
+                            href="https://www.linkedin.com/in/abdellaoui-abderrahime/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex items-center justify-center w-9 h-9 rounded-full bg-blue-700 hover:bg-blue-800 text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-700/50"
+                            aria-label="LinkedIn"
+                          >
+                            <Linkedin className="w-4 h-4" />
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -540,80 +576,75 @@ const FormationPageDynamic = ({ formation }) => {
       </section>
 
       {/* Who is this for Section */}
-      <section id="who" className="py-12 md:py-16 px-4 relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FABC05]/5 via-transparent to-[#FABC05]/5 dark:from-[#FABC05]/10 dark:via-transparent dark:to-[#FABC05]/10"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#FABC05]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FABC05]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+      <section id="who" className="py-16 md:py-20 px-4 relative overflow-hidden bg-gradient-to-b from-[#FFFBF0] via-[#FFF9E6] to-[#FFFBF0] dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-30 dark:opacity-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#FABC05]/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FABC05]/5 rounded-full blur-3xl"></div>
+        </div>
         
         <div className="container mx-auto relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-neutral-50 bg-gradient-to-r from-neutral-900 to-neutral-700 dark:from-neutral-50 dark:to-neutral-300 bg-clip-text text-transparent">
+          <div className="text-center mb-14 md:mb-16">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-neutral-900 dark:text-neutral-50">
               لمن هذا التكوين؟
             </h2>
-            <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 font-medium">
+            <p className="text-xl md:text-2xl text-neutral-700 dark:text-neutral-300 font-medium">
               لك إن كنت تريد:
             </p>
           </div>
           
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
               {formation.targetAudience.map((audience, idx) => {
                 // Icon mapping based on content
                 const getIcon = (text) => {
-                  if (text.includes("إطارات") || text.includes("شركات") || text.includes("مؤسسات")) return <Users className="w-6 h-6" />;
-                  if (text.includes("مهنيون") || text.includes("أساسيات")) return <GraduationCap className="w-6 h-6" />;
-                  if (text.includes("مديرين") || text.includes("المديرين") || text.includes("المسيرين")) return <Briefcase className="w-6 h-6" />;
-                  if (text.includes("قرارات") || text.includes("مالية")) return <Target className="w-6 h-6" />;
-                  if (text.includes("فهم") || text.includes("تحليل")) return <TrendingUp className="w-6 h-6" />;
-                  return <CheckCircle2 className="w-6 h-6" />;
+                  if (text.includes("إطارات") || text.includes("شركات") || text.includes("مؤسسات") || text.includes("مسيرو")) return <Users className="w-5 h-5" />;
+                  if (text.includes("مهنيون") || text.includes("أساسيات")) return <GraduationCap className="w-5 h-5" />;
+                  if (text.includes("مديرين") || text.includes("المديرين") || text.includes("المسيرين") || text.includes("مدراء")) return <Briefcase className="w-5 h-5" />;
+                  if (text.includes("قرارات") || text.includes("مالية")) return <Target className="w-5 h-5" />;
+                  if (text.includes("فهم") || text.includes("تحليل")) return <TrendingUp className="w-5 h-5" />;
+                  if (text.includes("رواد")) return <TrendingUp className="w-5 h-5" />;
+                  if (text.includes("مشاريع") || text.includes("صغيرة")) return <Briefcase className="w-5 h-5" />;
+                  return <CheckCircle2 className="w-5 h-5" />;
                 };
 
-                // Gradient colors for variety
-                const gradients = [
-                  "from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20",
-                  "from-purple-500/10 to-pink-500/10 dark:from-purple-500/20 dark:to-pink-500/20",
-                  "from-green-500/10 to-emerald-500/10 dark:from-green-500/20 dark:to-emerald-500/20",
-                  "from-orange-500/10 to-amber-500/10 dark:from-orange-500/20 dark:to-amber-500/20",
-                  "from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-500/20",
-                  "from-rose-500/10 to-pink-500/10 dark:from-rose-500/20 dark:to-pink-500/20",
-                ];
-                
-                const gradient = gradients[idx % gradients.length];
-                const isLastAndOdd = idx === formation.targetAudience.length - 1 && formation.targetAudience.length % 2 !== 0;
+                // Check if this is the last item and if total is odd
+                const isLastItem = idx === formation.targetAudience.length - 1;
+                const isOddTotal = formation.targetAudience.length % 2 !== 0;
+                const shouldSpanFull = isLastItem && isOddTotal && formation.targetAudience.length > 1;
 
                 return (
                   <div
                     key={idx}
-                    className={`group relative bg-white/90 dark:bg-neutral-800/90 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-lg border border-neutral-200/60 dark:border-neutral-700/60 
-                      hover:shadow-2xl hover:shadow-[#FABC05]/20 hover:-translate-y-2 hover:border-[#FABC05]/40 
-                      transition-all duration-500 ease-out
-                      ${isLastAndOdd ? 'md:col-span-2 lg:col-span-3' : ''}
+                    className={`group relative bg-white dark:bg-neutral-800 p-6 md:p-7 rounded-2xl md:rounded-3xl 
+                      shadow-sm hover:shadow-xl 
+                      border border-neutral-100 dark:border-neutral-700/50
+                      hover:border-[#FABC05]/30 dark:hover:border-[#FABC05]/40
+                      transition-all duration-300 ease-out
+                      hover:-translate-y-1
+                      ${shouldSpanFull ? 'md:col-span-2 lg:col-span-3' : ''}
                       overflow-hidden`}
                   >
-                    {/* Gradient background overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                    
-                    {/* Decorative corner accent */}
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#FABC05]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    {/* Subtle gradient overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#FABC05]/0 to-[#FABC05]/0 group-hover:from-[#FABC05]/5 group-hover:to-transparent transition-all duration-300 rounded-2xl md:rounded-3xl"></div>
                     
                     {/* Content */}
-                    <div className="relative z-10 flex items-start gap-4">
-                      {/* Icon */}
-                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#FABC05]/20 to-[#FABC05]/10 dark:from-[#FABC05]/30 dark:to-[#FABC05]/20 flex items-center justify-center text-[#FABC05] group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-md">
+                    <div className="relative z-10 flex items-center gap-4 md:gap-5">
+                      {/* Icon - Yellow circle with white icon */}
+                      <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#FABC05] flex items-center justify-center text-white shadow-md shadow-[#FABC05]/20 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#FABC05]/30 transition-all duration-300">
                         {getIcon(audience)}
                       </div>
                       
                       {/* Text */}
-                      <div className="flex-1">
-                        <p className={`text-base md:text-lg text-neutral-800 dark:text-neutral-200 group-hover:text-neutral-900 dark:group-hover:text-neutral-50 transition-colors duration-300 font-medium leading-relaxed ${isLastAndOdd ? 'text-center' : ''}`}>
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-base md:text-lg text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed ${shouldSpanFull ? 'text-center md:text-right' : ''} group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors duration-300`}>
                           {audience}
                         </p>
                       </div>
                     </div>
                     
-                    {/* Hover effect line */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FABC05] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    {/* Bottom accent line on hover */}
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FABC05] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
                   </div>
                 );
               })}
@@ -665,6 +696,32 @@ const FormationPageDynamic = ({ formation }) => {
           </div>
         </div>
       </section>
+
+      {/* Methodology Section */}
+      {formation.methodology && formation.methodology.length > 0 && (
+        <section id="methodology" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
+          <div className="container mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">
+              المنهجية المعتمدة
+            </h2>
+            <div className="max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                {formation.methodology.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-[#FABC05] font-bold text-xl group-hover:scale-125 transition-transform duration-300 flex-shrink-0">✓</span>
+                      <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">{item}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Summary Section */}
       <section id="summary" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
