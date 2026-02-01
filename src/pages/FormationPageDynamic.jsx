@@ -54,7 +54,6 @@ const FormationPageDynamic = ({ formation }) => {
     { id: "home", label: "الرئيسية" },
     { id: "problem", label: "المشكلة" },
     { id: "consultant", label: "المستشار" },
-    { id: "benefits", label: "الفوائد" },
     { id: "program", label: "البرنامج" },
     { id: "pricing", label: "الأسعار" },
     { id: "faq", label: "الأسئلة الشائعة" },
@@ -546,34 +545,6 @@ const FormationPageDynamic = ({ formation }) => {
                 <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               </button>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section id="benefits" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">
-            ماذا ستستفيد مباشرة بعد التكوين؟
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <ul className="space-y-4 text-lg text-neutral-700 dark:text-neutral-300">
-              {formation.benefits.map((benefit, idx) => (
-                <li key={idx} className="flex items-start gap-3 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-5 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                  <span className="text-[#FABC05] font-bold text-xl group-hover:scale-125 transition-transform duration-300">✔</span>
-                  <span className="group-hover:text-[#FABC05] transition-colors duration-300">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="text-center mt-6">
-            <button
-              onClick={() => scrollToSection("registration-form")}
-              className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-            >
-              <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
           </div>
         </div>
       </section>
