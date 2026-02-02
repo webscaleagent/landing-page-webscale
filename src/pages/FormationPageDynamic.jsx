@@ -337,7 +337,7 @@ const FormationPageDynamic = ({ formation }) => {
               <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 mb-4 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group">
                 <h2 className="text-2xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">لماذا هذا التكوين مختلف؟</h2>
                 <p className="text-lg text-neutral-700 dark:text-neutral-300">
-                  لأنه مبني على تجربة مدير حقيقي أدار شركات جزائرية وعالمية، وعالج هذه المشاكل من الداخل— ليس من الكتب فقط.
+                  لأنه مبني على تجربة مدير حقيقي أدار شركات جزائرية، وعالج هذه المشاكل من الداخل— ليس من الكتب فقط.
                 </p>
               </div>
               <button
@@ -705,15 +705,15 @@ const FormationPageDynamic = ({ formation }) => {
               الخلاصة
             </h2>
             <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed">
-              إذا كنت تريد طريقة واضحة وواقعية لضبط مؤسستك—
+              إذا كنت تريد طريقة واضحة وواقعية لترويج شركتك وتحسين أدائها التسويقي—
               <br />
-              فهذه الدورة تقدم لك منهجية ميدانية استُخدمت فعليًا لرفع أداء شركات كبيرة تعمل في الجزائر.
+              فهذه الدورة تقدم لك منهجية عملية في الترويج والعلامات التجارية، تمكنك من اتخاذ قرارات تسويقية ذكية وبناء استراتيجية فعالة لشركتك.
             </p>
             <button
               onClick={() => scrollToSection("registration-form")}
               className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
             >
-              <span className="relative z-10">احجز مكانك الآن وابدأ في إعادة ترتيب شركتك بطريقة احترافية وواضحة.</span>
+              <span className="relative z-10">احجز مكانك الآن وابدأ في تحسين الترويج لشركتك بطريقة احترافية ومدروسة.</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </button>
           </div>
