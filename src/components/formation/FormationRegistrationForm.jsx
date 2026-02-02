@@ -123,8 +123,8 @@ export default function FormationRegistrationForm({
     if (isSubmitting) return true;
 
     const fieldsToCheck = [
-      "companyName", "employeeCount", "legalForm", "companyEstablished", 
-      "jobTitle", "fullName", "phone", "email", "cohort"
+      "companyName", "employeeCount", "legalForm", "businessSector", "companyEstablished", 
+      "jobTitle", "fullName", "phone", "email", "cohort", "isWebscaleMember"
     ];
 
     for (const field of fieldsToCheck) {
@@ -142,6 +142,7 @@ export default function FormationRegistrationForm({
     if (!isHidden("companyName") && isRequired("companyName") && !form.companyName.trim()) e.companyName = "هذا الحقل مطلوب";
     if (!isHidden("employeeCount") && isRequired("employeeCount") && !form.employeeCount) e.employeeCount = "اختر عدد الموظفين";
     if (!isHidden("legalForm") && isRequired("legalForm") && !form.legalForm) e.legalForm = "اختر الشكل القانوني للشركة";
+    if (!isHidden("businessSector") && isRequired("businessSector") && !form.businessSector) e.businessSector = "اختر مجال نشاط شركتك";
     if (!isHidden("companyEstablished") && isRequired("companyEstablished") && !form.companyEstablished) e.companyEstablished = "اختر تاريخ تأسيس الشركة";
     if (!isHidden("jobTitle") && isRequired("jobTitle") && !form.jobTitle) e.jobTitle = "اختر المنصب الوظيفي";
     
@@ -154,6 +155,7 @@ export default function FormationRegistrationForm({
     if (!isHidden("phone") && isRequired("phone") && !form.phone.trim()) e.phone = "هذا الحقل مطلوب";
     if (!isHidden("email") && isRequired("email") && !form.email.trim()) e.email = "هذا الحقل مطلوب";
     if (!isHidden("cohort") && isRequired("cohort") && !form.cohort) e.cohort = "اختر الفوج";
+    if (!isHidden("isWebscaleMember") && isRequired("isWebscaleMember") && !form.isWebscaleMember) e.isWebscaleMember = "يرجى تحديد ما إذا كنت عضوًا في Webscale";
 
     // Email format validation
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
@@ -464,26 +466,6 @@ export default function FormationRegistrationForm({
         </div>
         )}
 
-        {/* Company Established Field */}
-        {!isHidden("companyEstablished") && (
-        <div>
-          <OptionPills
-            label={<>منذ متى تأسست شركتك؟ {isRequired("companyEstablished") && <span className="text-red-500">*</span>}</>}
-            required={isRequired("companyEstablished")}
-            name="companyEstablished"
-            options={[
-              "أقل من سنة",
-              "من 1 إلى 3 سنوات",
-              "من 3 إلى 5 سنوات",
-              "أكثر من 5 سنوات."
-            ]}
-            value={form.companyEstablished}
-            onChange={(val) => setForm({ ...form, companyEstablished: val })}
-          />
-          {errors.companyEstablished && <div className={errorText}>{errors.companyEstablished}</div>}
-        </div>
-        )}
-
         {/* Business Sector Field */}
         {!isHidden("businessSector") && (
         <div>
@@ -524,6 +506,26 @@ export default function FormationRegistrationForm({
             </>
           )}
           {errors.businessSector && <div className={errorText}>{errors.businessSector}</div>}
+        </div>
+        )}
+
+        {/* Company Established Field */}
+        {!isHidden("companyEstablished") && (
+        <div>
+          <OptionPills
+            label={<>منذ متى تأسست شركتك؟ {isRequired("companyEstablished") && <span className="text-red-500">*</span>}</>}
+            required={isRequired("companyEstablished")}
+            name="companyEstablished"
+            options={[
+              "أقل من سنة",
+              "من 1 إلى 3 سنوات",
+              "من 3 إلى 5 سنوات",
+              "أكثر من 5 سنوات."
+            ]}
+            value={form.companyEstablished}
+            onChange={(val) => setForm({ ...form, companyEstablished: val })}
+          />
+          {errors.companyEstablished && <div className={errorText}>{errors.companyEstablished}</div>}
         </div>
         )}
 

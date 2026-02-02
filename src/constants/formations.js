@@ -583,6 +583,21 @@ export const formations = {
       "ورشات تفكير وتمرين عملي",
       "نقاش مباشر مع المتدربين",
     ],
+    // Form fields configuration matching CRM schema
+    fieldsConfig: {
+      companyName: { required: true, label: "اسم الشركة" },
+      employeeCount: { required: true, label: "عدد الموظفين" },
+      legalForm: { required: true, label: "ما هو الشكل القانوني لشركتك؟" },
+      businessSector: { required: true, label: "ما هو مجال نشاط شركتك؟" },
+      companyEstablished: { required: true, label: "منذ متى تأسست شركتك؟" },
+      fullName: { required: true, label: "الاسم واللقب" },
+      phone: { required: true, label: "رقم الواتس آب" },
+      email: { required: true, label: "الايميل" },
+      cohort: { required: false, label: "اختر الفوج" }, // Optional according to schema
+      state: { required: false, label: "الولاية" },
+      isWebscaleMember: { required: true, label: "هل أنت عضو في Webscale؟" }, // Required according to schema
+      jobTitle: { required: true, label: "المنصب الوظيفي" },
+    },
   },
 
   // ============================================
