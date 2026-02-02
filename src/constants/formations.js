@@ -376,13 +376,18 @@ export const formations = {
       title: "PROMOTION DAYS - دورة الترويج الاستراتيجي | Webscale",
       description: "في يومين، اصنع نقلة نوعية في الترويج لشركتك. دورة تدريبية مع الدكتور عبد الرحيم عبد اللاوي، مستشار في الترويج وبناء العلامات التجارية.",
     },
-    formId: "YOUR_CRM_FORM_ID_HERE", // ⚠️ Get from CRM (UUID format)
+    formId: "8129a431-0fc1-42b2-9a62-1faf034d7fae", // Promotion Days form ID
     pricing: {
-      regular: "30.000",
-      webscaleMember: "26.000",
-      discount: "4.000",
+      regular: "40.000",
+      webscaleMember: "37.000",
+      returningParticipant: "35.000",
       currency: "د.ج",
       taxNote: "HT",
+      notes: [
+        "السعر تع الدورة تعي 40000 HT لغير الاعضاء",
+        "الاعضاء تع واب سكايل ولم يحضر اي دورة من قبل 37000 دج",
+        "لمن حضر معنا الدورات سابقا 35000 دج"
+      ]
     },
     consultant: {
       name: "عبد الرحيم عبد اللاوي",
@@ -390,7 +395,11 @@ export const formations = {
       image: "/experts/abderrahim.jpg",
       experience: "",
       description: "المؤسس والمدير التنفيذي لـ Webscale. أحد صناع المحتوى الاقتصادي الاحترافي في الجزائر وشمال إفريقيا",
-      companies: [],
+      companies: [
+        { logo: "/promotionsbrands/hanooty.jpg" },
+        { logo: "/promotionsbrands/mourin.jpg" },
+        { logo: "/promotionsbrands/yinvesti.jpg" },
+      ],
       results: [
         "مؤسس ومدير تنفيذي لـ Webscale",
         "صانع محتوى اقتصادي احترافي في الجزائر وشمال إفريقيا",
@@ -499,7 +508,7 @@ export const formations = {
       },
     ],
     cohorts: [
-      { value: "قائمة الانتظار", label: "✅ قائمة الانتظار - احصل على أولوية عند فتح مقاعد جديدة", disabled: false },
+      { value: "فوج 15 ، 16 فيفري", label: "فوج 15 ، 16 فيفري", disabled: false },
     ],
     faq: [
       {

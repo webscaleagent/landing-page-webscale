@@ -7,11 +7,15 @@ export const getUTMParams = () => {
 
     const searchParams = new URLSearchParams(window.location.search);
 
+    const getParam = (key) => {
+        return searchParams.get(key) || localStorage.getItem(key) || "";
+    };
+
     return {
-        utm_source: searchParams.get("utm_source") || "",
-        utm_medium: searchParams.get("utm_medium") || "",
-        utm_campaign: searchParams.get("utm_campaign") || "",
-        utm_content: searchParams.get("utm_content") || "",
-        utm_term: searchParams.get("utm_term") || "",
+        utm_source: getParam("utm_source"),
+        utm_medium: getParam("utm_medium"),
+        utm_campaign: getParam("utm_campaign"),
+        utm_content: getParam("utm_content"),
+        utm_term: getParam("utm_term"),
     };
 };

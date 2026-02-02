@@ -1,6 +1,7 @@
 // src/App.jsx
 import { Navigate, Route, BrowserRouter as Router, Routes, useParams } from "react-router-dom";
 import BadgeCTA from "./components/BadgeCTA";
+import UtmListener from "./components/UtmListener";
 import AboutUs from "./pages/AboutUs";
 import BadgeGeneration from "./pages/BadgeGeneration";
 import EventLandingPage from "./pages/EventLandingPage";
@@ -23,6 +24,7 @@ function FormationSlugRedirect() {
 export default function App() {
   return (
     <Router>
+      <UtmListener />
       <Routes>
         <Route path="/formation" element={<Navigate to="/formations" replace />} />
         <Route path="/formation/:slug" element={<FormationSlugRedirect />} />
