@@ -1,6 +1,6 @@
-// src/components/RegistrationModal.jsx
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { getUTMParams } from "../utils/utm";
 
 const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL || "https://crmgo.webscale.dz/api/v1/public/forms/47401ef7-042c-4994-8645-569b14749758/submit";
 
@@ -45,14 +45,7 @@ const RegistrationModal = ({ isOpen, onClose }) => {
       const formData = new FormData(form);
 
       // Capture UTM parameters
-      const searchParams = new URLSearchParams(window.location.search);
-      const utms = {
-        utm_source: searchParams.get("utm_source") || "",
-        utm_medium: searchParams.get("utm_medium") || "",
-        utm_campaign: searchParams.get("utm_campaign") || "",
-        utm_content: searchParams.get("utm_content") || "",
-        utm_term: searchParams.get("utm_term") || "",
-      };
+      const utms = getUTMParams();
 
       // Set UTM fields in FormData
       Object.entries(utms).forEach(([k, v]) => {

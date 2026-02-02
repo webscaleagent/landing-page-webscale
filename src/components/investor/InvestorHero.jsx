@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { getUTMParams } from "../../utils/utm";
 
 const InvestorHero = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +38,7 @@ const InvestorHero = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ ...formData, ...getUTMParams() }),
           mode: "no-cors",
         }
       );
