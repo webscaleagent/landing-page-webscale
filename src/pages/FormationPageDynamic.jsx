@@ -522,7 +522,7 @@ const FormationPageDynamic = ({ formation }) => {
           </div>
           
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
               {formation.targetAudience.map((audience, idx) => {
                 // Icon mapping based on content
                 const getIcon = (text) => {
@@ -536,10 +536,14 @@ const FormationPageDynamic = ({ formation }) => {
                   return <CheckCircle2 className="w-5 h-5" />;
                 };
 
-                // Check if this is the last item and if total is odd
-                const isLastItem = idx === formation.targetAudience.length - 1;
-                const isOddTotal = formation.targetAudience.length % 2 !== 0;
-                const shouldSpanFull = isLastItem && isOddTotal && formation.targetAudience.length > 1;
+                // Grid positioning logic
+                // First 3 items: normal grid items (1 column each)
+                // Last item (idx 3): should span all 3 columns
+                let gridClasses = '';
+                if (idx === formation.targetAudience.length - 1) {
+                  // Last item: span all columns
+                  gridClasses = 'md:col-span-3';
+                }
 
                 return (
                   <div
@@ -550,7 +554,7 @@ const FormationPageDynamic = ({ formation }) => {
                       hover:border-[#FABC05]/30 dark:hover:border-[#FABC05]/40
                       transition-all duration-300 ease-out
                       hover:-translate-y-1
-                      ${shouldSpanFull ? 'md:col-span-2 lg:col-span-3' : ''}
+                      ${gridClasses}
                       overflow-hidden`}
                   >
                     {/* Subtle gradient overlay on hover */}
@@ -565,7 +569,7 @@ const FormationPageDynamic = ({ formation }) => {
                       
                       {/* Text */}
                       <div className="flex-1 min-w-0">
-                        <p className={`text-base md:text-lg text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed ${shouldSpanFull ? 'text-center md:text-right' : ''} group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors duration-300`}>
+                        <p className={`text-base md:text-lg text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed ${idx === formation.targetAudience.length - 1 ? 'text-center' : ''} group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors duration-300`}>
                           {audience}
                         </p>
                       </div>
