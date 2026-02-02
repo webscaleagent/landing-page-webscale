@@ -392,7 +392,7 @@ export const formations = {
     consultant: {
       name: "عبد الرحيم عبد اللاوي",
       title: "مستشار في الترويج وبناء العلامات التجارية",
-      image: "/experts/abderrahim.jpg",
+      image: "/experts/abderrahim.png",
       experience: "",
       description: "المؤسس والمدير التنفيذي لـ Webscale. أحد صناع المحتوى الاقتصادي الاحترافي في الجزائر وشمال إفريقيا",
       companies: [

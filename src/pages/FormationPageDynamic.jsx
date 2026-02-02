@@ -214,49 +214,26 @@ const FormationPageDynamic = ({ formation }) => {
                 <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-100">
                   {formation.subtitle}
                 </p>
-                <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+                <p className="text-lg mb-6 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
                   {formation.description}
                 </p>
                 
-                {/* Company Logos - Desktop */}
-                {formation.consultant.companies && formation.consultant.companies.length > 0 && (
-                  <div className="mt-8 mb-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                      {formation.consultant.companies.map((company, idx) => {
-                        const encodedUrl = encodeImageUrl(company.logo);
-                        return (
-                          <div 
-                            key={idx} 
-                            className="group bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-md hover:border-[#FABC05]/30 transition-all duration-300 flex items-center justify-center cursor-pointer"
-                            style={{ 
-                              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-                              width: '100%',
-                              height: '120px',
-                              padding: '16px'
-                            }}
-                          >
-                            <img
-                              src={encodedUrl}
-                              alt={`Company Logo ${idx + 1}`}
-                              className="object-contain transition-transform duration-300 group-hover:scale-110"
-                              style={{ 
-                                width: '80px',
-                                height: '80px',
-                                maxWidth: '100%',
-                                maxHeight: '100%',
-                                objectFit: 'contain'
-                              }}
-                              onError={(e) => {
-                                console.error('Failed to load logo:', company.logo, 'Encoded:', encodedUrl);
-                                e.target.style.display = 'none';
-                              }}
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
+                {/* Action Buttons */}
+                <div className="flex items-center gap-4 mt-6">
+                  <button
+                    onClick={() => scrollToSection("problem")}
+                    className="px-6 py-3 bg-white dark:bg-neutral-800 border-2 border-[#FABC05] text-neutral-700 dark:text-neutral-300 font-semibold rounded-lg hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/10 transition-all duration-300 hover:shadow-md hover:border-[#FFD700]"
+                  >
+                    اعرف المزيد
+                  </button>
+                  <button
+                    onClick={() => scrollToSection("registration-form")}
+                    className="px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-lg hover:from-[#FFD700] hover:to-[#FABC05] transition-all duration-300 hover:shadow-lg flex items-center gap-2"
+                  >
+                    ابدأ الآن
+                    <span>→</span>
+                  </button>
+                </div>
               </div>
             </div>
             
@@ -287,49 +264,26 @@ const FormationPageDynamic = ({ formation }) => {
                   </div>
                 </div>
                 
-                <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+                <p className="text-lg mb-6 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
                   {formation.description}
                 </p>
                 
-                {/* Company Logos - Mobile */}
-                {formation.consultant.companies && formation.consultant.companies.length > 0 && (
-                  <div className="mt-8 mb-6">
-                    <div className="grid grid-cols-2 gap-4">
-                      {formation.consultant.companies.map((company, idx) => {
-                        const encodedUrl = encodeImageUrl(company.logo);
-                        return (
-                          <div 
-                            key={idx} 
-                            className="group bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-md hover:border-[#FABC05]/30 transition-all duration-300 flex items-center justify-center cursor-pointer"
-                            style={{ 
-                              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-                              width: '100%',
-                              height: '120px',
-                              padding: '16px'
-                            }}
-                          >
-                            <img
-                              src={encodedUrl}
-                              alt={`Company Logo ${idx + 1}`}
-                              className="object-contain transition-transform duration-300 group-hover:scale-110"
-                              style={{ 
-                                width: '80px',
-                                height: '80px',
-                                maxWidth: '100%',
-                                maxHeight: '100%',
-                                objectFit: 'contain'
-                              }}
-                              onError={(e) => {
-                                console.error('Failed to load logo:', company.logo, 'Encoded:', encodedUrl);
-                                e.target.style.display = 'none';
-                              }}
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
+                {/* Action Buttons - Mobile */}
+                <div className="flex items-center justify-center gap-4 mt-6">
+                  <button
+                    onClick={() => scrollToSection("problem")}
+                    className="px-5 py-2.5 bg-white dark:bg-neutral-800 border-2 border-[#FABC05] text-neutral-700 dark:text-neutral-300 font-semibold rounded-lg hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/10 transition-all duration-300 hover:shadow-md hover:border-[#FFD700] text-sm"
+                  >
+                    اعرف المزيد
+                  </button>
+                  <button
+                    onClick={() => scrollToSection("registration-form")}
+                    className="px-5 py-2.5 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-lg hover:from-[#FFD700] hover:to-[#FABC05] transition-all duration-300 hover:shadow-lg flex items-center gap-2 text-sm"
+                  >
+                    ابدأ الآن
+                    <span>→</span>
+                  </button>
+                </div>
               </div>
             </div>
             
