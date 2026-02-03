@@ -1,4 +1,4 @@
-import { Briefcase, CheckCircle2, Facebook, GraduationCap, Instagram, Linkedin, Menu, Moon, Sun, Target, TrendingUp, Users, X } from "lucide-react";
+import { AlertCircle, Briefcase, CheckCircle2, Facebook, GraduationCap, Instagram, Linkedin, Menu, Moon, Sun, Target, TrendingUp, Users, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -234,6 +234,16 @@ const FormationPageDynamic = ({ formation }) => {
                     <span>→</span>
                   </button>
                 </div>
+                
+                {/* Special Text */}
+                <div className="mt-8 flex justify-center">
+                  <div className="relative inline-block">
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#FABC05]/30 via-[#FFD700]/20 to-[#FABC05]/30 dark:from-[#FABC05]/40 dark:via-[#FFD700]/30 dark:to-[#FABC05]/40 blur-xl rounded-full"></div>
+                    <p className="relative text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-[#FABC05] via-[#FFD700] to-[#FABC05] bg-clip-text text-transparent px-6 py-3 animate-in fade-in slide-in-from-bottom duration-700 delay-300">
+                      السوق ليس المشكلة… الاستراتيجية والتنفيذ هما الفارق
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -284,16 +294,20 @@ const FormationPageDynamic = ({ formation }) => {
                     <span>→</span>
                   </button>
                 </div>
+                
+                {/* Special Text - Mobile */}
+                <div className="mt-8 flex justify-center">
+                  <div className="relative inline-block">
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#FABC05]/30 via-[#FFD700]/20 to-[#FABC05]/30 dark:from-[#FABC05]/40 dark:via-[#FFD700]/30 dark:to-[#FABC05]/40 blur-xl rounded-full"></div>
+                    <p className="relative text-xl md:text-2xl font-bold text-center bg-gradient-to-r from-[#FABC05] via-[#FFD700] to-[#FABC05] bg-clip-text text-transparent px-4 py-2 animate-in fade-in slide-in-from-bottom duration-700 delay-300">
+                      السوق ليس المشكلة… الاستراتيجية والتنفيذ هما الفارق
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
             
             <div className="text-center">
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 mb-4 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group">
-                <h2 className="text-2xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">لماذا هذا التكوين مختلف؟</h2>
-                <p className="text-lg text-neutral-700 dark:text-neutral-300">
-                  لأنه مبني على تجربة مدير حقيقي أدار شركات جزائرية، وعالج هذه المشاكل من الداخل— ليس من الكتب فقط.
-                </p>
-              </div>
               <button
                 onClick={() => scrollToSection("registration-form")}
                 className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
@@ -315,10 +329,36 @@ const FormationPageDynamic = ({ formation }) => {
                 في أغلب الأحيان، لا تكمن المشكلة في السوق، بل في غياب استراتيجية تسويقية فعّالة وتنفيذ ميداني دقيق.
               </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-6 mb-4">
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
               {formation.problems.map((problem, idx) => (
-                <div key={idx} className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                  <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">{problem}</p>
+                <div 
+                  key={idx} 
+                  className="relative bg-white dark:bg-neutral-800 p-5 rounded-lg shadow-md border-r-4 border-red-500 hover:border-[#FABC05] transition-all duration-300 group cursor-pointer hover:shadow-xl hover:-translate-y-1"
+                  style={{ animationDelay: `${idx * 50}ms` }}
+                >
+                  {/* Left border accent */}
+                  <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 via-red-400 to-red-500 group-hover:from-[#FABC05] group-hover:via-[#FFD700] group-hover:to-[#FABC05] transition-all duration-300 rounded-r"></div>
+                  
+                  {/* Problem number */}
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center group-hover:bg-[#FABC05]/20 dark:group-hover:bg-[#FABC05]/20 transition-colors duration-300">
+                      <span className="text-red-600 dark:text-red-400 group-hover:text-[#FABC05] font-bold text-sm transition-colors duration-300">{idx + 1}</span>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertCircle className="w-4 h-4 text-red-500 group-hover:text-[#FABC05] transition-colors duration-300 flex-shrink-0" />
+                        <span className="text-xs font-semibold text-red-600 dark:text-red-400 group-hover:text-[#FABC05] transition-colors duration-300 uppercase tracking-wide">مشكلة</span>
+                      </div>
+                      <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors duration-300 font-medium text-base leading-relaxed">
+                        {problem}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Hover effect overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#FABC05]/0 to-[#FABC05]/0 group-hover:from-[#FABC05]/5 group-hover:to-transparent rounded-lg transition-all duration-300 pointer-events-none"></div>
                 </div>
               ))}
             </div>
