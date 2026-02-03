@@ -377,6 +377,22 @@ export const formations = {
       description: "في يومين، اصنع نقلة نوعية في الترويج لشركتك. دورة تدريبية مع الدكتور عبد الرحيم عبد اللاوي، مستشار في الترويج وبناء العلامات التجارية.",
     },
     formId: "8129a431-0fc1-42b2-9a62-1faf034d7fae", // Promotion Days form ID
+    // Form fields configuration matching CRM schema
+    fieldsConfig: {
+      companyName: { required: true, label: "اسم الشركة" },
+      employeeCount: { required: true, label: "عدد الموظفين" },
+      legalForm: { required: true, label: "ما هو الشكل القانوني لشركتك؟" },
+      businessSector: { required: true, label: "ما هو مجال نشاط شركتك؟" },
+      companyEstablished: { required: true, label: "منذ متى تأسست شركتك؟" },
+      fullName: { required: true, label: "الاسم واللقب" },
+      phone: { required: true, label: "رقم الواتس آب" },
+      email: { required: true, label: "الايميل" },
+      cohort: { required: false, label: "اختر الفوج" }, // Optional according to schema
+      state: { required: false, label: "الولاية" },
+      isWebscaleMember: { required: true, label: "هل أنت عضو في Webscale؟" }, // Required according to schema
+      jobTitle: { required: true, label: "المنصب الوظيفي" },
+      hasAttendedWebscaleTraining: { required: true, label: "هل سبق لك حضور دورة تدريبية في Webscale؟" },
+    },
     pricing: {
       regular: "40.000",
       webscaleMember: "37.000",
@@ -583,21 +599,6 @@ export const formations = {
       "ورشات تفكير وتمرين عملي",
       "نقاش مباشر مع المتدربين",
     ],
-    // Form fields configuration matching CRM schema
-    fieldsConfig: {
-      companyName: { required: true, label: "اسم الشركة" },
-      employeeCount: { required: true, label: "عدد الموظفين" },
-      legalForm: { required: true, label: "ما هو الشكل القانوني لشركتك؟" },
-      businessSector: { required: true, label: "ما هو مجال نشاط شركتك؟" },
-      companyEstablished: { required: true, label: "منذ متى تأسست شركتك؟" },
-      fullName: { required: true, label: "الاسم واللقب" },
-      phone: { required: true, label: "رقم الواتس آب" },
-      email: { required: true, label: "الايميل" },
-      cohort: { required: false, label: "اختر الفوج" }, // Optional according to schema
-      state: { required: false, label: "الولاية" },
-      isWebscaleMember: { required: true, label: "هل أنت عضو في Webscale؟" }, // Required according to schema
-      jobTitle: { required: true, label: "المنصب الوظيفي" },
-    },
   },
 
   // ============================================

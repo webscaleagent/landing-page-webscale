@@ -56,9 +56,10 @@ const initialForm = {
   fullName: "", // "الاسم واللقب" - required, order 3
   phone: "", // "رقم الواتس آب" - required, unique, order 4
   email: "", // "الايميل" - required, unique, order 5
-  cohort: "", // "اختر الفوج" - required, order 6
+  cohort: "", // "اختر الفوج" - optional, order 6
   state: "", // "الولاية" - optional, order 7
-  isWebscaleMember: "", // "هل أنت عضو في Webscale؟" - optional, order 8
+  isWebscaleMember: "", // "هل أنت عضو في Webscale؟" - required, order 8
+  hasAttendedWebscaleTraining: "", // "هل سبق لك حضور دورة تدريبية في Webscale؟" - required, order 10
   honey: "", // Honeypot for bot protection - DO NOT REMOVE
 };
 
@@ -92,6 +93,7 @@ export default function FormationRegistrationForm({
     cohort: useRef(null),
     state: useRef(null),
     isWebscaleMember: useRef(null),
+    hasAttendedWebscaleTraining: useRef(null),
   };
 
   // State for conditional fields visibility
@@ -103,7 +105,8 @@ export default function FormationRegistrationForm({
     if (fieldsConfig?.[field]?.required !== undefined) return fieldsConfig[field].required;
     const defaultRequired = [
       "companyName", "employeeCount", "legalForm", "companyEstablished", 
-      "jobTitle", "fullName", "phone", "email", "cohort"
+      "businessSector", "jobTitle", "fullName", "phone", "email", 
+      "isWebscaleMember", "hasAttendedWebscaleTraining"
     ];
     return defaultRequired.includes(field);
   };
@@ -123,8 +126,9 @@ export default function FormationRegistrationForm({
     if (isSubmitting) return true;
 
     const fieldsToCheck = [
-      "companyName", "employeeCount", "legalForm", "businessSector", "companyEstablished", 
-      "jobTitle", "fullName", "phone", "email", "cohort", "isWebscaleMember"
+      "companyName", "employeeCount", "legalForm", "companyEstablished", 
+      "businessSector", "jobTitle", "fullName", "phone", "email", 
+      "isWebscaleMember", "hasAttendedWebscaleTraining"
     ];
 
     for (const field of fieldsToCheck) {
@@ -142,8 +146,8 @@ export default function FormationRegistrationForm({
     if (!isHidden("companyName") && isRequired("companyName") && !form.companyName.trim()) e.companyName = "هذا الحقل مطلوب";
     if (!isHidden("employeeCount") && isRequired("employeeCount") && !form.employeeCount) e.employeeCount = "اختر عدد الموظفين";
     if (!isHidden("legalForm") && isRequired("legalForm") && !form.legalForm) e.legalForm = "اختر الشكل القانوني للشركة";
-    if (!isHidden("businessSector") && isRequired("businessSector") && !form.businessSector) e.businessSector = "اختر مجال نشاط شركتك";
     if (!isHidden("companyEstablished") && isRequired("companyEstablished") && !form.companyEstablished) e.companyEstablished = "اختر تاريخ تأسيس الشركة";
+    if (!isHidden("businessSector") && isRequired("businessSector") && !form.businessSector) e.businessSector = "اختر مجال نشاط الشركة";
     if (!isHidden("jobTitle") && isRequired("jobTitle") && !form.jobTitle) e.jobTitle = "اختر المنصب الوظيفي";
     
     // If job title is "مسير", manager experience duration is required
@@ -154,8 +158,8 @@ export default function FormationRegistrationForm({
     if (!isHidden("fullName") && isRequired("fullName") && !form.fullName.trim()) e.fullName = "هذا الحقل مطلوب";
     if (!isHidden("phone") && isRequired("phone") && !form.phone.trim()) e.phone = "هذا الحقل مطلوب";
     if (!isHidden("email") && isRequired("email") && !form.email.trim()) e.email = "هذا الحقل مطلوب";
-    if (!isHidden("cohort") && isRequired("cohort") && !form.cohort) e.cohort = "اختر الفوج";
-    if (!isHidden("isWebscaleMember") && isRequired("isWebscaleMember") && !form.isWebscaleMember) e.isWebscaleMember = "يرجى تحديد ما إذا كنت عضوًا في Webscale";
+    if (!isHidden("isWebscaleMember") && isRequired("isWebscaleMember") && !form.isWebscaleMember) e.isWebscaleMember = "يرجى الإجابة على هذا السؤال";
+    if (!isHidden("hasAttendedWebscaleTraining") && isRequired("hasAttendedWebscaleTraining") && !form.hasAttendedWebscaleTraining) e.hasAttendedWebscaleTraining = "يرجى الإجابة على هذا السؤال";
 
     // Email format validation
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
@@ -235,15 +239,16 @@ export default function FormationRegistrationForm({
           "عدد الموظفين": form.employeeCount,
           "ما هو الشكل القانوني لشركتك؟": form.legalForm === "أخرى" ? form.otherLegalForm : form.legalForm || "",
           "منذ متى تأسست شركتك؟": form.companyEstablished || "",
-          [fieldsConfig?.businessSector?.label || "القطاع"]: form.businessSector === "أخرى" ? form.otherBusinessSector : form.businessSector || "",
+          "ما هو مجال نشاط شركتك؟": form.businessSector === "أخرى" ? form.otherBusinessSector : form.businessSector || "",
           "المنصب الوظيفي": form.jobTitle,
           "مدة الخبرة في منصب المسير": form.managerExperienceDuration || "",
           "الاسم واللقب": form.fullName,
           "رقم الواتس آب": form.phone,
           "الايميل": form.email,
-          "اختر الفوج": form.cohort,
+          "اختر الفوج": form.cohort || "", // Optional field
           "الولاية": form.state || "", // Optional field
-          "هل أنت عضو في Webscale؟": form.isWebscaleMember || "", // Optional field, order 8
+          "هل أنت عضو في Webscale؟": form.isWebscaleMember || "",
+          "هل سبق لك حضور دورة تدريبية في Webscale؟": form.hasAttendedWebscaleTraining || "",
         },
       };
 
@@ -466,10 +471,30 @@ export default function FormationRegistrationForm({
         </div>
         )}
 
-        {/* Business Sector Field */}
+        {/* Company Established Field */}
+        {!isHidden("companyEstablished") && (
+        <div>
+          <OptionPills
+            label={<>منذ متى تأسست شركتك؟ {isRequired("companyEstablished") && <span className="text-red-500">*</span>}</>}
+            required={isRequired("companyEstablished")}
+            name="companyEstablished"
+            options={[
+              "أقل من سنة",
+              "من 1 إلى 3 سنوات",
+              "من 3 إلى 5 سنوات",
+              "أكثر من 5 سنوات."
+            ]}
+            value={form.companyEstablished}
+            onChange={(val) => setForm({ ...form, companyEstablished: val })}
+          />
+          {errors.companyEstablished && <div className={errorText}>{errors.companyEstablished}</div>}
+        </div>
+        )}
+
+        {/* Business Sector Field - Required */}
         {!isHidden("businessSector") && (
         <div>
-          <label className={labelBase}>{fieldsConfig?.businessSector?.label || "القطاع"} {isRequired("businessSector") && <span className="text-red-500">*</span>}</label>
+          <label className={labelBase}>{fieldsConfig?.businessSector?.label || "ما هو مجال نشاط شركتك؟"} {isRequired("businessSector") && <span className="text-red-500">*</span>}</label>
           <Select
             value={form.businessSector}
             onValueChange={(value) => {
@@ -506,26 +531,6 @@ export default function FormationRegistrationForm({
             </>
           )}
           {errors.businessSector && <div className={errorText}>{errors.businessSector}</div>}
-        </div>
-        )}
-
-        {/* Company Established Field */}
-        {!isHidden("companyEstablished") && (
-        <div>
-          <OptionPills
-            label={<>منذ متى تأسست شركتك؟ {isRequired("companyEstablished") && <span className="text-red-500">*</span>}</>}
-            required={isRequired("companyEstablished")}
-            name="companyEstablished"
-            options={[
-              "أقل من سنة",
-              "من 1 إلى 3 سنوات",
-              "من 3 إلى 5 سنوات",
-              "أكثر من 5 سنوات."
-            ]}
-            value={form.companyEstablished}
-            onChange={(val) => setForm({ ...form, companyEstablished: val })}
-          />
-          {errors.companyEstablished && <div className={errorText}>{errors.companyEstablished}</div>}
         </div>
         )}
 
@@ -588,12 +593,12 @@ export default function FormationRegistrationForm({
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
-          {/* Cohort Field - Order 6 */}
-          {!isHidden("cohort") && (
-          <div>
-            <label className={labelBase}>
-              اختر الفوج {isRequired("cohort") && <span className="text-red-500">*</span>}
-            </label>
+        {/* Cohort Field - Order 6 (Optional) */}
+        {!isHidden("cohort") && (
+        <div>
+          <label className={labelBase}>
+            اختر الفوج {isRequired("cohort") && <span className="text-red-500">*</span>}
+          </label>
             <Select
               value={form.cohort}
               onValueChange={(value) => setForm({ ...form, cohort: value })}
@@ -630,7 +635,7 @@ export default function FormationRegistrationForm({
           )}
         </div>
 
-        {/* Webscale Member Field - Order 8 (Optional) */}
+        {/* Webscale Member Field - Order 8 (Required) */}
         {!isHidden("isWebscaleMember") && (
         <div>
           <label className={labelBase}>هل أنت عضو في Webscale؟ {isRequired("isWebscaleMember") && <span className="text-red-500">*</span>}</label>
@@ -660,6 +665,39 @@ export default function FormationRegistrationForm({
             </label>
           </div>
           {errors.isWebscaleMember && <div className={errorText}>{errors.isWebscaleMember}</div>}
+        </div>
+        )}
+
+        {/* Has Attended Webscale Training Field - Order 10 (Required) */}
+        {!isHidden("hasAttendedWebscaleTraining") && (
+        <div>
+          <label className={labelBase}>هل سبق لك حضور دورة تدريبية في Webscale؟ {isRequired("hasAttendedWebscaleTraining") && <span className="text-red-500">*</span>}</label>
+          <div className="flex gap-4 mt-2">
+            <label className="flex items-center gap-2 cursor-pointer group">
+              <input
+                ref={fieldRefs.hasAttendedWebscaleTraining}
+                type="radio"
+                name="hasAttendedWebscaleTraining"
+                value="لا"
+                checked={form.hasAttendedWebscaleTraining === "لا"}
+                onChange={(e) => setForm({ ...form, hasAttendedWebscaleTraining: e.target.value })}
+                className="w-4 h-4 text-[#FABC05] border-gray-300 focus:ring-[#FABC05] focus:ring-2 cursor-pointer"
+              />
+              <span className="text-gray-700 dark:text-gray-300 group-hover:text-[#FABC05] transition-colors duration-300">لا</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer group">
+              <input
+                type="radio"
+                name="hasAttendedWebscaleTraining"
+                value="نعم"
+                checked={form.hasAttendedWebscaleTraining === "نعم"}
+                onChange={(e) => setForm({ ...form, hasAttendedWebscaleTraining: e.target.value })}
+                className="w-4 h-4 text-[#FABC05] border-gray-300 focus:ring-[#FABC05] focus:ring-2 cursor-pointer"
+              />
+              <span className="text-gray-700 dark:text-gray-300 group-hover:text-[#FABC05] transition-colors duration-300">نعم</span>
+            </label>
+          </div>
+          {errors.hasAttendedWebscaleTraining && <div className={errorText}>{errors.hasAttendedWebscaleTraining}</div>}
         </div>
         )}
 
