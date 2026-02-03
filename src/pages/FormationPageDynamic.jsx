@@ -291,7 +291,7 @@ const FormationPageDynamic = ({ formation }) => {
               <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 mb-4 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group">
                 <h2 className="text-2xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">لماذا هذا التكوين مختلف؟</h2>
                 <p className="text-lg text-neutral-700 dark:text-neutral-300">
-                  لأنه مبني على تجربة مدير حقيقي أدار شركات جزائرية، وعالج هذه المشاكل من الداخل— ليس من الكتب فقط.
+                  نؤمن أن نجاح أي مشروع لا يعتمد على السوق وحده، بل على استراتيجية تسويقية مدروسة وتنفيذ فعلي يحول الخطط إلى نتائج
                 </p>
               </div>
               <button
@@ -310,12 +310,30 @@ const FormationPageDynamic = ({ formation }) => {
       <section id="problem" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-neutral-800 dark:text-neutral-100">
-              المشكلة الحقيقية داخل أغلب المؤسسات
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">
+              المشكلة الحقيقية في الترويج
             </h2>
-            <p className="text-xl text-center mb-4 text-neutral-700 dark:text-neutral-300">
-              ليست في الموظفين… وليست في نقص الجهد… بل المشكلة في غياب نظام عمل واضح:
-            </p>
+            <div className="relative mb-8">
+              <div className="bg-gradient-to-br from-[#FABC05]/20 via-[#FFD700]/15 to-[#FABC05]/10 dark:from-[#FABC05]/30 dark:via-[#FFD700]/20 dark:to-[#FABC05]/25 p-6 md:p-8 rounded-2xl border-2 border-[#FABC05]/40 dark:border-[#FFD700]/40 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#FABC05]/10 dark:bg-[#FFD700]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#FFD700]/10 dark:bg-[#FABC05]/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-center mb-3">
+                    <div className="w-12 h-1 bg-gradient-to-r from-transparent via-[#FABC05] to-transparent"></div>
+                    <span className="mx-4 text-3xl text-[#FABC05] dark:text-[#FFD700] font-bold">"</span>
+                    <div className="w-12 h-1 bg-gradient-to-r from-transparent via-[#FABC05] to-transparent"></div>
+                  </div>
+                  <p className="text-xl md:text-2xl lg:text-3xl font-bold text-center leading-relaxed text-neutral-800 dark:text-neutral-100 mb-3">
+                    في أغلب الأحيان، لا تكمن المشكلة في السوق، بل في غياب استراتيجية تسويقية فعّالة وتنفيذ ميداني دقيق.
+                  </p>
+                  <div className="flex items-center justify-center mt-3">
+                    <div className="w-12 h-1 bg-gradient-to-r from-transparent via-[#FABC05] to-transparent"></div>
+                    <span className="mx-4 text-3xl text-[#FABC05] dark:text-[#FFD700] font-bold">"</span>
+                    <div className="w-12 h-1 bg-gradient-to-r from-transparent via-[#FABC05] to-transparent"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="grid md:grid-cols-2 gap-6 mb-4">
               {formation.problems.map((problem, idx) => (
                 <div key={idx} className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
