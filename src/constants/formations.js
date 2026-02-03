@@ -188,12 +188,137 @@ export const formations = {
     },
     formId: "a53dae24-f5ac-4457-91f5-4011d74e5a0e",
     fieldsConfig: {
-      jobTitle: { required: true },
-      cohort: { required: false },
-      state: { required: false },
-      isWebscaleMember: { required: true },
+      // Field order 1: اسم الشركة (Company Name)
+      companyName: { 
+        required: true,
+        label: "اسم الشركة",
+        type: "text",
+        order: 1
+      },
+      // Field order 2: عدد الموظفين (Employee Count)
+      employeeCount: { 
+        required: true,
+        label: "عدد الموظفين",
+        type: "select",
+        order: 2,
+        options: [
+          "أقل من 5",
+          "من 05 إلى 10 موظفين",
+          "من 10 إلى 50 موظف",
+          "من 50 موظف فما فوق"
+        ]
+      },
+      // Field order 2: ما هو الشكل القانوني لشركتك؟ (Legal Form)
+      legalForm: { 
+        required: true,
+        label: "ما هو الشكل القانوني لشركتك؟",
+        type: "select",
+        order: 2,
+        allow_custom_input: true,
+        custom_input_label: "أخرى..",
+        options: [
+          "مؤسسة فردية",
+          "شركة ذات مسؤولية محدودة (SARL)",
+          "شركة مساهمة (SPA)",
+          "شركة تضامن",
+          "تعاونية",
+          "شركة ناشئة (Startup)"
+        ]
+      },
+      // Field order 2: ما هو مجال نشاط شركتك؟ (Business Sector)
+      businessSector: { 
+        required: true,
+        label: "ما هو مجال نشاط شركتك؟",
+        type: "select",
+        order: 2,
+        allow_custom_input: true,
+        custom_input_label: "أخرى (يرجى التحديد)",
+        options: [
+          "خدمات",
+          "تجارة (جملة / تجزئة)",
+          "صناعة / إنتاج",
+          "فلاحية / زراعية",
+          "تكنولوجيا / شركة رقمية",
+          "مقاولات / أشغال عمومية",
+          "تعليم وتكوين",
+          "صحة",
+          "سياحة"
+        ]
+      },
+      // Field order 2: منذ متى تأسست شركتك؟ (Company Established)
+      companyEstablished: { 
+        required: true,
+        label: "منذ متى تأسست شركتك؟",
+        type: "select",
+        order: 2,
+        options: [
+          "أقل من سنة",
+          "من 1 إلى 3 سنوات",
+          "من 3 إلى 5 سنوات",
+          "أكثر من 5 سنوات."
+        ]
+      },
+      // Field order 3: الاسم واللقب (Full Name)
+      fullName: { 
+        required: true,
+        label: "الاسم واللقب",
+        type: "text",
+        order: 3
+      },
+      // Field order 4: رقم الواتس آب (Phone)
+      phone: { 
+        required: true,
+        label: "رقم الواتس آب",
+        type: "phone",
+        order: 4,
+        validation: { unique: true }
+      },
+      // Field order 5: الايميل (Email)
+      email: { 
+        required: true,
+        label: "الايميل",
+        type: "email",
+        order: 5,
+        validation: { unique: true }
+      },
+      // Field order 6: اختر الفوج (Cohort)
+      cohort: { 
+        required: false,
+        label: "اختر الفوج",
+        type: "select",
+        order: 6
+      },
+      // Field order 7: الولاية (State)
+      state: { 
+        required: false,
+        label: "الولاية",
+        type: "select",
+        order: 7
+      },
+      // Field order 8: هل أنت عضو في Webscale؟ (Is Webscale Member)
+      isWebscaleMember: { 
+        required: true,
+        label: "هل أنت عضو في Webscale؟",
+        type: "radio",
+        order: 8,
+        options: ["نعم", "لا"]
+      },
+      // Field order 9: المنصب الوظيفي (Job Title)
+      jobTitle: { 
+        required: true,
+        label: "المنصب الوظيفي",
+        type: "select",
+        order: 9,
+        options: [
+          "رئيس الشركة",
+          "مسير",
+          "موظف"
+        ]
+      },
+      // Hidden field: Manager Experience Duration (not in schema)
       managerExperienceDuration: { hidden: true },
-      businessSector: { label: "ما هو مجال نشاط شركتك؟" },
+      // Hidden field: Has Attended Webscale Training (not in schema for comptabilite)
+      hasAttendedWebscaleTraining: { hidden: true }
     },
     pricing: {
       regular: "45.000",
