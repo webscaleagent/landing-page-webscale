@@ -310,12 +310,11 @@ const FormationPageDynamic = ({ formation }) => {
       <section id="problem" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-neutral-800 dark:text-neutral-100">
-              المشكلة الحقيقية داخل أغلب المؤسسات
-            </h2>
-            <p className="text-xl text-center mb-4 text-neutral-700 dark:text-neutral-300">
-              ليست في الموظفين… وليست في نقص الجهد… بل المشكلة في غياب نظام عمل واضح:
-            </p>
+            <div className="bg-gradient-to-br from-[#FABC05]/20 via-[#FFD700]/15 to-[#FABC05]/10 dark:from-[#FABC05]/30 dark:via-[#FFD700]/20 dark:to-[#FABC05]/25 p-8 md:p-12 rounded-3xl mb-8 border-2 border-[#FABC05]/40 dark:border-[#FABC05]/50 shadow-2xl hover:shadow-3xl transition-all duration-300">
+              <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-center leading-relaxed text-neutral-800 dark:text-neutral-100">
+                في أغلب الأحيان، لا تكمن المشكلة في السوق، بل في غياب استراتيجية تسويقية فعّالة وتنفيذ ميداني دقيق.
+              </p>
+            </div>
             <div className="grid md:grid-cols-2 gap-6 mb-4">
               {formation.problems.map((problem, idx) => (
                 <div key={idx} className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
