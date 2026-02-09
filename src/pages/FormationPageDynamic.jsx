@@ -794,18 +794,6 @@ const FormationPageDynamic = ({ formation }) => {
                 </div>
               </div>
 
-              {/* Pricing notes */}
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 mb-6">
-                <h3 className="text-lg font-bold text-neutral-800 dark:text-neutral-100 mb-4 text-center">تفاصيل الأسعار</h3>
-                <ul className="space-y-2 text-neutral-700 dark:text-neutral-300">
-                  {formation.pricing.notes.map((note, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <span className="text-[#FABC05] font-bold mt-1">•</span>
-                      <span>{note}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           ) : (
             /* Original two-tier pricing for formations without notes */
