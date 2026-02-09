@@ -312,7 +312,9 @@ export const formations = {
         options: [
           "رئيس الشركة",
           "مسير",
-          "موظف"
+          "موظف",
+          "مدير قسم التسويق",
+          "مدير قسم المبيعات"
         ]
       },
       // Hidden field: Manager Experience Duration (not in schema)
@@ -429,6 +431,7 @@ export const formations = {
     ],
     cohorts: [
       { value: "فوج 7, 8, 9 فيفري", label: "فوج 7, 8, 9 فيفري", disabled: false },
+      { value: "قائمة الانتظار", label: "قائمة الانتظار", disabled: false },
     ],
     faq: [
       {
