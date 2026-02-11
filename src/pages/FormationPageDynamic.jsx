@@ -12,6 +12,8 @@ const encodeImageUrl = (url) => {
   return parts.map(part => part ? encodeURIComponent(part) : '').join('/');
 };
 
+const PUBLIC_FORMS_BASE = "https://crmgo.webscale.dz/api/v1/public/forms";
+
 // This is a reusable FormationPage component that accepts formation configuration
 const FormationPageDynamic = ({ formation }) => {
   const [darkMode, setDarkMode] = useState(false);
@@ -19,6 +21,34 @@ const FormationPageDynamic = ({ formation }) => {
   const [expandedSections, setExpandedSections] = useState({});
   const [isWebscaleMember, setIsWebscaleMember] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
+  const [apiFields, setApiFields] = useState(null);
+  const [apiFieldsError, setApiFieldsError] = useState(null);
+
+  useEffect(() => {
+    if (!formation?.formId) {
+      setApiFields([]);
+      return;
+    }
+    let cancelled = false;
+    setApiFieldsError(null);
+    fetch(`${PUBLIC_FORMS_BASE}/${formation.formId}/fields`)
+      .then((res) => {
+        if (!res.ok) throw new Error(res.status === 404 ? "Form not found" : `HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        if (cancelled) return;
+        const fields = Array.isArray(data.fields) ? data.fields : [];
+        setApiFields(fields.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          setApiFieldsError(err.message);
+          setApiFields([]);
+        }
+      });
+    return () => { cancelled = true; };
+  }, [formation?.formId]);
 
   useEffect(() => {
     const savedMode = localStorage.getItem("theme");
@@ -906,6 +936,8 @@ const FormationPageDynamic = ({ formation }) => {
               formId={formation.formId}
               cohorts={formation.cohorts}
               fieldsConfig={formation.fieldsConfig}
+              apiFields={apiFields}
+              apiFieldsError={apiFieldsError}
             />
           </div>
         </div>

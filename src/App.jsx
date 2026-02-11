@@ -41,6 +41,7 @@ export default function App() {
         <Route path="/qr-generator" element={<QRGeneratorPage />} />
         <Route path="/submissions/:form_id" element={<SubmissionsCarouselPage />} />
         <Route path="/" element={<Registration />} />
+
       </Routes>
     </Router>
   );

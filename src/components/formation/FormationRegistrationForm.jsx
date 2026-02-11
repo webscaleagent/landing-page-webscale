@@ -63,18 +63,33 @@ const initialForm = {
   honey: "", // Honeypot for bot protection - DO NOT REMOVE
 };
 
+const isWilayaLabel = (label) => typeof label === "string" && (label === "الولاية" || label.includes("الولاية"));
+const isCohortLabel = (label) => typeof label === "string" && (label === "اختر الفوج" || label.includes("الفوج"));
+
 export default function FormationRegistrationForm({ 
   onSuccess, 
   formId = DEFAULT_FORM_ID,
   cohorts = DEFAULT_COHORTS,
-  fieldsConfig = {}
+  fieldsConfig = {},
+  apiFields = null,
+  apiFieldsError = null,
 }) {
   const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/${formId}/submit`;
-  
+  const isDynamic = Array.isArray(apiFields) && apiFields.length > 0;
+
   const [form, setForm] = useState(initialForm);
+  const [formDynamic, setFormDynamic] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [modal, setModal] = useState(null); // {type: "success"|"error", message: string}
+  const dynamicRefs = useRef({});
+
+  useEffect(() => {
+    if (isDynamic && apiFields?.length) {
+      setFormDynamic(apiFields.reduce((acc, f) => ({ ...acc, [f.label]: "" }), { honey: "" }));
+      setErrors({});
+    }
+  }, [apiFields, isDynamic]);
 
   // Refs for field focus management
   const fieldRefs = {
@@ -124,19 +139,25 @@ export default function FormationRegistrationForm({
   // Form disabled state
   const disabled = useMemo(() => {
     if (isSubmitting) return true;
-
+    if (isDynamic && apiFields?.length) {
+      for (const field of apiFields) {
+        if (field.required) {
+          const v = formDynamic[field.label];
+          if (v === undefined || v === null || String(v).trim() === "") return true;
+        }
+      }
+      return false;
+    }
     const fieldsToCheck = [
       "companyName", "employeeCount", "legalForm", "companyEstablished", 
       "businessSector", "jobTitle", "fullName", "phone", "email", 
       "isWebscaleMember", "hasAttendedWebscaleTraining"
     ];
-
     for (const field of fieldsToCheck) {
       if (!isHidden(field) && isRequired(field) && !form[field]) return true;
     }
-
     return false;
-  }, [form, isSubmitting, fieldsConfig]);
+  }, [form, formDynamic, isSubmitting, fieldsConfig, isDynamic, apiFields]);
 
   // Validation logic
   const validate = () => {
@@ -185,6 +206,278 @@ export default function FormationRegistrationForm({
   const validatePhone = (phone) => {
     const regex = /^(\+213|0)(5|6|7)[0-9]{8}$/;
     return regex.test(phone);
+  };
+
+  // --- Dynamic form (API-driven) validation and submit ---
+  const validateDynamic = () => {
+    const e = {};
+    if (!isDynamic || !apiFields?.length) return e;
+    for (const field of apiFields) {
+      const val = formDynamic[field.label];
+      const str = typeof val === "string" ? val.trim() : (val != null ? String(val) : "");
+      if (field.required && !str) {
+        e[field.label] = field.validation?.error_message || "هذا الحقل مطلوب";
+        continue;
+      }
+      if (!str) continue;
+      if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str)) {
+        e[field.label] = "بريد غير صحيح";
+      } else if (field.type === "phone" && !validatePhone(str)) {
+        e[field.label] = "⚠️ الرجاء إدخال رقم هاتف صحيح (9 أرقام على الأقل، مع إمكانية + في البداية).";
+      } else if (field.validation?.min_length != null && str.length < field.validation.min_length) {
+        e[field.label] = field.validation?.error_message || `يجب أن يكون ${field.validation.min_length} أحرف على الأقل`;
+      } else if (field.validation?.max_length != null && str.length > field.validation.max_length) {
+        e[field.label] = field.validation?.error_message || `يجب أن يكون ${field.validation.max_length} أحرف كحد أقصى`;
+      }
+    }
+    return e;
+  };
+
+  const handleSubmitDynamic = async (e) => {
+    e.preventDefault();
+    if (formDynamic.honey) return;
+    const v = validateDynamic();
+    setErrors(v);
+    if (Object.keys(v).length) {
+      const firstLabel = apiFields.find((f) => v[f.label])?.label;
+      if (firstLabel && dynamicRefs.current[firstLabel]) {
+        dynamicRefs.current[firstLabel].scrollIntoView({ behavior: "smooth", block: "center" });
+        dynamicRefs.current[firstLabel].focus?.();
+      }
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const utmParams = getUTMParams();
+      const data = {};
+      apiFields.forEach((f) => {
+        const val = formDynamic[f.label];
+        if (val !== undefined && val !== null && String(val).trim() !== "") data[f.label] = val;
+      });
+      const payload = { user_id: "public-user", ...utmParams, data };
+      const res = await fetch(PUBLIC_SUBMIT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const responseData = await res.json().catch(() => ({}));
+      if (res.ok && res.status >= 200 && res.status < 300) {
+        setModal({ type: "success", message: "✅ تم إرسال طلبك بنجاح! سنتواصل معك قريبًا." });
+        setFormDynamic(apiFields.reduce((acc, f) => ({ ...acc, [f.label]: "" }), { honey: "" }));
+        if (onSuccess) onSuccess();
+        return;
+      }
+      const msg = responseData?.error || responseData?.message || "⚠️ حدث خطأ غير متوقع.";
+      if (msg.includes("الايميل") || msg.includes("البريد") || (msg.includes("email") && msg.includes("exists"))) {
+        setErrors((prev) => ({ ...prev, [apiFields.find((f) => f.type === "email")?.label]: "⚠️ هذا البريد الإلكتروني مسجل مسبقًا." }));
+        return;
+      }
+      if (msg.includes("رقم الواتس") || msg.includes("الهاتف") || (msg.includes("phone") && msg.includes("exists"))) {
+        setErrors((prev) => ({ ...prev, [apiFields.find((f) => f.type === "phone")?.label]: "⚠️ رقم الواتس آب هذا مسجل مسبقًا." }));
+        return;
+      }
+      setModal({ type: "error", message: msg });
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setModal({ type: "error", message: "⚠️ حدث خطأ في الاتصال. تحقق من الإنترنت وحاول مجددًا." });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const renderDynamicField = (field) => {
+    const label = field.label;
+    const value = formDynamic[label] ?? "";
+    const err = errors[label];
+    const setValue = (v) => setFormDynamic((prev) => ({ ...prev, [label]: v }));
+    const required = field.required;
+    const asterisk = required ? <span className="text-red-500">*</span> : null;
+    const inputClass = `${fieldBase} ${err ? "border-red-500" : ""}`;
+
+    if (isWilayaLabel(label)) {
+      return (
+        <div key={label}>
+          <label className={labelBase}>{label} {asterisk}</label>
+          <AlgeriaWilayas value={value} onChange={setValue} placeholder={field.placeholder || "اختر الولاية"} />
+          {err && <div className={errorText}>{err}</div>}
+        </div>
+      );
+    }
+
+    const cohortOptions = isCohortLabel(label) && cohorts?.length
+      ? cohorts.map((c) => ({ value: c.value, label: c.label, disabled: c.disabled }))
+      : null;
+    const options = (field.options?.length ? field.options : cohortOptions?.map((c) => c.value)) ?? [];
+    const othersOpt = field.others_option_text || "أخرى";
+    const hasOthers = field.allow_custom_input && options.some((o) => o === othersOpt || o === "أخرى");
+    const isOtherSelected = hasOthers && (value === othersOpt || (value && !options.includes(value)));
+
+    switch (field.type) {
+      case "textarea":
+        return (
+          <div key={label} ref={(el) => (dynamicRefs.current[label] = el)}>
+            <label className={labelBase}>{label} {asterisk}</label>
+            <textarea
+              className={`${inputClass} min-h-[100px] resize-none`}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              placeholder={field.placeholder}
+              rows={4}
+              dir="rtl"
+            />
+            {err && <div className={errorText}>{err}</div>}
+          </div>
+        );
+      case "select":
+        if (isCohortLabel(label) && cohortOptions?.length) {
+          return (
+            <div key={label} ref={(el) => (dynamicRefs.current[label] = el)}>
+              <label className={labelBase}>{label} {asterisk}</label>
+              <Select value={value} onValueChange={setValue}>
+                <SelectTrigger className={inputClass}>
+                  <SelectValue placeholder={field.placeholder || "اختر الفوج"} />
+                </SelectTrigger>
+                <SelectContent>
+                  {cohortOptions.map((c) => (
+                    <SelectItem key={c.value} value={c.value} disabled={c.disabled}>{c.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {hasOthers && isOtherSelected && (
+                <input
+                  className={`${fieldBase} mt-2`}
+                  value={value === othersOpt ? "" : value}
+                  onChange={(e) => setValue(e.target.value)}
+                  placeholder={field.custom_input_label || "أخرى.."}
+                />
+              )}
+              {err && <div className={errorText}>{err}</div>}
+            </div>
+          );
+        }
+        return (
+          <div key={label} ref={(el) => (dynamicRefs.current[label] = el)}>
+            <label className={labelBase}>{label} {asterisk}</label>
+            <Select value={value} onValueChange={setValue}>
+              <SelectTrigger className={inputClass}>
+                <SelectValue placeholder={field.placeholder || "اختر..."} />
+              </SelectTrigger>
+              <SelectContent>
+                {options.map((opt) => (
+                  <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {hasOthers && isOtherSelected && (
+              <input
+                className={`${fieldBase} mt-2`}
+                value={value === othersOpt ? "" : value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder={field.custom_input_label || "أخرى.."}
+              />
+            )}
+            {err && <div className={errorText}>{err}</div>}
+          </div>
+        );
+      case "radio":
+        return (
+          <div key={label} ref={(el) => (dynamicRefs.current[label] = el)}>
+            <OptionPills
+              label={<>{label} {asterisk}</>}
+              required={required}
+              name={label}
+              options={options}
+              value={value}
+              onChange={(v) => setValue(v)}
+            />
+            {hasOthers && isOtherSelected && (
+              <input
+                className={`${fieldBase} mt-2`}
+                value={value === othersOpt ? "" : value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder={field.custom_input_label || "أخرى.."}
+              />
+            )}
+            {err && <div className={errorText}>{err}</div>}
+          </div>
+        );
+      case "checkbox":
+        if (options.length > 1) {
+          const selected = Array.isArray(value) ? value : (value ? [value] : []);
+          return (
+            <div key={label} ref={(el) => (dynamicRefs.current[label] = el)}>
+              <label className={labelBase}>{label} {asterisk}</label>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {options.map((opt) => (
+                  <label key={opt} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={selected.includes(opt)}
+                      onChange={(e) => {
+                        const next = e.target.checked ? [...selected, opt] : selected.filter((x) => x !== opt);
+                        setValue(next);
+                      }}
+                      className="w-4 h-4 text-[#FABC05] border-gray-300 focus:ring-[#FABC05] focus:ring-2"
+                    />
+                    <span className="text-gray-700 dark:text-gray-300">{opt}</span>
+                  </label>
+                ))}
+              </div>
+              {err && <div className={errorText}>{err}</div>}
+            </div>
+          );
+        }
+        return (
+          <div key={label} ref={(el) => (dynamicRefs.current[label] = el)}>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={!!value}
+                onChange={(e) => setValue(e.target.checked)}
+                className="w-4 h-4 text-[#FABC05] border-gray-300 focus:ring-[#FABC05] focus:ring-2"
+              />
+              <span className={labelBase.replace("block ", "")}>{label} {asterisk}</span>
+            </label>
+            {err && <div className={errorText}>{err}</div>}
+          </div>
+        );
+      case "number":
+      case "date":
+      case "datetime":
+      case "url":
+        return (
+          <div key={label} ref={(el) => (dynamicRefs.current[label] = el)}>
+            <label className={labelBase}>{label} {asterisk}</label>
+            <input
+              type={field.type === "datetime" ? "datetime-local" : field.type}
+              className={inputClass}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              placeholder={field.placeholder}
+              dir="ltr"
+            />
+            {err && <div className={errorText}>{err}</div>}
+          </div>
+        );
+      case "email":
+      case "phone":
+      case "text":
+      default:
+        return (
+          <div key={label} ref={(el) => (dynamicRefs.current[label] = el)}>
+            <label className={labelBase}>{label} {asterisk}</label>
+            <input
+              type={field.type === "phone" ? "tel" : field.type === "email" ? "email" : "text"}
+              className={inputClass}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              placeholder={field.placeholder}
+              dir={field.type === "email" || field.type === "phone" ? "ltr" : "rtl"}
+            />
+            {err && <div className={errorText}>{err}</div>}
+          </div>
+        );
+    }
   };
 
   // Submit handler
@@ -344,6 +637,8 @@ export default function FormationRegistrationForm({
     }
   };
 
+  const isLoadingForm = formId && apiFields === null;
+
   return (
     <>
       {/* Success/Error Modal */}
@@ -389,7 +684,43 @@ export default function FormationRegistrationForm({
         </DialogContent>
       </Dialog>
 
-      {/* Form */}
+      {isLoadingForm && (
+        <div className="text-center py-8 text-neutral-600 dark:text-neutral-400">
+          جاري تحميل النموذج...
+        </div>
+      )}
+
+      {!isLoadingForm && isDynamic && (
+        <form onSubmit={handleSubmitDynamic} className="space-y-6">
+          {apiFieldsError && (
+            <p className="text-sm text-amber-600 dark:text-amber-400 mb-2">{apiFieldsError}</p>
+          )}
+          {apiFields.map(renderDynamicField)}
+          <input
+            type="text"
+            name="honey"
+            value={formDynamic.honey ?? ""}
+            onChange={(e) => setFormDynamic((prev) => ({ ...prev, honey: e.target.value }))}
+            style={{ display: "none" }}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+          <div className="pt-4">
+            <button
+              type="submit"
+              disabled={disabled}
+              className="w-full rounded-xl px-6 py-3 text-sm font-semibold shadow-md hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed text-black bg-[var(--brand)]"
+            >
+              {isSubmitting ? "جاري الإرسال..." : "إرسال التسجيل"}
+            </button>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
+              بالنقر على "إرسال التسجيل"، أوافق على معالجة بياناتي لأغراض التواصل.
+            </p>
+          </div>
+        </form>
+      )}
+
+      {!isLoadingForm && !isDynamic && (
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Company Name Field - Order 1 */}
         {!isHidden("companyName") && (
@@ -774,11 +1105,12 @@ export default function FormationRegistrationForm({
           >
             {isSubmitting ? "جاري الإرسال..." : "إرسال التسجيل"}
           </button>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
-            بالنقر على "إرسال التسجيل"، أوافق على معالجة بياناتي لأغراض التواصل.
-          </p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
+              بالنقر على "إرسال التسجيل"، أوافق على معالجة بياناتي لأغراض التواصل.
+            </p>
         </div>
       </form>
+      )}
     </>
   );
 }
