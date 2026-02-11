@@ -430,7 +430,7 @@ export const formations = {
       },
     ],
     cohorts: [
-      { value: "فوج 7, 8, 9 فيفري", label: "فوج 7, 8, 9 فيفري", disabled: false },
+      { value: "فوج 7, 8, 9 فيفري", label: "فوج 7, 8, 9 فيفري (ممتلئ)", disabled: true },
       { value: "قائمة الانتظار", label: "قائمة الانتظار", disabled: false },
     ],
     faq: [
