@@ -1,14 +1,21 @@
 /* src/index.css  */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+/* Montserrat-Arabic Regular Font Face */
+@font-face {
+  font-family: 'Montserrat-Arabic';
+  src: url('/fonts/Montserrat-Arabic-master/fonts/WEB/Montserrat-Arabic-Regular.woff2') format('woff2'),
+       url('/fonts/Montserrat-Arabic-master/fonts/WEB/Montserrat-Arabic-Regular.woff') format('woff'),
+       url('/fonts/Montserrat-Arabic-master/fonts/TTF/Montserrat-Arabic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: "Poppins", sans-serif;
+  font-family: "Montserrat-Arabic", sans-serif;
   color-scheme: dark;
   --brand: #FABC05
 }
@@ -165,7 +172,7 @@ html {
 
 /* Arabic font optimization */
 .arabic-text {
-  font-family: 'Cairo', 'Tajawal', 'Amiri', 'Noto Sans Arabic', sans-serif;
+  font-family: 'Montserrat-Arabic', sans-serif;
   line-height: 1.8;
   letter-spacing: 0.025em;
 }

@@ -2,7 +2,7 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { BookOpen, Calendar, CheckCircle2, ChevronLeft, ChevronRight, Clock, MessageCircle, Network, Users, Video } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -10,16 +10,21 @@ import "swiper/css/navigation";
 
 const CommunitySection = () => {
   const swiperRef = useRef(null);
+  const [imageErrors, setImageErrors] = useState({});
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
+  const handleImageError = (expertIndex) => {
+    setImageErrors(prev => ({ ...prev, [expertIndex]: true }));
+  };
+
   const experts = [
     {
       name: "أ. سليم بن اعراب",
       specialty: "الادارة والتسيير",
-      image: "/experts/benarab.png",
+      image: "/experts/salim_ben_arab.jpeg",
       color: "from-amber-500 to-orange-500",
       bgColor: "bg-orange-50",
       buttonColor: "bg-orange-500"
@@ -43,7 +48,7 @@ const CommunitySection = () => {
     {
       name: "نورالدين هواري",
       specialty: "استخدامات الذكاء الاصطناعي",
-      image: "/experts/noureddine houari.jpg",
+      image: "/experts/noureddine.jpg",
       color: "from-green-500 to-emerald-500",
       bgColor: "bg-green-50",
       buttonColor: "bg-green-500"
@@ -107,12 +112,19 @@ const CommunitySection = () => {
                 <div className="px-6 pt-8 pb-6 text-center">
                   {/* Circular Avatar */}
                   <div className="mb-4">
-                    <div className="w-32 h-32 mx-auto rounded-full overflow-hidden shadow-md border-2 border-white">
-                      <img 
-                        src={expert.image} 
-                        alt={expert.name}
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="w-32 h-32 mx-auto rounded-full overflow-hidden shadow-md border-2 border-white bg-neutral-200 dark:bg-neutral-700">
+                      {imageErrors[idx] ? (
+                        <div className="w-full h-full flex items-center justify-center text-neutral-400 text-4xl">
+                          👤
+                        </div>
+                      ) : (
+                        <img 
+                          src={expert.image} 
+                          alt={expert.name}
+                          className="w-full h-full object-cover"
+                          onError={() => handleImageError(idx)}
+                        />
+                      )}
                     </div>
                   </div>
 

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { getUTMParams } from "../utils/utm";
 
 const fieldBase =
   "w-full rounded-xl border px-4 py-3 outline-none transition text-base " +
@@ -195,8 +196,10 @@ export default function MobileFormPage() {
       const submitUrl = `https://crmgo.webscale.dz/api/v1/public/forms/${form_id}/submit`;
       
       // Map form data to the required field structure (same as workshop form)
+      const utmParams = getUTMParams();
       const payload = {
         user_id: "public-user",
+        ...utmParams,
         data: {}
       };
 

@@ -1,8 +1,8 @@
 // src/components/registration/RegistrationForm.jsx
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { getUTMParams } from "../../utils/utm";
 import AlgeriaWilayas from "../shared/AlgeriaWilayas";
-import OptionPills from "./OptionPills";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
+import OptionPills from "./OptionPills";
 
 const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/47401ef7-042c-4994-8645-569b14749758/submit`;
 
@@ -239,9 +240,11 @@ export default function RegistrationForm() {
     setIsSubmitting(true);
 
     try {
-      // تحويل القيم لمفاتيح عربية مطابقة لحقول الـ CRM
+      // ✅ تحويل القيم لمفاتيح عربية مطابقة لحقول الـ CRM
+      const utmParams = getUTMParams();
       const payload = {
         user_id: "public-user",
+        ...utmParams,
         data: {
           "الاسم الكامل": form.name,
           "البريد الإلكتروني": form.email,

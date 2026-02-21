@@ -106,7 +106,7 @@ const FormationPage = () => {
     {
       question: "كيف يمكنني التسجيل في الدورة؟",
       answer:
-        "يمكنك التسجيل بسهولة من خلال النقر على زر \"سجل الآن\" وملء النموذج. الأماكن محدودة (14 مشارك فقط)، لذا ننصح بالتسجيل المبكر.",
+        "🔥 المقاعد اكتملت! يمكنك التسجيل في قائمة الانتظار من خلال النقر على زر \"سجّل في قائمة الانتظار\" وملء النموذج. كن أول من يحصل على فرصة عند فتح التسجيل.",
     },
     {
       question: "ما هو الفرق بين السعر العام وسعر أعضاء Webscale؟",
@@ -215,14 +215,23 @@ const FormationPage = () => {
                   <Moon className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
                 )}
               </button>
+              <Link
+                to="/"
+                className="hidden md:flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 font-semibold text-sm md:text-base rounded-xl hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all duration-300 hover:scale-105 hover:shadow-md"
+              >
+                <span>المجتمع</span>
+                <svg className="w-4 h-4 transition-transform duration-300 hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+              </Link>
               <button
                 onClick={() => setShowRegistrationModal(true)}
                 className="flex items-center gap-2 relative px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-[#FABC05] via-[#FFD700] to-[#FABC05] bg-size-200 bg-pos-0 hover:bg-pos-100 text-black font-semibold text-sm md:text-base rounded-xl overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#FABC05]/40"
                 style={{ backgroundSize: '200% 100%' }}
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <span className="hidden md:inline">احجز مقعدك الآن</span>
-                  <span className="md:hidden">احجز</span>
+                  <span className="hidden md:inline">سجّل في قائمة الانتظار</span>
+                  <span className="md:hidden">قائمة الانتظار</span>
                   <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
@@ -266,6 +275,16 @@ const FormationPage = () => {
                     {item.label}
                   </a>
                 ))}
+                <Link
+                  to="/"
+                  className="mx-4 mt-2 px-6 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 font-semibold rounded-xl hover:bg-neutral-300 dark:hover:bg-neutral-600 hover:scale-105 transition-all duration-300 hover:shadow-md flex items-center justify-center gap-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span>المجتمع</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                </Link>
                 <button
                   onClick={() => {
                     setShowRegistrationModal(true);
@@ -273,7 +292,7 @@ const FormationPage = () => {
                   }}
                   className="mx-4 mt-2 px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-[#FABC05]/40"
                 >
-                  احجز مقعدك الآن
+                  سجّل في قائمة الانتظار
                 </button>
               </nav>
             </div>
@@ -357,7 +376,7 @@ const FormationPage = () => {
                 onClick={() => setShowRegistrationModal(true)}
                 className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
               >
-                <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
+                <span className="relative z-10">📍 الأماكن مملوءة! ⏳ سجّل في قائمة الانتظار الآن ⬇️</span>
                 <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               </button>
             </div>
@@ -425,7 +444,7 @@ const FormationPage = () => {
                 onClick={() => setShowRegistrationModal(true)}
                 className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
               >
-                <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
+                <span className="relative z-10">📍 الأماكن مملوءة! ⏳ سجّل في قائمة الانتظار الآن ⬇️</span>
                 <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               </button>
             </div>
@@ -521,7 +540,7 @@ const FormationPage = () => {
               onClick={() => setShowRegistrationModal(true)}
               className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
             >
-              <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
+              <span className="relative z-10">📍 الأماكن مملوءة! ⏳ سجّل في قائمة الانتظار الآن ⬇️</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </button>
           </div>
@@ -571,7 +590,7 @@ const FormationPage = () => {
               onClick={() => setShowRegistrationModal(true)}
               className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
             >
-              <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
+              <span className="relative z-10">📍 الأماكن مملوءة! ⏳ سجّل في قائمة الانتظار الآن ⬇️</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </button>
           </div>
@@ -669,7 +688,7 @@ const FormationPage = () => {
               onClick={() => setShowRegistrationModal(true)}
               className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
             >
-              <span className="relative z-10">احجز مكانك الآن وابدأ في إعادة ترتيب شركتك بطريقة احترافية وواضحة.</span>
+              <span className="relative z-10">🔥 المقاعد اكتملت! كن أول من يحصل على فرصة عند فتح التسجيل - سجّل في قائمة الانتظار</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </button>
           </div>
@@ -776,7 +795,7 @@ const FormationPage = () => {
                 onClick={() => setShowRegistrationModal(true)}
                 className="relative w-full px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-lg overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FABC05]/50"
               >
-                <span className="relative z-10">احجز مقعدك الآن</span>
+                <span className="relative z-10">✅ سجّل في قائمة الانتظار</span>
                 <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               </button>
             </div>
@@ -784,7 +803,7 @@ const FormationPage = () => {
 
           <div className="max-w-4xl mx-auto">
             <p className="text-center text-lg mb-4 text-neutral-700 dark:text-neutral-300">
-              <strong className="text-[#FABC05]">الأماكن محدودة</strong> - 14 مشارك فقط
+              <strong className="text-[#FABC05]">⏳ الأماكن مملوءة</strong> - سجّل في قائمة الانتظار واحصل على أولوية عند فتح مقاعد جديدة
             </p>
             <FormationRegistrationForm />
           </div>
@@ -932,7 +951,7 @@ const FormationPage = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
           <div className="bg-white/95 dark:bg-neutral-800/95 backdrop-blur-lg rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-neutral-200/50 dark:border-neutral-700/50 animate-in zoom-in-95 duration-300">
             <div className="sticky top-0 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-lg border-b border-neutral-200/50 dark:border-neutral-700/50 p-4 flex items-center justify-between rounded-t-2xl z-10">
-              <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">احجز مقعدك الآن</h2>
+              <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">سجّل في قائمة الانتظار</h2>
               <button
                 onClick={() => setShowRegistrationModal(false)}
                 className="p-2 hover:bg-[#FABC05]/20 dark:hover:bg-[#FABC05]/20 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-90"
