@@ -56,10 +56,7 @@ const initialForm = {
   fullName: "", // "الاسم واللقب" - required, order 3
   phone: "", // "رقم الواتس آب" - required, unique, order 4
   email: "", // "الايميل" - required, unique, order 5
-<<<<<<< HEAD
-=======
   cohort: "", // "اختر الفوج" - optional, order 6
->>>>>>> 6b58d9cc04cefce122183d86267b7a1140c19c21
   state: "", // "الولاية" - optional, order 7
   isWebscaleMember: "", // "هل أنت عضو في Webscale؟" - required, order 8
   hasAttendedWebscaleTraining: "", // "هل سبق لك حضور دورة تدريبية في Webscale؟" - required, order 10
@@ -140,19 +137,6 @@ export default function FormationRegistrationForm({
 
   // Form disabled state
   const disabled = useMemo(() => {
-<<<<<<< HEAD
-    return (
-      isSubmitting ||
-      !(
-        form.companyName &&
-        form.employeeCount &&
-        form.fullName &&
-        form.phone &&
-        form.email
-      )
-    );
-  }, [form, isSubmitting]);
-=======
     if (isSubmitting) return true;
     if (isDynamic && apiFields?.length) {
       for (const field of apiFields) {
@@ -173,7 +157,6 @@ export default function FormationRegistrationForm({
     }
     return false;
   }, [form, formDynamic, isSubmitting, fieldsConfig, isDynamic, apiFields]);
->>>>>>> 6b58d9cc04cefce122183d86267b7a1140c19c21
 
   // Validation logic
   const validate = () => {
@@ -323,10 +306,12 @@ export default function FormationRegistrationForm({
     const cohortOptions = isCohortLabel(label) && cohorts?.length
       ? cohorts.map((c) => ({ value: c.value, label: c.label, disabled: c.disabled }))
       : null;
-    const options = (field.options?.length ? field.options : cohortOptions?.map((c) => c.value)) ?? [];
-    const othersOpt = field.others_option_text || "أخرى";
-    const hasOthers = field.allow_custom_input && options.some((o) => o === othersOpt || o === "أخرى");
-    const isOtherSelected = hasOthers && (value === othersOpt || (value && !options.includes(value)));
+    const baseOptions = (field.options?.length ? field.options : cohortOptions?.map((c) => c.value)) ?? [];
+    const othersOpt = "أخرى";
+    const hasOthers = !!field.allow_custom_input;
+    // Add "أخرى" to options if allow_custom_input is true and it's not already present
+    const options = hasOthers && !baseOptions.includes(othersOpt) ? [...baseOptions, othersOpt] : baseOptions;
+    const isOtherSelected = hasOthers && (value === othersOpt || (value && !baseOptions.includes(value)));
 
     switch (field.type) {
       case "textarea":
@@ -554,10 +539,7 @@ export default function FormationRegistrationForm({
           "الاسم واللقب": form.fullName,
           "رقم الواتس آب": form.phone,
           "الايميل": form.email,
-<<<<<<< HEAD
-=======
           "اختر الفوج": form.cohort || "", // Optional field
->>>>>>> 6b58d9cc04cefce122183d86267b7a1140c19c21
           "الولاية": form.state || "", // Optional field
           "هل أنت عضو في Webscale؟": form.isWebscaleMember || "",
           "هل سبق لك حضور دورة تدريبية في Webscale؟": form.hasAttendedWebscaleTraining || "",
@@ -942,16 +924,6 @@ export default function FormationRegistrationForm({
           )}
         </div>
 
-<<<<<<< HEAD
-        {/* State Field - Order 7 (Optional) */}
-        <div>
-          <label className={labelBase}>الولاية</label>
-          <AlgeriaWilayas
-            value={form.state}
-            onChange={(value) => setForm({ ...form, state: value })}
-          />
-          {errors.state && <div className={errorText}>{errors.state}</div>}
-=======
         <div className="grid md:grid-cols-2 gap-4">
         {/* Cohort Field - Order 6 (Optional) */}
         {!isHidden("cohort") && (
@@ -993,7 +965,6 @@ export default function FormationRegistrationForm({
             {errors.state && <div className={errorText}>{errors.state}</div>}
           </div>
           )}
->>>>>>> 6b58d9cc04cefce122183d86267b7a1140c19c21
         </div>
 
         {/* Webscale Member Field - Order 8 (Required) */}

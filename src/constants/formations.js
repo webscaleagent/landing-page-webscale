@@ -652,7 +652,8 @@ export const formations = {
       },
     ],
     cohorts: [
-      { value: "فوج 15 ، 16 فيفري", label: "فوج 15 ، 16 فيفري", disabled: false },
+      { value: "فوج 15 ، 16 فيفري", label: "فوج 15 ، 16 فيفري (ممتلئ)", disabled: true },
+      { value: "قائمة الانتظار", label: "قائمة الانتظار", disabled: false },
     ],
     faq: [
       {
