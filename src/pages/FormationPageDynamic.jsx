@@ -44,7 +44,11 @@ const FormationPageDynamic = ({ formation }) => {
       .catch((err) => {
         if (!cancelled) {
           setApiFieldsError(err.message);
-          setApiFields([]);
+          if (formation.fallbackApiFields?.length) {
+            setApiFields(formation.fallbackApiFields);
+          } else {
+            setApiFields([]);
+          }
         }
       });
     return () => { cancelled = true; };

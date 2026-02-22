@@ -20,7 +20,7 @@ const DEFAULT_FORM_ID = "9699183e-5d2b-4969-832b-9abf4dddea48";
 
 // Default cohorts for backward compatibility
 const DEFAULT_COHORTS = [
-  { value: "قائمة الانتظار", label: "✅ قائمة الانتظار - احصل على أولوية عند فتح مقاعد جديدة", disabled: false },
+  { value: "قائمة الإنتظار", label: "✅ قائمة الإنتظار - احصل على أولوية عند فتح مقاعد جديدة", disabled: false },
   { value: "فوج 13, 14, 15 ديسمبر", label: "فوج 13, 14, 15 ديسمبر (ممتلئ)", disabled: true },
   { value: "فوج 27, 28, 29 ديسمبر", label: "فوج 27, 28, 29 ديسمبر (ممتلئ)", disabled: true },
   { value: "الفوج الثالث - 10, 11, 12 جانفي", label: "الفوج الثالث - 10, 11, 12 جانفي (ممتلئ)", disabled: true },
