@@ -1,5 +1,7 @@
 import { ArrowLeft, GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
+import cantonEventImage from "../assets/canton-event-2026.png";
+import cantonEventLogo from "../assets/canton-event-logo.png";
 import logo from "../assets/logo.png";
 import { formations } from "../constants/formations";
 
@@ -74,6 +76,41 @@ const FormationsMenu = () => {
             تكوينات تطبيقية مع خبراء متمرسين
           </p>
         </div>
+
+        {/* Canton Event Big Card */}
+        <Link
+          to="/canton-event"
+          className="group relative mb-8 md:mb-12 block min-h-[360px] md:min-h-[460px] overflow-hidden rounded-3xl shadow-2xl transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
+            style={{ backgroundImage: `url(${cantonEventImage})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/45 to-black/20" />
+
+          <div className="relative flex h-full flex-col justify-end p-6 pb-24 md:p-10 md:pb-28 text-white">
+            <span className="mb-3 inline-flex w-fit items-center rounded-full bg-[#FABC05] px-4 py-1.5 text-xs font-bold text-black md:text-sm">
+              CANTON FAIR 2026
+            </span>
+            <h3 className="max-w-2xl text-2xl font-black leading-tight md:text-4xl">
+              اللقاء الحضوري + الإفطار الجماعي للتحضير لمعرض كانتون
+            </h3>
+            <p className="mt-3 max-w-2xl text-sm text-white/90 md:text-lg">
+              جلسة عملية مع خبراء، برنامج واضح، وشبكة علاقات قوية لبدء مشروع الاستيراد بثقة.
+            </p>
+            <div className="mt-5 inline-flex w-fit rounded-xl bg-[#FABC05] px-5 py-2.5 text-sm font-bold text-black transition-colors group-hover:bg-[#FFD700]">
+              اكتشف الحدث →
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 md:bottom-6">
+            <img
+              src={cantonEventLogo}
+              alt="Canton Fair 2026 Logo"
+              className="h-auto w-56 drop-shadow-[0_8px_20px_rgba(0,0,0,0.45)] md:w-80"
+            />
+          </div>
+        </Link>
 
         {/* Formation Cards Grid */}
         <div className="flex flex-row md:grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 snap-x snap-mandatory scrollbar-hide -mx-4 md:mx-0 px-4 md:px-0">
