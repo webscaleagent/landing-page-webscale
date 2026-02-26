@@ -1,10 +1,7 @@
 import {
-  AlarmClock,
-  ArrowLeft,
   BadgeCheck,
   Building2,
   CalendarDays,
-  CheckCircle2,
   Clock3,
   Factory,
   Facebook,
@@ -24,16 +21,16 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import cantonHeroLogo from "../assets/canton-hero-logo.png";
 import logo from "../assets/logo.png";
 
 const benefits = [
-  "تمكين المشاركين من التحضير الاحترافي لزيارة معرض كانتون",
-  "فهم آليات البحث عن الموردين في الصين",
-  "التعرف على معايير شراء خطوط الإنتاج والمعدات الصناعية",
-  "تفادي الأخطاء الشائعة في الدفع والشحن والمطابقة",
-  "بناء تصور عملي لمشروع استيراد قابل للتنفيذ في الجزائر",
-  "خلق شبكة علاقات بين المهتمين بالاستيراد والصناعة",
-  "نقل تجربة عملية واقعية تحاكي مشروع استيراد من الصين إلى الجزائر",
+  "اكتساب منهجية احترافية لاختيار واستيراد خطوط الإنتاج والمعدات الصناعية مباشرة من المصدر",
+  "تعلم آليات تقييم المصانع والموردين في الصين قبل الالتزام بأي استثمار مالي",
+  "بناء شبكة علاقات استراتيجية مع مستوردين وصناعيين ورواد أعمال يشاركونك نفس الرؤية",
+  "تشبيك مباشر مع خبراء ومستشارين ذوي تجربة فعلية في السوق الصيني وسلاسل التوريد",
+  "الاستثمار في التوجيه الصحيح لتقليل المخاطر وحماية رأس المال من الأخطاء المكلفة",
+  "تحويل فكرة استيراد خط إنتاج إلى مشروع صناعي قابل للتنفيذ بخطة واضحة للسوق الجزائري",
 ];
 
 const audience = [
@@ -41,48 +38,15 @@ const audience = [
   "أصحاب المصانع وورشات الإنتاج",
   "الراغبون في إطلاق مشاريع صناعية",
   "التجار والمستوردون",
-  "أصحاب المشاريع الناشئة",
-  "المهتمون بزيارة معرض كانتون لأول مرة",
-];
-
-const timeline = [
-  "17:00 استقبال الضيوف وتسجيل الحضور",
-  "صلاة المغرب",
-  "إفطار جماعي",
-  "أجواء تواصل احترافية وبناء شبكة أعمال",
-  "صلاة العشاء",
-  "بداية البرنامج الرسمي",
-  "كلمات افتتاحية",
-  "المحاضرات الرئيسية",
-  "كلمة ختامية",
-  "تكريمات",
-  "استراحة شاي وتعارف",
-  "00:00 نهاية الحدث",
-];
-
-const workshopQuestions = [
-  "ما هو المنتج أو الخدمة التي ستطلقونها؟",
-  "كيف ستجدون المورد في الصين؟",
-  "ما طريقة الدفع المستخدمة ولماذا؟",
-  "ما طريقة الشحن وكيف ستديرونه؟",
-  "كيف ستبيعون المنتج في الجزائر؟",
-];
-
-const workshopOutcomes = [
-  "تحفيز التفكير الاستراتيجي",
-  "خلق نقاش عملي بين المشاركين",
-  "محاكاة مشروع استيراد حقيقي قبل اتخاذ قرارات فعلية",
-  "فقرة Reality Check لتصحيح الأخطاء الشائعة (الدفع، الشهادات، المطابقة، تقدير الشحن)",
 ];
 
 const includedItems = [
-  "5 لقاءات مباشرة أونلاين",
-  "يوم حضوري تطبيقي مكثف",
-  "نشاط تفاعلي لمحاكاة مشروع استيراد",
-  "إفطار جماعي احترافي",
-  "محاضرات متخصصة",
-  "تكريمات",
-  "فرصة بناء شبكة علاقات أعمال قوية",
+  "5 جلسات عملية أونلاين",
+  "لقاء تكويني تفاعلي",
+  "إفطار جماعي",
+  "نشاطات تفاعلية و عملية",
+  "فرصة بناء و تشبيك علاقات",
+  "لقاءات مع مستشارين و مختصين",
 ];
 
 const faqs = [
@@ -144,37 +108,149 @@ const speakerCards = [
 
 const pricing = [
   {
+    title: "35,000 دج",
+    subtitle: "5 جلسات مباشرة مع 5 مستشارين",
+    description: "",
+    featured: false,
+  },
+  {
     title: "50,000 دج",
-    subtitle: "العرض الكامل",
-    description: "اللقاءات أونلاين + الحدث الحضوري + الإفطار",
+    subtitle: "العرض المتكامل",
+    description: "5 جلسات أونلاين + اللقاء التكويني + الإفطار الجماعي",
     featured: true,
   },
-  {
-    title: "20,000 دج",
-    subtitle: "حضور الإفطار فقط",
-    description: "فرصة حضور الإفطار وبناء العلاقات",
-    featured: false,
-  },
-  {
-    title: "30,000 دج",
-    subtitle: "حضور الجلسات أونلاين فقط",
-    description: "5 لقاءات مباشرة للتحضير العملي",
-    featured: false,
-  },
 ];
+
+const employeeCountOptions = ["أقل من 5", "من 05 إلى 10 موظفين", "من 10 إلى 50 موظف", "من 50 موظف فما فوق"];
+
+const legalFormOptions = [
+  "مؤسسة فردية",
+  "شركة ذات مسؤولية محدودة (SARL)",
+  "شركة مساهمة (SPA)",
+  "شركة تضامن",
+  "تعاونية",
+  "شركة ناشئة (Startup)",
+];
+
+const businessSectorOptions = [
+  "خدمات",
+  "تجارة (جملة / تجزئة)",
+  "صناعة / إنتاج",
+  "فلاحية / زراعية",
+  "تكنولوجيا / شركة رقمية",
+  "مقاولات / أشغال عمومية",
+  "تعليم وتكوين",
+  "صحة",
+  "سياحة",
+];
+
+const companyEstablishedOptions = ["أقل من سنة", "من 1 إلى 3 سنوات", "من 3 إلى 5 سنوات", "أكثر من 5 سنوات."];
+
+const stateOptions = [
+  "أدرار",
+  "الشلف",
+  "الأغواط",
+  "أم البواقي",
+  "باتنة",
+  "بجاية",
+  "بسكرة",
+  "بشار",
+  "البليدة",
+  "البويرة",
+  "تمنراست",
+  "تبسة",
+  "تلمسان",
+  "تيارت",
+  "تيزي وزو",
+  "الجزائر",
+  "الجلفة",
+  "جيجل",
+  "سطيف",
+  "سعيدة",
+  "سكيكدة",
+  "سيدي بلعباس",
+  "عنابة",
+  "قالمة",
+  "قسنطينة",
+  "المدية",
+  "مستغانم",
+  "المسيلة",
+  "معسكر",
+  "ورقلة",
+  "وهران",
+  "البيض",
+  "إليزي",
+  "برج بوعريريج",
+  "بومرداس",
+  "الطارف",
+  "تندوف",
+  "تيسمسيلت",
+  "الوادي",
+  "خنشلة",
+  "سوق أهراس",
+  "تيبازة",
+  "ميلة",
+  "عين الدفلى",
+  "النعامة",
+  "عين تموشنت",
+  "غرداية",
+  "غليزان",
+  "تيميمون",
+  "برج باجي مختار",
+  "أولاد جلال",
+  "بني عباس",
+  "إن صالح",
+  "إن قزام",
+  "تقرت",
+  "جانت",
+  "المغير",
+  "المنيعة",
+  "أخرى",
+];
+
+const jobTitleOptions = ["رئيس الشركة", "مسير", "موظف", "مدير قسم التسويق", "مدير قسم المبيعات"];
+
+const visitReasonOptions = [
+  "البحث عن خطوط إنتاج جديدة",
+  "إيجاد موردين ومصانع موثوقة",
+  "الاطلاع على المنتجات والتقنيات الحديثة",
+  "دراسة السوق والاتجاهات الجديدة",
+  "عقد شراكات واتفاقيات تجارية",
+  "تطوير مشروع حالي أو إطلاق مشروع جديد",
+  "البحث عن فرص استيراد وتوزيع",
+  "مقارنة الأسعار وتحسين تكاليف الشراء.",
+];
+
+const initialFormData = {
+  companyName: "",
+  employeeCount: "",
+  legalForm: "",
+  legalFormCustom: "",
+  businessSector: "",
+  businessSectorCustom: "",
+  companyEstablished: "",
+  fullName: "",
+  phone: "",
+  email: "",
+  state: "",
+  isWebscaleMember: "",
+  jobTitle: "",
+  hasAttendedWebscaleTraining: "",
+  attendingCantonApril: "",
+  attendingCantonAprilCustom: "",
+  visitedCantonBefore: "",
+  visitedCantonBeforeCustom: "",
+  visitReason: "",
+  visitReasonCustom: "",
+};
 
 const FormationPage = () => {
   const [activeFaq, setActiveFaq] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    phone: "",
-    email: "",
-    participationType: "العرض الكامل",
-  });
+  const [formData, setFormData] = useState(initialFormData);
 
   const trustBadges = useMemo(
-    () => ["5 لقاءات أونلاين", "يوم حضوري تطبيقي", "200 مقعد فقط", "تنظيم Webscale"],
+    () => ["5 لقاءات أونلاين", "يوم حضوري تطبيقي", "220 مقعد فقط", "تنظيم Webscale"],
     []
   );
 
@@ -190,6 +266,11 @@ const FormationPage = () => {
 
   const renderSectionTitle = (title, subtitle, eyebrow) => (
     <div className="mx-auto mb-10 max-w-3xl text-center">
+      <img
+        src={cantonHeroLogo}
+        alt="Canton Fair Webscale 2026"
+        className="mx-auto mb-3 h-12 w-auto rounded-lg border border-slate-200 bg-slate-950 p-1.5 shadow-sm"
+      />
       {eyebrow ? (
         <p className="mb-3 text-sm font-semibold text-amber-500">{eyebrow}</p>
       ) : null}
@@ -235,21 +316,28 @@ const FormationPage = () => {
       <main>
         <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-white to-slate-100">
           <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-2 md:items-center md:px-8 md:py-20">
+            <img
+              src={cantonHeroLogo}
+              alt="Canton Fair Webscale 2026"
+              className="h-auto w-full rounded-2xl border border-slate-200 bg-slate-950 p-2 shadow-xl md:hidden"
+            />
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
               <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-4 py-1 text-xs font-bold text-amber-700">
                 <Sparkles className="h-4 w-4" />
-                برنامج عملي محدود المقاعد
+                برنامج عملي تأهيلي
               </p>
-              <h1 className="text-3xl font-black leading-tight md:text-5xl">
-                استعد لمعرض كانتون مع وابسكيل
+              <h1 className="font-black leading-tight">
+                <span className="block whitespace-nowrap text-xl md:text-4xl">
+                  استعد لمعرض كانتون مع وابسكيل
+                </span>
               </h1>
               <p className="mt-4 text-lg font-semibold text-slate-700 md:text-xl">
-                برنامج تأهيلي عملي للتحضير لزيارة معرض كانتون وبناء صفقات استيراد ناجحة من الصين
+                برنامج تأهيلي عملي يحضرك لزيارة معرض كانتون وبناء صفقات ناجحة واستيراد خطوط الإنتاج الكبيرة والمتوسطة من الصين
               </p>
               <p className="mt-5 text-base leading-8 text-slate-600">
-                هذا البرنامج مصمم لرواد الأعمال الجزائريين والمصنّعين والمستوردين الذين يريدون دخول سوق
-                الاستيراد من الصين بقرارات أوضح ومخاطر أقل. ستتعلم كيف تبحث عن المورد الصحيح، تتفادى
-                الأخطاء المكلفة، وتبني فرص استيراد حقيقية قابلة للتنفيذ في الجزائر.
+                هذا البرنامج مصمم لرواد الأعمال الجزائريين والمصنّعين والمستوردين المهتمين باستيراد
+                خطوط الإنتاج من الصين بقرارات أوضح ومخاطر أقل. ستتعلم كيف تبحث عن المورد الصحيح، تتفادى
+                الأخطاء المكلفة، وتبني فرص إنشاء مصانع ناجحة وقابلة للتنفيذ في الجزائر.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
@@ -284,19 +372,25 @@ const FormationPage = () => {
               </div>
             </div>
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <img
+                src={cantonHeroLogo}
+                alt="Canton Fair Webscale 2026"
+                className="mb-4 hidden h-auto w-full rounded-2xl border border-slate-200 bg-slate-950 p-2 shadow-xl md:block"
+              />
               <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xl md:p-7">
-                <div className="mb-4 grid grid-cols-2 gap-3">
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                    <p className="text-xs font-semibold text-slate-500">المرحلة الأولى</p>
-                    <p className="mt-1 text-sm font-extrabold">5 لقاءات أونلاين مباشرة</p>
-                  </div>
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                    <p className="text-xs font-semibold text-slate-500">المرحلة الثانية</p>
-                    <p className="mt-1 text-sm font-extrabold">لقاء حضوري + إفطار جماعي</p>
+                <div className="mb-4">
+                  <div className="rounded-2xl border border-amber-200 bg-gradient-to-l from-amber-50 to-white p-4 md:p-5">
+                    <p className="mb-2 inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1 text-[11px] font-bold text-amber-700">
+                      <Sparkles className="h-3.5 w-3.5" />
+                      البرنامج الأونلاين
+                    </p>
+                    <h1 className="text-xl font-black leading-tight text-slate-900 md:text-2xl">
+                      5 جلسات عملية أونلاين
+                    </h1>
                   </div>
                 </div>
                 <div className="rounded-2xl bg-slate-900 p-5 text-white">
-                  <p className="text-sm font-semibold text-slate-300">معلومات اليوم الحضوري</p>
+                  <p className="text-sm font-semibold text-slate-300">لقاء تكويني تفاعلي + إفطار جماعي</p>
                   <div className="mt-4 space-y-3 text-sm">
                     <p className="flex items-center gap-2">
                       <Landmark className="h-4 w-4 text-amber-400" />
@@ -304,7 +398,7 @@ const FormationPage = () => {
                     </p>
                     <p className="flex items-center gap-2">
                       <CalendarDays className="h-4 w-4 text-amber-400" />
-                      التاريخ: 23 رمضان
+                      التاريخ: 12 مارس الموافق لـ23 رمضان
                     </p>
                     <p className="flex items-center gap-2">
                       <Clock3 className="h-4 w-4 text-amber-400" />
@@ -313,7 +407,7 @@ const FormationPage = () => {
                   </div>
                 </div>
                 <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2 text-center text-sm font-bold text-amber-700">
-                  المقاعد محدودة: 200 مقعد فقط
+                  220 مقعد متوفر
                 </p>
               </div>
             </div>
@@ -360,113 +454,44 @@ const FormationPage = () => {
           </div>
         </section>
 
+        <section className="border-b border-slate-200 bg-white px-4 py-8 md:px-8">
+          <div className="mx-auto flex max-w-7xl justify-center">
+            <button
+              onClick={scrollToRegister}
+              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-10 py-4 text-base font-black text-slate-950 shadow-[0_12px_30px_rgba(245,158,11,0.35)] transition duration-300 hover:-translate-y-1 hover:from-amber-300 hover:via-amber-400 hover:to-orange-400"
+            >
+              <Sparkles className="h-5 w-5" />
+              احجز مقعدك الآن
+            </button>
+          </div>
+        </section>
+
         <section className="border-b border-slate-200 bg-white px-4 py-14 md:px-8">
           <div className="mx-auto max-w-7xl">
             {renderSectionTitle("ماذا ستستفيد داخل البرنامج؟")}
             <div className="grid gap-6 md:grid-cols-2">
               <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
                 <p className="mb-3 inline-flex rounded-full bg-slate-900 px-3 py-1 text-xs font-bold text-white">
-                  المرحلة التحضيرية (أونلاين)
+                  جلسات عملية أونلاين
                 </p>
-                <h3 className="text-xl font-black">5 لقاءات مباشرة أونلاين تحضيرية</h3>
+                <h3 className="text-xl font-black">جلسات عملية أونلاين</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-600">
-                  هذه المرحلة تُجهّز المشاركين قبل اليوم الحضوري لفهم آليات الزيارة الاحترافية لمعرض
-                  كانتون، منهجية التفاوض، ومعايير اتخاذ القرار في مشاريع الاستيراد.
+                  ستفهم كيف تختار خط الإنتاج المناسب، تقيّم المصانع والموردين باحتراف، وتتخذ قرارات
+                  استثمارية مدروسة تحمي رأس مالك قبل السفر.
                 </p>
               </article>
               <article className="rounded-2xl border border-amber-300 bg-amber-50 p-6 shadow-sm">
                 <p className="mb-3 inline-flex rounded-full bg-amber-500 px-3 py-1 text-xs font-bold text-slate-900">
-                  اللقاء الحضوري + الإفطار الجماعي
+                  لقاء تكويني تفاعلي + إفطار جماعي
                 </p>
-                <div className="space-y-2 text-sm font-semibold text-slate-700">
-                  <p className="flex items-center gap-2">
-                    <Landmark className="h-4 w-4 text-amber-600" />
-                    المكان: المعهد العالي للعلوم
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <CalendarDays className="h-4 w-4 text-amber-600" />
-                    التاريخ: 23 رمضان
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <Clock3 className="h-4 w-4 text-amber-600" />
-                    التوقيت العام: من 17:00 إلى 00:00
-                  </p>
-                </div>
+                <h3 className="text-xl font-black text-slate-900">لقاء تكويني تفاعلي + إفطار جماعي</h3>
+                <p className="mt-3 text-sm font-semibold leading-7 text-slate-700">
+                  ستبني شبكة علاقات قوية مع مستثمرين وصناعيين وخبراء، وتتبادل تجارب حقيقية قد تتحول إلى
+                  شراكات وفرص أعمال فعلية.
+                </p>
               </article>
             </div>
 
-            <div className="mt-8 rounded-3xl border border-slate-200 bg-slate-900 p-6 text-white shadow-xl md:p-8">
-              <div className="mb-6 flex items-center gap-2">
-                <AlarmClock className="h-5 w-5 text-amber-400" />
-                <h3 className="text-xl font-black">الجدول الزمني لليوم الحضوري</h3>
-              </div>
-              <div className="space-y-4">
-                {timeline.map((item, index) => (
-                  <div key={item} className="relative pr-8">
-                    <span className="absolute right-0 top-1.5 h-3 w-3 rounded-full bg-amber-400" />
-                    {index !== timeline.length - 1 ? (
-                      <span className="absolute right-[5px] top-5 h-full w-0.5 bg-slate-700" />
-                    ) : null}
-                    <div className="flex items-center gap-2">
-                      {index === 0 ? (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 px-2 py-0.5 text-[11px] font-bold text-amber-300">
-                          <Sparkles className="h-3.5 w-3.5" />
-                          افتتاح الحدث
-                        </span>
-                      ) : null}
-                      {index === timeline.length - 1 ? (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2 py-0.5 text-[11px] font-bold text-emerald-300">
-                          <CheckCircle2 className="h-3.5 w-3.5" />
-                          ختام الحدث
-                        </span>
-                      ) : null}
-                      <p className="text-sm font-medium text-slate-200">{item}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-slate-200 bg-slate-50 px-4 py-14 md:px-8">
-          <div className="mx-auto max-w-7xl">
-            {renderSectionTitle(
-              "نشاط تطبيقي: محاكاة مشروع استيراد",
-              "سيتم تقسيم المشاركين إلى فرق (5 أشخاص لكل طاولة)، وكل عضو يمثل وظيفة أساسية داخل المشروع."
-            )}
-            <div className="grid gap-6 md:grid-cols-2">
-              <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h3 className="mb-3 text-lg font-black">الأدوار داخل كل فريق</h3>
-                <div className="grid grid-cols-2 gap-3 text-sm font-bold text-slate-700">
-                  <span className="rounded-xl bg-slate-100 px-3 py-2">Finance</span>
-                  <span className="rounded-xl bg-slate-100 px-3 py-2">Sourcing</span>
-                  <span className="rounded-xl bg-slate-100 px-3 py-2">Logistics</span>
-                  <span className="rounded-xl bg-slate-100 px-3 py-2">Legal</span>
-                  <span className="rounded-xl bg-slate-100 px-3 py-2">Marketing</span>
-                </div>
-                <h4 className="mb-3 mt-6 text-base font-extrabold">أسئلة الورشة</h4>
-                <ul className="space-y-3 text-sm text-slate-700">
-                  {workshopQuestions.map((question) => (
-                    <li key={question} className="flex items-start gap-2">
-                      <ArrowLeft className="mt-1 h-4 w-4 text-amber-500" />
-                      {question}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-              <article className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 shadow-sm">
-                <h3 className="mb-3 text-lg font-black text-emerald-900">مخرجات النشاط</h3>
-                <ul className="space-y-3 text-sm font-semibold text-emerald-900">
-                  {workshopOutcomes.map((outcome) => (
-                    <li key={outcome} className="flex items-start gap-2">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4" />
-                      {outcome}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            </div>
           </div>
         </section>
 
@@ -497,7 +522,7 @@ const FormationPage = () => {
             <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-center shadow-sm">
               <p className="text-sm font-semibold text-slate-600">كما يشارك أيضًا:</p>
               <p className="mt-2 text-base font-extrabold text-slate-900">
-                الأستاذ فيصل بن عمارة • الأستاذ ناصر بن ديب • الشيخ عمار رقبة
+                الأستاذ ناصر بن ديب • الشيخ عمار رقبة
               </p>
             </div>
           </div>
@@ -521,12 +546,50 @@ const FormationPage = () => {
         </section>
 
         <section className="border-b border-slate-200 bg-white px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-5xl">
+            <div className="relative overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-l from-slate-900 via-slate-800 to-slate-900 p-7 text-white shadow-2xl md:p-10">
+              <div className="absolute -left-16 -top-16 h-44 w-44 rounded-full bg-amber-500/20 blur-3xl" />
+              <div className="absolute -bottom-16 -right-16 h-44 w-44 rounded-full bg-amber-500/20 blur-3xl" />
+
+              <div className="relative text-center">
+                <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-300/40 bg-amber-500/10 px-4 py-1 text-xs font-bold text-amber-300">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  المقاعد محدودة
+                </p>
+                <h3 className="text-2xl font-black leading-tight md:text-3xl">
+                  احجز مكانك الآن قبل اكتمال التسجيل
+                </h3>
+                <p className="mt-3 text-sm text-slate-200 md:text-base">
+                  اضمن مقعدك في البرنامج واستفد من الجلسات العملية واللقاء التكويني التفاعلي.
+                </p>
+
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                  <button
+                    onClick={scrollToRegister}
+                    className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-extrabold text-slate-950 transition hover:-translate-y-0.5 hover:bg-amber-400"
+                  >
+                    احجز مقعدك الآن
+                  </button>
+                  <a
+                    href="https://wa.me/213563565936"
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
+                  >
+                    <MessageCircle className="h-4 w-4 text-emerald-300" />
+                    تواصل عبر واتساب
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-white px-4 py-14 md:px-8">
           <div className="mx-auto max-w-7xl">
             {renderSectionTitle(
               "خيارات المشاركة",
               "اختر الصيغة الأنسب لك، مع أفضلية واضحة للعرض الكامل."
             )}
-            <div className="grid gap-5 lg:grid-cols-3">
+            <div className="grid gap-5 lg:grid-cols-2">
               {pricing.map((plan) => (
                 <article
                   key={plan.title}
@@ -558,7 +621,7 @@ const FormationPage = () => {
               ))}
             </div>
             <p className="mt-6 text-center text-lg font-extrabold text-rose-600">
-              عدد المقاعد: 200 مقعد فقط
+              عدد المقاعد: 220 مقعد فقط
             </p>
           </div>
         </section>
@@ -570,11 +633,11 @@ const FormationPage = () => {
           <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
             <div>
               <h2 className="text-3xl font-black leading-tight md:text-4xl">
-                إذا كنت تريد دخول عالم الاستيراد من الصين بوعي أكبر، أخطاء أقل، وعلاقات أقوى —
+                إذا كنت تريد دخول عالم إستيراد خطوط الإنتاج من الصين بوعي أكبر، أخطاء أقل، وعلاقات أقوى —
                 فهذا البرنامج صُمم لك.
               </h2>
               <p className="mt-4 text-slate-300">
-                المقاعد محدودة، والتسجيل في هذا النموذج يضعك ضمن قائمة التأكيد المباشر مع فريق وابسكيل.
+                التسجيل في هذا النموذج يضعك ضمن قائمة التأكيد المباشر مع فريق وابسكيل.
               </p>
               <div className="mt-6 space-y-3 text-sm font-semibold">
                 <p className="flex items-center gap-2">
@@ -599,23 +662,139 @@ const FormationPage = () => {
               <p className="mt-1 text-sm text-slate-600">املأ البيانات وسنتواصل معك بسرعة.</p>
               <div className="mt-5 space-y-4">
                 <div>
+                  <label htmlFor="companyName" className="mb-1 block text-sm font-bold">
+                    اسم الشركة
+                  </label>
+                  <input
+                    id="companyName"
+                    required
+                    value={formData.companyName}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, companyName: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                    placeholder="أدخل اسم الشركة"
+                  />
+                  <p className="mt-1 text-xs text-slate-500">
+                    في حالة عدم امتلاكك لشركة اكتب: ليس بعد
+                  </p>
+                </div>
+                <div>
+                  <label htmlFor="employeeCount" className="mb-1 block text-sm font-bold">
+                    عدد الموظفين
+                  </label>
+                  <select
+                    id="employeeCount"
+                    required
+                    value={formData.employeeCount}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, employeeCount: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر عدد الموظفين</option>
+                    {employeeCountOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="legalForm" className="mb-1 block text-sm font-bold">
+                    ما هو الشكل القانوني لشركتك؟
+                  </label>
+                  <select
+                    id="legalForm"
+                    required
+                    value={formData.legalForm}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, legalForm: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر الشكل القانوني</option>
+                    {legalFormOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                    <option value="أخرى">أخرى..</option>
+                  </select>
+                  {formData.legalForm === "أخرى" ? (
+                    <input
+                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                      placeholder="أخرى.."
+                      value={formData.legalFormCustom}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, legalFormCustom: e.target.value }))
+                      }
+                    />
+                  ) : null}
+                </div>
+                <div>
+                  <label htmlFor="businessSector" className="mb-1 block text-sm font-bold">
+                    ما هو مجال نشاط شركتك؟
+                  </label>
+                  <select
+                    id="businessSector"
+                    required
+                    value={formData.businessSector}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, businessSector: e.target.value }))
+                    }
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر المجال</option>
+                    {businessSectorOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                    <option value="أخرى">أخرى (يرجى التحديد)</option>
+                  </select>
+                  {formData.businessSector === "أخرى" ? (
+                    <input
+                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                      placeholder="أخرى (يرجى التحديد)"
+                      value={formData.businessSectorCustom}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, businessSectorCustom: e.target.value }))
+                      }
+                    />
+                  ) : null}
+                </div>
+                <div>
+                  <label htmlFor="companyEstablished" className="mb-1 block text-sm font-bold">
+                    منذ متى تأسست شركتك؟
+                  </label>
+                  <select
+                    id="companyEstablished"
+                    required
+                    value={formData.companyEstablished}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, companyEstablished: e.target.value }))
+                    }
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر المدة</option>
+                    {companyEstablishedOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
                   <label htmlFor="fullName" className="mb-1 block text-sm font-bold">
-                    الاسم الكامل
+                    الاسم واللقب
                   </label>
                   <input
                     id="fullName"
                     required
                     value={formData.fullName}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, fullName: e.target.value }))
-                    }
+                    onChange={(e) => setFormData((prev) => ({ ...prev, fullName: e.target.value }))}
                     className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
-                    placeholder="أدخل اسمك الكامل"
+                    placeholder="أدخل الاسم واللقب"
                   />
                 </div>
                 <div>
                   <label htmlFor="phone" className="mb-1 block text-sm font-bold">
-                    رقم الهاتف
+                    رقم الواتس آب
                   </label>
                   <input
                     id="phone"
@@ -628,7 +807,7 @@ const FormationPage = () => {
                 </div>
                 <div>
                   <label htmlFor="email" className="mb-1 block text-sm font-bold">
-                    البريد الإلكتروني
+                    الايميل
                   </label>
                   <input
                     id="email"
@@ -641,21 +820,181 @@ const FormationPage = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="participation" className="mb-1 block text-sm font-bold">
-                    نوع المشاركة
+                  <label htmlFor="state" className="mb-1 block text-sm font-bold">
+                    الولاية
                   </label>
                   <select
-                    id="participation"
-                    value={formData.participationType}
+                    id="state"
+                    value={formData.state}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, state: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر الولاية</option>
+                    {stateOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <p className="mb-2 block text-sm font-bold">هل أنت عضو في Webscale؟</p>
+                  <div className="flex gap-4">
+                    {["نعم", "لا"].map((option) => (
+                      <label key={option} className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name="isWebscaleMember"
+                          value={option}
+                          required
+                          checked={formData.isWebscaleMember === option}
+                          onChange={(e) =>
+                            setFormData((prev) => ({ ...prev, isWebscaleMember: e.target.value }))
+                          }
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="jobTitle" className="mb-1 block text-sm font-bold">
+                    المنصب الوظيفي
+                  </label>
+                  <select
+                    id="jobTitle"
+                    required
+                    value={formData.jobTitle}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, jobTitle: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر المنصب الوظيفي</option>
+                    {jobTitleOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <p className="mb-2 block text-sm font-bold">هل سبق لك حضور دورة تدريبية في Webscale؟</p>
+                  <div className="flex gap-4">
+                    {["لا", "نعم"].map((option) => (
+                      <label key={option} className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name="hasAttendedWebscaleTraining"
+                          value={option}
+                          required
+                          checked={formData.hasAttendedWebscaleTraining === option}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              hasAttendedWebscaleTraining: e.target.value,
+                            }))
+                          }
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-2 block text-sm font-bold">هل ستحضر معرض كانتون أفريل 2026؟</p>
+                  <div className="flex gap-4">
+                    {["نعم", "لا", "أخرى"].map((option) => (
+                      <label key={option} className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name="attendingCantonApril"
+                          value={option}
+                          required
+                          checked={formData.attendingCantonApril === option}
+                          onChange={(e) =>
+                            setFormData((prev) => ({ ...prev, attendingCantonApril: e.target.value }))
+                          }
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                  {formData.attendingCantonApril === "أخرى" ? (
+                    <input
+                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                      placeholder="Please specify..."
+                      value={formData.attendingCantonAprilCustom}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          attendingCantonAprilCustom: e.target.value,
+                        }))
+                      }
+                    />
+                  ) : null}
+                </div>
+                <div>
+                  <label htmlFor="visitedCantonBefore" className="mb-1 block text-sm font-bold">
+                    هل زرت معرض كانتون من قبل؟
+                  </label>
+                  <select
+                    id="visitedCantonBefore"
+                    required
+                    value={formData.visitedCantonBefore}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, participationType: e.target.value }))
+                      setFormData((prev) => ({ ...prev, visitedCantonBefore: e.target.value }))
                     }
                     className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
                   >
-                    <option>العرض الكامل</option>
-                    <option>حضور الإفطار فقط</option>
-                    <option>حضور الجلسات أونلاين فقط</option>
+                    <option value="">اختر الإجابة</option>
+                    <option value="لا">لا</option>
+                    <option value="مرة واحدة">مرة واحدة</option>
+                    <option value="مرتين">مرتين</option>
+                    <option value="اكثر من 3 مرات">اكثر من 3 مرات</option>
+                    <option value="أخرى">أخرى</option>
                   </select>
+                  {formData.visitedCantonBefore === "أخرى" ? (
+                    <input
+                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                      placeholder="Please specify..."
+                      value={formData.visitedCantonBeforeCustom}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          visitedCantonBeforeCustom: e.target.value,
+                        }))
+                      }
+                    />
+                  ) : null}
+                </div>
+                <div>
+                  <label htmlFor="visitReason" className="mb-1 block text-sm font-bold">
+                    ماهو سبب زيارتك للمعرض؟
+                  </label>
+                  <select
+                    id="visitReason"
+                    required
+                    value={formData.visitReason}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, visitReason: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر السبب</option>
+                    {visitReasonOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                    <option value="أخرى">أخرى</option>
+                  </select>
+                  {formData.visitReason === "أخرى" ? (
+                    <input
+                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                      placeholder="Please specify..."
+                      value={formData.visitReasonCustom}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, visitReasonCustom: e.target.value }))
+                      }
+                    />
+                  ) : null}
                 </div>
               </div>
               <button
@@ -696,6 +1035,24 @@ const FormationPage = () => {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-white px-4 py-10 md:px-8">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={scrollToRegister}
+              className="rounded-xl bg-amber-500 px-7 py-3 text-sm font-extrabold text-slate-950 transition hover:-translate-y-0.5 hover:bg-amber-400"
+            >
+              احجز مقعدك الآن
+            </button>
+            <a
+              href="https://wa.me/213563565936"
+              className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-7 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
+            >
+              <MessageCircle className="h-4 w-4" />
+              تواصل عبر واتساب
+            </a>
           </div>
         </section>
 
