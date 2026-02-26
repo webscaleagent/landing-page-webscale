@@ -21,8 +21,9 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import cantonHeroLogo from "../assets/canton-hero-logo.png";
+import cantonHeroLogo from "../assets/canton-event-uploaded-logo.png";
 import logo from "../assets/logo.png";
+import { getUTMParams } from "../utils/utm";
 
 const benefits = [
   "اكتساب منهجية احترافية لاختيار واستيراد خطوط الإنتاج والمعدات الصناعية مباشرة من المصدر",
@@ -244,9 +245,14 @@ const initialFormData = {
   visitReasonCustom: "",
 };
 
+const PUBLIC_SUBMIT_URL =
+  "https://crmgo.webscale.dz/api/v1/public/forms/ea7afcee-ed47-4386-b787-982cea2d7a48/submit";
+
 const FormationPage = () => {
   const [activeFaq, setActiveFaq] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
 
   const trustBadges = useMemo(
@@ -259,9 +265,69 @@ const FormationPage = () => {
     register?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setFormSubmitted(true);
+    setFormSubmitted(false);
+    setSubmitError("");
+    setIsSubmitting(true);
+
+    const payload = {
+      user_id: "public-user",
+      ...getUTMParams(),
+      data: {
+        "اسم الشركة": formData.companyName,
+        "عدد الموظفين": formData.employeeCount,
+        "ما هو الشكل القانوني لشركتك؟":
+          formData.legalForm === "أخرى" ? formData.legalFormCustom : formData.legalForm,
+        "ما هو مجال نشاط شركتك؟":
+          formData.businessSector === "أخرى" ? formData.businessSectorCustom : formData.businessSector,
+        "منذ متى تأسست شركتك؟": formData.companyEstablished,
+        "الاسم واللقب": formData.fullName,
+        "رقم الواتس آب": formData.phone,
+        الايميل: formData.email,
+        الولاية: formData.state,
+        "هل أنت عضو في Webscale؟": formData.isWebscaleMember,
+        "المنصب الوظيفي": formData.jobTitle,
+        "هل سبق لك حضور دورة تدريبية في Webscale؟": formData.hasAttendedWebscaleTraining,
+        "هل ستحضر معرض كانتون أفريل 2026":
+          formData.attendingCantonApril === "أخرى"
+            ? formData.attendingCantonAprilCustom
+            : formData.attendingCantonApril,
+        "هل زرت معرض كانتون من قبل ":
+          formData.visitedCantonBefore === "أخرى"
+            ? formData.visitedCantonBeforeCustom
+            : formData.visitedCantonBefore,
+        "ماهو سبب زيارتك للمعرض؟":
+          formData.visitReason === "أخرى" ? formData.visitReasonCustom : formData.visitReason,
+      },
+    };
+
+    try {
+      const res = await fetch(PUBLIC_SUBMIT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && res.status >= 200 && res.status < 300) {
+        setFormSubmitted(true);
+        setFormData(initialFormData);
+        return;
+      }
+
+      const msg = data?.error || data?.message || "⚠️ حدث خطأ غير متوقع.";
+      setSubmitError(msg);
+    } catch (error) {
+      console.error("Canton form submit error:", error);
+      setSubmitError("⚠️ حدث خطأ في الاتصال. تحقق من الإنترنت وحاول مجددًا.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const renderSectionTitle = (title, subtitle, eyebrow) => (
@@ -999,13 +1065,19 @@ const FormationPage = () => {
               </div>
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="mt-5 w-full rounded-xl bg-amber-500 px-5 py-3 text-sm font-extrabold text-slate-950 transition hover:bg-amber-400"
               >
-                احجز مقعدك الآن
+                {isSubmitting ? "جاري الإرسال..." : "احجز مقعدك الآن"}
               </button>
               {formSubmitted ? (
                 <p className="mt-3 rounded-xl bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
                   تم استلام طلبك بنجاح. سيقوم فريقنا بالتواصل معك قريبًا.
+                </p>
+              ) : null}
+              {submitError ? (
+                <p className="mt-3 rounded-xl bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-700">
+                  {submitError}
                 </p>
               ) : null}
             </form>
