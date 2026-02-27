@@ -85,17 +85,17 @@ const FormationsMenu = () => {
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
             style={{ backgroundImage: `url(${cantonEventImage})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-white/45 via-white/45 to-white/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-white/10 to-transparent" />
 
-          <div className="relative flex h-full flex-col justify-end p-6 pb-24 md:p-10 md:pb-28 text-white">
+          <div className="relative flex h-full flex-col justify-end p-6 md:p-10">
             <span className="mb-3 inline-flex w-fit items-center rounded-full bg-gradient-to-r from-orange-400 to-amber-300 px-4 py-1.5 text-xs font-bold text-slate-900 md:text-sm">
               CANTON FAIR 2026
             </span>
-            <h3 className="max-w-2xl text-2xl font-black leading-tight md:text-4xl">
-              اللقاء الحضوري + الإفطار الجماعي للتحضير لمعرض كانتون
+            <h3 className="max-w-2xl text-3xl font-black leading-tight text-slate-900 md:text-5xl">
+              جلسات أونلاين تفاعلية وعملية مع إفطار تكويني جماعي
             </h3>
-            <p className="mt-3 max-w-2xl text-sm text-white/90 md:text-lg">
-              جلسة عملية مع خبراء، برنامج واضح، وشبكة علاقات قوية لبدء مشروع الاستيراد بثقة.
+            <p className="mt-3 max-w-2xl text-sm text-white/95 md:text-lg">
+              جلسات عملية مع مختصين، برنامج واضح، وشبكة علاقات قوية لدعم نجاح مشروعك في استيراد خطوط الإنتاج
             </p>
             <div className="mt-5 inline-flex w-fit rounded-xl bg-gradient-to-r from-orange-400 to-amber-300 px-5 py-2.5 text-sm font-bold text-slate-900 transition-all group-hover:from-orange-300 group-hover:to-yellow-300">
               اكتشف الحدث →
