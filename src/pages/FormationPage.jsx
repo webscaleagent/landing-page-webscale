@@ -335,7 +335,7 @@ const FormationPage = () => {
       <img
         src={cantonHeroLogo}
         alt="Canton Fair Webscale 2026"
-        className="mx-auto mb-3 h-12 w-auto rounded-lg border border-slate-200 bg-slate-950 p-1.5 shadow-sm"
+        className="mx-auto mb-3 h-12 w-auto rounded-lg border border-slate-200 bg-white p-0 shadow-sm"
       />
       {eyebrow ? (
         <p className="mb-3 text-sm font-semibold text-amber-500">{eyebrow}</p>
@@ -372,7 +372,7 @@ const FormationPage = () => {
           </div>
           <button
             onClick={scrollToRegister}
-            className="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
+            className="rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 px-5 py-2.5 text-sm font-bold text-slate-900 transition hover:-translate-y-0.5 hover:from-amber-400 hover:to-yellow-300"
           >
             احجز مقعدك الآن
           </button>
@@ -381,11 +381,11 @@ const FormationPage = () => {
 
       <main>
         <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-white to-slate-100">
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-2 md:items-center md:px-8 md:py-20">
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-3 md:grid-cols-2 md:items-start md:px-8 md:pb-16 md:pt-12">
             <img
               src={cantonHeroLogo}
               alt="Canton Fair Webscale 2026"
-              className="h-auto w-full rounded-2xl border border-slate-200 bg-slate-950 p-2 shadow-xl md:hidden"
+              className="h-auto w-full rounded-2xl border border-slate-200 bg-white p-0 shadow-xl md:hidden"
             />
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
               <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-4 py-1 text-xs font-bold text-amber-700">
@@ -398,9 +398,16 @@ const FormationPage = () => {
                 </span>
               </h1>
               <p className="mt-4 text-lg font-semibold text-slate-700 md:text-xl">
-                برنامج تأهيلي عملي يحضرك لزيارة معرض كانتون وبناء صفقات ناجحة واستيراد خطوط الإنتاج الكبيرة والمتوسطة من الصين
+                <span className="md:hidden">
+                  برنامج عملي للمصنّعين والمستثمرين الجزائريين لتعلّم استيراد خطوط الإنتاج من الصين بذكاء، وتفادي
+                  الأخطاء المكلفة، وبناء صفقات ومشاريع ناجحة.
+                </span>
+                <span className="hidden md:inline">
+                  برنامج تأهيلي عملي يحضرك لزيارة معرض كانتون وبناء صفقات ناجحة واستيراد خطوط الإنتاج الكبيرة
+                  والمتوسطة من الصين
+                </span>
               </p>
-              <p className="mt-5 text-base leading-8 text-slate-600">
+              <p className="mt-5 hidden text-base leading-8 text-slate-600 md:block">
                 هذا البرنامج مصمم لرواد الأعمال الجزائريين والمصنّعين والمستوردين المهتمين باستيراد
                 خطوط الإنتاج من الصين بقرارات أوضح ومخاطر أقل. ستتعلم كيف تبحث عن المورد الصحيح، تتفادى
                 الأخطاء المكلفة، وتبني فرص إنشاء مصانع ناجحة وقابلة للتنفيذ في الجزائر.
@@ -408,7 +415,7 @@ const FormationPage = () => {
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
                   onClick={scrollToRegister}
-                  className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-extrabold text-slate-950 transition hover:-translate-y-0.5 hover:bg-amber-400"
+                  className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-extrabold text-slate-900 transition hover:-translate-y-0.5 hover:bg-amber-400"
                 >
                   احجز مقعدك الآن
                 </button>
@@ -441,7 +448,7 @@ const FormationPage = () => {
               <img
                 src={cantonHeroLogo}
                 alt="Canton Fair Webscale 2026"
-                className="mb-4 hidden h-auto w-full rounded-2xl border border-slate-200 bg-slate-950 p-2 shadow-xl md:block"
+                className="mb-4 hidden h-auto w-full rounded-2xl border border-slate-200 bg-white p-0 shadow-xl md:block"
               />
               <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xl md:p-7">
                 <div className="mb-4">
@@ -455,19 +462,19 @@ const FormationPage = () => {
                     </h1>
                   </div>
                 </div>
-                <div className="rounded-2xl bg-slate-900 p-5 text-white">
-                  <p className="text-sm font-semibold text-slate-300">لقاء تكويني تفاعلي + إفطار جماعي</p>
+                <div className="rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 p-5 text-slate-900">
+                  <p className="text-sm font-semibold text-slate-800">لقاء تكويني تفاعلي + إفطار جماعي</p>
                   <div className="mt-4 space-y-3 text-sm">
                     <p className="flex items-center gap-2">
-                      <Landmark className="h-4 w-4 text-amber-400" />
+                      <Landmark className="h-4 w-4 text-slate-800" />
                       المكان: المعهد العالي للعلوم
                     </p>
                     <p className="flex items-center gap-2">
-                      <CalendarDays className="h-4 w-4 text-amber-400" />
+                      <CalendarDays className="h-4 w-4 text-slate-800" />
                       التاريخ: 12 مارس الموافق لـ23 رمضان
                     </p>
                     <p className="flex items-center gap-2">
-                      <Clock3 className="h-4 w-4 text-amber-400" />
+                      <Clock3 className="h-4 w-4 text-slate-800" />
                       التوقيت: من 17:00 إلى 00:00
                     </p>
                   </div>
@@ -524,7 +531,7 @@ const FormationPage = () => {
           <div className="mx-auto flex max-w-7xl justify-center">
             <button
               onClick={scrollToRegister}
-              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-10 py-4 text-base font-black text-slate-950 shadow-[0_12px_30px_rgba(245,158,11,0.35)] transition duration-300 hover:-translate-y-1 hover:from-amber-300 hover:via-amber-400 hover:to-orange-400"
+              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-400 px-10 py-4 text-base font-black text-slate-900 shadow-[0_12px_30px_rgba(245,158,11,0.30)] transition duration-300 hover:-translate-y-1 hover:from-amber-400 hover:via-yellow-300 hover:to-orange-300"
             >
               <Sparkles className="h-5 w-5" />
               احجز مقعدك الآن
@@ -613,26 +620,26 @@ const FormationPage = () => {
 
         <section className="border-b border-slate-200 bg-white px-4 py-14 md:px-8">
           <div className="mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-3xl border border-amber-200 bg-gradient-to-l from-slate-900 via-slate-800 to-slate-900 p-7 text-white shadow-2xl md:p-10">
-              <div className="absolute -left-16 -top-16 h-44 w-44 rounded-full bg-amber-500/20 blur-3xl" />
-              <div className="absolute -bottom-16 -right-16 h-44 w-44 rounded-full bg-amber-500/20 blur-3xl" />
+            <div className="relative overflow-hidden rounded-3xl border border-amber-300 bg-gradient-to-l from-orange-400 via-amber-400 to-yellow-300 p-7 text-slate-900 shadow-2xl md:p-10">
+              <div className="absolute -left-16 -top-16 h-44 w-44 rounded-full bg-amber-500/25 blur-3xl" />
+              <div className="absolute -bottom-16 -right-16 h-44 w-44 rounded-full bg-amber-500/25 blur-3xl" />
 
               <div className="relative text-center">
-                <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-300/40 bg-amber-500/10 px-4 py-1 text-xs font-bold text-amber-300">
+                <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-900/20 bg-white/30 px-4 py-1 text-xs font-bold text-slate-900">
                   <Sparkles className="h-3.5 w-3.5" />
                   المقاعد محدودة
                 </p>
                 <h3 className="text-2xl font-black leading-tight md:text-3xl">
                   احجز مكانك الآن قبل اكتمال التسجيل
                 </h3>
-                <p className="mt-3 text-sm text-slate-200 md:text-base">
+                <p className="mt-3 text-sm text-slate-800 md:text-base">
                   اضمن مقعدك في البرنامج واستفد من الجلسات العملية واللقاء التكويني التفاعلي.
                 </p>
 
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                   <button
                     onClick={scrollToRegister}
-                    className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-extrabold text-slate-950 transition hover:-translate-y-0.5 hover:bg-amber-400"
+                    className="rounded-xl bg-slate-900 px-6 py-3 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
                   >
                     احجز مقعدك الآن
                   </button>
@@ -671,6 +678,7 @@ const FormationPage = () => {
                     </p>
                   ) : null}
                   <h3 className="text-3xl font-black text-slate-900">{plan.title}</h3>
+                  <p className="mt-1 text-sm font-semibold text-slate-500">السعر بدون احتساب الرسوم</p>
                   <p className="mt-2 text-base font-bold text-slate-700">{plan.subtitle}</p>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{plan.description}</p>
                   <button
@@ -678,7 +686,7 @@ const FormationPage = () => {
                     className={`mt-6 w-full rounded-xl px-4 py-3 text-sm font-extrabold transition ${
                       plan.featured
                         ? "bg-amber-500 text-slate-900 hover:bg-amber-400"
-                        : "bg-slate-900 text-white hover:bg-slate-800"
+                        : "bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-900 hover:from-amber-400 hover:to-yellow-300"
                     }`}
                   >
                     احجز مقعدك الآن
@@ -694,7 +702,7 @@ const FormationPage = () => {
 
         <section
           id="register"
-          className="border-b border-slate-200 bg-slate-900 px-4 py-14 text-white md:px-8"
+          className="border-b border-slate-200 bg-gradient-to-l from-orange-400 via-amber-400 to-yellow-300 px-4 py-14 text-slate-900 md:px-8"
         >
           <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
             <div>
@@ -702,16 +710,16 @@ const FormationPage = () => {
                 إذا كنت تريد دخول عالم إستيراد خطوط الإنتاج من الصين بوعي أكبر، أخطاء أقل، وعلاقات أقوى —
                 فهذا البرنامج صُمم لك.
               </h2>
-              <p className="mt-4 text-slate-300">
+              <p className="mt-4 text-slate-800">
                 التسجيل في هذا النموذج يضعك ضمن قائمة التأكيد المباشر مع فريق وابسكيل.
               </p>
               <div className="mt-6 space-y-3 text-sm font-semibold">
                 <p className="flex items-center gap-2">
-                  <Handshake className="h-4 w-4 text-amber-400" />
+                  <Handshake className="h-4 w-4 text-slate-800" />
                   تركيز كامل على نتائج عملية وقابلة للتنفيذ
                 </p>
                 <p className="flex items-center gap-2">
-                  <Target className="h-4 w-4 text-amber-400" />
+                  <Target className="h-4 w-4 text-slate-800" />
                   هدف واحد واضح: تحويلك إلى مستورد أذكى وأكثر جاهزية
                 </p>
               </div>
@@ -723,7 +731,7 @@ const FormationPage = () => {
                 تواصل معنا عبر واتساب
               </a>
             </div>
-            <form onSubmit={handleSubmit} className="rounded-3xl bg-white p-6 text-slate-900 shadow-2xl">
+            <form onSubmit={handleSubmit} className="registration-form rounded-3xl bg-white p-6 text-slate-900 shadow-2xl">
               <h3 className="text-xl font-black">احجز مقعدك الآن</h3>
               <p className="mt-1 text-sm text-slate-600">املأ البيانات وسنتواصل معك بسرعة.</p>
               <div className="mt-5 space-y-4">
@@ -1066,7 +1074,7 @@ const FormationPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-5 w-full rounded-xl bg-amber-500 px-5 py-3 text-sm font-extrabold text-slate-950 transition hover:bg-amber-400"
+                className="mt-5 w-full rounded-xl bg-amber-500 px-5 py-3 text-sm font-extrabold text-slate-900 transition hover:bg-amber-400"
               >
                 {isSubmitting ? "جاري الإرسال..." : "احجز مقعدك الآن"}
               </button>
@@ -1114,7 +1122,7 @@ const FormationPage = () => {
           <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3">
             <button
               onClick={scrollToRegister}
-              className="rounded-xl bg-amber-500 px-7 py-3 text-sm font-extrabold text-slate-950 transition hover:-translate-y-0.5 hover:bg-amber-400"
+              className="rounded-xl bg-amber-500 px-7 py-3 text-sm font-extrabold text-slate-900 transition hover:-translate-y-0.5 hover:bg-amber-400"
             >
               احجز مقعدك الآن
             </button>
@@ -1128,18 +1136,18 @@ const FormationPage = () => {
           </div>
         </section>
 
-        <section className="bg-slate-950 px-4 py-14 text-center text-white md:px-8">
+        <section className="bg-gradient-to-l from-orange-400 via-amber-400 to-yellow-300 px-4 py-14 text-center text-slate-900 md:px-8">
           <div className="mx-auto max-w-4xl">
-            <p className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-amber-300">
+            <p className="inline-flex rounded-full bg-white/30 px-3 py-1 text-xs font-bold text-slate-900">
               المقاعد محدودة
             </p>
             <h2 className="mt-4 text-3xl font-black md:text-4xl">اتخذ قرارك الآن قبل اكتمال المقاعد</h2>
-            <p className="mt-3 text-slate-300">
+            <p className="mt-3 text-slate-800">
               برنامج مصمم لنتائج حقيقية، مع مستشارين لديهم خبرة عملية مباشرة في السوق الصيني.
             </p>
             <button
               onClick={scrollToRegister}
-              className="mt-7 rounded-xl bg-amber-500 px-7 py-3 text-sm font-extrabold text-slate-950 transition hover:bg-amber-400"
+              className="mt-7 rounded-xl bg-amber-500 px-7 py-3 text-sm font-extrabold text-slate-900 transition hover:bg-amber-400"
             >
               احجز مقعدك الآن
             </button>
@@ -1217,7 +1225,7 @@ const FormationPage = () => {
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 p-3 backdrop-blur md:hidden">
         <button
           onClick={scrollToRegister}
-          className="w-full rounded-xl bg-slate-900 px-5 py-3 text-sm font-extrabold text-white"
+          className="w-full rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 px-5 py-3 text-sm font-extrabold text-slate-900"
         >
           احجز مقعدك الآن
         </button>

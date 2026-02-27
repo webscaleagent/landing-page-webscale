@@ -1,7 +1,6 @@
 import { ArrowLeft, GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
-import cantonEventImage from "../assets/canton-event-2026.png";
-import cantonEventLogo from "../assets/canton-event-logo.png";
+import cantonEventImage from "../assets/canton-event-uploaded-logo.png";
 import logo from "../assets/logo.png";
 import { formations } from "../constants/formations";
 
@@ -86,10 +85,10 @@ const FormationsMenu = () => {
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
             style={{ backgroundImage: `url(${cantonEventImage})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/45 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-l from-white/45 via-white/45 to-white/20" />
 
           <div className="relative flex h-full flex-col justify-end p-6 pb-24 md:p-10 md:pb-28 text-white">
-            <span className="mb-3 inline-flex w-fit items-center rounded-full bg-[#FABC05] px-4 py-1.5 text-xs font-bold text-black md:text-sm">
+            <span className="mb-3 inline-flex w-fit items-center rounded-full bg-gradient-to-r from-orange-400 to-amber-300 px-4 py-1.5 text-xs font-bold text-slate-900 md:text-sm">
               CANTON FAIR 2026
             </span>
             <h3 className="max-w-2xl text-2xl font-black leading-tight md:text-4xl">
@@ -98,18 +97,11 @@ const FormationsMenu = () => {
             <p className="mt-3 max-w-2xl text-sm text-white/90 md:text-lg">
               جلسة عملية مع خبراء، برنامج واضح، وشبكة علاقات قوية لبدء مشروع الاستيراد بثقة.
             </p>
-            <div className="mt-5 inline-flex w-fit rounded-xl bg-[#FABC05] px-5 py-2.5 text-sm font-bold text-black transition-colors group-hover:bg-[#FFD700]">
+            <div className="mt-5 inline-flex w-fit rounded-xl bg-gradient-to-r from-orange-400 to-amber-300 px-5 py-2.5 text-sm font-bold text-slate-900 transition-all group-hover:from-orange-300 group-hover:to-yellow-300">
               اكتشف الحدث →
             </div>
           </div>
 
-          <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 md:bottom-6">
-            <img
-              src={cantonEventLogo}
-              alt="Canton Fair 2026 Logo"
-              className="h-auto w-56 drop-shadow-[0_8px_20px_rgba(0,0,0,0.45)] md:w-80"
-            />
-          </div>
         </Link>
 
         {/* Formation Cards Grid */}
