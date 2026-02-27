@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import cantonEventLogo from "../assets/canton-event-logo.png";
 import cantonHeroLogo from "../assets/canton-event-uploaded-logo.png";
 import logo from "../assets/logo.png";
 import { getUTMParams } from "../utils/utm";
@@ -261,8 +262,9 @@ const FormationPage = () => {
   );
 
   const scrollToRegister = () => {
-    const register = document.getElementById("register");
-    register?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const registerForm = document.getElementById("register-form");
+    const registerSection = document.getElementById("register");
+    (registerForm || registerSection)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const handleSubmit = async (event) => {
@@ -433,6 +435,11 @@ const FormationPage = () => {
                   تواصل معنا عبر واتساب
                 </a>
               </div>
+              <img
+                src={cantonEventLogo}
+                alt="Canton Fair 2026"
+                className="mt-6 hidden h-auto w-full max-w-[520px] md:block"
+              />
               <div className="mt-7 flex flex-wrap gap-2">
                 {trustBadges.map((badge) => (
                   <span
@@ -731,7 +738,11 @@ const FormationPage = () => {
                 تواصل معنا عبر واتساب
               </a>
             </div>
-            <form onSubmit={handleSubmit} className="registration-form rounded-3xl bg-white p-6 text-slate-900 shadow-2xl">
+            <form
+              id="register-form"
+              onSubmit={handleSubmit}
+              className="registration-form rounded-3xl bg-white p-6 text-slate-900 shadow-2xl"
+            >
               <h3 className="text-xl font-black">احجز مقعدك الآن</h3>
               <p className="mt-1 text-sm text-slate-600">املأ البيانات وسنتواصل معك بسرعة.</p>
               <div className="mt-5 space-y-4">
