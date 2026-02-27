@@ -247,7 +247,7 @@ const initialFormData = {
 };
 
 const PUBLIC_SUBMIT_URL =
-  "https://crmgo.webscale.dz/api/v1/public/forms/ea7afcee-ed47-4386-b787-982cea2d7a48/submit";
+  "https://crmgo.webscale.dz/api/v1/public/forms/b2595fbf-71ba-4041-bc23-1ff587a6275b/submit";
 
 const FormationPage = () => {
   const [activeFaq, setActiveFaq] = useState(null);
@@ -291,16 +291,13 @@ const FormationPage = () => {
         "هل أنت عضو في Webscale؟": formData.isWebscaleMember,
         "المنصب الوظيفي": formData.jobTitle,
         "هل سبق لك حضور دورة تدريبية في Webscale؟": formData.hasAttendedWebscaleTraining,
-        "هل ستحضر معرض كانتون أفريل 2026":
-          formData.attendingCantonApril === "أخرى"
-            ? formData.attendingCantonAprilCustom
-            : formData.attendingCantonApril,
+        "هل ستحضر معرض كانتون أفريل 2026": formData.attendingCantonApril,
         "هل زرت معرض كانتون من قبل ":
-          formData.visitedCantonBefore === "أخرى"
+          formData.visitedCantonBefore === "Autre"
             ? formData.visitedCantonBeforeCustom
             : formData.visitedCantonBefore,
         "ماهو سبب زيارتك للمعرض؟":
-          formData.visitReason === "أخرى" ? formData.visitReasonCustom : formData.visitReason,
+          formData.visitReason === "Autre" ? formData.visitReasonCustom : formData.visitReason,
       },
     };
 
@@ -987,7 +984,7 @@ const FormationPage = () => {
                 <div>
                   <p className="mb-2 block text-sm font-bold">هل ستحضر معرض كانتون أفريل 2026؟</p>
                   <div className="flex gap-4">
-                    {["نعم", "لا", "أخرى"].map((option) => (
+                    {["نعم", "لا"].map((option) => (
                       <label key={option} className="inline-flex items-center gap-2 text-sm">
                         <input
                           type="radio"
@@ -1003,41 +1000,29 @@ const FormationPage = () => {
                       </label>
                     ))}
                   </div>
-                  {formData.attendingCantonApril === "أخرى" ? (
-                    <input
-                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
-                      placeholder="Please specify..."
-                      value={formData.attendingCantonAprilCustom}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          attendingCantonAprilCustom: e.target.value,
-                        }))
-                      }
-                    />
-                  ) : null}
                 </div>
                 <div>
                   <label htmlFor="visitedCantonBefore" className="mb-1 block text-sm font-bold">
-                    هل زرت معرض كانتون من قبل؟
+                    هل زرت معرض كانتون من قبل
                   </label>
-                  <select
-                    id="visitedCantonBefore"
-                    required
-                    value={formData.visitedCantonBefore}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, visitedCantonBefore: e.target.value }))
-                    }
-                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
-                  >
-                    <option value="">اختر الإجابة</option>
-                    <option value="لا">لا</option>
-                    <option value="مرة واحدة">مرة واحدة</option>
-                    <option value="مرتين">مرتين</option>
-                    <option value="اكثر من 3 مرات">اكثر من 3 مرات</option>
-                    <option value="أخرى">أخرى</option>
-                  </select>
-                  {formData.visitedCantonBefore === "أخرى" ? (
+                  <div className="flex flex-wrap gap-4">
+                    {["لا", "مرة واحدة", "مرتين", "اكثر من 3 مرات", "Autre"].map((option) => (
+                      <label key={option} className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name="visitedCantonBefore"
+                          value={option}
+                          required
+                          checked={formData.visitedCantonBefore === option}
+                          onChange={(e) =>
+                            setFormData((prev) => ({ ...prev, visitedCantonBefore: e.target.value }))
+                          }
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                  {formData.visitedCantonBefore === "Autre" ? (
                     <input
                       className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
                       placeholder="Please specify..."
@@ -1068,9 +1053,9 @@ const FormationPage = () => {
                         {option}
                       </option>
                     ))}
-                    <option value="أخرى">أخرى</option>
+                    <option value="Autre">Autre</option>
                   </select>
-                  {formData.visitReason === "أخرى" ? (
+                  {formData.visitReason === "Autre" ? (
                     <input
                       className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
                       placeholder="Please specify..."
