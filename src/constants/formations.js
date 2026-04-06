@@ -524,7 +524,7 @@ export const formations = {
     id: "promotion-days",
     slug: "promotion-days",
     route: "/formations/promotion-days",
-    title: "PROMOTION DAYS",
+    title: "MARKETING DAYS",
     subtitle: "في يومين، اصنع نقلة نوعية في الترويج لشركتك",
     description: "دورة تدريبية شاملة في الترويج وبناء العلامات التجارية مع الدكتور عبد الرحيم عبد اللاوي",
     meta: {
