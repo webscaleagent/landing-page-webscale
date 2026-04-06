@@ -1,4 +1,5 @@
 import { AlertCircle, Briefcase, CheckCircle2, Facebook, GraduationCap, Instagram, Linkedin, Menu, Moon, Sun, Target, TrendingUp, Users, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -14,19 +15,89 @@ const encodeImageUrl = (url) => {
 
 const PUBLIC_FORMS_BASE = "https://crmgo.webscale.dz/api/v1/public/forms";
 
+const promotionDaysShortGoals = [
+  "تحديد الميزانية التسويقية بدون تضييع المال",
+  "اختيار القنوات التي تجلب عملاء فعلاً",
+  "اتخاذ قرارات تسويقية بثقة وفي الوقت المناسب",
+  "قياس أداء الحملات ومعرفة ما ينجح وما لا",
+];
+
+const promotionDaysFullGoals = [
+  "تحديد ميزانية تسويقية مناسبة لمشروعك بدون تبذير",
+  "اتخاذ قرارات تسويقية صحيحة في الوقت المناسب",
+  "معرفة متى تطلق حملة إعلانية ومتى توقفها",
+  "اختيار القنوات التسويقية التي تحقق نتائج حقيقية",
+  "فهم مرحلة مشروعك (بداية – نمو – استقرار)",
+  "بناء هوية واضحة والتواصل بلغة يفهمها العميل",
+  "التمييز بين التسويق الفعّال وإضاعة المال",
+  "تقييم أداء الحملات ومعرفة ما يحتاج تعديل",
+  "حساب تكلفة اكتساب العميل (CAC)",
+  "توجيه الفريق أو التعامل مع المسوقين بوعي",
+];
+
+const trainingProgramColumns = [
+  {
+    id: "basics",
+    title: "الأساسيات",
+    icon: "🌟",
+    topics: [
+      { icon: "🎯", text: "من أنت وماذا تريد ؟ لماذا أنت وليس غيرك", programId: "identity" },
+      { icon: "👤", text: "شخصية العميل Buyer Persona", programId: "buyer-persona" },
+      { icon: "🦋", text: "نماذج الشخصيات التسويقية (Archetypes Brand)", programId: "brand-archetypes" },
+    ],
+  },
+  {
+    id: "strategy",
+    title: "الاستراتيجية",
+    icon: "🎯",
+    topics: [
+      { icon: "📋", text: "نموذج التخطيط الاستراتيجي SOSTAC", programId: "sostac" },
+      { icon: "💰", text: "مؤشرات الأداء المالية", programId: "financial-metrics" },
+      { icon: "📊", text: "حساب الموازنة التسويقية", programId: "budget" },
+    ],
+  },
+  {
+    id: "execution",
+    title: "التنفيذ",
+    icon: "⚡",
+    topics: [
+      { icon: "👥", text: "بناء فريق التسويق، فهم الأدوار", programId: "team" },
+      { icon: "🤝", text: "وإدارة العلاقة مع CRM العملاء", programId: "crm" },
+      { icon: "📈", text: "ومقياس الأداء KPI", programId: "kpi" },
+    ],
+  },
+  {
+    id: "advanced",
+    title: "متقدم",
+    icon: "🚀",
+    topics: [
+      { icon: "📣", text: "اختيار الاستراتيجيات الإعلانية المناسبة", programId: "advertising-strategies" },
+      { icon: "📚", text: "دراسة حالة تطبيقية", programId: "case-study" },
+    ],
+  },
+];
+
 // This is a reusable FormationPage component that accepts formation configuration
 const FormationPageDynamic = ({ formation }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [expandedSections, setExpandedSections] = useState({});
   const [isWebscaleMember, setIsWebscaleMember] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
   const [apiFields, setApiFields] = useState(null);
   const [apiFieldsError, setApiFieldsError] = useState(null);
+  const [problemSlideIndex, setProblemSlideIndex] = useState(0);
+  const [showAllPromotionGoals, setShowAllPromotionGoals] = useState(false);
+  const [openProgramTopic, setOpenProgramTopic] = useState(null);
+  const [openProgramDesktopTopic, setOpenProgramDesktopTopic] = useState(null);
 
   useEffect(() => {
     if (!formation?.formId) {
       setApiFields([]);
+      return;
+    }
+    if (formation?.forceFallbackApiFields && Array.isArray(formation?.fallbackApiFields)) {
+      setApiFieldsError(null);
+      setApiFields([...formation.fallbackApiFields].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
       return;
     }
     let cancelled = false;
@@ -44,11 +115,19 @@ const FormationPageDynamic = ({ formation }) => {
       .catch((err) => {
         if (!cancelled) {
           setApiFieldsError(err.message);
-          setApiFields([]);
+          if (formation.fallbackApiFields?.length) {
+            setApiFields(formation.fallbackApiFields);
+          } else {
+            setApiFields([]);
+          }
         }
       });
     return () => { cancelled = true; };
   }, [formation?.formId]);
+
+  useEffect(() => {
+    setProblemSlideIndex(0);
+  }, [formation?.id]);
 
   useEffect(() => {
     const savedMode = localStorage.getItem("theme");
@@ -65,19 +144,17 @@ const FormationPageDynamic = ({ formation }) => {
     localStorage.setItem("theme", newMode ? "dark" : "light");
   };
 
-  const toggleSection = (sectionId) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [sectionId]: !prev[sectionId],
-    }));
-  };
-
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
       setMobileMenuOpen(false);
     }
+  };
+
+  const getProgramItemsById = (programId) => {
+    const matched = formation.program.find((item) => item.id === programId);
+    return matched?.items ?? [];
   };
 
   const navItems = [
@@ -95,6 +172,9 @@ const FormationPageDynamic = ({ formation }) => {
       <Helmet>
         <title>{formation.meta.title}</title>
         <meta name="description" content={formation.meta.description} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
       </Helmet>
 
       {/* Header */}
@@ -341,15 +421,17 @@ const FormationPageDynamic = ({ formation }) => {
               </div>
             </div>
             
-            <div className="text-center">
-              <button
-                onClick={() => scrollToSection("registration-form")}
-                className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-              >
-                <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
-            </div>
+            {formation.id !== "promotion-days" ? (
+              <div className="text-center">
+                <button
+                  onClick={() => scrollToSection("registration-form")}
+                  className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
+                >
+                  <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -365,64 +447,204 @@ const FormationPageDynamic = ({ formation }) => {
                 </p>
               </div>
             )}
-            <div className="grid md:grid-cols-2 gap-4 mb-4">
-              {formation.problems.map((problem, idx) => (
-                <div 
-                  key={idx} 
-                  className="relative bg-white dark:bg-neutral-800 p-5 rounded-lg shadow-md border-r-4 border-red-500 hover:border-[#FABC05] transition-all duration-300 group cursor-pointer hover:shadow-xl hover:-translate-y-1"
-                  style={{ animationDelay: `${idx * 50}ms` }}
-                >
-                  {/* Left border accent */}
-                  <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 via-red-400 to-red-500 group-hover:from-[#FABC05] group-hover:via-[#FFD700] group-hover:to-[#FABC05] transition-all duration-300 rounded-r"></div>
-                  
-                  {/* Problem number */}
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center group-hover:bg-[#FABC05]/20 dark:group-hover:bg-[#FABC05]/20 transition-colors duration-300">
-                      <span className="text-red-600 dark:text-red-400 group-hover:text-[#FABC05] font-bold text-sm transition-colors duration-300">{idx + 1}</span>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <AlertCircle className="w-4 h-4 text-red-500 group-hover:text-[#FABC05] transition-colors duration-300 flex-shrink-0" />
-                        <span className="text-xs font-semibold text-red-600 dark:text-red-400 group-hover:text-[#FABC05] transition-colors duration-300 uppercase tracking-wide">مشكلة</span>
+            {formation.id === "promotion-days" ? (
+              <div className="mb-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="text-xs font-semibold text-neutral-600 dark:text-neutral-400">
+                    {formation.problems.length === 0
+                      ? "لا توجد مشاكل"
+                      : `من ${problemSlideIndex * 3 + 1} إلى ${Math.min(
+                          problemSlideIndex * 3 + 3,
+                          formation.problems.length
+                        )} من أصل ${formation.problems.length}`}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setProblemSlideIndex((prev) => Math.max(prev - 1, 0))}
+                      disabled={problemSlideIndex === 0}
+                      className="rounded-lg border border-neutral-300 dark:border-neutral-600 px-3 py-1.5 text-sm font-semibold text-neutral-700 dark:text-neutral-200 transition disabled:cursor-not-allowed disabled:opacity-40 hover:border-[#FABC05] hover:text-[#FABC05]"
+                    >
+                      السابق
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setProblemSlideIndex((prev) =>
+                          Math.min(prev + 1, Math.ceil(formation.problems.length / 3) - 1)
+                        )
+                      }
+                      disabled={problemSlideIndex >= Math.ceil(formation.problems.length / 3) - 1}
+                      className="rounded-lg border border-neutral-300 dark:border-neutral-600 px-3 py-1.5 text-sm font-semibold text-neutral-700 dark:text-neutral-200 transition disabled:cursor-not-allowed disabled:opacity-40 hover:border-[#FABC05] hover:text-[#FABC05]"
+                    >
+                      التالي
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-3">
+                  {formation.problems
+                    .slice(problemSlideIndex * 3, problemSlideIndex * 3 + 3)
+                    .map((problem, localIdx) => {
+                      const absoluteIdx = problemSlideIndex * 3 + localIdx;
+                      return (
+                        <article
+                          key={absoluteIdx}
+                          className="relative bg-white dark:bg-neutral-800 p-5 rounded-lg shadow-md border-r-4 border-red-500 hover:border-[#FABC05] transition-all duration-300 group cursor-pointer hover:shadow-xl hover:-translate-y-1"
+                          style={{ animationDelay: `${absoluteIdx * 50}ms` }}
+                        >
+                          <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 via-red-400 to-red-500 group-hover:from-[#FABC05] group-hover:via-[#FFD700] group-hover:to-[#FABC05] transition-all duration-300 rounded-r"></div>
+
+                          <div className="flex items-start gap-4">
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center group-hover:bg-[#FABC05]/20 dark:group-hover:bg-[#FABC05]/20 transition-colors duration-300">
+                              <span className="text-red-600 dark:text-red-400 group-hover:text-[#FABC05] font-bold text-sm transition-colors duration-300">
+                                {absoluteIdx + 1}
+                              </span>
+                            </div>
+
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <AlertCircle className="w-4 h-4 text-red-500 group-hover:text-[#FABC05] transition-colors duration-300 flex-shrink-0" />
+                                <span className="text-xs font-semibold text-red-600 dark:text-red-400 group-hover:text-[#FABC05] transition-colors duration-300 uppercase tracking-wide">
+                                  مشكلة
+                                </span>
+                              </div>
+                              <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors duration-300 font-medium text-base leading-relaxed">
+                                {problem}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#FABC05]/0 to-[#FABC05]/0 group-hover:from-[#FABC05]/5 group-hover:to-transparent rounded-lg transition-all duration-300 pointer-events-none"></div>
+                        </article>
+                      );
+                    })}
+                </div>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-4 mb-4">
+                {formation.problems.map((problem, idx) => (
+                  <div
+                    key={idx}
+                    className="relative bg-white dark:bg-neutral-800 p-5 rounded-lg shadow-md border-r-4 border-red-500 hover:border-[#FABC05] transition-all duration-300 group cursor-pointer hover:shadow-xl hover:-translate-y-1"
+                    style={{ animationDelay: `${idx * 50}ms` }}
+                  >
+                    {/* Left border accent */}
+                    <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 via-red-400 to-red-500 group-hover:from-[#FABC05] group-hover:via-[#FFD700] group-hover:to-[#FABC05] transition-all duration-300 rounded-r"></div>
+
+                    {/* Problem number */}
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center group-hover:bg-[#FABC05]/20 dark:group-hover:bg-[#FABC05]/20 transition-colors duration-300">
+                        <span className="text-red-600 dark:text-red-400 group-hover:text-[#FABC05] font-bold text-sm transition-colors duration-300">{idx + 1}</span>
                       </div>
-                      <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors duration-300 font-medium text-base leading-relaxed">
-                        {problem}
-                      </p>
+
+                      {/* Content */}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <AlertCircle className="w-4 h-4 text-red-500 group-hover:text-[#FABC05] transition-colors duration-300 flex-shrink-0" />
+                          <span className="text-xs font-semibold text-red-600 dark:text-red-400 group-hover:text-[#FABC05] transition-colors duration-300 uppercase tracking-wide">مشكلة</span>
+                        </div>
+                        <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors duration-300 font-medium text-base leading-relaxed">
+                          {problem}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Hover effect overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#FABC05]/0 to-[#FABC05]/0 group-hover:from-[#FABC05]/5 group-hover:to-transparent rounded-lg transition-all duration-300 pointer-events-none"></div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="bg-gradient-to-br from-[#FABC05]/10 via-[#FABC05]/5 to-transparent dark:from-[#FABC05]/20 dark:via-[#FABC05]/10 dark:to-transparent p-8 rounded-2xl mb-4 border border-[#FABC05]/20 dark:border-[#FABC05]/30 hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+              {formation.id === "promotion-days" ? (
+                <div className="mx-auto max-w-3xl text-right" dir="rtl">
+                  <div className="rounded-3xl border border-[#FABC05]/30 bg-gradient-to-b from-[#FFF9E9] to-[#FFFDF6] p-5 shadow-sm md:p-8">
+                    <h3 className="text-2xl font-black leading-tight text-neutral-900 md:text-3xl">
+                      ماذا ستتعلم في Promotion Days؟
+                    </h3>
+
+                    <ul className="mt-5 space-y-3 text-base leading-relaxed text-neutral-800 md:mt-6 md:text-lg">
+                      {promotionDaysShortGoals.map((goal) => (
+                        <li key={goal} className="flex items-start gap-3">
+                          <span className="mt-1 text-lg font-bold text-[#FABC05]">✔</span>
+                          <span>{goal}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <button
+                      type="button"
+                      onClick={() => setShowAllPromotionGoals((prev) => !prev)}
+                      className="mt-5 inline-flex min-h-11 items-center justify-center rounded-xl border border-[#FABC05]/40 bg-white px-4 py-2.5 text-sm font-bold text-neutral-800 transition hover:border-[#FABC05] hover:bg-[#FFF4CC] md:text-base"
+                    >
+                      {showAllPromotionGoals ? "إخفاء جميع الأهداف ↑" : "عرض جميع الأهداف ↓"}
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {showAllPromotionGoals ? (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0, y: -8 }}
+                          animate={{ opacity: 1, height: "auto", y: 0 }}
+                          exit={{ opacity: 0, height: 0, y: -8 }}
+                          transition={{ duration: 0.35, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <ul className="mt-4 space-y-3 border-t border-[#FABC05]/20 pt-4 text-base leading-relaxed text-neutral-800 md:text-lg">
+                            {promotionDaysFullGoals.map((goal) => (
+                              <li key={goal} className="flex items-start gap-3">
+                                <span className="mt-1 text-lg font-bold text-[#FABC05]">✔</span>
+                                <span>{goal}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+
+                    <p className="mt-6 text-center text-sm font-semibold text-neutral-700 md:text-base">
+                      كل ما تحتاجه لبناء تسويق ناجح في مكان واحد
+                    </p>
+                    <div className="mt-4 flex justify-center">
+                      <button
+                        onClick={() => scrollToSection("registration-form")}
+                        className="w-full max-w-md rounded-2xl bg-gradient-to-r from-[#FABC05] to-[#FFD700] px-6 py-3.5 text-base font-black text-black shadow-lg transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#FABC05]/40 md:text-lg"
+                      >
+                        احجز مقعدك الآن — المقاعد محدودة
+                      </button>
                     </div>
                   </div>
-                  
-                  {/* Hover effect overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#FABC05]/0 to-[#FABC05]/0 group-hover:from-[#FABC05]/5 group-hover:to-transparent rounded-lg transition-all duration-300 pointer-events-none"></div>
                 </div>
-              ))}
+              ) : (
+                <>
+                  <h3 className="text-2xl font-bold mb-6 text-neutral-800 dark:text-neutral-100">
+                    أهداف الدورة
+                  </h3>
+                  <p className="text-lg font-semibold mb-6 text-neutral-800 dark:text-neutral-100">
+                    تهدف دورة Promotion DAYS إلى تمكين المشاركين من:
+                  </p>
+                  <ul className="space-y-4 text-lg text-neutral-700 dark:text-neutral-300">
+                    {formation.solutions.map((solution, idx) => (
+                      <li key={idx} className="flex items-start gap-3 group/item">
+                        <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300 flex-shrink-0 mt-1">✔</span>
+                        <span className="group-hover/item:text-[#FABC05] transition-colors duration-300 leading-relaxed">{solution}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </div>
-            <div className="bg-gradient-to-br from-[#FABC05]/10 via-[#FABC05]/5 to-transparent dark:from-[#FABC05]/20 dark:via-[#FABC05]/10 dark:to-transparent p-8 rounded-2xl mb-4 border border-[#FABC05]/20 dark:border-[#FABC05]/30 hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
-              <h3 className="text-2xl font-bold mb-6 text-neutral-800 dark:text-neutral-100">
-                أهداف الدورة
-              </h3>
-              <p className="text-lg font-semibold mb-6 text-neutral-800 dark:text-neutral-100">
-                تهدف دورة Promotion DAYS إلى تمكين المشاركين من:
-              </p>
-              <ul className="space-y-4 text-lg text-neutral-700 dark:text-neutral-300">
-                {formation.solutions.map((solution, idx) => (
-                  <li key={idx} className="flex items-start gap-3 group/item">
-                    <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300 flex-shrink-0 mt-1">✔</span>
-                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300 leading-relaxed">{solution}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="text-center">
-              <button
-                onClick={() => scrollToSection("registration-form")}
-                className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-              >
-                <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
-            </div>
+            {formation.id !== "promotion-days" ? (
+              <div className="text-center">
+                <button
+                  onClick={() => scrollToSection("registration-form")}
+                  className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
+                >
+                  <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -565,15 +787,17 @@ const FormationPageDynamic = ({ formation }) => {
             </div>
 
             {/* CTA Button */}
-            <div className="text-center mt-4">
-              <button
-                onClick={() => scrollToSection("registration-form")}
-                className="relative px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-base overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-              >
-                <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
-            </div>
+            {formation.id !== "promotion-days" ? (
+              <div className="text-center mt-4">
+                <button
+                  onClick={() => scrollToSection("registration-form")}
+                  className="relative px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-base overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
+                >
+                  <span className="relative z-10">احجز مقعدك الآن .. المقاعد جد محدودة</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -661,48 +885,415 @@ const FormationPageDynamic = ({ formation }) => {
       </section>
 
       {/* Program Section */}
-      <section id="program" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
+      <section id="program" className="program-section py-10 md:py-12 px-4" dir="rtl" lang="ar">
         <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">
-            برنامج التكوين
-          </h2>
-          <div className="max-w-4xl mx-auto space-y-4">
-            {formation.program.map((section) => (
-              <div key={section.id} className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden hover:shadow-xl hover:border-[#FABC05]/30 transition-all duration-300">
-                {section.items.length > 0 ? (
-                  <>
-                    <button
-                      onClick={() => toggleSection(section.id)}
-                      className="w-full px-6 py-4 flex items-center justify-between text-right hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 transition-all duration-300 group"
-                    >
-                      <span className="font-semibold text-lg text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">{section.title}</span>
-                      <span className="text-2xl text-neutral-600 dark:text-neutral-400 group-hover:text-[#FABC05] group-hover:scale-125 transition-all duration-300">
-                        {expandedSections[section.id] ? "−" : "+"}
-                      </span>
-                    </button>
-                    {expandedSections[section.id] && (
-                      <div className="px-6 py-4 border-t border-neutral-200/50 dark:border-neutral-700/50 bg-gradient-to-b from-transparent to-[#FABC05]/5 dark:to-[#FABC05]/10 animate-in slide-in-from-top duration-300">
-                        <ul className="space-y-3">
-                          {section.items.map((item, idx) => (
-                            <li key={idx} className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300 group/item hover:text-[#FABC05] transition-colors duration-300">
-                              <span className="text-[#FABC05] font-bold group-hover/item:scale-125 transition-transform duration-300">•</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
+          <div className="program-header">
+            <h2>برنامج التكوين</h2>
+            <p>برنامج تدريبي شامل للتسويق الاستراتيجي</p>
+          </div>
+
+          <div className="program-grid" aria-label="برنامج التكوين - شبكة البطاقات">
+            {trainingProgramColumns.map((column) => (
+              <article key={column.id} className="program-card">
+                <div className="program-card-header">
+                  <h3>{column.title}</h3>
+                  <span aria-hidden="true">{column.icon}</span>
+                </div>
+                <div className="program-divider" />
+                <div className="program-topics">
+                  {column.topics.map((topic) => (
+                    <div key={topic.text} className="program-topic-wrap">
+                      <button
+                        type="button"
+                        className={`program-topic-item ${openProgramDesktopTopic === topic.programId ? "is-open" : ""}`}
+                        onClick={() =>
+                          setOpenProgramDesktopTopic((prev) =>
+                            prev === topic.programId ? null : topic.programId
+                          )
+                        }
+                        aria-expanded={openProgramDesktopTopic === topic.programId}
+                      >
+                        <span className="topic-plus" aria-hidden="true">
+                          <span className="plus-line plus-line-h" />
+                          <span className="plus-line plus-line-v" />
+                        </span>
+                        <p>{topic.text}</p>
+                        <span className="topic-emoji" aria-hidden="true">{topic.icon}</span>
+                      </button>
+                      <div
+                        className="program-topic-details"
+                        style={{ maxHeight: openProgramDesktopTopic === topic.programId ? "260px" : "0px" }}
+                      >
+                        {getProgramItemsById(topic.programId).length > 0 ? (
+                          <ul>
+                            {getProgramItemsById(topic.programId).map((detail, idx) => (
+                              <li key={`${topic.programId}-${idx}`}>{detail}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>تفاصيل هذا المحور يتم شرحها أثناء الحصة التطبيقية.</p>
+                        )}
                       </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="px-6 py-4 hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 transition-colors duration-300">
-                    <span className="font-semibold text-lg text-neutral-800 dark:text-neutral-100">{section.title}</span>
-                  </div>
-                )}
-              </div>
+                    </div>
+                  ))}
+                </div>
+              </article>
             ))}
+          </div>
+
+          <div className="program-accordion" aria-label="برنامج التكوين - قائمة قابلة للطي">
+            {formation.program.map((item) => {
+              const isOpen = openProgramTopic === item.id;
+              return (
+                <article key={item.id} className={`program-acc-item ${isOpen ? "is-open" : ""}`}>
+                  <button
+                    type="button"
+                    className="program-acc-trigger"
+                    onClick={() => setOpenProgramTopic((prev) => (prev === item.id ? null : item.id))}
+                    aria-expanded={isOpen}
+                  >
+                    <span className="program-acc-title">{item.title}</span>
+                    <span className="program-acc-plus" aria-hidden="true">
+                      <span className="plus-line plus-line-h" />
+                      <span className="plus-line plus-line-v" />
+                    </span>
+                  </button>
+                  <div className="program-acc-content" style={{ maxHeight: isOpen ? "360px" : "0px" }}>
+                    {item.items && item.items.length > 0 ? (
+                      <ul>
+                        {item.items.map((subItem, idx) => (
+                          <li key={`${item.id}-${idx}`}>{subItem}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>تفاصيل هذا المحور يتم شرحها أثناء الحصة التطبيقية.</p>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
+
+      <style>{`
+        .program-section {
+          --program-bg: #f5f4ef;
+          --program-card-bg: #ffffff;
+          --program-border: #e8e5de;
+          --program-text-dark: #1a1a2e;
+          --program-accent: #4f8ef7;
+          --program-topic-bg: #f8f7f3;
+          --program-radius-card: 16px;
+          --program-radius-topic: 10px;
+          --program-hover-time: 0.2s;
+          background: var(--program-bg);
+          font-family: "Cairo", sans-serif;
+        }
+
+        .program-header {
+          text-align: center;
+          margin-bottom: 1.5rem;
+        }
+
+        .program-header h2 {
+          margin: 0;
+          color: var(--program-text-dark);
+          font-size: clamp(2rem, 3.5vw, 2.8rem);
+          font-weight: 800;
+          line-height: 1.2;
+        }
+
+        .program-header p {
+          margin: 0.45rem 0 0;
+          color: #5f6471;
+          font-size: clamp(1rem, 2vw, 1.2rem);
+          font-weight: 600;
+        }
+
+        .program-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 1rem;
+          max-width: 1280px;
+          margin: 0 auto;
+        }
+
+        .program-card {
+          background: var(--program-card-bg);
+          border: 1px solid var(--program-border);
+          border-radius: var(--program-radius-card);
+          box-shadow: 0 6px 18px rgba(26, 26, 46, 0.06);
+          padding: 0.95rem;
+          transition: transform var(--program-hover-time) ease, box-shadow var(--program-hover-time) ease;
+        }
+
+        .program-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 24px rgba(26, 26, 46, 0.12);
+        }
+
+        .program-card-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: var(--program-text-dark);
+          font-weight: 700;
+          font-size: 1.3rem;
+          padding: 0 0.2rem;
+        }
+
+        .program-card-header h3 {
+          margin: 0;
+          font-size: 1.3rem;
+        }
+
+        .program-divider {
+          height: 1px;
+          background: var(--program-border);
+          margin: 0.75rem 0;
+        }
+
+        .program-topics {
+          display: flex;
+          flex-direction: column;
+          gap: 0.55rem;
+        }
+
+        .program-topic-wrap {
+          border-radius: var(--program-radius-topic);
+          overflow: hidden;
+        }
+
+        .program-topic-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.5rem;
+          background: var(--program-topic-bg);
+          border: 1px solid var(--program-border);
+          border-radius: var(--program-radius-topic);
+          color: var(--program-text-dark);
+          padding: 0.6rem 0.75rem;
+          transition: background-color var(--program-hover-time) ease, border-color var(--program-hover-time) ease;
+          width: 100%;
+          text-align: right;
+          cursor: pointer;
+          font-family: inherit;
+        }
+
+        .program-card:hover .program-topic-item {
+          background: #eef5ff;
+          border-color: #dce8ff;
+        }
+
+        .program-topic-item.is-open {
+          border-color: var(--program-accent);
+          background: #eef5ff;
+        }
+
+        .program-topic-item p {
+          margin: 0;
+          font-size: 0.95rem;
+          line-height: 1.5;
+          text-align: right;
+          flex: 1;
+        }
+
+        .topic-emoji {
+          font-size: 1rem;
+          line-height: 1;
+          flex-shrink: 0;
+        }
+
+        .topic-plus {
+          width: 24px;
+          height: 24px;
+          border: 1px solid var(--program-border);
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #636777;
+          position: relative;
+          transition: transform var(--program-hover-time) ease, color var(--program-hover-time) ease, border-color var(--program-hover-time) ease;
+          flex-shrink: 0;
+        }
+
+        .program-topic-item.is-open .topic-plus {
+          transform: rotate(45deg);
+          color: var(--program-accent);
+          border-color: var(--program-accent);
+        }
+
+        .program-topic-details {
+          overflow: hidden;
+          transition: max-height 0.25s ease;
+          background: #fdfcf8;
+          border: 1px solid var(--program-border);
+          border-top: 0;
+          border-radius: 0 0 var(--program-radius-topic) var(--program-radius-topic);
+        }
+
+        .program-topic-details ul {
+          margin: 0;
+          padding: 0.55rem 1.55rem 0.7rem 0.9rem;
+          color: #5f6471;
+          line-height: 1.6;
+          font-size: 0.9rem;
+        }
+
+        .program-topic-details li {
+          margin: 0 0 0.25rem;
+        }
+
+        .program-topic-details p {
+          margin: 0;
+          padding: 0.55rem 0.9rem 0.7rem;
+          color: #5f6471;
+          line-height: 1.6;
+          font-size: 0.9rem;
+          text-align: right;
+        }
+
+        .program-accordion {
+          display: none;
+          max-width: 760px;
+          margin: 0 auto;
+          gap: 0.75rem;
+          flex-direction: column;
+        }
+
+        .program-acc-item {
+          background: var(--program-card-bg);
+          border: 1px solid var(--program-border);
+          border-radius: var(--program-radius-card);
+          overflow: hidden;
+        }
+
+        .program-acc-trigger {
+          width: 100%;
+          border: 0;
+          background: transparent;
+          cursor: pointer;
+          padding: 0.9rem 0.85rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: var(--program-text-dark);
+          text-align: right;
+          font-family: inherit;
+        }
+
+        .program-acc-title {
+          font-size: 1.03rem;
+          font-weight: 700;
+          line-height: 1.45;
+          padding-left: 0.5rem;
+        }
+
+        .program-acc-plus {
+          width: 34px;
+          height: 34px;
+          border: 1px solid var(--program-border);
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #636777;
+          transition: transform var(--program-hover-time) ease, color var(--program-hover-time) ease, border-color var(--program-hover-time) ease;
+          flex-shrink: 0;
+          position: relative;
+        }
+
+        .plus-line {
+          position: absolute;
+          background: currentColor;
+          border-radius: 999px;
+          transition: background-color var(--program-hover-time) ease;
+        }
+
+        .plus-line-h {
+          width: 14px;
+          height: 2px;
+        }
+
+        .plus-line-v {
+          width: 2px;
+          height: 14px;
+        }
+
+        .program-acc-item.is-open .program-acc-plus {
+          transform: rotate(45deg);
+          color: var(--program-accent);
+          border-color: var(--program-accent);
+        }
+
+        .program-acc-content {
+          overflow: hidden;
+          transition: max-height 0.25s ease;
+        }
+
+        .program-acc-content p {
+          margin: 0;
+          padding: 0 0.85rem 0.95rem;
+          color: #5f6471;
+          line-height: 1.6;
+          font-size: 0.95rem;
+        }
+
+        .program-acc-content ul {
+          margin: 0;
+          padding: 0 1.6rem 0.95rem 0.85rem;
+          color: #5f6471;
+          line-height: 1.65;
+          font-size: 0.94rem;
+        }
+
+        .program-acc-content li {
+          margin: 0 0 0.3rem;
+        }
+
+        @media (max-width: 900px) and (min-width: 601px) {
+          .program-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            max-width: 780px;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .program-grid {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            gap: 0.75rem;
+            padding: 0.2rem 0.15rem 0.45rem;
+            margin: 0 -0.15rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          .program-grid::-webkit-scrollbar {
+            height: 6px;
+          }
+
+          .program-grid::-webkit-scrollbar-thumb {
+            background: #d6d2c8;
+            border-radius: 999px;
+          }
+
+          .program-card {
+            min-width: 84vw;
+            max-width: 84vw;
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+          }
+
+          .program-accordion {
+            display: none;
+          }
+        }
+      `}</style>
 
       {/* Methodology Section */}
       {formation.methodology && formation.methodology.length > 0 && (

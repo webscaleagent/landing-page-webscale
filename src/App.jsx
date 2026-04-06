@@ -2,9 +2,11 @@
 import { Navigate, Route, BrowserRouter as Router, Routes, useParams } from "react-router-dom";
 import BadgeCTA from "./components/BadgeCTA";
 import UtmListener from "./components/UtmListener";
+import WhatsAppFloat from "./components/shared/WhatsAppFloat";
 import AboutUs from "./pages/AboutUs";
 import BadgeGeneration from "./pages/BadgeGeneration";
 import EventLandingPage from "./pages/EventLandingPage";
+import FormationPage from "./pages/FormationPage";
 import FormationPageWrapper from "./pages/FormationPageWrapper";
 import FormationsMenu from "./pages/FormationsMenu";
 import InvestorLandingPage from "./pages/InvestorLandingPage";
@@ -29,6 +31,7 @@ export default function App() {
         <Route path="/formation" element={<Navigate to="/formations" replace />} />
         <Route path="/formation/:slug" element={<FormationSlugRedirect />} />
         <Route path="/event" element={<EventLandingPage />} />
+        <Route path="/canton-event" element={<FormationPage />} />
         <Route path="/formations" element={<FormationsMenu />} />
         <Route path="/formations/:slug" element={<FormationPageWrapper />} />
         <Route path="/investor" element={<InvestorLandingPage />} />
@@ -43,6 +46,7 @@ export default function App() {
         <Route path="/" element={<Registration />} />
 
       </Routes>
+      <WhatsAppFloat />
     </Router>
   );
 }

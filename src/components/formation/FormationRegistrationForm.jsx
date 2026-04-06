@@ -20,7 +20,7 @@ const DEFAULT_FORM_ID = "9699183e-5d2b-4969-832b-9abf4dddea48";
 
 // Default cohorts for backward compatibility
 const DEFAULT_COHORTS = [
-  { value: "قائمة الانتظار", label: "✅ قائمة الانتظار - احصل على أولوية عند فتح مقاعد جديدة", disabled: false },
+  { value: "قائمة الإنتظار", label: "✅ قائمة الإنتظار - احصل على أولوية عند فتح مقاعد جديدة", disabled: false },
   { value: "فوج 13, 14, 15 ديسمبر", label: "فوج 13, 14, 15 ديسمبر (ممتلئ)", disabled: true },
   { value: "فوج 27, 28, 29 ديسمبر", label: "فوج 27, 28, 29 ديسمبر (ممتلئ)", disabled: true },
   { value: "الفوج الثالث - 10, 11, 12 جانفي", label: "الفوج الثالث - 10, 11, 12 جانفي (ممتلئ)", disabled: true },
@@ -105,7 +105,6 @@ export default function FormationRegistrationForm({
     fullName: useRef(null),
     phone: useRef(null),
     email: useRef(null),
-    cohort: useRef(null),
     state: useRef(null),
     isWebscaleMember: useRef(null),
     hasAttendedWebscaleTraining: useRef(null),
@@ -307,10 +306,12 @@ export default function FormationRegistrationForm({
     const cohortOptions = isCohortLabel(label) && cohorts?.length
       ? cohorts.map((c) => ({ value: c.value, label: c.label, disabled: c.disabled }))
       : null;
-    const options = (field.options?.length ? field.options : cohortOptions?.map((c) => c.value)) ?? [];
-    const othersOpt = field.others_option_text || "أخرى";
-    const hasOthers = field.allow_custom_input && options.some((o) => o === othersOpt || o === "أخرى");
-    const isOtherSelected = hasOthers && (value === othersOpt || (value && !options.includes(value)));
+    const baseOptions = (field.options?.length ? field.options : cohortOptions?.map((c) => c.value)) ?? [];
+    const othersOpt = "أخرى";
+    const hasOthers = !!field.allow_custom_input;
+    // Add "أخرى" to options if allow_custom_input is true and it's not already present
+    const options = hasOthers && !baseOptions.includes(othersOpt) ? [...baseOptions, othersOpt] : baseOptions;
+    const isOtherSelected = hasOthers && (value === othersOpt || (value && !baseOptions.includes(value)));
 
     switch (field.type) {
       case "textarea":

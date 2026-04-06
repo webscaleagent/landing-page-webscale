@@ -1,5 +1,6 @@
 import { ArrowLeft, GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
+import cantonEventImage from "../assets/canton-event-uploaded-logo.png";
 import logo from "../assets/logo.png";
 import { formations } from "../constants/formations";
 
@@ -74,6 +75,34 @@ const FormationsMenu = () => {
             تكوينات تطبيقية مع خبراء متمرسين
           </p>
         </div>
+
+        {/* Canton Event Big Card */}
+        <Link
+          to="/canton-event"
+          className="group relative mb-8 md:mb-12 block min-h-[360px] md:min-h-[460px] overflow-hidden rounded-3xl shadow-2xl transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
+            style={{ backgroundImage: `url(${cantonEventImage})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-white/10 to-transparent" />
+
+          <div className="relative flex h-full flex-col justify-end p-6 md:p-10">
+            <span className="mb-3 inline-flex w-fit items-center rounded-full bg-gradient-to-r from-orange-400 to-amber-300 px-4 py-1.5 text-xs font-bold text-slate-900 md:text-sm">
+              CANTON FAIR 2026
+            </span>
+            <h3 className="max-w-2xl text-3xl font-black leading-tight text-slate-900 md:text-5xl">
+              جلسات أونلاين تفاعلية وعملية مع إفطار تكويني جماعي
+            </h3>
+            <p className="mt-3 max-w-2xl text-sm text-white/95 md:text-lg">
+              جلسات عملية مع مختصين، برنامج واضح، وشبكة علاقات قوية لدعم نجاح مشروعك في استيراد خطوط الإنتاج
+            </p>
+            <div className="mt-5 inline-flex w-fit rounded-xl bg-gradient-to-r from-orange-400 to-amber-300 px-5 py-2.5 text-sm font-bold text-slate-900 transition-all group-hover:from-orange-300 group-hover:to-yellow-300">
+              اكتشف الحدث →
+            </div>
+          </div>
+
+        </Link>
 
         {/* Formation Cards Grid */}
         <div className="flex flex-row md:grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 snap-x snap-mandatory scrollbar-hide -mx-4 md:mx-0 px-4 md:px-0">

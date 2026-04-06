@@ -1,948 +1,1231 @@
-import { Menu, Moon, Sun, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import {
+  BadgeCheck,
+  Building2,
+  CalendarDays,
+  Clock3,
+  Factory,
+  Facebook,
+  Handshake,
+  Instagram,
+  Landmark,
+  Linkedin,
+  Mail,
+  MessageCircle,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Target,
+  Users,
+  Youtube,
+} from "lucide-react";
+import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import cantonEventLogo from "../assets/canton-event-logo.png";
+import cantonHeroLogo from "../assets/canton-event-uploaded-logo.png";
 import logo from "../assets/logo.png";
-import FormationRegistrationForm from "../components/formation";
+import { getUTMParams } from "../utils/utm";
+
+const benefits = [
+  "اكتساب منهجية احترافية لاختيار واستيراد خطوط الإنتاج والمعدات الصناعية مباشرة من المصدر",
+  "تعلم آليات تقييم المصانع والموردين في الصين قبل الالتزام بأي استثمار مالي",
+  "بناء شبكة علاقات استراتيجية مع مستوردين وصناعيين ورواد أعمال يشاركونك نفس الرؤية",
+  "تشبيك مباشر مع المختصين والمستشارين ذوي تجربة فعلية في السوق الصيني وسلاسل التوريد",
+  "الاستثمار في التوجيه الصحيح لتقليل المخاطر وحماية رأس المال من الأخطاء المكلفة",
+  "تحويل فكرة استيراد خط إنتاج إلى مشروع صناعي قابل للتنفيذ بخطة واضحة للسوق الجزائري",
+];
+
+const audience = [
+  "رجال الأعمال والمستثمرون",
+  "أصحاب المصانع وورشات الإنتاج",
+  "الراغبون في إطلاق مشاريع صناعية",
+  "التجار والمستوردون",
+];
+
+const includedItems = [
+  "5 جلسات عملية أونلاين",
+  "لقاء تكويني تفاعلي",
+  "إفطار جماعي",
+  "نشاطات تفاعلية و عملية",
+  "فرصة بناء و تشبيك علاقات",
+  "لقاءات مع مستشارين و مختصين",
+];
+
+const faqs = [
+  {
+    q: "هل البرنامج مناسب للمبتدئين في الاستيراد؟",
+    a: "نعم. المحتوى مبني بشكل عملي يبدأ من الأساسيات ويصل إلى قرارات تنفيذية واضحة تناسب من يزور معرض كانتون لأول مرة.",
+  },
+  {
+    q: "هل يمكنني اختيار نوع مشاركة مختلف؟",
+    a: "نعم، يمكنك اختيار العرض الكامل أو حضور الإفطار أو الجلسات الأونلاين حسب هدفك ووقتك.",
+  },
+  {
+    q: "كيف أتأكد من مقعدي؟",
+    a: "بعد تعبئة نموذج التسجيل، سيتواصل فريق وابسكيل معك لتأكيد الحجز وإرسال خطوات الدفع والتفاصيل التنظيمية.",
+  },
+];
+
+const speakerCards = [
+  {
+    name: "الأستاذ عرفات الحراحشة",
+    points: [
+      "رائد أعمال عربي مقيم في الصين منذ 1987",
+      "رئيس منتدى رجال الأعمال العرب في الصين سابقاً",
+      "رئيس المجلس الاستشاري لمنتدى رجال الأعمال العرب في الصين حالياً",
+      "محور المداخلة: نصائح وتوجيهات عملية حول زيارة معرض كانتون وبناء العلاقات التجارية",
+    ],
+  },
+  {
+    name: "الدكتور حمزة المداني",
+    points: [
+      "خبير في توريد وفحص المعدات الصناعية من الصين",
+      "دكتوراه في التصنيع الميكانيكي والأتمتة",
+      "خبرة 13 سنة في التصنيع والتوريد",
+      "محور المداخلة: معايير شراء خطوط الإنتاج والمعدات الصناعية",
+    ],
+  },
+  {
+    name: "الدكتور عبد الملك الحداد",
+    points: [
+      "رجل أعمال ومستثمر في الصين",
+      "مؤسس ورئيس تنفيذي شركة CPLANO",
+      "حلول توريد وتشطيب وتأثيث المشاريع السكنية والفندقية",
+      "MBA",
+      "عضو جمعية الاقتصاد السعودية",
+    ],
+  },
+  {
+    name: "الأستاذ سليم بن أعراب",
+    points: [
+      "مستشار جزائري في التسيير الاستراتيجي وتحويل المؤسسات",
+      "+30 سنة خبرة في قيادة الشركات وبناء الاستراتيجيات",
+      "خبرة عملية في إدارة فرق تصل إلى 580 موظف",
+      "خبرة في قطاعات: صناعة، توزيع، تجارة، FMCG",
+      "تولى مناصب: مدير عام، مدير تجاري، مدير استراتيجيات",
+      "يجمع بين الرؤية والهيكلة وتحقيق النتائج",
+    ],
+  },
+];
+
+const pricing = [
+  {
+    title: "35,000 دج",
+    subtitle: "5 جلسات مباشرة مع 5 مستشارين",
+    description: "",
+    featured: false,
+  },
+  {
+    title: "50,000 دج",
+    subtitle: "العرض المتكامل",
+    description: "5 جلسات أونلاين + اللقاء التكويني + الإفطار الجماعي",
+    featured: true,
+  },
+];
+
+const employeeCountOptions = ["أقل من 5", "من 05 إلى 10 موظفين", "من 10 إلى 50 موظف", "من 50 موظف فما فوق"];
+
+const legalFormOptions = [
+  "مؤسسة فردية",
+  "شركة ذات مسؤولية محدودة (SARL)",
+  "شركة مساهمة (SPA)",
+  "شركة تضامن",
+  "تعاونية",
+  "شركة ناشئة (Startup)",
+];
+
+const businessSectorOptions = [
+  "خدمات",
+  "تجارة (جملة / تجزئة)",
+  "صناعة / إنتاج",
+  "فلاحية / زراعية",
+  "تكنولوجيا / شركة رقمية",
+  "مقاولات / أشغال عمومية",
+  "تعليم وتكوين",
+  "صحة",
+  "سياحة",
+];
+
+const companyEstablishedOptions = ["أقل من سنة", "من 1 إلى 3 سنوات", "من 3 إلى 5 سنوات", "أكثر من 5 سنوات."];
+
+const stateOptions = [
+  "أدرار",
+  "الشلف",
+  "الأغواط",
+  "أم البواقي",
+  "باتنة",
+  "بجاية",
+  "بسكرة",
+  "بشار",
+  "البليدة",
+  "البويرة",
+  "تمنراست",
+  "تبسة",
+  "تلمسان",
+  "تيارت",
+  "تيزي وزو",
+  "الجزائر",
+  "الجلفة",
+  "جيجل",
+  "سطيف",
+  "سعيدة",
+  "سكيكدة",
+  "سيدي بلعباس",
+  "عنابة",
+  "قالمة",
+  "قسنطينة",
+  "المدية",
+  "مستغانم",
+  "المسيلة",
+  "معسكر",
+  "ورقلة",
+  "وهران",
+  "البيض",
+  "إليزي",
+  "برج بوعريريج",
+  "بومرداس",
+  "الطارف",
+  "تندوف",
+  "تيسمسيلت",
+  "الوادي",
+  "خنشلة",
+  "سوق أهراس",
+  "تيبازة",
+  "ميلة",
+  "عين الدفلى",
+  "النعامة",
+  "عين تموشنت",
+  "غرداية",
+  "غليزان",
+  "تيميمون",
+  "برج باجي مختار",
+  "أولاد جلال",
+  "بني عباس",
+  "إن صالح",
+  "إن قزام",
+  "تقرت",
+  "جانت",
+  "المغير",
+  "المنيعة",
+  "أخرى",
+];
+
+const jobTitleOptions = ["رئيس الشركة", "مسير", "موظف", "مدير قسم التسويق", "مدير قسم المبيعات"];
+
+const visitReasonOptions = [
+  "البحث عن خطوط إنتاج جديدة",
+  "إيجاد موردين ومصانع موثوقة",
+  "الاطلاع على المنتجات والتقنيات الحديثة",
+  "دراسة السوق والاتجاهات الجديدة",
+  "عقد شراكات واتفاقيات تجارية",
+  "تطوير مشروع حالي أو إطلاق مشروع جديد",
+  "البحث عن فرص استيراد وتوزيع",
+  "مقارنة الأسعار وتحسين تكاليف الشراء.",
+];
+
+const initialFormData = {
+  companyName: "",
+  employeeCount: "",
+  legalForm: "",
+  legalFormCustom: "",
+  businessSector: "",
+  businessSectorCustom: "",
+  companyEstablished: "",
+  fullName: "",
+  phone: "",
+  email: "",
+  state: "",
+  isWebscaleMember: "",
+  jobTitle: "",
+  hasAttendedWebscaleTraining: "",
+  attendingCantonApril: "",
+  attendingCantonAprilCustom: "",
+  visitedCantonBefore: "",
+  visitedCantonBeforeCustom: "",
+  visitReason: "",
+  visitReasonCustom: "",
+};
+
+const PUBLIC_SUBMIT_URL =
+  "https://crmgo.webscale.dz/api/v1/public/forms/b2595fbf-71ba-4041-bc23-1ff587a6275b/submit";
 
 const FormationPage = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
-  const [expandedSections, setExpandedSections] = useState({});
-  const [isWebscaleMember, setIsWebscaleMember] = useState(false);
+  const [activeFaq, setActiveFaq] = useState(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
 
-  useEffect(() => {
-    const savedMode = localStorage.getItem("theme");
-    if (savedMode === "dark") {
-      document.documentElement.classList.add("dark");
-      setDarkMode(true);
+  const trustBadges = useMemo(
+    () => ["5 لقاءات أونلاين", "يوم حضوري تطبيقي", "220 مقعد", "تنظيم Webscale"],
+    []
+  );
+
+  const scrollToRegister = () => {
+    const registerForm = document.getElementById("register-form");
+    const registerSection = document.getElementById("register");
+    (registerForm || registerSection)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setFormSubmitted(false);
+    setSubmitError("");
+    setIsSubmitting(true);
+
+    const payload = {
+      user_id: "public-user",
+      ...getUTMParams(),
+      data: {
+        "اسم الشركة": formData.companyName,
+        "عدد الموظفين": formData.employeeCount,
+        "ما هو الشكل القانوني لشركتك؟":
+          formData.legalForm === "أخرى" ? formData.legalFormCustom : formData.legalForm,
+        "ما هو مجال نشاط شركتك؟":
+          formData.businessSector === "أخرى" ? formData.businessSectorCustom : formData.businessSector,
+        "منذ متى تأسست شركتك؟": formData.companyEstablished,
+        "الاسم واللقب": formData.fullName,
+        "رقم الواتس آب": formData.phone,
+        الايميل: formData.email,
+        الولاية: formData.state,
+        "هل أنت عضو في Webscale؟": formData.isWebscaleMember,
+        "المنصب الوظيفي": formData.jobTitle,
+        "هل سبق لك حضور دورة تدريبية في Webscale؟": formData.hasAttendedWebscaleTraining,
+        "هل ستحضر معرض كانتون أفريل 2026": formData.attendingCantonApril,
+        "هل زرت معرض كانتون من قبل ":
+          formData.visitedCantonBefore === "Autre"
+            ? formData.visitedCantonBeforeCustom
+            : formData.visitedCantonBefore,
+        "ماهو سبب زيارتك للمعرض؟":
+          formData.visitReason === "Autre" ? formData.visitReasonCustom : formData.visitReason,
+      },
+    };
+
+    try {
+      const res = await fetch(PUBLIC_SUBMIT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && res.status >= 200 && res.status < 300) {
+        setFormSubmitted(true);
+        setFormData(initialFormData);
+        return;
+      }
+
+      const msg = data?.error || data?.message || "⚠️ حدث خطأ غير متوقع.";
+      setSubmitError(msg);
+    } catch (error) {
+      console.error("Canton form submit error:", error);
+      setSubmitError("⚠️ حدث خطأ في الاتصال. تحقق من الإنترنت وحاول مجددًا.");
+    } finally {
+      setIsSubmitting(false);
     }
-  }, []);
-
-  const toggleDarkMode = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    document.documentElement.classList.toggle("dark", newMode);
-    localStorage.setItem("theme", newMode ? "dark" : "light");
   };
 
-  const toggleSection = (sectionId) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [sectionId]: !prev[sectionId],
-    }));
-  };
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-      setMobileMenuOpen(false);
-    }
-  };
-
-  const programSections = [
-    {
-      id: "opening",
-      title: "كلمة الافتتاح — Mot d'ouverture",
-      items: [],
-    },
-    {
-      id: "introduction",
-      title: "مقدمة حول الموضوع — Introduction à la thématique",
-      items: [
-        "فهم المؤسسة — Comprendre l'Entreprise",
-        "ملف المدير / صاحب المؤسسة — Profil du Chef d'entreprise",
-        "ما هو نظام إدارة الجودة (SMQ)؟ — Qu'est-ce qu'un Système de Management de la Qualité (SMQ) ?",
-        "التعريف، الأهداف، وأمثلة — Définition, Objectifs et exemples",
-        "المكوّنات الأساسية — Composantes Clés",
-        "المبادئ السبعة في نظام إدارة الجودة — Les 7 principes dans le système Management qualité",
-        "المزايا السبعة لنظام إدارة الجودة — Les 7 Avantages du système Management qualité",
-        "التحديات الشائعة وكيفية التغلب عليها — Les Défis Courants et Comment les Surmonter",
-        "من هم الفاعلون داخل SMQ؟ — Qui sont les acteurs du SMQ ?",
-        "أدوات مراقبة نظام إدارة الجودة — Outils pour surveiller un SMQ ?",
-      ],
-    },
-    {
-      id: "processes",
-      title: "التفكير والعمل بمنطق العمليات — Raisonnez et travaillez en processus",
-      items: [
-        "ما هي العملية (Processus)؟ — Qu'est ce qu'un processus",
-        "ما الفرق بين: عملية، إجراء، وبروسيس؟ — Quelle différence entre processus ; procédure ; process ?",
-        "ما هي نمذجة العمليات؟ — Qu'est-ce que la modélisation des processus ?",
-        "المؤسسة مرسومة في شكل عمليات — L'entreprise Cartographié en processus",
-        "مخطط التدفقات — diagramme des flux",
-      ],
-    },
-    {
-      id: "process-types",
-      title: "أنواع العمليات في جميع المؤسسات…؟ — Les types de processus dans toutes entreprises…?",
-      items: [],
-    },
-    {
-      id: "mapping",
-      title: "خريطة المؤسسة من خلال العمليات… — Cartographie de l'Entreprise en processus …",
-      items: [],
-    },
-    {
-      id: "exercises",
-      title: "تطبيقات وتمارين — Exercices et pratiques",
-      items: [],
-    },
-    {
-      id: "discussion",
-      title: "نقاش وتبادل الآراء في مجال تسيير المؤسسات — Discussion et échange d'opinions dans le domaine de la gestion d'entreprise",
-      items: [],
-    },
-    {
-      id: "closing",
-      title: "كلمة الختام — Mot de Clôture",
-      items: [],
-    },
-  ];
-
-  const faqItems = [
-    {
-      question: "كيف يمكنني التسجيل في الدورة؟",
-      answer:
-        "🔥 المقاعد اكتملت! يمكنك التسجيل في قائمة الانتظار من خلال النقر على زر \"سجّل في قائمة الانتظار\" وملء النموذج. كن أول من يحصل على فرصة عند فتح التسجيل.",
-    },
-    {
-      question: "ما هو الفرق بين السعر العام وسعر أعضاء Webscale؟",
-      answer:
-        "السعر العام للدورة هو 45.000 دج HT، بينما يحصل أعضاء مجتمع Webscale على خصم خاص بقيمة 6000 دج HT.",
-    },
-    {
-      question: "ما الذي أحتاجه لحضور الدورة؟",
-      answer:
-        "الدورة حضورية في مقر Webscale بالجزائر. تحتاج فقط إلى الحضور في الوقت المحدد (من 09:00 إلى 16:00) لمدة 3 أيام متتالية. سيتم توفير جميع المواد التعليمية اللازمة.",
-    },
-    {
-      question: "ما هي طرق الدفع المتاحة؟",
-      answer:
-        "نقبل الدفع عبر البطاقات الائتمانية، التحويل البنكي، والدفع الإلكتروني. يمكنك التواصل معنا لمعرفة التفاصيل.",
-    },
-    {
-      question: "هل الدورة مناسبة للمبتدئين؟",
-      answer:
-        "نعم، الدورة موجهة للمديرين والمسيرين في مختلف المستويات. يبدأ البرنامج من الأساسيات ويتدرج إلى التطبيق العملي، مما يجعلها مناسبة للجميع.",
-    },
-  ];
-
-  const [openFaq, setOpenFaq] = useState(null);
+  const renderSectionTitle = (title, subtitle, eyebrow) => (
+    <div className="mx-auto mb-10 max-w-3xl text-center">
+      <img
+        src={cantonHeroLogo}
+        alt="Canton Fair Webscale 2026"
+        className="mx-auto mb-3 h-12 w-auto rounded-lg border border-slate-200 bg-white p-0 shadow-sm"
+      />
+      {eyebrow ? (
+        <p className="mb-3 text-sm font-semibold text-amber-500">{eyebrow}</p>
+      ) : null}
+      <h2 className="text-2xl font-black leading-tight text-slate-900 md:text-4xl">
+        {title}
+      </h2>
+      {subtitle ? (
+        <p className="mt-4 text-base leading-7 text-slate-600 md:text-lg">
+          {subtitle}
+        </p>
+      ) : null}
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-yellow-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900" dir="rtl">
+    <div dir="rtl" className="scroll-smooth bg-slate-50 text-slate-900">
       <Helmet>
-        <title>قلّل الأخطاء، نظم مؤسستك - تكوين تطبيقي مع سليم بن عراب</title>
-        <meta name="description" content="تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج. مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…" />
+        <title>استعد لمعرض كانتون مع وابسكيل</title>
+        <meta
+          name="description"
+          content="برنامج تأهيلي عملي للتحضير لزيارة معرض كانتون وبناء صفقات استيراد ناجحة من الصين."
+        />
       </Helmet>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl shadow-md border-b border-neutral-200/60 dark:border-neutral-700/60 transition-all duration-500 supports-[backdrop-filter]:bg-white/80 supports-[backdrop-filter]:dark:bg-neutral-900/80">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between py-3 md:py-4">
-            {/* Left: Logo */}
-            <div className="flex items-center">
-              <Link to="/" className="flex items-center gap-2 group relative">
-                <div className="relative">
-                  <img src={logo} alt="Webscale Logo" className="h-9 md:h-10 w-auto transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" />
-                  <div className="absolute inset-0 bg-[#FABC05]/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <span className="text-lg md:text-xl font-bold text-neutral-800 dark:text-neutral-100 transition-all duration-300 group-hover:text-[#FABC05] group-hover:scale-105">Webscale</span>
-              </Link>
-            </div>
-
-            {/* Center: Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
-              {[
-                { id: "home", label: "الرئيسية" },
-                { id: "problem", label: "المشكلة" },
-                { id: "consultant", label: "المستشار" },
-                { id: "benefits", label: "الفوائد" },
-                { id: "program", label: "البرنامج" },
-                { id: "pricing", label: "الأسعار" },
-                { id: "faq", label: "الأسئلة الشائعة" },
-                { id: "contact", label: "تواصل معنا" },
-              ].map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  onClick={(e) => { e.preventDefault(); scrollToSection(item.id); }}
-                  className="relative px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 transition-all duration-300 hover:text-[#FABC05] group"
-                >
-                  <span className="relative z-10">{item.label}</span>
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#FABC05] to-[#FFD700] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full"></span>
-                  <span className="absolute inset-0 bg-[#FABC05]/5 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 -z-0"></span>
-                </a>
-              ))}
-            </nav>
-
-            {/* Right: All Action Buttons */}
-            <div className="flex items-center gap-2 md:gap-3">
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-all duration-300 hover:scale-110 hover:shadow-md group"
-                aria-label="Toggle mobile menu"
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
-                ) : (
-                  <Menu className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
-                )}
-              </button>
-              <button
-                onClick={toggleDarkMode}
-                className="p-2 rounded-xl hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80 transition-all duration-300 hover:scale-110 hover:rotate-12 hover:shadow-md group"
-                aria-label="Toggle dark mode"
-              >
-                {darkMode ? (
-                  <Sun className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
-                ) : (
-                  <Moon className="w-5 h-5 text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300" />
-                )}
-              </button>
-              <Link
-                to="/"
-                className="hidden md:flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 font-semibold text-sm md:text-base rounded-xl hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all duration-300 hover:scale-105 hover:shadow-md"
-              >
-                <span>المجتمع</span>
-                <svg className="w-4 h-4 transition-transform duration-300 hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-              </Link>
-              <button
-                onClick={() => setShowRegistrationModal(true)}
-                className="flex items-center gap-2 relative px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-[#FABC05] via-[#FFD700] to-[#FABC05] bg-size-200 bg-pos-0 hover:bg-pos-100 text-black font-semibold text-sm md:text-base rounded-xl overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#FABC05]/40"
-                style={{ backgroundSize: '200% 100%' }}
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  <span className="hidden md:inline">سجّل في قائمة الانتظار</span>
-                  <span className="md:hidden">قائمة الانتظار</span>
-                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] via-[#FABC05] to-[#FFD700] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
+      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="Webscale" className="h-9 w-auto" />
+            <div>
+              <p className="text-sm font-semibold text-slate-500">وابسكيل</p>
+              <p className="text-base font-bold">الجهة المنظمة</p>
             </div>
           </div>
-
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="lg:hidden border-t border-neutral-200/60 dark:border-neutral-700/60 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl">
-              <nav className="flex flex-col gap-1 py-3 animate-in slide-in-from-top duration-300">
-                {[
-                  { id: "home", label: "الرئيسية" },
-                  { id: "problem", label: "المشكلة" },
-                  { id: "consultant", label: "المستشار" },
-                  { id: "benefits", label: "الفوائد" },
-                  { id: "program", label: "البرنامج" },
-                  { id: "pricing", label: "الأسعار" },
-                  { id: "faq", label: "الأسئلة الشائعة" },
-                  { id: "contact", label: "تواصل معنا" },
-                ].map((item, index) => (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    onClick={(e) => { e.preventDefault(); scrollToSection(item.id); setMobileMenuOpen(false); }}
-                    className="px-4 py-3 rounded-lg hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 hover:text-[#FABC05] transition-all duration-300 font-medium text-neutral-700 dark:text-neutral-300 hover:translate-x-[-4px] hover:shadow-sm"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-                <Link
-                  to="/"
-                  className="mx-4 mt-2 px-6 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 font-semibold rounded-xl hover:bg-neutral-300 dark:hover:bg-neutral-600 hover:scale-105 transition-all duration-300 hover:shadow-md flex items-center justify-center gap-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <span>المجتمع</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                </Link>
-                <button
-                  onClick={() => {
-                    setShowRegistrationModal(true);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="mx-4 mt-2 px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-[#FABC05]/40"
-                >
-                  سجّل في قائمة الانتظار
-                </button>
-              </nav>
-            </div>
-          )}
+          <button
+            onClick={scrollToRegister}
+            className="rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 px-5 py-2.5 text-sm font-bold text-slate-900 transition hover:-translate-y-0.5 hover:from-amber-400 hover:to-yellow-300"
+          >
+            احجز مقعدك الآن
+          </button>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section id="home" className="py-6 md:py-8 px-4">
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto">
-            {/* Desktop: Image next to title and paragraph */}
-            <div className="hidden md:flex md:flex-row md:items-start md:gap-8 mb-6">
-              {/* Image on desktop */}
-              <div className="flex-shrink-0">
-                <div className="relative group">
-                  <img
-                    src="/experts/salim_ben_arab.jpeg"
-                    alt="سليم بن عراب"
-                    className="w-full max-w-[400px] rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#FABC05]/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </div>
-              
-              {/* Text content on desktop */}
-              <div className="flex-1 text-right">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 leading-tight animate-in fade-in slide-in-from-bottom duration-700">
-                  قلّل الأخطاء، نظم مؤسستك، واصنع انضباطًا حقيقيًا
-                </h1>
-                <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-100">
-                  مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…
-                </p>
-                <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
-                  تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.
-                </p>
-              </div>
-            </div>
-            
-            {/* Mobile: Title, phrase, image, then paragraph */}
-            <div className="md:hidden mb-6">
-              {/* Title */}
-              <div className="text-center mb-6">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 leading-tight animate-in fade-in slide-in-from-bottom duration-700">
-                  قلّل الأخطاء، نظم مؤسستك، واصنع انضباطًا حقيقيًا
-                </h1>
-              </div>
-              
-              {/* Phrase */}
-              <div className="text-center mb-4">
-                <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-100">
-                  مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…
-                </p>
-                
-                {/* Image - appears under phrase ONLY on mobile */}
-                <div className="flex justify-center mb-4">
-                  <div className="relative group">
-                    <img
-                      src="/experts/salim_ben_arab.jpeg"
-                      alt="سليم بن عراب"
-                      className="w-full max-w-[300px] rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#FABC05]/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </div>
-                </div>
-                
-                <p className="text-lg mb-4 text-neutral-700 dark:text-neutral-300 animate-in fade-in slide-in-from-bottom duration-700 delay-200">
-                  تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج… وليس النظريات.
-                </p>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 mb-4 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group">
-                <h2 className="text-2xl font-bold mb-4 text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">لماذا هذا التكوين مختلف؟</h2>
-                <p className="text-lg text-neutral-700 dark:text-neutral-300">
-                  لأنه مبني على تجربة مدير حقيقي أدار شركات جزائرية وعالمية، وعالج هذه المشاكل من الداخل— ليس من الكتب فقط.
-                </p>
-              </div>
-              <button
-                onClick={() => setShowRegistrationModal(true)}
-                className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-              >
-                <span className="relative z-10">📍 الأماكن مملوءة! ⏳ سجّل في قائمة الانتظار الآن ⬇️</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Problem Section */}
-      <section id="problem" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-neutral-800 dark:text-neutral-100">
-              المشكلة الحقيقية داخل أغلب المؤسسات
-            </h2>
-            <p className="text-xl text-center mb-4 text-neutral-700 dark:text-neutral-300">
-              ليست في الموظفين… وليست في نقص الجهد… بل المشكلة في غياب نظام عمل واضح:
-            </p>
-            <div className="grid md:grid-cols-2 gap-6 mb-4">
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">أخطاء متكررة وضياع وقت</p>
-              </div>
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">نقص التنسيق بين الفرق</p>
-              </div>
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">قرارات يومية بلا بيانات</p>
-              </div>
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <p className="text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">ضغط دائم على المدير لمتابعة كل شيء</p>
-              </div>
-            </div>
-            <div className="bg-gradient-to-br from-[#FABC05]/10 via-[#FABC05]/5 to-transparent dark:from-[#FABC05]/20 dark:via-[#FABC05]/10 dark:to-transparent p-8 rounded-2xl mb-4 border border-[#FABC05]/20 dark:border-[#FABC05]/30 hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
-              <h3 className="text-2xl font-bold mb-6 text-neutral-800 dark:text-neutral-100">
-                هذا التكوين يعطيك الطريقة التي تعتمدها الشركات القوية لتفادي هذه الفوضى:
-              </h3>
-              <ul className="space-y-4 text-lg text-neutral-700 dark:text-neutral-300">
-                <li className="flex items-start gap-3 group/item">
-                  <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300">✔</span>
-                  <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">تشخيص أصل المشاكل داخل مؤسستك</span>
-                </li>
-                <li className="flex items-start gap-3 group/item">
-                  <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300">✔</span>
-                  <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">تقليل الأخطاء التشغيلية وتحسين الانضباط</span>
-                </li>
-                <li className="flex items-start gap-3 group/item">
-                  <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300">✔</span>
-                  <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">بناء نظام جودة عملي وبسيط</span>
-                </li>
-                <li className="flex items-start gap-3 group/item">
-                  <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300">✔</span>
-                  <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">تنظيم العمل داخل الفرق</span>
-                </li>
-                <li className="flex items-start gap-3 group/item">
-                  <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300">✔</span>
-                  <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">استخدام أدوات فعلية للشركات الكبرى</span>
-                </li>
-                <li className="flex items-start gap-3 group/item">
-                  <span className="text-[#FABC05] font-bold text-xl group-hover/item:scale-125 transition-transform duration-300">✔</span>
-                  <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">اتخاذ قرارات دقيقة اعتمادًا على البيانات</span>
-                </li>
-              </ul>
-            </div>
-            <div className="text-center">
-              <button
-                onClick={() => setShowRegistrationModal(true)}
-                className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-              >
-                <span className="relative z-10">📍 الأماكن مملوءة! ⏳ سجّل في قائمة الانتظار الآن ⬇️</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Consultant Section */}
-      <section id="consultant" className="py-6 md:py-8 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">مؤطّر التكوين: سليم بن عراب</h2>
-          <div className="max-w-5xl mx-auto bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 md:p-10 rounded-2xl shadow-xl border-2 border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:border-[#FABC05]/30 transition-all duration-300">
-            <div className="grid md:grid-cols-[300px_1fr] gap-8 mb-8">
-              <div className="text-center">
-                <div className="relative group mb-4">
-                  <img
-                    src="/formation/Generated Image October 11, 2025 - 2_00PM (2).png"
-                    alt="سليم بن عراب"
-                    className="w-full max-w-[300px] rounded-xl shadow-lg mx-auto transition-transform duration-300 group-hover:scale-105 group-hover:shadow-2xl"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#FABC05]/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="bg-gradient-to-br from-[#FABC05]/10 to-[#FABC05]/5 dark:from-[#FABC05]/20 dark:to-[#FABC05]/10 p-4 rounded-xl border border-[#FABC05]/20 dark:border-[#FABC05]/30 hover:shadow-lg transition-all duration-300">
-                  <h3 className="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-2">سليم بن عراب</h3>
-                  <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-3">مستشار في إدارة الجودة والعمليات</p>
-                  <div className="flex items-center justify-center gap-2 text-[#FABC05]">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
-                    <span className="text-sm font-semibold">25+ سنة خبرة</span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <p className="text-xl font-bold mb-4 text-neutral-800 dark:text-neutral-200">
-                  25 سنة خبرة داخل شركات:
-                </p>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
-                  {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div 
-                      key={i} 
-                      className="bg-white/80 dark:bg-neutral-700/80 backdrop-blur-sm p-4 rounded-lg shadow-md border border-neutral-200/50 dark:border-neutral-600/50 hover:shadow-xl hover:scale-110 hover:border-[#FABC05]/50 transition-all duration-300 flex items-center justify-center min-h-[100px] cursor-pointer group"
-                    >
-                      <img
-                        src={`/formation/logos/photo_2025-11-30_15-${String(i === 1 ? "00-42" : i === 2 ? "01-00" : i === 3 ? "01-49" : i === 4 ? "01-55" : i === 5 ? "02-24" : "23-31")}.jpg`}
-                        alt={`Company Logo ${i}`}
-                        className="w-full h-auto object-contain max-h-16 rounded transition-transform duration-300 group-hover:scale-110"
-                      />
-                    </div>
-                  ))}
-                </div>
-                <p className="text-xl font-bold mb-4 text-neutral-800 dark:text-neutral-200">
-                  نتائج موثقة:
-                </p>
-                <ul className="space-y-3 text-neutral-700 dark:text-neutral-300 mb-6">
-                  <li className="flex items-start gap-3 group/item">
-                    <span className="text-[#FABC05] font-bold text-lg group-hover/item:scale-125 transition-transform duration-300">•</span>
-                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">خفض الديون بـ 43%</span>
-                  </li>
-                  <li className="flex items-start gap-3 group/item">
-                    <span className="text-[#FABC05] font-bold text-lg group-hover/item:scale-125 transition-transform duration-300">•</span>
-                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">رفع هامش الربح بـ +42%</span>
-                  </li>
-                  <li className="flex items-start gap-3 group/item">
-                    <span className="text-[#FABC05] font-bold text-lg group-hover/item:scale-125 transition-transform duration-300">•</span>
-                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">قيادة فرق تصل إلى 580 موظف</span>
-                  </li>
-                  <li className="flex items-start gap-3 group/item">
-                    <span className="text-[#FABC05] font-bold text-lg group-hover/item:scale-125 transition-transform duration-300">•</span>
-                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">إدارة مداخيل تفوق 78 مليون يورو</span>
-                  </li>
-                  <li className="flex items-start gap-3 group/item">
-                    <span className="text-[#FABC05] font-bold text-lg group-hover/item:scale-125 transition-transform duration-300">•</span>
-                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">إعادة تشغيل وحدات إنتاج</span>
-                  </li>
-                  <li className="flex items-start gap-3 group/item">
-                    <span className="text-[#FABC05] font-bold text-lg group-hover/item:scale-125 transition-transform duration-300">•</span>
-                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">تحسين مؤشرات التوزيع والعمليات على مستوى 23 ولاية</span>
-                  </li>
-                  <li className="flex items-start gap-3 group/item">
-                    <span className="text-[#FABC05] font-bold text-lg group-hover/item:scale-125 transition-transform duration-300">•</span>
-                    <span className="group-hover/item:text-[#FABC05] transition-colors duration-300">خبرة ISO (9001 / 18000 / 22000)</span>
-                  </li>
-                </ul>
-                <p className="text-[#FABC05] font-semibold text-lg mt-6 leading-relaxed bg-[#FABC05]/10 dark:bg-[#FABC05]/20 p-4 rounded-lg border border-[#FABC05]/20">
-                  كل ما ستتعلّمه في هذا التكوين خرج من تجارب ميدانية حقيقية.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="text-center mt-6">
-            <button
-              onClick={() => setShowRegistrationModal(true)}
-              className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-            >
-              <span className="relative z-10">📍 الأماكن مملوءة! ⏳ سجّل في قائمة الانتظار الآن ⬇️</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section id="benefits" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">
-            ماذا ستستفيد مباشرة بعد التكوين؟
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <ul className="space-y-4 text-lg text-neutral-700 dark:text-neutral-300">
-              <li className="flex items-start gap-3 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-5 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <span className="text-[#FABC05] font-bold text-xl group-hover:scale-125 transition-transform duration-300">✔</span>
-                <span className="group-hover:text-[#FABC05] transition-colors duration-300">طريقة واضحة لقراءة مؤسستك وتشخيص أصل المشاكل</span>
-              </li>
-              <li className="flex items-start gap-3 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-5 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <span className="text-[#FABC05] font-bold text-xl group-hover:scale-125 transition-transform duration-300">✔</span>
-                <span className="group-hover:text-[#FABC05] transition-colors duration-300">تقليل الأخطاء التشغيلية وتحسين الانضباط</span>
-              </li>
-              <li className="flex items-start gap-3 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-5 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <span className="text-[#FABC05] font-bold text-xl group-hover:scale-125 transition-transform duration-300">✔</span>
-                <span className="group-hover:text-[#FABC05] transition-colors duration-300">بناء نظام جودة بسيط وعملي</span>
-              </li>
-              <li className="flex items-start gap-3 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-5 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <span className="text-[#FABC05] font-bold text-xl group-hover:scale-125 transition-transform duration-300">✔</span>
-                <span className="group-hover:text-[#FABC05] transition-colors duration-300">ضبط العمليات لتنظيم العمل داخل الفرق</span>
-              </li>
-              <li className="flex items-start gap-3 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-5 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <span className="text-[#FABC05] font-bold text-xl group-hover:scale-125 transition-transform duration-300">✔</span>
-                <span className="group-hover:text-[#FABC05] transition-colors duration-300">اعتماد أدوات تُستخدم فعليًا في المؤسسات الكبرى</span>
-              </li>
-              <li className="flex items-start gap-3 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-5 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <span className="text-[#FABC05] font-bold text-xl group-hover:scale-125 transition-transform duration-300">✔</span>
-                <span className="group-hover:text-[#FABC05] transition-colors duration-300">القدرة على اتخاذ قرارات دقيقة اعتمادًا على العمليات والبيانات</span>
-              </li>
-              <li className="flex items-start gap-3 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-5 rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <span className="text-[#FABC05] font-bold text-xl group-hover:scale-125 transition-transform duration-300">✔</span>
-                <span className="group-hover:text-[#FABC05] transition-colors duration-300">إنهاء "إطفاء الحرائق اليومية"</span>
-              </li>
-            </ul>
-          </div>
-          <div className="text-center mt-6">
-            <button
-              onClick={() => setShowRegistrationModal(true)}
-              className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-            >
-              <span className="relative z-10">📍 الأماكن مملوءة! ⏳ سجّل في قائمة الانتظار الآن ⬇️</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Who is this for Section */}
-      <section id="who" className="py-6 md:py-8 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">
-            لمن هذا التكوين؟
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-xl text-center mb-4 text-neutral-700 dark:text-neutral-300">
-              لك إن كنت تريد:
-            </p>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <p className="text-lg text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">تقليل الأخطاء اليومية</p>
-              </div>
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <p className="text-lg text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">تنظيم العمل داخل شركتك</p>
-              </div>
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <p className="text-lg text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">فهم العمليات بدل الاعتماد على الحدس</p>
-              </div>
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer">
-                <p className="text-lg text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 font-medium">بناء نظام يشتغل حتى لو تغيّر الموظفون</p>
-              </div>
-              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-105 hover:border-[#FABC05]/50 transition-all duration-300 group cursor-pointer md:col-span-2">
-                <p className="text-lg text-neutral-700 dark:text-neutral-300 text-center group-hover:text-[#FABC05] transition-colors duration-300 font-medium">تحسين الأداء بدون رفع التكاليف</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Program Section */}
-      <section id="program" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">
-            برنامج التكوين
-          </h2>
-          <div className="max-w-4xl mx-auto space-y-4">
-            {programSections.map((section) => (
-              <div key={section.id} className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden hover:shadow-xl hover:border-[#FABC05]/30 transition-all duration-300">
-                {section.items.length > 0 ? (
-                  <>
-                    <button
-                      onClick={() => toggleSection(section.id)}
-                      className="w-full px-6 py-4 flex items-center justify-between text-right hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 transition-all duration-300 group"
-                    >
-                      <span className="font-semibold text-lg text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">{section.title}</span>
-                      <span className="text-2xl text-neutral-600 dark:text-neutral-400 group-hover:text-[#FABC05] group-hover:scale-125 transition-all duration-300">
-                        {expandedSections[section.id] ? "−" : "+"}
-                      </span>
-                    </button>
-                    {expandedSections[section.id] && (
-                      <div className="px-6 py-4 border-t border-neutral-200/50 dark:border-neutral-700/50 bg-gradient-to-b from-transparent to-[#FABC05]/5 dark:to-[#FABC05]/10 animate-in slide-in-from-top duration-300">
-                        <ul className="space-y-3">
-                          {section.items.map((item, idx) => (
-                            <li key={idx} className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300 group/item hover:text-[#FABC05] transition-colors duration-300">
-                              <span className="text-[#FABC05] font-bold group-hover/item:scale-125 transition-transform duration-300">•</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="px-6 py-4 hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 transition-colors duration-300">
-                    <span className="font-semibold text-lg text-neutral-800 dark:text-neutral-100">{section.title}</span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Summary Section */}
-      <section id="summary" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-neutral-800 dark:text-neutral-100">
-              الخلاصة
-            </h2>
-            <p className="text-xl md:text-2xl mb-4 text-neutral-700 dark:text-neutral-300 leading-relaxed">
-              إذا كنت تريد طريقة واضحة وواقعية لضبط مؤسستك—
-              <br />
-              فهذه الدورة تقدم لك منهجية ميدانية استُخدمت فعليًا لرفع أداء شركات كبيرة تعمل في الجزائر.
-            </p>
-            <button
-              onClick={() => setShowRegistrationModal(true)}
-              className="relative px-8 py-4 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-bold rounded-xl text-lg overflow-hidden group transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-[#FABC05]/50"
-            >
-              <span className="relative z-10">🔥 المقاعد اكتملت! كن أول من يحصل على فرصة عند فتح التسجيل - سجّل في قائمة الانتظار</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">الأثمان وطرق التسجيل</h2>
-          <div className="max-w-2xl mx-auto mb-6">
-            <div className={`bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border-2 ${isWebscaleMember ? "border-[#FABC05] shadow-[#FABC05]/20" : "border-neutral-200/50 dark:border-neutral-700/50"} transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]`}>
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
-                  {isWebscaleMember ? "أعضاء Webscale" : "سعر الدورة"}
-                </h3>
-                {isWebscaleMember && (
-                  <span className="px-3 py-1 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black text-sm font-semibold rounded-full animate-pulse">عرض خاص</span>
-                )}
-              </div>
-              <div className="text-center mb-6">
-                <div className="flex items-baseline justify-center gap-2">
-                  <span className="text-5xl font-bold text-neutral-800 dark:text-neutral-100">
-                    {isWebscaleMember ? "39.000" : "45.000"}
-                  </span>
-                  <span className="text-2xl text-neutral-600 dark:text-neutral-400">د.ج</span>
-                  <span className="text-lg text-neutral-500 dark:text-neutral-500">HT</span>
-                </div>
-              </div>
-              <div className="mb-6">
-                <label className={`relative flex items-center gap-4 cursor-pointer group/checkbox p-4 rounded-xl bg-gradient-to-r transition-all duration-300 ${
-                  isWebscaleMember 
-                    ? "from-[#FABC05]/10 via-[#FFD700]/10 to-[#FABC05]/10 border-2 border-[#FABC05]/50 shadow-lg shadow-[#FABC05]/20 scale-[1.02]" 
-                    : "from-neutral-50 to-neutral-100/50 dark:from-neutral-700/30 dark:to-neutral-800/30 border-2 border-neutral-200 dark:border-neutral-600 hover:border-[#FABC05]/50 dark:hover:border-[#FABC05]/50 hover:shadow-lg hover:shadow-[#FABC05]/10 hover:scale-[1.02]"
-                }`}>
-                  <div className="relative flex-shrink-0">
-                    <input
-                      type="checkbox"
-                      checked={isWebscaleMember}
-                      onChange={(e) => setIsWebscaleMember(e.target.checked)}
-                      className="sr-only"
-                    />
-                    <div className={`w-7 h-7 rounded-lg border-2 transition-all duration-300 flex items-center justify-center group-hover/checkbox:scale-110 relative overflow-hidden ${
-                      isWebscaleMember
-                        ? "bg-gradient-to-br from-[#FABC05] to-[#FFD700] border-[#FABC05] shadow-lg shadow-[#FABC05]/40"
-                        : "border-[#FABC05]/50 dark:border-[#FABC05]/50 bg-white dark:bg-neutral-800 group-hover/checkbox:border-[#FABC05]"
-                    }`}>
-                      {/* Watermark inside checkbox when unchecked */}
-                      {!isWebscaleMember && (
-                        <svg 
-                          className="w-5 h-5 text-[#FABC05] dark:text-[#FFD700] absolute opacity-80" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="3" 
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      )}
-                      {isWebscaleMember && (
-                        <svg 
-                          className="w-4 h-4 text-black font-bold animate-in zoom-in-95 duration-200 relative z-10" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="3.5" 
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      )}
-                    </div>
-                    {/* Animated pulse effect when checked */}
-                    {isWebscaleMember && (
-                      <div className="absolute inset-0 rounded-lg bg-[#FABC05]/20 animate-ping"></div>
-                    )}
-                  </div>
-                  <span className={`text-base font-medium transition-colors duration-300 select-none flex-1 ${
-                    isWebscaleMember
-                      ? "text-[#FABC05] dark:text-[#FFD700] font-semibold"
-                      : "text-neutral-700 dark:text-neutral-300 group-hover/checkbox:text-[#FABC05]"
-                  }`}>
-                    أنا عضو في Webscale
-                  </span>
-                </label>
-              </div>
-              <ul className="space-y-3 mb-6 text-neutral-700 dark:text-neutral-300">
-                {isWebscaleMember ? (
-                  <>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>نفس المميزات</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>خصم 6.000 د.ج</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>دورة حضورية مكثفة 3 أيام</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>محتوى عملي وتطبيقي</span></li>
-                  </>
-                ) : (
-                  <>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>دورة حضورية مكثفة 3 أيام</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>محتوى عملي وتطبيقي</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>شهادة إتمام</span></li>
-                    <li className="flex items-center gap-2 group/item hover:text-[#FABC05] transition-colors duration-300">✓ <span>خطة تطبيق فردية</span></li>
-                  </>
-                )}
-              </ul>
-              <button
-                onClick={() => setShowRegistrationModal(true)}
-                className="relative w-full px-6 py-3 bg-gradient-to-r from-[#FABC05] to-[#FFD700] text-black font-semibold rounded-lg overflow-hidden group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#FABC05]/50"
-              >
-                <span className="relative z-10">✅ سجّل في قائمة الانتظار</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FABC05] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
-            </div>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <p className="text-center text-lg mb-4 text-neutral-700 dark:text-neutral-300">
-              <strong className="text-[#FABC05]">⏳ الأماكن مملوءة</strong> - سجّل في قائمة الانتظار واحصل على أولوية عند فتح مقاعد جديدة
-            </p>
-            <FormationRegistrationForm />
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section id="faq" className="py-6 md:py-8 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">الأسئلة الشائعة</h2>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {faqItems.map((item, idx) => (
-              <div key={idx} className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden hover:shadow-xl hover:border-[#FABC05]/30 transition-all duration-300">
+      <main>
+        <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-white to-slate-100">
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-3 md:grid-cols-2 md:items-start md:px-8 md:pb-16 md:pt-12">
+            <img
+              src={cantonHeroLogo}
+              alt="Canton Fair Webscale 2026"
+              className="h-auto w-full rounded-2xl border border-slate-200 bg-white p-0 shadow-xl md:hidden"
+            />
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-4 py-1 text-xs font-bold text-amber-700">
+                <Sparkles className="h-4 w-4" />
+                برنامج عملي تأهيلي
+              </p>
+              <h1 className="font-black leading-tight">
+                <span className="block whitespace-nowrap text-xl md:text-4xl">
+                  استعد لمعرض كانتون مع وابسكيل
+                </span>
+              </h1>
+              <p className="mt-4 text-lg font-semibold text-slate-700 md:text-xl">
+                <span className="md:hidden">
+                  برنامج عملي للمصنّعين والمستثمرين الجزائريين لتعلّم استيراد خطوط الإنتاج من الصين بذكاء، وتفادي
+                  الأخطاء المكلفة، وبناء صفقات ومشاريع ناجحة.
+                </span>
+                <span className="hidden md:inline">
+                  برنامج تأهيلي عملي يحضرك لزيارة معرض كانتون وبناء صفقات ناجحة واستيراد خطوط الإنتاج الكبيرة
+                  والمتوسطة من الصين
+                </span>
+              </p>
+              <p className="mt-5 hidden text-base leading-8 text-slate-600 md:block">
+                هذا البرنامج مصمم لرواد الأعمال الجزائريين والمصنّعين والمستوردين المهتمين باستيراد
+                خطوط الإنتاج من الصين بقرارات أوضح ومخاطر أقل. ستتعلم كيف تبحث عن المورد الصحيح، تتفادى
+                الأخطاء المكلفة، وتبني فرص إنشاء مصانع ناجحة وقابلة للتنفيذ في الجزائر.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
                 <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full px-6 py-4 flex items-center justify-between text-right hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 transition-all duration-300 group"
+                  onClick={scrollToRegister}
+                  className="rounded-xl bg-amber-500 px-6 py-3 text-sm font-extrabold text-slate-900 transition hover:-translate-y-0.5 hover:bg-amber-400"
                 >
-                  <span className="font-semibold text-neutral-800 dark:text-neutral-100 group-hover:text-[#FABC05] transition-colors duration-300">{item.question}</span>
-                  <span className="text-2xl text-neutral-600 dark:text-neutral-400 group-hover:text-[#FABC05] group-hover:scale-125 transition-all duration-300">{openFaq === idx ? "−" : "+"}</span>
+                  احجز مقعدك الآن
                 </button>
-                {openFaq === idx && (
-                  <div className="px-6 py-4 border-t border-neutral-200/50 dark:border-neutral-700/50 bg-gradient-to-b from-transparent to-[#FABC05]/5 dark:to-[#FABC05]/10 animate-in slide-in-from-top duration-300">
-                    <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">{item.answer}</p>
-                  </div>
-                )}
+                <button
+                  onClick={scrollToRegister}
+                  className="rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
+                >
+                  اطلب التفاصيل
+                </button>
+                <a
+                  href="https://wa.me/213563565936"
+                  className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  تواصل معنا عبر واتساب
+                </a>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-6 md:py-8 px-4 bg-gradient-to-b from-white/50 to-yellow-50/30 dark:from-neutral-800/50 dark:to-neutral-900/50">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-neutral-800 dark:text-neutral-100">تواصل معنا</h2>
-          <div className="max-w-4xl mx-auto bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-6 text-neutral-800 dark:text-neutral-100">معلومات التواصل</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4 group hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 p-3 rounded-lg transition-all duration-300">
-                    <div className="p-3 bg-[#FABC05]/20 rounded-lg group-hover:scale-110 group-hover:bg-[#FABC05]/30 transition-all duration-300">
-                      <svg className="w-6 h-6 text-[#FABC05]" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400">البريد الإلكتروني</p>
-                      <a href="mailto:contact@webscale.dz" className="text-[#FABC05] hover:underline font-medium group-hover:text-[#FFD700] transition-colors duration-300">
-                        contact@webscale.dz
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4 group hover:bg-[#FABC05]/10 dark:hover:bg-[#FABC05]/20 p-3 rounded-lg transition-all duration-300">
-                    <div className="p-3 bg-[#FABC05]/20 rounded-lg group-hover:scale-110 group-hover:bg-[#FABC05]/30 transition-all duration-300">
-                      <svg className="w-6 h-6 text-[#FABC05]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="2" y1="12" x2="22" y2="12" />
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400">الموقع الرسمي</p>
-                      <a href="https://www.webscale.pro/" target="_blank" rel="noopener noreferrer" className="text-[#FABC05] hover:underline font-medium group-hover:text-[#FFD700] transition-colors duration-300">
-                        www.webscale.pro
-                      </a>
-                    </div>
+              <img
+                src={cantonEventLogo}
+                alt="Canton Fair 2026"
+                className="mt-6 hidden h-auto w-full max-w-[520px] md:block"
+              />
+              <div className="mt-7 flex flex-wrap gap-2">
+                {trustBadges.map((badge) => (
+                  <span
+                    key={badge}
+                    className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600"
+                  >
+                    {badge}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <img
+                src={cantonHeroLogo}
+                alt="Canton Fair Webscale 2026"
+                className="mb-4 hidden h-auto w-full rounded-2xl border border-slate-200 bg-white p-0 shadow-xl md:block"
+              />
+              <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xl md:p-7">
+                <div className="mb-4">
+                  <div className="rounded-2xl border border-amber-200 bg-gradient-to-l from-amber-50 to-white p-4 md:p-5">
+                    <p className="mb-2 inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1 text-[11px] font-bold text-amber-700">
+                      <Sparkles className="h-3.5 w-3.5" />
+                      البرنامج الأونلاين
+                    </p>
+                    <h1 className="text-xl font-black leading-tight text-slate-900 md:text-2xl">
+                      5 جلسات عملية أونلاين
+                    </h1>
                   </div>
                 </div>
+                <div className="rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 p-5 text-slate-900">
+                  <p className="text-sm font-semibold text-slate-800">لقاء تكويني تفاعلي + إفطار جماعي</p>
+                  <div className="mt-4 space-y-3 text-sm">
+                    <p className="flex items-center gap-2">
+                      <Landmark className="h-4 w-4 text-slate-800" />
+                      المكان: المعهد العالي للعلوم
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <CalendarDays className="h-4 w-4 text-slate-800" />
+                      التاريخ: 12 مارس الموافق لـ23 رمضان
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Clock3 className="h-4 w-4 text-slate-800" />
+                      التوقيت: من 17:00 إلى 00:00
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2 text-center text-sm font-bold text-amber-700">
+                  220 مقعد متوفر
+                </p>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-6 text-neutral-800 dark:text-neutral-100">تابعنا على وسائل التواصل</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { 
-                      name: "LinkedIn", 
-                      href: "https://www.linkedin.com/company/webscalepro/",
-                      icon: (
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                      )
-                    },
-                    { 
-                      name: "Youtube", 
-                      href: "https://youtube.com/@webscale-pro?si=KWRMamO8XO628NlY",
-                      icon: (
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                      )
-                    },
-                    { 
-                      name: "Facebook", 
-                      href: "https://www.facebook.com/share/15utdJSobi/",
-                      icon: (
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                      )
-                    },
-                    { 
-                      name: "Instagram", 
-                      href: "https://www.instagram.com/webscale.pro?igsh=MXg0OXRjOXk5bGExag==",
-                      icon: (
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                      )
-                    },
-                  ].map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-3 p-4 bg-neutral-100/80 dark:bg-neutral-700/80 backdrop-blur-sm rounded-lg border border-neutral-200/50 dark:border-neutral-600/50 hover:bg-[#FABC05]/20 dark:hover:bg-[#FABC05]/20 hover:border-[#FABC05]/50 hover:scale-110 hover:shadow-lg transition-all duration-300 group"
-                    >
-                      <span className="text-neutral-700 dark:text-neutral-300 group-hover:text-[#FABC05] transition-colors duration-300 group-hover:scale-110">
-                        {social.icon}
-                      </span>
-                      <span className="text-neutral-700 dark:text-neutral-300 font-medium group-hover:text-[#FABC05] transition-colors duration-300">{social.name}</span>
-                    </a>
-                  ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-white px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            {renderSectionTitle("لماذا يجب أن تحضر هذا البرنامج؟")}
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {benefits.map((item) => (
+                <article
+                  key={item}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  <Target className="mb-3 h-5 w-5 text-amber-500" />
+                  <p className="text-sm font-semibold leading-7 text-slate-700">{item}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-slate-50 px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            {renderSectionTitle("هذا البرنامج مناسب لمن؟")}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {audience.map((segment, index) => (
+                <div
+                  key={segment}
+                  className="rounded-2xl border border-slate-200 bg-white p-5 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  {index % 3 === 0 ? (
+                    <Users className="mx-auto mb-3 h-6 w-6 text-slate-900" />
+                  ) : index % 3 === 1 ? (
+                    <Factory className="mx-auto mb-3 h-6 w-6 text-slate-900" />
+                  ) : (
+                    <Building2 className="mx-auto mb-3 h-6 w-6 text-slate-900" />
+                  )}
+                  <p className="text-sm font-bold text-slate-700">{segment}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-white px-4 py-8 md:px-8">
+          <div className="mx-auto flex max-w-7xl justify-center">
+            <button
+              onClick={scrollToRegister}
+              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-400 px-10 py-4 text-base font-black text-slate-900 shadow-[0_12px_30px_rgba(245,158,11,0.30)] transition duration-300 hover:-translate-y-1 hover:from-amber-400 hover:via-yellow-300 hover:to-orange-300"
+            >
+              <Sparkles className="h-5 w-5" />
+              احجز مقعدك الآن
+            </button>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-white px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            {renderSectionTitle("ماذا ستستفيد داخل البرنامج؟")}
+            <div className="grid gap-6 md:grid-cols-2">
+              <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                <p className="mb-3 inline-flex rounded-full bg-slate-900 px-3 py-1 text-xs font-bold text-white">
+                  جلسات عملية أونلاين
+                </p>
+                <h3 className="text-xl font-black">جلسات عملية أونلاين</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">
+                  ستفهم كيف تختار خط الإنتاج المناسب، تقيّم المصانع والموردين باحتراف، وتتخذ قرارات
+                  استثمارية مدروسة تحمي رأس مالك قبل السفر.
+                </p>
+              </article>
+              <article className="rounded-2xl border border-amber-300 bg-amber-50 p-6 shadow-sm">
+                <p className="mb-3 inline-flex rounded-full bg-amber-500 px-3 py-1 text-xs font-bold text-slate-900">
+                  لقاء تكويني تفاعلي + إفطار جماعي
+                </p>
+                <h3 className="text-xl font-black text-slate-900">لقاء تكويني تفاعلي + إفطار جماعي</h3>
+                <p className="mt-3 text-sm font-semibold leading-7 text-slate-700">
+                  ستبني شبكة علاقات قوية مع مستثمرين وصناعيين ومختصين، وتتبادل تجارب حقيقية قد تتحول إلى
+                  شراكات وفرص أعمال فعلية.
+                </p>
+              </article>
+            </div>
+
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-white px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            {renderSectionTitle("المحاضرون والمستشارون")}
+            <div className="grid gap-5 lg:grid-cols-2">
+              {speakerCards.map((speaker) => (
+                <article
+                  key={speaker.name}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  <div className="mb-4 flex items-center gap-2">
+                    <Star className="h-5 w-5 text-amber-500" />
+                    <h3 className="text-lg font-black">{speaker.name}</h3>
+                  </div>
+                  <ul className="space-y-2 text-sm leading-7 text-slate-700">
+                    {speaker.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2">
+                        <BadgeCheck className="mt-1 h-4 w-4 shrink-0 text-emerald-600" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+            <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-center shadow-sm">
+              <p className="text-sm font-semibold text-slate-600">كما يشارك أيضًا:</p>
+              <p className="mt-2 text-base font-extrabold text-slate-900">
+                الأستاذ ناصر بن ديب • الشيخ عمار رقبة
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-slate-50 px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            {renderSectionTitle("العرض يشمل")}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {includedItems.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-start gap-2 rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-700 shadow-sm"
+                >
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-white px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-5xl">
+            <div className="relative overflow-hidden rounded-3xl border border-amber-300 bg-gradient-to-l from-orange-400 via-amber-400 to-yellow-300 p-7 text-slate-900 shadow-2xl md:p-10">
+              <div className="absolute -left-16 -top-16 h-44 w-44 rounded-full bg-amber-500/25 blur-3xl" />
+              <div className="absolute -bottom-16 -right-16 h-44 w-44 rounded-full bg-amber-500/25 blur-3xl" />
+
+              <div className="relative text-center">
+                <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-900/20 bg-white/30 px-4 py-1 text-xs font-bold text-slate-900">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  المقاعد محدودة
+                </p>
+                <h3 className="text-2xl font-black leading-tight md:text-3xl">
+                  احجز مكانك الآن قبل اكتمال التسجيل
+                </h3>
+                <p className="mt-3 text-sm text-slate-800 md:text-base">
+                  اضمن مقعدك في البرنامج واستفد من الجلسات العملية واللقاء التكويني التفاعلي.
+                </p>
+
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                  <button
+                    onClick={scrollToRegister}
+                    className="rounded-xl bg-slate-900 px-6 py-3 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
+                  >
+                    احجز مقعدك الآن
+                  </button>
+                  <a
+                    href="https://wa.me/213563565936"
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
+                  >
+                    <MessageCircle className="h-4 w-4 text-emerald-300" />
+                    تواصل عبر واتساب
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-4 bg-gradient-to-b from-neutral-900 to-black dark:from-black dark:to-neutral-900 text-neutral-300 border-t border-neutral-800">
-        <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4 group">
-            <img src={logo} alt="Webscale Logo" className="h-10 w-auto transition-transform duration-300 group-hover:scale-110" />
-            <span className="text-xl font-bold group-hover:text-[#FABC05] transition-colors duration-300">Webscale</span>
+        <section className="border-b border-slate-200 bg-white px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            {renderSectionTitle(
+              "خيارات المشاركة",
+              "اختر الصيغة الأنسب لك، مع أفضلية واضحة للعرض الكامل."
+            )}
+            <div className="grid gap-5 lg:grid-cols-2">
+              {pricing.map((plan) => (
+                <article
+                  key={plan.title}
+                  className={`rounded-3xl border p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${
+                    plan.featured
+                      ? "border-amber-400 bg-amber-50 ring-2 ring-amber-300"
+                      : "border-slate-200 bg-slate-50"
+                  }`}
+                >
+                  {plan.featured ? (
+                    <p className="mb-3 inline-flex rounded-full bg-slate-900 px-3 py-1 text-xs font-bold text-white">
+                      أفضل قيمة
+                    </p>
+                  ) : null}
+                  <h3 className="text-3xl font-black text-slate-900">{plan.title}</h3>
+                  <p className="mt-1 text-sm font-semibold text-slate-500">السعر بدون احتساب الرسوم</p>
+                  <p className="mt-2 text-base font-bold text-slate-700">{plan.subtitle}</p>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{plan.description}</p>
+                  <button
+                    onClick={scrollToRegister}
+                    className={`mt-6 w-full rounded-xl px-4 py-3 text-sm font-extrabold transition ${
+                      plan.featured
+                        ? "bg-amber-500 text-slate-900 hover:bg-amber-400"
+                        : "bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-900 hover:from-amber-400 hover:to-yellow-300"
+                    }`}
+                  >
+                    احجز مقعدك الآن
+                  </button>
+                </article>
+              ))}
+            </div>
+            <p className="mt-6 text-center text-lg font-extrabold text-rose-600">
+              عدد المقاعد: 220 مقعد
+            </p>
           </div>
-          <p className="text-neutral-400 hover:text-neutral-300 transition-colors duration-300">&copy; 2025 Webscale. جميع الحقوق محفوظة. | دورة النظام الحقيقي لتسيير الجودة SMQ</p>
+        </section>
+
+        <section
+          id="register"
+          className="border-b border-slate-200 bg-gradient-to-l from-orange-400 via-amber-400 to-yellow-300 px-4 py-14 text-slate-900 md:px-8"
+        >
+          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
+            <div>
+              <h2 className="text-3xl font-black leading-tight md:text-4xl">
+                إذا كنت تريد دخول عالم إستيراد خطوط الإنتاج من الصين بوعي أكبر، أخطاء أقل، وعلاقات أقوى —
+                فهذا البرنامج صُمم لك.
+              </h2>
+              <p className="mt-4 text-slate-800">
+                التسجيل في هذا النموذج يضعك ضمن قائمة التأكيد المباشر مع فريق وابسكيل.
+              </p>
+              <div className="mt-6 space-y-3 text-sm font-semibold">
+                <p className="flex items-center gap-2">
+                  <Handshake className="h-4 w-4 text-slate-800" />
+                  تركيز كامل على نتائج عملية وقابلة للتنفيذ
+                </p>
+                <p className="flex items-center gap-2">
+                  <Target className="h-4 w-4 text-slate-800" />
+                  هدف واحد واضح: تحويلك إلى مستورد أذكى وأكثر جاهزية
+                </p>
+              </div>
+              <a
+                href="https://wa.me/213563565936"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white transition hover:bg-emerald-500"
+              >
+                <MessageCircle className="h-4 w-4" />
+                تواصل معنا عبر واتساب
+              </a>
+            </div>
+            <form
+              id="register-form"
+              onSubmit={handleSubmit}
+              className="registration-form rounded-3xl bg-white p-6 text-slate-900 shadow-2xl"
+            >
+              <h3 className="text-xl font-black">احجز مقعدك الآن</h3>
+              <p className="mt-1 text-sm text-slate-600">املأ البيانات وسنتواصل معك بسرعة.</p>
+              <div className="mt-5 space-y-4">
+                <div>
+                  <label htmlFor="companyName" className="mb-1 block text-sm font-bold">
+                    اسم الشركة
+                  </label>
+                  <input
+                    id="companyName"
+                    required
+                    value={formData.companyName}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, companyName: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                    placeholder="أدخل اسم الشركة"
+                  />
+                  <p className="mt-1 text-xs text-slate-500">
+                    في حالة عدم امتلاكك لشركة اكتب: ليس بعد
+                  </p>
+                </div>
+                <div>
+                  <label htmlFor="employeeCount" className="mb-1 block text-sm font-bold">
+                    عدد الموظفين
+                  </label>
+                  <select
+                    id="employeeCount"
+                    required
+                    value={formData.employeeCount}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, employeeCount: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر عدد الموظفين</option>
+                    {employeeCountOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="legalForm" className="mb-1 block text-sm font-bold">
+                    ما هو الشكل القانوني لشركتك؟
+                  </label>
+                  <select
+                    id="legalForm"
+                    required
+                    value={formData.legalForm}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, legalForm: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر الشكل القانوني</option>
+                    {legalFormOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                    <option value="أخرى">أخرى..</option>
+                  </select>
+                  {formData.legalForm === "أخرى" ? (
+                    <input
+                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                      placeholder="أخرى.."
+                      value={formData.legalFormCustom}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, legalFormCustom: e.target.value }))
+                      }
+                    />
+                  ) : null}
+                </div>
+                <div>
+                  <label htmlFor="businessSector" className="mb-1 block text-sm font-bold">
+                    ما هو مجال نشاط شركتك؟
+                  </label>
+                  <select
+                    id="businessSector"
+                    required
+                    value={formData.businessSector}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, businessSector: e.target.value }))
+                    }
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر المجال</option>
+                    {businessSectorOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                    <option value="أخرى">أخرى (يرجى التحديد)</option>
+                  </select>
+                  {formData.businessSector === "أخرى" ? (
+                    <input
+                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                      placeholder="أخرى (يرجى التحديد)"
+                      value={formData.businessSectorCustom}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, businessSectorCustom: e.target.value }))
+                      }
+                    />
+                  ) : null}
+                </div>
+                <div>
+                  <label htmlFor="companyEstablished" className="mb-1 block text-sm font-bold">
+                    منذ متى تأسست شركتك؟
+                  </label>
+                  <select
+                    id="companyEstablished"
+                    required
+                    value={formData.companyEstablished}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, companyEstablished: e.target.value }))
+                    }
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر المدة</option>
+                    {companyEstablishedOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="fullName" className="mb-1 block text-sm font-bold">
+                    الاسم واللقب
+                  </label>
+                  <input
+                    id="fullName"
+                    required
+                    value={formData.fullName}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, fullName: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                    placeholder="أدخل الاسم واللقب"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="mb-1 block text-sm font-bold">
+                    رقم الواتس آب
+                  </label>
+                  <input
+                    id="phone"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                    placeholder="05xx xx xx xx"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="mb-1 block text-sm font-bold">
+                    الايميل
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                    placeholder="name@email.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="state" className="mb-1 block text-sm font-bold">
+                    الولاية
+                  </label>
+                  <select
+                    id="state"
+                    value={formData.state}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, state: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر الولاية</option>
+                    {stateOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <p className="mb-2 block text-sm font-bold">هل أنت عضو في Webscale؟</p>
+                  <div className="flex gap-4">
+                    {["نعم", "لا"].map((option) => (
+                      <label key={option} className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name="isWebscaleMember"
+                          value={option}
+                          required
+                          checked={formData.isWebscaleMember === option}
+                          onChange={(e) =>
+                            setFormData((prev) => ({ ...prev, isWebscaleMember: e.target.value }))
+                          }
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="jobTitle" className="mb-1 block text-sm font-bold">
+                    المنصب الوظيفي
+                  </label>
+                  <select
+                    id="jobTitle"
+                    required
+                    value={formData.jobTitle}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, jobTitle: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر المنصب الوظيفي</option>
+                    {jobTitleOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <p className="mb-2 block text-sm font-bold">هل سبق لك حضور دورة تدريبية في Webscale؟</p>
+                  <div className="flex gap-4">
+                    {["لا", "نعم"].map((option) => (
+                      <label key={option} className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name="hasAttendedWebscaleTraining"
+                          value={option}
+                          required
+                          checked={formData.hasAttendedWebscaleTraining === option}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              hasAttendedWebscaleTraining: e.target.value,
+                            }))
+                          }
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-2 block text-sm font-bold">هل ستحضر معرض كانتون أفريل 2026؟</p>
+                  <div className="flex gap-4">
+                    {["نعم", "لا"].map((option) => (
+                      <label key={option} className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name="attendingCantonApril"
+                          value={option}
+                          required
+                          checked={formData.attendingCantonApril === option}
+                          onChange={(e) =>
+                            setFormData((prev) => ({ ...prev, attendingCantonApril: e.target.value }))
+                          }
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="visitedCantonBefore" className="mb-1 block text-sm font-bold">
+                    هل زرت معرض كانتون من قبل
+                  </label>
+                  <div className="flex flex-wrap gap-4">
+                    {["لا", "مرة واحدة", "مرتين", "اكثر من 3 مرات", "Autre"].map((option) => (
+                      <label key={option} className="inline-flex items-center gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name="visitedCantonBefore"
+                          value={option}
+                          required
+                          checked={formData.visitedCantonBefore === option}
+                          onChange={(e) =>
+                            setFormData((prev) => ({ ...prev, visitedCantonBefore: e.target.value }))
+                          }
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                  {formData.visitedCantonBefore === "Autre" ? (
+                    <input
+                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                      placeholder="Please specify..."
+                      value={formData.visitedCantonBeforeCustom}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          visitedCantonBeforeCustom: e.target.value,
+                        }))
+                      }
+                    />
+                  ) : null}
+                </div>
+                <div>
+                  <label htmlFor="visitReason" className="mb-1 block text-sm font-bold">
+                    ماهو سبب زيارتك للمعرض؟
+                  </label>
+                  <select
+                    id="visitReason"
+                    required
+                    value={formData.visitReason}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, visitReason: e.target.value }))}
+                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                  >
+                    <option value="">اختر السبب</option>
+                    {visitReasonOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                    <option value="Autre">Autre</option>
+                  </select>
+                  {formData.visitReason === "Autre" ? (
+                    <input
+                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-amber-400"
+                      placeholder="Please specify..."
+                      value={formData.visitReasonCustom}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, visitReasonCustom: e.target.value }))
+                      }
+                    />
+                  ) : null}
+                </div>
+              </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="mt-5 w-full rounded-xl bg-amber-500 px-5 py-3 text-sm font-extrabold text-slate-900 transition hover:bg-amber-400"
+              >
+                {isSubmitting ? "جاري الإرسال..." : "احجز مقعدك الآن"}
+              </button>
+              {formSubmitted ? (
+                <p className="mt-3 rounded-xl bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
+                  تم استلام طلبك بنجاح. سيقوم فريقنا بالتواصل معك قريبًا.
+                </p>
+              ) : null}
+              {submitError ? (
+                <p className="mt-3 rounded-xl bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-700">
+                  {submitError}
+                </p>
+              ) : null}
+            </form>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-slate-50 px-4 py-14 md:px-8">
+          <div className="mx-auto max-w-5xl">
+            {renderSectionTitle("أسئلة شائعة")}
+            <div className="space-y-3">
+              {faqs.map((item, index) => (
+                <article key={item.q} className="rounded-2xl border border-slate-200 bg-white shadow-sm">
+                  <button
+                    className="flex w-full items-center justify-between gap-3 px-5 py-4 text-right"
+                    onClick={() => setActiveFaq(activeFaq === index ? null : index)}
+                  >
+                    <span className="text-sm font-bold text-slate-800">{item.q}</span>
+                    <span className="text-xl font-bold text-amber-500">
+                      {activeFaq === index ? "−" : "+"}
+                    </span>
+                  </button>
+                  {activeFaq === index ? (
+                    <p className="border-t border-slate-100 px-5 py-4 text-sm leading-7 text-slate-600">
+                      {item.a}
+                    </p>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-slate-200 bg-white px-4 py-10 md:px-8">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={scrollToRegister}
+              className="rounded-xl bg-amber-500 px-7 py-3 text-sm font-extrabold text-slate-900 transition hover:-translate-y-0.5 hover:bg-amber-400"
+            >
+              احجز مقعدك الآن
+            </button>
+            <a
+              href="https://wa.me/213563565936"
+              className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-7 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
+            >
+              <MessageCircle className="h-4 w-4" />
+              تواصل عبر واتساب
+            </a>
+          </div>
+        </section>
+
+        <section className="bg-gradient-to-l from-orange-400 via-amber-400 to-yellow-300 px-4 py-14 text-center text-slate-900 md:px-8">
+          <div className="mx-auto max-w-4xl">
+            <p className="inline-flex rounded-full bg-white/30 px-3 py-1 text-xs font-bold text-slate-900">
+              المقاعد محدودة
+            </p>
+            <h2 className="mt-4 text-3xl font-black md:text-4xl">اتخذ قرارك الآن قبل اكتمال المقاعد</h2>
+            <p className="mt-3 text-slate-800">
+              برنامج مصمم لنتائج حقيقية، مع مستشارين لديهم خبرة عملية مباشرة في السوق الصيني.
+            </p>
+            <button
+              onClick={scrollToRegister}
+              className="mt-7 rounded-xl bg-amber-500 px-7 py-3 text-sm font-extrabold text-slate-900 transition hover:bg-amber-400"
+            >
+              احجز مقعدك الآن
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-white px-4 py-10 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 border-t border-slate-200 pt-8 md:grid-cols-3">
+          <div>
+            <div className="mb-2 flex items-center gap-3">
+              <img src={logo} alt="Webscale" className="h-9 w-auto" />
+              <p className="text-lg font-black text-slate-900">وابسكيل</p>
+            </div>
+            <p className="text-sm font-semibold text-slate-600">الجهة المنظمة</p>
+          </div>
+          <div className="space-y-2 text-sm text-slate-600">
+            <p className="flex items-center gap-2">
+              <Phone className="h-4 w-4" /> الهاتف: +213563565936
+            </p>
+            <p className="flex items-center gap-2">
+              <MessageCircle className="h-4 w-4" /> واتساب: +213563565936
+            </p>
+            <a
+              href="mailto:contact@webscale.dz"
+              className="flex items-center gap-2 transition hover:text-slate-900"
+            >
+              <Mail className="h-4 w-4" /> البريد: contact@webscale.dz
+            </a>
+          </div>
+          <div className="text-sm text-slate-600">
+            <p className="font-bold text-slate-800">روابط اجتماعية</p>
+            <div className="mt-3 space-y-2">
+              <a
+                href="https://www.facebook.com/webscaledz"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 transition hover:text-slate-900"
+              >
+                <Facebook className="h-4 w-4" />
+                Facebook
+              </a>
+              <a
+                href="https://www.instagram.com/webs.cale/"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 transition hover:text-slate-900"
+              >
+                <Instagram className="h-4 w-4" />
+                Instagram
+              </a>
+              <a
+                href="https://www.youtube.com/@webscaledz"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 transition hover:text-slate-900"
+              >
+                <Youtube className="h-4 w-4" />
+                YouTube
+              </a>
+              <a
+                href="https://www.linkedin.com/company/webscaledz/posts/?feedView=all"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 transition hover:text-slate-900"
+              >
+                <Linkedin className="h-4 w-4" />
+                LinkedIn
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
 
-      {/* Registration Modal */}
-      {showRegistrationModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="bg-white/95 dark:bg-neutral-800/95 backdrop-blur-lg rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-neutral-200/50 dark:border-neutral-700/50 animate-in zoom-in-95 duration-300">
-            <div className="sticky top-0 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-lg border-b border-neutral-200/50 dark:border-neutral-700/50 p-4 flex items-center justify-between rounded-t-2xl z-10">
-              <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">سجّل في قائمة الانتظار</h2>
-              <button
-                onClick={() => setShowRegistrationModal(false)}
-                className="p-2 hover:bg-[#FABC05]/20 dark:hover:bg-[#FABC05]/20 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-90"
-              >
-                <X className="w-6 h-6 text-neutral-700 dark:text-neutral-300 hover:text-[#FABC05] transition-colors duration-300" />
-              </button>
-            </div>
-            <div className="p-6">
-              <FormationRegistrationForm onSuccess={() => setShowRegistrationModal(false)} />
-            </div>
-          </div>
-        </div>
-      )}
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 p-3 backdrop-blur md:hidden">
+        <button
+          onClick={scrollToRegister}
+          className="w-full rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 px-5 py-3 text-sm font-extrabold text-slate-900"
+        >
+          احجز مقعدك الآن
+        </button>
+      </div>
     </div>
   );
 };
