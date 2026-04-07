@@ -561,7 +561,7 @@ const FormationPageDynamic = ({ formation }) => {
                 <div className="mx-auto max-w-3xl text-right" dir="rtl">
                   <div className="rounded-3xl border border-[#FABC05]/30 bg-gradient-to-b from-[#FFF9E9] to-[#FFFDF6] p-5 shadow-sm md:p-8">
                     <h3 className="text-2xl font-black leading-tight text-neutral-900 md:text-3xl">
-                      ماذا ستتعلم في Promotion Days؟
+                      ماذا ستتعلم في MARKETING DAYS؟
                     </h3>
 
                     <ul className="mt-5 space-y-3 text-base leading-relaxed text-neutral-800 md:mt-6 md:text-lg">
