@@ -13,15 +13,10 @@ const encodeImageUrl = (url) => {
 
 const FormationsMenu = () => {
   // Get all formations
-  const smqFormation = formations.smq;
   const comptabiliteFormation = formations.comptabilite;
   const promotionDaysFormation = formations.promotionDays;
 
   const formationCards = [
-    {
-      formation: smqFormation,
-      gradient: "from-blue-600/90 to-indigo-800/90",
-    },
     {
       formation: comptabiliteFormation,
       gradient: "from-purple-600/90 to-pink-800/90",
