@@ -2,7 +2,7 @@ import { AlertCircle, Briefcase, CheckCircle2, Facebook, GraduationCap, Instagra
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import FormationRegistrationForm from "../components/formation";
 
@@ -79,6 +79,7 @@ const trainingProgramColumns = [
 
 // This is a reusable FormationPage component that accepts formation configuration
 const FormationPageDynamic = ({ formation }) => {
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isWebscaleMember, setIsWebscaleMember] = useState(false);
@@ -1524,6 +1525,7 @@ const FormationPageDynamic = ({ formation }) => {
               <strong className="text-[#FABC05]">الأماكن محدودة</strong>
             </p>
             <FormationRegistrationForm 
+              onSuccess={() => navigate(`/formations/${formation.slug}/thank-you`)}
               formId={formation.formId}
               cohorts={formation.cohorts}
               fieldsConfig={formation.fieldsConfig}

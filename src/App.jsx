@@ -7,6 +7,7 @@ import AboutUs from "./pages/AboutUs";
 import BadgeGeneration from "./pages/BadgeGeneration";
 import EventLandingPage from "./pages/EventLandingPage";
 import FormationPage from "./pages/FormationPage";
+import FormationThankYouPage from "./pages/FormationThankYouPage";
 import FormationPageWrapper from "./pages/FormationPageWrapper";
 import FormationsMenu from "./pages/FormationsMenu";
 import InvestorLandingPage from "./pages/InvestorLandingPage";
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/canton-event" element={<FormationPage />} />
         <Route path="/formations" element={<FormationsMenu />} />
         <Route path="/formations/:slug" element={<FormationPageWrapper />} />
+        <Route path="/formations/:slug/thank-you" element={<FormationThankYouPage />} />
         <Route path="/investor" element={<InvestorLandingPage />} />
         <Route path="/workshop-event" element={<WorkshopEventPage />} />
         <Route path="/about" element={<AboutUs />} />

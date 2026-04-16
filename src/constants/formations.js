@@ -15,6 +15,10 @@ export const formations = {
       description: "تكوين تطبيقي 100% للمسيرين الذين يريدون نتائج. مع مستشار قضى أكثر من 25 سنة يصنع النتائج داخل Henkel، Nestlé، Danone، NCA، Renault Trucks…",
     },
     formId: "9699183e-5d2b-4969-832b-9abf4dddea48", // CRM Form ID
+    thankYouLink: {
+      url: "/",
+      label: "الذهاب إلى الصفحة الرئيسية",
+    },
     fallbackApiFields: [
       { id: "7687702e-ee6f-4f6d-942c-226b927625eb", form_id: "9699183e-5d2b-4969-832b-9abf4dddea48", label: "اسم الشركة", type: "text", required: true, options: null, validation: {}, order: 1 },
       { id: "0ece5530-a070-461e-881b-488200397596", form_id: "9699183e-5d2b-4969-832b-9abf4dddea48", label: "عدد الموظفين", type: "select", required: true, options: ["أقل من 5", "من 05 إلى 10 موظفين", "من 10 إلى 50 موظف", "من 50 موظف فما فوق"], validation: {}, order: 2 },
@@ -214,6 +218,10 @@ export const formations = {
       description: "تكوين شامل في أساسيات المحاسبة المالية للمديرين وكل من يريد فهم لغة المحاسبة وقراءة القوائم المالي مع السيد فريد مقران -",
     },
     formId: "a53dae24-f5ac-4457-91f5-4011d74e5a0e",
+    thankYouLink: {
+      url: "/",
+      label: "الذهاب إلى الصفحة الرئيسية",
+    },
     fieldsConfig: {
       // Field order 1: اسم الشركة (Company Name)
       companyName: { 
@@ -532,6 +540,10 @@ export const formations = {
       description: "في يومين، اصنع نقلة نوعية في الترويج لشركتك. دورة تدريبية مع الدكتور عبد الرحيم عبد اللاوي، مستشار في الترويج وبناء العلامات التجارية.",
     },
     formId: "8129a431-0fc1-42b2-9a62-1faf034d7fae", // Promotion Days form ID
+    thankYouLink: {
+      url: "/",
+      label: "الذهاب إلى الصفحة الرئيسية",
+    },
     forceFallbackApiFields: true,
     fallbackApiFields: [
       {
