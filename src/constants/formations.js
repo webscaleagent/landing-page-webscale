@@ -776,8 +776,6 @@ export const formations = {
         options: [
           "فوج 15 ، 16 فيفري",
           "قائمة الانتظار",
-          "فوج   15-16  افريل",
-          "فوج18-19   افريل",
           "فوج 2 -3 ماي",
           "فوج 16 -17 ماي",
         ],
@@ -936,8 +934,6 @@ export const formations = {
     cohorts: [
       { value: "فوج 15 ، 16 فيفري", label: "فوج 15 ، 16 فيفري", disabled: true },
       { value: "قائمة الانتظار", label: "قائمة الانتظار", disabled: true },
-      { value: "فوج   15-16  افريل", label: "فوج   15-16  افريل", disabled: false },
-      { value: "فوج18-19   افريل", label: "فوج18-19   افريل", disabled: false },
       { value: "فوج 2 -3 ماي", label: "فوج 2 -3 ماي", disabled: false },
       { value: "فوج 16 -17 ماي", label: "فوج 16 -17 ماي", disabled: false },
     ],
