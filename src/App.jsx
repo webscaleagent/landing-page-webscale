@@ -5,6 +5,7 @@ import UtmListener from "./components/UtmListener";
 import WhatsAppFloat from "./components/shared/WhatsAppFloat";
 import AboutUs from "./pages/AboutUs";
 import BadgeGeneration from "./pages/BadgeGeneration";
+import { SHOW_CANTON_EVENT } from "./constants/featureFlags";
 import EventLandingPage from "./pages/EventLandingPage";
 import FormationPage from "./pages/FormationPage";
 import FormationThankYouPage from "./pages/FormationThankYouPage";
@@ -32,7 +33,12 @@ export default function App() {
         <Route path="/formation" element={<Navigate to="/formations" replace />} />
         <Route path="/formation/:slug" element={<FormationSlugRedirect />} />
         <Route path="/event" element={<EventLandingPage />} />
-        <Route path="/canton-event" element={<FormationPage />} />
+        <Route
+          path="/canton-event"
+          element={
+            SHOW_CANTON_EVENT ? <FormationPage /> : <Navigate to="/formations" replace />
+          }
+        />
         <Route path="/formations" element={<FormationsMenu />} />
         <Route path="/formations/:slug" element={<FormationPageWrapper />} />
         <Route path="/formations/:slug/thank-you" element={<FormationThankYouPage />} />

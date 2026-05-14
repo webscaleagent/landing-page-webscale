@@ -133,29 +133,37 @@ const SmartManagerSection = () => {
           </div>
         </div>
 
-        {/* Status Banner */}
         <div
-          className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-8 text-white text-center shadow-2xl"
+          className="rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 p-8 text-center text-white shadow-2xl"
           data-aos="fade-up"
-          data-aos-delay="600"
+          data-aos-delay="500"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Sparkles size={32} className="animate-pulse" />
-            <h3 className="text-3xl font-bold">قريباً - تحت التطوير</h3>
-            <Sparkles size={32} className="animate-pulse" />
+          <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
+            <Sparkles size={28} className="animate-pulse" />
+            <h3 className="text-2xl font-bold md:text-3xl">
+              باجي والمسير الذكي ضمن منصة Webscale
+            </h3>
+            <Sparkles size={28} className="animate-pulse" />
           </div>
-          <p className="text-xl opacity-90 mb-6">
-            نعمل على تطوير المسير الذكي بمعايير عالية لضمان أفضل تجربة لك
+          <p className="mx-auto mb-6 max-w-2xl text-lg opacity-90">
+            نفس المنصة تجمع لوحة MANAGER، التشخيص اليومي، ومستشارك الذكي —
+            لتبني قراراتك من صورة واحدة وليس من نوافذ متعددة.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <div className="px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full">
-              <span className="font-semibold">مدعوم بخبراء محليين</span>
+          <a
+            href="https://webceo.webscale.dz/welcome/index.html"
+            className="mb-8 inline-flex min-h-[3rem] items-center justify-center rounded-xl bg-white px-10 py-3 text-center text-sm font-bold text-green-700 shadow-md transition hover:bg-green-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            اطلع على المنصة
+          </a>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="rounded-full bg-white/20 px-5 py-2.5 backdrop-blur-sm">
+              <span className="text-sm font-semibold">تأطير خبراء محليين</span>
             </div>
-            <div className="px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full">
-              <span className="font-semibold">تقنيات ذكاء اصطناعي متطورة</span>
+            <div className="rounded-full bg-white/20 px-5 py-2.5 backdrop-blur-sm">
+              <span className="text-sm font-semibold">متكامل مع أدوات القيادة</span>
             </div>
-            <div className="px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full">
-              <span className="font-semibold">متاح للأعضاء قريباً</span>
+            <div className="rounded-full bg-white/20 px-5 py-2.5 backdrop-blur-sm">
+              <span className="text-sm font-semibold">إجابات دقيقة وقابلة للتنفيذ</span>
             </div>
           </div>
         </div>

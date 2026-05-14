@@ -1,4 +1,4 @@
-import { AlertCircle, Briefcase, CheckCircle2, Facebook, GraduationCap, Instagram, Linkedin, Menu, Moon, Sun, Target, TrendingUp, Users, X } from "lucide-react";
+ import { AlertCircle, Briefcase, CheckCircle2, Facebook, GraduationCap, Instagram, Linkedin, Menu, Moon, Sun, Target, TrendingUp, Users, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";

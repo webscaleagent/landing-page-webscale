@@ -27,7 +27,7 @@ import user3 from "../assets/profile-pictures/user3.jpg";
 export const registrationNav = {
   links: [
     { label: "الرئيسية", href: "#hero" },
-    { label: "الأسعار", href: "#pricing" },
+    { label: "المنصة", href: "#platform" },
     { label: "الأسئلة الشائعة", href: "#faq" },
     { label: "من نحن", href: "/about" },
     { label: "الدورات", href: "/formation" },
@@ -485,7 +485,7 @@ export const footerLinksEvent = {
 
 export const registrationResourcesLinks = [
   { href: "#faq", text: "الأسئلة الشائعة" },
-  { href: "#pricing", text: "خطط الأسعار" },
+  { href: "#platform", text: "المنصة" },
 ];
 export const registrationPlatformLinks = [
   { href: "#register", text: "نموذج التسجيل" },
