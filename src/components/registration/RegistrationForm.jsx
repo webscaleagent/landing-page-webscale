@@ -621,7 +621,7 @@ export default function RegistrationForm() {
               label="مدة الاشتراك"
               required
               name="subscription"
-              options={["نصف سنوي", "سنوي"]}
+              options={["سنوي"]}
               value={form.subscription}
               onChange={(val) => setForm({ ...form, subscription: val })}
             />
