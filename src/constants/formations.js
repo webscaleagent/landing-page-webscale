@@ -532,14 +532,14 @@ export const formations = {
     id: "promotion-days",
     slug: "promotion-days",
     route: "/formations/promotion-days",
-    title: "MARKETING DAYS",
-    subtitle: "في يومين، اصنع نقلة نوعية في الترويج لشركتك",
-    description: "دورة تدريبية شاملة في الترويج وبناء العلامات التجارية مع الدكتور عبد الرحيم عبد اللاوي",
+    title: "MARKETING DAY",
+    subtitle: "برنامج تنفيذي مكثف ليوم واحد — قرارات تسويقية مبنية على الأرقام",
+    description: "برنامج عملي يساعد أصحاب المؤسسات والمسيرين على اتخاذ قرارات تسويقية مبنية على الأرقام وليس التخمين.",
     meta: {
-      title: "PROMOTION DAYS - دورة الترويج الاستراتيجي | Webscale",
-      description: "في يومين، اصنع نقلة نوعية في الترويج لشركتك. دورة تدريبية مع الدكتور عبد الرحيم عبد اللاوي، مستشار في الترويج وبناء العلامات التجارية.",
+      title: "Marketing DAY - Executive Edition | د. عبد الرحيم عبد اللاوي",
+      description: "برنامج عملي يساعد أصحاب المؤسسات والمسيرين على اتخاذ قرارات تسويقية مبنية على الأرقام وليس التخمين.",
     },
-    formId: "8129a431-0fc1-42b2-9a62-1faf034d7fae", // Promotion Days form ID
+    formId: "a76a0a47-8fad-450a-95f5-aab6f27ae5e1", // Marketing Day CRM form ID
     thankYouLink: {
       url: "/",
       label: "الذهاب إلى الصفحة الرئيسية",
@@ -802,34 +802,33 @@ export const formations = {
       hasAttendedWebscaleTraining: { required: true, label: "هل سبق لك حضور دورة تدريبية في Webscale؟" },
     },
     pricing: {
-      regular: "40.000",
-      webscaleMember: "37.000",
-      returningParticipant: "35.000",
+      regular: "15.000",
+      webscaleMember: "15.000",
+      returningParticipant: "15.000",
       currency: "د.ج",
-      taxNote: "HT",
+      taxNote: "بدون احتساب الرسوم",
       notes: [
-        "السعر تع الدورة تعي 40000 HT لغير الاعضاء",
-        "الاعضاء تع واب سكايل ولم يحضر اي دورة من قبل 37000 دج",
-        "لمن حضر معنا الدورات سابقا 35000 دج"
+        "المقعد الفردي: 15,000 دج",
+        "عرض المؤسسة (شخصان): 25,000 دج",
       ]
     },
     consultant: {
-      name: "عبد الرحيم عبد اللاوي",
-      title: "مستشار في الترويج وبناء العلامات التجارية",
+      name: "د. عبد الرحيم عبد اللاوي",
+      title: "مستشار ومدرب في التسويق الرقمي ونمو الأعمال",
       image: "/experts/abderrahim.png",
       experience: "",
-      description: "المؤسس والمدير التنفيذي لـ Webscale. أحد صناع المحتوى الاقتصادي الاحترافي في الجزائر وشمال إفريقيا",
+      description: "مستشار ومدرب في التسويق الرقمي ونمو الأعمال عبر الإنترنت. متخصص في مساعدة المؤسسات والمسيرين على بناء أنظمة تسويقية عملية قائمة على النتائج والأرقام بدل التخمين.",
       companies: [
         { logo: "/promotionsbrands/hanooty.jpg" },
         { logo: "/promotionsbrands/mourin.jpg" },
         { logo: "/promotionsbrands/yinvesti.jpg" },
       ],
       results: [
-        "مؤسس ومدير تنفيذي لـ Webscale",
-        "صانع محتوى اقتصادي احترافي في الجزائر وشمال إفريقيا",
-        "مختص في الترويج وبناء العلامات التجارية",
+        "الرئيس المدير العام لشركة WebScale",
+        "مؤسس Rahim Media Marketing",
+        "يشرف على إدارة الحملات وتطوير المؤسسات",
       ],
-      quote: "في يومين، اصنع نقلة نوعية في الترويج لشركتك",
+      quote: "قل وداعا للقرارات العشوائية ... وقل مرحبا للقرارات التسويقية الأفضل والأكثر حكمة.",
     },
     program: [
       {
@@ -1000,9 +999,9 @@ export const formations = {
       "كل من يعاني من ضعف الترويج رغم جودة المنتج أو الخدمة",
     ],
     maxParticipants: 20,
-    duration: "يومان تدريبيان (02 أيام)",
-    schedule: "من 09:00 إلى 16:00",
-    location: "مقر Webscale بالجزائر",
+    duration: "يوم تنفيذي مكثف",
+    schedule: "من 08:30 إلى 16:00",
+    location: "مقر WebScale – المحمدية، الجزائر العاصمة",
     methodology: [
       "تحليل واقعي لحالات حقيقية",
       "أمثلة تطبيقية",

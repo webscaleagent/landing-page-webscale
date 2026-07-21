@@ -8,11 +8,16 @@ export default {
   	extend: {
   		fontFamily: {
   			sans: ['Montserrat-Arabic', 'sans-serif'],
+  			cairo: ['Cairo', 'sans-serif'],
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		boxShadow: {
+  			gold: '0 4px 20px -2px rgba(201, 162, 78, 0.15)',
+  			'gold-glow': '0 0 25px rgba(201, 162, 78, 0.3)',
   		},
   		colors: {
   			background: 'hsl(var(--background))',
@@ -54,7 +59,16 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+  			bgPrimary: '#050816',
+  			bgSecondary: '#070B14',
+  			bgTertiary: '#0A0F1F',
+  			cardBg: '#111827',
+  			goldPrimary: '#C9A24E',
+  			goldSecondary: '#D4AF37',
+  			textPrimary: '#FFFFFF',
+  			textSecondary: '#CBD5E1',
+  			textMuted: '#94A3B8',
   		}
   	}
   },

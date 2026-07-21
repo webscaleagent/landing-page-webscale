@@ -1,13 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const WHATSAPP_NUMBER_DISPLAY = "+213 799 92 32 48";
 const WHATSAPP_NUMBER_LINK = "213799923248";
+const HIDDEN_PATHS = ["/formations/promotion-days"];
 
 export default function WhatsAppFloat() {
+  const { pathname } = useLocation();
   const [showScrollHint, setShowScrollHint] = useState(false);
   const hideTimeoutRef = useRef(null);
+  const isHidden = HIDDEN_PATHS.includes(pathname);
 
   useEffect(() => {
+    if (isHidden) return;
+
     const handleScroll = () => {
       setShowScrollHint(true);
 
@@ -28,7 +34,11 @@ export default function WhatsAppFloat() {
         window.clearTimeout(hideTimeoutRef.current);
       }
     };
-  }, []);
+  }, [isHidden]);
+
+  if (isHidden) {
+    return null;
+  }
 
   return (
     <a
