@@ -45,6 +45,10 @@
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '1361512201841121');
+      // Marketing Day pixel — only on /formations/promotion-days
+      if (location.pathname.indexOf('/formations/promotion-days') !== -1) {
+        fbq('init', '3093506604166938');
+      }
       fbq('track', 'PageView');
     </script>
   </head>

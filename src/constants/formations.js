@@ -802,14 +802,14 @@ export const formations = {
       hasAttendedWebscaleTraining: { required: true, label: "هل سبق لك حضور دورة تدريبية في Webscale؟" },
     },
     pricing: {
-      regular: "15.000",
-      webscaleMember: "15.000",
-      returningParticipant: "15.000",
+      regular: "17.500",
+      webscaleMember: "17.500",
+      returningParticipant: "17.500",
       currency: "د.ج",
       taxNote: "بدون احتساب الرسوم",
       notes: [
-        "المقعد الفردي: 15,000 دج",
-        "عرض المؤسسة (شخصان): 25,000 دج",
+        "المقعد الفردي: 17,500 دج",
+        "عرض المؤسسة (شخصان): 30,000 دج",
       ]
     },
     consultant: {

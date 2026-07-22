@@ -226,6 +226,21 @@ const wilayaOptions = [
   "أخرى",
 ];
 
+const cohortOptions = [
+  "فوج 06 جوان",
+  "فوج 13 جوان",
+  "فوج 20 جوان",
+  "فوج 27 جوان",
+];
+
+const callTimeOptions = [
+  "9:00 - 11:00",
+  "11:00 - 13:00",
+  "13:00 - 16:00",
+  "16:00 - 20:00",
+  "20:00 - 22:00",
+];
+
 const initialFormState = {
   companyName: "",
   legalForm: "",
@@ -244,25 +259,23 @@ const initialFormState = {
   hasAttendedWebscaleTraining: "",
   discoverySource: "",
   whyImportant: "",
+  callTime: "",
 };
 
 const inputClass =
   "w-full bg-bgPrimary border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-goldPrimary focus:ring-1 focus:ring-goldPrimary transition";
 
-const cohortOptions = [
-  "فوج 06 جوان",
-  "فوج 13 جوان",
-  "فوج 20 جوان",
-  "فوج 27 جوان",
-];
-
 const trackCTA = () => {
-  if (typeof window.fbq !== "undefined") window.fbq("trackCustom", "CTAView");
+  if (typeof window.fbq === "function") {
+    window.fbq("trackSingleCustom", FB_PIXEL_ID, "CTAView");
+  }
   if (typeof window.ttq !== "undefined") window.ttq.track("ClickButton");
 };
 
 const trackChat = () => {
-  if (typeof window.fbq !== "undefined") window.fbq("trackCustom", "ChatOpen");
+  if (typeof window.fbq === "function") {
+    window.fbq("trackSingleCustom", FB_PIXEL_ID, "ChatOpen");
+  }
   if (typeof window.ttq !== "undefined") window.ttq.track("Contact");
 };
 
@@ -274,8 +287,9 @@ const MarketingDayPage = () => {
   const [form, setForm] = useState(initialFormState);
 
   useEffect(() => {
-    // Marketing Day Facebook Pixel
-    if (!window.fbq) {
+    // Marketing Day Meta Pixel — ID distinct from the site-wide pixel in index.html
+    const ensureFbq = () => {
+      if (typeof window.fbq === "function") return;
       !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
@@ -292,9 +306,16 @@ const MarketingDayPage = () => {
         s = b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
       })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    };
+
+    ensureFbq();
+
+    if (!window.__mdPixelInited) {
+      // init + trackSingle so this ID is registered even when the global pixel already loaded
+      window.fbq("init", FB_PIXEL_ID);
+      window.fbq("trackSingle", FB_PIXEL_ID, "PageView");
+      window.__mdPixelInited = true;
     }
-    window.fbq("init", FB_PIXEL_ID);
-    window.fbq("track", "PageView");
 
     // TikTok Pixel
     !(function (w, d, t) {
@@ -400,6 +421,7 @@ const MarketingDayPage = () => {
         "اختر الفوج": form.cohort,
         "هل أنت عضو في Webscale؟": form.isWebscaleMember,
         "هل سبق لك حضور دورة تدريبية في Webscale؟": form.hasAttendedWebscaleTraining,
+        "ما هو التوقيت المناسب لك للاتصال بك؟": form.callTime,
       },
     };
 
@@ -432,9 +454,9 @@ const MarketingDayPage = () => {
         throw new Error(msg);
       }
 
-      const value = regType === "عرض المؤسسة" ? 25000 : 15000;
-      if (typeof window.fbq !== "undefined") {
-        window.fbq("track", "Lead", { currency: "DZD", value });
+      const value = regType === "عرض المؤسسة" ? 30000 : 17500;
+      if (typeof window.fbq === "function") {
+        window.fbq("trackSingle", FB_PIXEL_ID, "Lead", { currency: "DZD", value });
       }
       if (typeof window.ttq !== "undefined") {
         window.ttq.track("SubmitForm", { value, currency: "DZD" });
@@ -855,7 +877,7 @@ const MarketingDayPage = () => {
                 <div>
                   <h3 className="text-xl font-bold mb-2">المقعد الفردي</h3>
                   <div className="text-3xl font-black text-white mb-1">
-                    15,000 <span className="text-lg text-gray-400 font-normal">دج</span>
+                    17,500 <span className="text-lg text-gray-400 font-normal">دج</span>
                   </div>
                   <p className="text-xs text-gray-500 mb-6">(بدون احتساب الرسوم)</p>
                   <ul className="space-y-3 text-sm mb-6">
@@ -886,7 +908,7 @@ const MarketingDayPage = () => {
                 <div>
                   <h3 className="text-xl font-bold mb-2 gold-gradient-text">عرض المؤسسة</h3>
                   <div className="text-3xl font-black text-white mb-1">
-                    25,000 <span className="text-lg text-gray-400 font-normal">دج</span>
+                    30,000 <span className="text-lg text-gray-400 font-normal">دج</span>
                   </div>
                   <p className="text-xs text-gray-400 mb-4">للثنائي (المسير + مسؤول التسويق)</p>
                   <p className="text-xs text-goldPrimary/80 mb-6 leading-relaxed">
@@ -1195,6 +1217,36 @@ const MarketingDayPage = () => {
                       onChange={(e) => updateField("discoverySource", e.target.value)}
                       className={inputClass}
                     />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-300 mb-3">
+                      ما هو التوقيت المناسب لك للاتصال بك؟ *
+                    </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {callTimeOptions.map((opt) => (
+                        <label
+                          key={opt}
+                          className={`flex items-center gap-3 cursor-pointer rounded-lg border px-4 py-3 transition ${
+                            form.callTime === opt
+                              ? "border-goldPrimary bg-goldPrimary/10"
+                              : "border-gray-700 hover:border-goldPrimary/40"
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name="callTime"
+                            value={opt}
+                            required
+                            checked={form.callTime === opt}
+                            onChange={() => updateField("callTime", opt)}
+                            className="text-goldPrimary focus:ring-goldPrimary bg-bgPrimary border-gray-700 w-4 h-4"
+                          />
+                          <span className="font-bold" dir="ltr">
+                            {opt}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
