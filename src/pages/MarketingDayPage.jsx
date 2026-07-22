@@ -226,13 +226,6 @@ const wilayaOptions = [
   "أخرى",
 ];
 
-const cohortOptions = [
-  "فوج 06 جوان",
-  "فوج 13 جوان",
-  "فوج 20 جوان",
-  "فوج 27 جوان",
-];
-
 const callTimeOptions = [
   "9:00 - 11:00",
   "11:00 - 13:00",
@@ -252,7 +245,6 @@ const initialFormState = {
   fullName: "",
   phone: "",
   email: "",
-  cohort: "",
   state: "",
   isWebscaleMember: "",
   jobTitle: "",
@@ -418,7 +410,6 @@ const MarketingDayPage = () => {
         "الاسم واللقب": form.fullName.trim(),
         "رقم الواتس آب": form.phone.trim(),
         "الايميل": form.email.trim(),
-        "اختر الفوج": form.cohort,
         "هل أنت عضو في Webscale؟": form.isWebscaleMember,
         "هل سبق لك حضور دورة تدريبية في Webscale؟": form.hasAttendedWebscaleTraining,
         "ما هو التوقيت المناسب لك للاتصال بك؟": form.callTime,
@@ -1129,25 +1120,6 @@ const MarketingDayPage = () => {
                       ))}
                     </select>
                   </div>
-                </div>
-
-                <div className="pt-4 border-t border-gray-800">
-                  <label className="block text-sm font-bold text-gray-300 mb-3">اختر الفوج *</label>
-                  <select
-                    required
-                    value={form.cohort}
-                    onChange={(e) => updateField("cohort", e.target.value)}
-                    className={`${inputClass} appearance-none`}
-                  >
-                    <option value="" disabled>
-                      اختر الفوج المناسب لك...
-                    </option>
-                    {cohortOptions.map((cohort) => (
-                      <option key={cohort} value={cohort}>
-                        {cohort}
-                      </option>
-                    ))}
-                  </select>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-gray-800">
