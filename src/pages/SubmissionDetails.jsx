@@ -27,7 +27,7 @@ export default function SubmissionDetails() {
   const fetchSubmissionDetails = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`https://crmgo.webscale.dz/api/v1/public/submissions/${submission_id}`);
+      const response = await fetch(`https://crmgo.abderrahime.com/api/v1/public/submissions/${submission_id}`);
       
       if (!response.ok) {
         throw new Error('Failed to fetch submission details');
@@ -45,7 +45,7 @@ export default function SubmissionDetails() {
   const handleConfirmAttendance = async () => {
     try {
       setConfirming(true);
-      const response = await fetch(`https://crmgo.webscale.dz/api/v1/public/submissions/${submission_id}/confirm`, {
+      const response = await fetch(`https://crmgo.abderrahime.com/api/v1/public/submissions/${submission_id}/confirm`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

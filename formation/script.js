@@ -147,7 +147,7 @@ document.addEventListener('keydown', (e) => {
 // ============================================
 
 // Configuration
-const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/YOUR_FORM_ID_HERE/submit`;
+const PUBLIC_SUBMIT_URL = `https://crmgo.abderrahime.com/api/v1/public/forms/YOUR_FORM_ID_HERE/submit`;
 
 // Phone validation (Algerian format)
 const validatePhone = (phone) => {

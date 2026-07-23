@@ -14,7 +14,7 @@ const GALLERY_IMAGES = [
 ];
 const TESTIMONIAL_VIDEOS = ["L6gU28uSN8s", "-_o3-CzeRD4", "KcDRpQwVVj8"];
 const FORM_ID = "a76a0a47-8fad-450a-95f5-aab6f27ae5e1";
-const FORM_ENDPOINT = `https://crmgo.webscale.dz/api/v1/public/forms/${FORM_ID}/submit`;
+const FORM_ENDPOINT = `https://crmgo.abderrahime.com/api/v1/public/forms/${FORM_ID}/submit`;
 const FB_PIXEL_ID = "3093506604166938";
 const TIKTOK_PIXEL_ID = "D8S20NBC77U2T5L531U0";
 

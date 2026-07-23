@@ -83,7 +83,7 @@ export default function MobileFormPage() {
       setIsLoading(true);
       
       // Try to fetch form configuration from API
-      const response = await fetch(`https://crmgo.webscale.dz/api/v1/public/forms/${form_id}/fields`);
+      const response = await fetch(`https://crmgo.abderrahime.com/api/v1/public/forms/${form_id}/fields`);
       
       if (response.ok) {
         const config = await response.json();
@@ -193,7 +193,7 @@ export default function MobileFormPage() {
 
     try {
       // Construct the form submission URL based on form_id
-      const submitUrl = `https://crmgo.webscale.dz/api/v1/public/forms/${form_id}/submit`;
+      const submitUrl = `https://crmgo.abderrahime.com/api/v1/public/forms/${form_id}/submit`;
       
       // Map form data to the required field structure (same as workshop form)
       const utmParams = getUTMParams();

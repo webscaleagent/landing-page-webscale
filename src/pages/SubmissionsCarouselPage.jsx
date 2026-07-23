@@ -86,7 +86,7 @@ export default function SubmissionsCarouselPage() {
     setIsLoading(true);
     try {
       // Fetch approved submissions from the API
-      const response = await fetch(`https://crmgo.webscale.dz/api/v1/public/forms/${form_id}/submissions?status=approved`);
+      const response = await fetch(`https://crmgo.abderrahime.com/api/v1/public/forms/${form_id}/submissions?status=approved`);
       
       if (response.ok) {
         const apiResponse = await response.json();

@@ -26,7 +26,7 @@ import {
 // ============================================
 // CONFIGURATION
 // ============================================
-const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/YOUR_FORM_ID_HERE/submit`;
+const PUBLIC_SUBMIT_URL = `https://crmgo.abderrahime.com/api/v1/public/forms/YOUR_FORM_ID_HERE/submit`;
 
 // CSS Classes
 const fieldBase =

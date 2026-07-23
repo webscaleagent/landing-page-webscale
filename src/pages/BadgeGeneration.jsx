@@ -32,7 +32,7 @@ const BadgeGeneration = () => {
   const fetchSubmissionData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`https://crmgo.webscale.dz/api/v1/public/submission/by-email?email=${encodeURIComponent(email)}`);
+      const response = await fetch(`https://crmgo.abderrahime.com/api/v1/public/submission/by-email?email=${encodeURIComponent(email)}`);
       
       if (!response.ok) {
         throw new Error('فشل في جلب بيانات الطلب');

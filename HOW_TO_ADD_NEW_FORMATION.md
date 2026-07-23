@@ -114,7 +114,7 @@ export const formations = {
 
 ### Step 2: Get Your CRM Form ID
 
-1. Log into your CRM system (crmgo.webscale.dz)
+1. Log into your CRM system (crmgo.abderrahime.com)
 2. Create a new form or use an existing one
 3. Copy the form ID (UUID format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
 4. Replace `YOUR_CRM_FORM_ID_HERE` in the configuration
@@ -255,7 +255,7 @@ digitalMarketing: {
 ### Registration form not working?
 - Verify the `formId` is correct
 - Check that the form exists in your CRM
-- Test the API endpoint: `https://crmgo.webscale.dz/api/v1/public/forms/{formId}/submit`
+- Test the API endpoint: `https://crmgo.abderrahime.com/api/v1/public/forms/{formId}/submit`
 
 ### Images not loading?
 - Ensure images are in the `public/` folder

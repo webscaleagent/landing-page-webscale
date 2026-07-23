@@ -74,7 +74,7 @@ export default function FormationRegistrationForm({
   apiFields = null,
   apiFieldsError = null,
 }) {
-  const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/${formId}/submit`;
+  const PUBLIC_SUBMIT_URL = `https://crmgo.abderrahime.com/api/v1/public/forms/${formId}/submit`;
   const isDynamic = Array.isArray(apiFields) && apiFields.length > 0;
 
   const [form, setForm] = useState(initialForm);

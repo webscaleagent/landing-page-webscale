@@ -247,7 +247,7 @@ const initialFormData = {
 };
 
 const PUBLIC_SUBMIT_URL =
-  "https://crmgo.webscale.dz/api/v1/public/forms/b2595fbf-71ba-4041-bc23-1ff587a6275b/submit";
+  "https://crmgo.abderrahime.com/api/v1/public/forms/b2595fbf-71ba-4041-bc23-1ff587a6275b/submit";
 
 const FormationPage = () => {
   const [activeFaq, setActiveFaq] = useState(null);

@@ -18,7 +18,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/submit": {
-        target: "https://crmgo.webscale.dz",
+        target: "https://crmgo.abderrahime.com",
         changeOrigin: true,
         secure: true,
         rewrite: () => "/api/v1/public/forms/47401ef7-042c-4994-8645-569b14749758/submit",
