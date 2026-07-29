@@ -2,7 +2,6 @@
 import { Navigate, Route, BrowserRouter as Router, Routes, useParams } from "react-router-dom";
 import BadgeCTA from "./components/BadgeCTA";
 import UtmListener from "./components/UtmListener";
-import WhatsAppFloat from "./components/shared/WhatsAppFloat";
 import AboutUs from "./pages/AboutUs";
 import BadgeGeneration from "./pages/BadgeGeneration";
 import { SHOW_CANTON_EVENT } from "./constants/featureFlags";
@@ -54,7 +53,6 @@ export default function App() {
         <Route path="/" element={<Registration />} />
 
       </Routes>
-      <WhatsAppFloat />
     </Router>
   );
 }
