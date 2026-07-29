@@ -107,7 +107,7 @@ function setupSheet() {
 function testScript() {
   const testData = {
     fullName: 'أحمد محمد',
-    whatsappNumber: '+213 770 00 44 44',
+    whatsappNumber: '',
     investmentReasons: 'أهتم بالاستثمار في webscale بسبب النمو الكبير في مجال الذكاء الاصطناعي والتجارة الإلكترونية'
   };
   

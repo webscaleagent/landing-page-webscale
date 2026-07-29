@@ -264,13 +264,6 @@ const trackCTA = () => {
   if (typeof window.ttq !== "undefined") window.ttq.track("ClickButton");
 };
 
-const trackChat = () => {
-  if (typeof window.fbq === "function") {
-    window.fbq("trackSingleCustom", FB_PIXEL_ID, "ChatOpen");
-  }
-  if (typeof window.ttq !== "undefined") window.ttq.track("Contact");
-};
-
 const MarketingDayPage = () => {
   const [regType, setRegType] = useState("مقعد فردي");
   const [submitting, setSubmitting] = useState(false);
@@ -1293,16 +1286,6 @@ const MarketingDayPage = () => {
         </div>
       </footer>
 
-      {/* Floating WhatsApp */}
-      <a
-        href="https://wa.me/213799923248?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%86%D8%A7%20%D9%85%D9%87%D8%AA%D9%85%20%D8%A8%D8%AD%D8%B6%D9%88%D8%B1%20%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20Marketing%20Day%20-%20Executive%20Edition%20%D9%88%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86..."
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={trackChat}
-        className="fixed bottom-6 left-6 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform z-50"
-      >
-        <i className="fab fa-whatsapp" />
-      </a>
     </div>
   );
 };

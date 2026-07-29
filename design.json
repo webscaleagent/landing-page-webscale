@@ -300,7 +300,7 @@
           },
           "whatsappNumber": {
             "label": "رقم الواتساب",
-            "placeholder": "مثال: +213 123 456 789",
+            "placeholder": "مثال: رقم الهاتف",
             "required": true
           },
           "investmentReasons": {

@@ -150,7 +150,7 @@ const InvestorHero = () => {
                   value={formData.whatsappNumber}
                   onChange={handleInputChange}
                   className="bg-white/20 border-white/30 text-white placeholder:text-neutral-400 focus:border-[#fbbc05] focus:ring-[#fbbc05] text-right"
-                  placeholder="+213 770 00 44 44"
+                  placeholder="رقم الواتساب"
                   dir="ltr"
                   required
                 />

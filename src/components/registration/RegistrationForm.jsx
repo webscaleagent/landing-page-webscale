@@ -182,7 +182,7 @@ export default function RegistrationForm() {
     const mock = {
       name: "يوسف بن خدة",
       email: "youssef.benkhadda@example.com",
-      phone: "+213551234567",
+      phone: "",
       jobTitle: "مدير قسم",
       company: "Webscale",
       wilaya: "الجزائر",

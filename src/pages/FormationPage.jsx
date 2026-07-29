@@ -10,8 +10,6 @@ import {
   Landmark,
   Linkedin,
   Mail,
-  MessageCircle,
-  Phone,
   ShieldCheck,
   Sparkles,
   Star,
@@ -424,13 +422,6 @@ const FormationPage = () => {
                 >
                   اطلب التفاصيل
                 </button>
-                <a
-                  href="https://wa.me/213563565936"
-                  className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  تواصل معنا عبر واتساب
-                </a>
               </div>
               <img
                 src={cantonEventLogo}
@@ -647,13 +638,6 @@ const FormationPage = () => {
                   >
                     احجز مقعدك الآن
                   </button>
-                  <a
-                    href="https://wa.me/213563565936"
-                    className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20"
-                  >
-                    <MessageCircle className="h-4 w-4 text-emerald-300" />
-                    تواصل عبر واتساب
-                  </a>
                 </div>
               </div>
             </div>
@@ -727,13 +711,6 @@ const FormationPage = () => {
                   هدف واحد واضح: تحويلك إلى مستورد أذكى وأكثر جاهزية
                 </p>
               </div>
-              <a
-                href="https://wa.me/213563565936"
-                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white transition hover:bg-emerald-500"
-              >
-                <MessageCircle className="h-4 w-4" />
-                تواصل معنا عبر واتساب
-              </a>
             </div>
             <form
               id="register-form"
@@ -1122,13 +1099,6 @@ const FormationPage = () => {
             >
               احجز مقعدك الآن
             </button>
-            <a
-              href="https://wa.me/213563565936"
-              className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-7 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
-            >
-              <MessageCircle className="h-4 w-4" />
-              تواصل عبر واتساب
-            </a>
           </div>
         </section>
 
@@ -1161,12 +1131,6 @@ const FormationPage = () => {
             <p className="text-sm font-semibold text-slate-600">الجهة المنظمة</p>
           </div>
           <div className="space-y-2 text-sm text-slate-600">
-            <p className="flex items-center gap-2">
-              <Phone className="h-4 w-4" /> الهاتف: +213563565936
-            </p>
-            <p className="flex items-center gap-2">
-              <MessageCircle className="h-4 w-4" /> واتساب: +213563565936
-            </p>
             <a
               href="mailto:contact@webscale.dz"
               className="flex items-center gap-2 transition hover:text-slate-900"
