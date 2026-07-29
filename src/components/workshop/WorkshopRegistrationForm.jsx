@@ -7,7 +7,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
-const SCRIPT_URL = "https://crmgo.webscale.dz/api/v1/public/forms/72fd520f-7d5a-4f62-9c86-45f84bb320fd/submit";
+const SCRIPT_URL = "https://crmgo.abderrahime.com/api/v1/public/forms/72fd520f-7d5a-4f62-9c86-45f84bb320fd/submit";
 
 const WorkshopRegistrationForm = ({ workshops }) => {
   const [formData, setFormData] = useState({

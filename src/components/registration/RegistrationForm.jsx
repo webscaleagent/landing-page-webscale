@@ -13,7 +13,7 @@ import {
 } from "../ui/dialog";
 import OptionPills from "./OptionPills";
 
-const PUBLIC_SUBMIT_URL = `https://crmgo.webscale.dz/api/v1/public/forms/47401ef7-042c-4994-8645-569b14749758/submit`;
+const PUBLIC_SUBMIT_URL = `https://crmgo.abderrahime.com/api/v1/public/forms/47401ef7-042c-4994-8645-569b14749758/submit`;
 
 const fieldBase =
   "w-full rounded-xl border px-3 py-2 outline-none transition " +
@@ -182,7 +182,7 @@ export default function RegistrationForm() {
     const mock = {
       name: "يوسف بن خدة",
       email: "youssef.benkhadda@example.com",
-      phone: "+213551234567",
+      phone: "",
       jobTitle: "مدير قسم",
       company: "Webscale",
       wilaya: "الجزائر",

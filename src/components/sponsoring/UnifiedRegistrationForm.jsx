@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { getUTMParams } from "../../utils/utm";
 import AlgeriaWilayas from "../shared/AlgeriaWilayas";
 
-const SCRIPT_URL = "https://crmgo.webscale.dz/api/v1/public/forms/e8558b7d-60ae-4d89-9be3-1a4ebe4175b2/submit";
+const SCRIPT_URL = "https://crmgo.abderrahime.com/api/v1/public/forms/e8558b7d-60ae-4d89-9be3-1a4ebe4175b2/submit";
 
 export default function UnifiedRegistrationForm({ mode = "inline", isOpen = false, onClose }) {
   const [status, setStatus] = useState("idle");

@@ -3,9 +3,9 @@
 ## Issues Fixed
 
 ### 1. ✅ Domain Mismatch
-**Problem:** `api/submit.js` was using `crmgo.webscale.com` instead of `crmgo.webscale.dz`
+**Problem:** `api/submit.js` was using `crmgo.webscale.com` instead of `crmgo.abderrahime.com`
 
-**Fixed:** Updated to use the correct domain `crmgo.webscale.dz` consistently across all files.
+**Fixed:** Updated to use the correct domain `crmgo.abderrahime.com` consistently across all files.
 
 ### 2. ✅ Environment Variables
 **Problem:** Some components used `import.meta.env.VITE_SCRIPT_URL` which could be undefined in production.
@@ -43,7 +43,7 @@ Your `vercel.json` is correctly configured for SPA routing:
 
 ### API Endpoints
 All components use full URLs:
-- ✅ `https://crmgo.webscale.dz/api/v1/public/forms/...`
+- ✅ `https://crmgo.abderrahime.com/api/v1/public/forms/...`
 - ✅ These work in both development and production
 
 ## Common Issues & Solutions
@@ -61,7 +61,7 @@ All components use full URLs:
 
 ### Issue: API calls failing
 **Solution:**
-1. Verify the API domain is correct (`crmgo.webscale.dz`)
+1. Verify the API domain is correct (`crmgo.abderrahime.com`)
 2. Check CORS settings on the API server
 3. Ensure the API endpoints are publicly accessible
 

@@ -13,7 +13,7 @@ const encodeImageUrl = (url) => {
   return parts.map(part => part ? encodeURIComponent(part) : '').join('/');
 };
 
-const PUBLIC_FORMS_BASE = "https://crmgo.webscale.dz/api/v1/public/forms";
+const PUBLIC_FORMS_BASE = "https://crmgo.abderrahime.com/api/v1/public/forms";
 
 const promotionDaysShortGoals = [
   "تحديد الميزانية التسويقية بدون تضييع المال",

@@ -12,7 +12,7 @@ const mockSubmissions = [
     name: "أحمد بن علي",
     company: "شركة التقنية المتقدمة",
     email: "ahmed@tech.com",
-    phone: "0555123456",
+    phone: "",
     sector: "التكنولوجيا",
     wilaya: "الجزائر",
     submissionDate: "2024-01-15",
@@ -23,7 +23,7 @@ const mockSubmissions = [
     name: "فاطمة الزهراء",
     company: "مؤسسة الإبداع الرقمي",
     email: "fatima@digital.com",
-    phone: "0555987654",
+    phone: "",
     sector: "التسويق الرقمي",
     wilaya: "وهران",
     submissionDate: "2024-01-14",
@@ -34,7 +34,7 @@ const mockSubmissions = [
     name: "محمد يوسف",
     company: "مجموعة الأعمال الذكية",
     email: "mohamed@smart.com",
-    phone: "0555555555",
+    phone: "",
     sector: "الاستشارات",
     wilaya: "قسنطينة",
     submissionDate: "2024-01-13",
@@ -45,7 +45,7 @@ const mockSubmissions = [
     name: "سارة أحمد",
     company: "شركة الحلول المتكاملة",
     email: "sara@solutions.com",
-    phone: "0555444333",
+    phone: "",
     sector: "التجارة الإلكترونية",
     wilaya: "البليدة",
     submissionDate: "2024-01-12",
@@ -56,7 +56,7 @@ const mockSubmissions = [
     name: "عبد الرحمن",
     company: "مؤسسة الابتكار",
     email: "abdelrahman@innovation.com",
-    phone: "0555333222",
+    phone: "",
     sector: "الذكاء الاصطناعي",
     wilaya: "سطيف",
     submissionDate: "2024-01-11",
@@ -86,7 +86,7 @@ export default function SubmissionsCarouselPage() {
     setIsLoading(true);
     try {
       // Fetch approved submissions from the API
-      const response = await fetch(`https://crmgo.webscale.dz/api/v1/public/forms/${form_id}/submissions?status=approved`);
+      const response = await fetch(`https://crmgo.abderrahime.com/api/v1/public/forms/${form_id}/submissions?status=approved`);
       
       if (response.ok) {
         const apiResponse = await response.json();

@@ -129,7 +129,7 @@ Then visit: `http://localhost:5173/formation/digital-marketing`
 ### ❌ Form not submitting?
 - Verify `formId` is correct (UUID format)
 - Check form exists in CRM
-- Test API: `https://crmgo.webscale.dz/api/v1/public/forms/{formId}/submit`
+- Test API: `https://crmgo.abderrahime.com/api/v1/public/forms/{formId}/submit`
 
 ## Need Help?
 

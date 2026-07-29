@@ -220,7 +220,7 @@ function testScript() {
     fullName: 'أحمد محمد علي',
     role: 'مدير التسويق',
     email: 'ahmed@example.com',
-    phone: '+213 770 00 44 44',
+    phone: '',
     sponsorshipType: 'راعٍ ذهبي, راعٍ فضي',
     otherSponsorType: '',
     sponsorshipGoals: 'زيادة الوعي بالعلامة التجارية, توليد عملاء محتملين',
