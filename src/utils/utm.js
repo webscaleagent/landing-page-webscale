@@ -1,6 +1,6 @@
 /**
- * Utility to extract UTM parameters from the current URL.
- * Returns an object with utm_source, utm_medium, utm_campaign, utm_content, and utm_term.
+ * Utility to extract UTM and affiliate referral parameters from the current URL
+ * (falling back to localStorage for persistence across navigations).
  */
 export const getUTMParams = () => {
     if (typeof window === "undefined") return {};
@@ -11,11 +11,21 @@ export const getUTMParams = () => {
         return searchParams.get(key) || localStorage.getItem(key) || "";
     };
 
-    return {
+    const affiliatedBy =
+        getParam("affiliated_by") || getParam("ref") || "";
+
+    const params = {
         utm_source: getParam("utm_source"),
         utm_medium: getParam("utm_medium"),
         utm_campaign: getParam("utm_campaign"),
         utm_content: getParam("utm_content"),
         utm_term: getParam("utm_term"),
     };
+
+    if (affiliatedBy) {
+        params.affiliated_by = affiliatedBy;
+        params.ref = affiliatedBy;
+    }
+
+    return params;
 };
